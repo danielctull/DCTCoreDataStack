@@ -19,10 +19,10 @@
 	__strong NSManagedObjectModel *managedObjectModel;
 	__strong NSPersistentStoreCoordinator *persistentStoreCoordinator;
 	__strong NSString *modelName;
-	__strong NSString *storeType;
 	__strong NSManagedObjectContext *backgroundSavingContext;
 }
 
+@synthesize persistentStoreType;
 @synthesize persistentStoreOptions;
 @synthesize modelConfiguration;
 
@@ -33,15 +33,11 @@
 }
 
 - (id)initWithModelName:(NSString *)name {
-	return [self initWithModelName:name storeType:NSSQLiteStoreType];
-}
-
-- (id)initWithModelName:(NSString *)name storeType:(NSString *)type {
 	
 	if (!(self = [super init])) return nil;
 	
 	modelName = [name copy];
-	storeType = [type copy];
+	self.persistentStoreType = NSSQLiteStoreType;
 	
 	return self;
 }
@@ -97,14 +93,14 @@
 		
 		NSURL *storeURL = nil;
 		
-		if (![storeType isEqualToString:NSInMemoryStoreType]) {
+		if (![self.persistentStoreType isEqualToString:NSInMemoryStoreType]) {
 			NSString *pathComponent = [NSString stringWithFormat:@"%@.sqlite", modelName];
 			storeURL = [[self dctInternal_applicationDocumentsDirectory] URLByAppendingPathComponent:pathComponent];
 		}
 		
 		NSError *error = nil;
 		persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:[self managedObjectModel]];
-		if (![persistentStoreCoordinator addPersistentStoreWithType:storeType
+		if (![persistentStoreCoordinator addPersistentStoreWithType:self.persistentStoreType
 													  configuration:self.modelConfiguration
 																URL:storeURL
 															options:self.persistentStoreOptions

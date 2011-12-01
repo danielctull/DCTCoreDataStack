@@ -12,8 +12,8 @@
 @interface DCTCoreDataStack : NSObject
 
 - (id)initWithModelName:(NSString *)modelName;
-- (id)initWithModelName:(NSString *)modelName storeType:(NSString *)storeType;
 
+@property(nonatomic, copy) NSString *persistentStoreType;
 @property(nonatomic, copy) NSDictionary *persistentStoreOptions;
 @property(nonatomic, copy) NSString *modelConfiguration;
 
