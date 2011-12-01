@@ -11,6 +11,7 @@
 @interface DCTCoreDataStack ()
 - (NSURL *)dctInternal_applicationDocumentsDirectory;
 - (void)dctInternal_mainContextDidSave:(NSNotification *)notification;
+- (void)dctInternal_saveManagedObjectContext:(NSManagedObjectContext *)context;
 @end
 
 @implementation DCTCoreDataStack {
@@ -21,6 +22,8 @@
 	__strong NSString *storeType;
 	__strong NSManagedObjectContext *backgroundSavingContext;
 }
+
+@synthesize saveFailureHandler;
 
 - (id)initWithModelName:(NSString *)name {
 	return [self initWithModelName:name storeType:NSSQLiteStoreType];
@@ -36,13 +39,20 @@
 	return self;
 }
 
-- (void)dctInternal_mainContextDidSave:(NSNotification *)notification {
-	
-	[backgroundSavingContext performBlock:^{
+- (void)dctInternal_saveManagedObjectContext:(NSManagedObjectContext *)context {
+	[context performBlock:^{
 		NSError *error = nil;
-		if (![backgroundSavingContext save:&error])
-			NSLog(@"%@:%@ %@", self, NSStringFromSelector(_cmd), error);
+		if (![context save:&error] && self.saveFailureHandler)
+			self.saveFailureHandler(error);
 	}];
+}
+
+- (void)dctInternal_mainContextDidSave:(NSNotification *)notification {
+	[self dctInternal_saveManagedObjectContext:backgroundSavingContext];
+}
+
+- (void)save {
+	[self dctInternal_saveManagedObjectContext:self.managedObjectContext];
 }
 
 - (NSManagedObjectContext *)managedObjectContext {
