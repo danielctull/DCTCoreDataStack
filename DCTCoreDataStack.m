@@ -25,6 +25,8 @@
 @synthesize persistentStoreType;
 @synthesize persistentStoreOptions;
 @synthesize modelConfiguration;
+@synthesize modelURL;
+@synthesize storeURL;
 
 - (void)dealloc {
 	[[NSNotificationCenter defaultCenter] removeObserver:self 
@@ -32,12 +34,20 @@
 												  object:managedObjectContext];
 }
 
-- (id)initWithModelName:(NSString *)name {
+- (id)init {
 	
 	if (!(self = [super init])) return nil;
 	
-	modelName = [name copy];
 	self.persistentStoreType = NSSQLiteStoreType;
+	
+	return self;
+}
+
+- (id)initWithModelName:(NSString *)name {
+	
+	if (!(self = [self init])) return nil;
+	
+	modelName = [name copy];
 	
 	return self;
 }
@@ -53,6 +63,8 @@
 - (void)dctInternal_mainContextDidSave:(NSNotification *)notification {
 	[self dctInternal_saveManagedObjectContext:backgroundSavingContext];
 }
+
+#pragma mark - Getters
 
 - (NSManagedObjectContext *)managedObjectContext {
     
@@ -79,10 +91,8 @@
 
 - (NSManagedObjectModel *)managedObjectModel {
 		
-	if (managedObjectModel == nil) {
-		NSURL *modelURL = [[NSBundle mainBundle] URLForResource:modelName withExtension:@"momd"];
-		managedObjectModel = [[NSManagedObjectModel alloc] initWithContentsOfURL:modelURL];
-	}
+	if (managedObjectModel == nil)
+		managedObjectModel = [[NSManagedObjectModel alloc] initWithContentsOfURL:self.modelURL];
 	
 	return managedObjectModel;
 }
@@ -91,18 +101,11 @@
 	
     if (persistentStoreCoordinator == nil) {
 		
-		NSURL *storeURL = nil;
-		
-		if (![self.persistentStoreType isEqualToString:NSInMemoryStoreType]) {
-			NSString *pathComponent = [NSString stringWithFormat:@"%@.sqlite", modelName];
-			storeURL = [[self dctInternal_applicationDocumentsDirectory] URLByAppendingPathComponent:pathComponent];
-		}
-		
 		NSError *error = nil;
 		persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:[self managedObjectModel]];
 		if (![persistentStoreCoordinator addPersistentStoreWithType:self.persistentStoreType
 													  configuration:self.modelConfiguration
-																URL:storeURL
+																URL:self.storeURL
 															options:self.persistentStoreOptions
 															  error:&error]) {
 			NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
@@ -113,7 +116,32 @@
 	return persistentStoreCoordinator;
 }
 
-#pragma mark - Application's Documents directory
+- (NSURL *)modelURL {
+	
+	if (!modelURL) modelURL = [[NSBundle mainBundle] URLForResource:modelName withExtension:@"momd"];
+	
+	return modelURL;
+}
+
+- (NSURL *)storeURL {
+	
+	if (!storeURL) {
+		NSString *pathComponent = nil;
+		
+		if ([self.persistentStoreType isEqualToString:NSBinaryStoreType])
+			pathComponent = [NSString stringWithFormat:@"%@.sqlite", modelName];
+		
+		else if ([self.persistentStoreType isEqualToString:NSSQLiteStoreType])
+			pathComponent = [NSString stringWithFormat:@"%@.sqlite", modelName];
+		
+		if (pathComponent) 
+			storeURL = [[self dctInternal_applicationDocumentsDirectory] URLByAppendingPathComponent:pathComponent];
+	}
+	
+	return storeURL;
+}
+
+#pragma mark - Internal
 
 - (NSURL *)dctInternal_applicationDocumentsDirectory {
     return [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];

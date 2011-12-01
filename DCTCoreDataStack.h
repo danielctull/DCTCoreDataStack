@@ -11,11 +11,14 @@
 
 @interface DCTCoreDataStack : NSObject
 
+- (id)init;
 - (id)initWithModelName:(NSString *)modelName;
 
-@property(nonatomic, copy) NSString *persistentStoreType;
-@property(nonatomic, copy) NSDictionary *persistentStoreOptions;
-@property(nonatomic, copy) NSString *modelConfiguration;
+@property (nonatomic, copy) NSURL *modelURL;
+@property (nonatomic, copy) NSURL *storeURL;
+@property (nonatomic, copy) NSString *persistentStoreType;
+@property (nonatomic, copy) NSDictionary *persistentStoreOptions;
+@property (nonatomic, copy) NSString *modelConfiguration;
 
 @property (nonatomic, strong, readonly) NSManagedObjectContext *managedObjectContext;
 @property (nonatomic, strong, readonly) NSManagedObjectModel *managedObjectModel;
