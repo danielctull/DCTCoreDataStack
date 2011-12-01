@@ -23,8 +23,6 @@
 	__strong NSManagedObjectContext *backgroundSavingContext;
 }
 
-@synthesize saveFailureHandler;
-@synthesize automaticallySavesBackgroundContext;
 @synthesize persistentStoreOptions;
 @synthesize modelConfiguration;
 
@@ -44,7 +42,6 @@
 	
 	modelName = [name copy];
 	storeType = [type copy];
-	automaticallySavesBackgroundContext = YES;
 	
 	return self;
 }
@@ -52,21 +49,12 @@
 - (void)dctInternal_saveManagedObjectContext:(NSManagedObjectContext *)context {
 	[context performBlock:^{
 		NSError *error = nil;
-		if (![context save:&error] && self.saveFailureHandler)
-			self.saveFailureHandler(error);
+		if (![context save:&error])
+			NSLog(@"%@:%@ %@", self, NSStringFromSelector(_cmd), error);
 	}];
 }
 
 - (void)dctInternal_mainContextDidSave:(NSNotification *)notification {
-	if (self.automaticallySavesBackgroundContext)
-		[self saveBackgroundContext];
-}
-
-- (void)save {
-	[self dctInternal_saveManagedObjectContext:self.managedObjectContext];
-}
-
-- (void)saveBackgroundContext {
 	[self dctInternal_saveManagedObjectContext:backgroundSavingContext];
 }
 

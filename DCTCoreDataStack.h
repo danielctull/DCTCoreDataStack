@@ -9,8 +9,6 @@
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
-typedef void (^DCTCoreDataStackErrorBlock) (NSError *error);
-
 @interface DCTCoreDataStack : NSObject
 
 - (id)initWithModelName:(NSString *)modelName;
@@ -19,14 +17,8 @@ typedef void (^DCTCoreDataStackErrorBlock) (NSError *error);
 @property(nonatomic, copy) NSDictionary *persistentStoreOptions;
 @property(nonatomic, copy) NSString *modelConfiguration;
 
-@property (nonatomic, strong) DCTCoreDataStackErrorBlock saveFailureHandler;
-@property (nonatomic, assign) BOOL automaticallySavesBackgroundContext;
-
 @property (nonatomic, readonly) NSManagedObjectContext *managedObjectContext;
 @property (nonatomic, readonly) NSManagedObjectModel *managedObjectModel;
 @property (nonatomic, readonly) NSPersistentStoreCoordinator *persistentStoreCoordinator;
-
-- (void)save;
-- (void)saveBackgroundContext;
 
 @end
