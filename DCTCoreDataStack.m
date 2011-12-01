@@ -26,6 +26,12 @@
 @synthesize saveFailureHandler;
 @synthesize automaticallySavesBackgroundContext;
 
+- (void)dealloc {
+	[[NSNotificationCenter defaultCenter] removeObserver:self 
+													name:NSManagedObjectContextDidSaveNotification
+												  object:managedObjectContext];
+}
+
 - (id)initWithModelName:(NSString *)name {
 	return [self initWithModelName:name storeType:NSSQLiteStoreType];
 }
