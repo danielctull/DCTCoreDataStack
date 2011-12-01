@@ -24,6 +24,7 @@
 }
 
 @synthesize saveFailureHandler;
+@synthesize automaticallySavesBackgroundContext;
 
 - (id)initWithModelName:(NSString *)name {
 	return [self initWithModelName:name storeType:NSSQLiteStoreType];
@@ -35,6 +36,7 @@
 	
 	modelName = [name copy];
 	storeType = [type copy];
+	automaticallySavesBackgroundContext = YES;
 	
 	return self;
 }
@@ -48,11 +50,16 @@
 }
 
 - (void)dctInternal_mainContextDidSave:(NSNotification *)notification {
-	[self dctInternal_saveManagedObjectContext:backgroundSavingContext];
+	if (self.automaticallySavesBackgroundContext)
+		[self saveBackgroundContext];
 }
 
 - (void)save {
 	[self dctInternal_saveManagedObjectContext:self.managedObjectContext];
+}
+
+- (void)saveBackgroundContext {
+	[self dctInternal_saveManagedObjectContext:backgroundSavingContext];
 }
 
 - (NSManagedObjectContext *)managedObjectContext {

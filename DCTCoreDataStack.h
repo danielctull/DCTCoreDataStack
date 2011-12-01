@@ -16,11 +16,13 @@ typedef void (^DCTCoreDataStackErrorBlock) (NSError *error);
 - (id)initWithModelName:(NSString *)modelName storeType:(NSString *)storeType;
 
 @property (nonatomic, strong) DCTCoreDataStackErrorBlock saveFailureHandler;
+@property (nonatomic, assign) BOOL automaticallySavesBackgroundContext;
 
 @property (nonatomic, readonly) NSManagedObjectContext *managedObjectContext;
 @property (nonatomic, readonly) NSManagedObjectModel *managedObjectModel;
 @property (nonatomic, readonly) NSPersistentStoreCoordinator *persistentStoreCoordinator;
 
 - (void)save;
+- (void)saveBackgroundContext;
 
 @end
