@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <CoreData/CoreData.h>
 
 typedef void (^DCTCoreDataStackErrorBlock) (NSError *error);
 
@@ -14,6 +15,9 @@ typedef void (^DCTCoreDataStackErrorBlock) (NSError *error);
 
 - (id)initWithModelName:(NSString *)modelName;
 - (id)initWithModelName:(NSString *)modelName storeType:(NSString *)storeType;
+
+@property(nonatomic, copy) NSDictionary *persistentStoreOptions;
+@property(nonatomic, copy) NSString *modelConfiguration;
 
 @property (nonatomic, strong) DCTCoreDataStackErrorBlock saveFailureHandler;
 @property (nonatomic, assign) BOOL automaticallySavesBackgroundContext;

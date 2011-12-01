@@ -25,6 +25,8 @@
 
 @synthesize saveFailureHandler;
 @synthesize automaticallySavesBackgroundContext;
+@synthesize persistentStoreOptions;
+@synthesize modelConfiguration;
 
 - (void)dealloc {
 	[[NSNotificationCenter defaultCenter] removeObserver:self 
@@ -114,7 +116,11 @@
 		
 		NSError *error = nil;
 		persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:[self managedObjectModel]];
-		if (![persistentStoreCoordinator addPersistentStoreWithType:storeType configuration:nil URL:storeURL options:nil error:&error]) {
+		if (![persistentStoreCoordinator addPersistentStoreWithType:storeType
+													  configuration:self.modelConfiguration
+																URL:storeURL
+															options:self.persistentStoreOptions
+															  error:&error]) {
 			NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
 			abort();
 		}
