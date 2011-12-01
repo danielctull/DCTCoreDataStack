@@ -10,6 +10,7 @@
 
 @interface DCTCoreDataStack ()
 - (NSURL *)dctInternal_applicationDocumentsDirectory;
+- (void)mainConextDidSave:(NSNotification *)notification;
 @end
 
 @implementation DCTCoreDataStack {
@@ -18,6 +19,7 @@
 	__strong NSPersistentStoreCoordinator *persistentStoreCoordinator;
 	__strong NSString *modelName;
 	__strong NSString *storeType;
+	__strong NSManagedObjectContext *backgroundSavingContext;
 }
 
 - (id)initWithModelName:(NSString *)name {
@@ -34,14 +36,32 @@
 	return self;
 }
 
+- (void)mainConextDidSave:(NSNotification *)notification {
+	
+	[backgroundSavingContext performBlock:^{
+		NSError *error = nil;
+		if (![backgroundSavingContext save:&error])
+			NSLog(@"%@:%@ %@", self, NSStringFromSelector(_cmd), error);
+	}];
+}
+
 - (NSManagedObjectContext *)managedObjectContext {
     
 	if (managedObjectContext == nil) {
 		
 		NSPersistentStoreCoordinator *coordinator = self.persistentStoreCoordinator;
 		if (coordinator != nil) {
-			managedObjectContext = [[NSManagedObjectContext alloc] init];
-			[managedObjectContext setPersistentStoreCoordinator:coordinator];
+			
+			backgroundSavingContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
+			[backgroundSavingContext setPersistentStoreCoordinator:coordinator];
+			
+			managedObjectContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSMainQueueConcurrencyType];
+			[managedObjectContext setParentContext:backgroundSavingContext];
+			
+			[[NSNotificationCenter defaultCenter] addObserver:self 
+													 selector:@selector(mainConextDidSave:)
+														 name:NSManagedObjectContextDidSaveNotification
+													   object:managedObjectContext];
 		}
 	}
 	
