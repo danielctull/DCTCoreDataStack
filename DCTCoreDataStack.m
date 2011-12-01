@@ -28,6 +28,8 @@
 @synthesize modelURL;
 @synthesize storeURL;
 
+#pragma mark - NSObject
+
 - (void)dealloc {
 	[[NSNotificationCenter defaultCenter] removeObserver:self 
 													name:NSManagedObjectContextDidSaveNotification
@@ -43,6 +45,8 @@
 	return self;
 }
 
+#pragma mark - DCTCoreDataStack
+
 - (id)initWithModelName:(NSString *)name {
 	
 	if (!(self = [self init])) return nil;
@@ -50,18 +54,6 @@
 	modelName = [name copy];
 	
 	return self;
-}
-
-- (void)dctInternal_saveManagedObjectContext:(NSManagedObjectContext *)context {
-	[context performBlock:^{
-		NSError *error = nil;
-		if (![context save:&error])
-			NSLog(@"%@:%@ %@", self, NSStringFromSelector(_cmd), error);
-	}];
-}
-
-- (void)dctInternal_mainContextDidSave:(NSNotification *)notification {
-	[self dctInternal_saveManagedObjectContext:backgroundSavingContext];
 }
 
 #pragma mark - Getters
@@ -102,7 +94,7 @@
     if (persistentStoreCoordinator == nil) {
 		
 		NSError *error = nil;
-		persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:[self managedObjectModel]];
+		persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:self.managedObjectModel];
 		if (![persistentStoreCoordinator addPersistentStoreWithType:self.persistentStoreType
 													  configuration:self.modelConfiguration
 																URL:self.storeURL
@@ -142,6 +134,18 @@
 }
 
 #pragma mark - Internal
+
+- (void)dctInternal_saveManagedObjectContext:(NSManagedObjectContext *)context {
+	[context performBlock:^{
+		NSError *error = nil;
+		if (![context save:&error])
+			NSLog(@"%@:%@ %@", self, NSStringFromSelector(_cmd), error);
+	}];
+}
+
+- (void)dctInternal_mainContextDidSave:(NSNotification *)notification {
+	[self dctInternal_saveManagedObjectContext:backgroundSavingContext];
+}
 
 - (NSURL *)dctInternal_applicationDocumentsDirectory {
     return [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
