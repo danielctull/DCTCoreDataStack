@@ -10,7 +10,7 @@
 
 @interface DCTCoreDataStack ()
 - (NSURL *)dctInternal_applicationDocumentsDirectory;
-- (void)mainConextDidSave:(NSNotification *)notification;
+- (void)dctInternal_mainContextDidSave:(NSNotification *)notification;
 @end
 
 @implementation DCTCoreDataStack {
@@ -36,7 +36,7 @@
 	return self;
 }
 
-- (void)mainConextDidSave:(NSNotification *)notification {
+- (void)dctInternal_mainContextDidSave:(NSNotification *)notification {
 	
 	[backgroundSavingContext performBlock:^{
 		NSError *error = nil;
@@ -59,7 +59,7 @@
 			[managedObjectContext setParentContext:backgroundSavingContext];
 			
 			[[NSNotificationCenter defaultCenter] addObserver:self 
-													 selector:@selector(mainConextDidSave:)
+													 selector:@selector(dctInternal_mainContextDidSave:)
 														 name:NSManagedObjectContextDidSaveNotification
 													   object:managedObjectContext];
 		}
