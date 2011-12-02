@@ -53,9 +53,9 @@
 	__strong NSManagedObjectModel *managedObjectModel;
 	__strong NSPersistentStoreCoordinator *persistentStoreCoordinator;
 	__strong NSString *modelName;
+	
 	__strong NSManagedObjectContext *backgroundSavingContext;
-	
-	
+	dispatch_queue_t backgroundSavingQueue;
 }
 
 @synthesize persistentStoreType;
@@ -126,12 +126,13 @@
 }
 
 - (void)dctInternal_setupiOS4ContextsWithCoordinator:(NSPersistentStoreCoordinator *)coordinator {
-	backgroundSavingContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
+	
+	managedObjectContext = [[NSManagedObjectContext alloc] init];
+	[managedObjectContext setPersistentStoreCoordinator:coordinator];
+	
+	backgroundSavingContext = [[NSManagedObjectContext alloc] init];
 	[backgroundSavingContext setPersistentStoreCoordinator:coordinator];
-	
-	managedObjectContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSMainQueueConcurrencyType];
-	[managedObjectContext setParentContext:backgroundSavingContext];
-	
+			
 	[[NSNotificationCenter defaultCenter] addObserver:self 
 											 selector:@selector(dctInternal_iOS4mainContextDidSave:)
 												 name:NSManagedObjectContextDidSaveNotification
@@ -207,6 +208,12 @@
 }
 
 - (void)dctInternal_iOS4mainContextDidSave:(NSNotification *)notification {
+	
+	dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+		[backgroundSavingContext mergeChangesFromContextDidSaveNotification:notification];
+		[self dctInternal_saveManagedObjectContext:backgroundSavingContext];
+	});
+	
 	
 }
 
