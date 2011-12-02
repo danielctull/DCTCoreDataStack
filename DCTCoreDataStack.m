@@ -39,12 +39,11 @@
 @interface DCTCoreDataStack ()
 - (NSURL *)dctInternal_applicationDocumentsDirectory;
 
-- (void)dctInternal_iOS4mainContextDidSave:(NSNotification *)notification;
 - (void)dctInternal_iOS5mainContextDidSave:(NSNotification *)notification;
 
 - (void)dctInternal_saveManagedObjectContext:(NSManagedObjectContext *)context;
 
-- (void)dctInternal_setupiOS4ContextsWithCoordinator:(NSPersistentStoreCoordinator *)coordinator;
+- (void)dctInternal_setupiOS4ContextWithCoordinator:(NSPersistentStoreCoordinator *)coordinator;
 - (void)dctInternal_setupiOS5ContextsWithCoordinator:(NSPersistentStoreCoordinator *)coordinator;
 @end
 
@@ -55,7 +54,6 @@
 	__strong NSString *modelName;
 	
 	__strong NSManagedObjectContext *backgroundSavingContext;
-	dispatch_queue_t backgroundSavingQueue;
 }
 
 @synthesize persistentStoreType;
@@ -67,9 +65,10 @@
 #pragma mark - NSObject
 
 - (void)dealloc {
-	[[NSNotificationCenter defaultCenter] removeObserver:self 
-													name:NSManagedObjectContextDidSaveNotification
-												  object:managedObjectContext];
+	if (backgroundSavingContext != nil)
+		[[NSNotificationCenter defaultCenter] removeObserver:self 
+														name:NSManagedObjectContextDidSaveNotification
+													  object:managedObjectContext];
 }
 
 - (id)init {
@@ -104,7 +103,7 @@
 			if ([NSManagedObjectContext instancesRespondToSelector:@selector(initWithConcurrencyType:)])
 				[self dctInternal_setupiOS5ContextsWithCoordinator:coordinator];
 			else
-				[self dctInternal_setupiOS4ContextsWithCoordinator:coordinator];
+				[self dctInternal_setupiOS4ContextWithCoordinator:coordinator];
 			
 		}
 	}
@@ -125,18 +124,9 @@
 											   object:managedObjectContext];
 }
 
-- (void)dctInternal_setupiOS4ContextsWithCoordinator:(NSPersistentStoreCoordinator *)coordinator {
-	
+- (void)dctInternal_setupiOS4ContextWithCoordinator:(NSPersistentStoreCoordinator *)coordinator {
 	managedObjectContext = [[NSManagedObjectContext alloc] init];
 	[managedObjectContext setPersistentStoreCoordinator:coordinator];
-	
-	backgroundSavingContext = [[NSManagedObjectContext alloc] init];
-	[backgroundSavingContext setPersistentStoreCoordinator:coordinator];
-			
-	[[NSNotificationCenter defaultCenter] addObserver:self 
-											 selector:@selector(dctInternal_iOS4mainContextDidSave:)
-												 name:NSManagedObjectContextDidSaveNotification
-											   object:managedObjectContext];
 }
 
 
@@ -205,16 +195,6 @@
 
 - (void)dctInternal_iOS5mainContextDidSave:(NSNotification *)notification; {
 	[self dctInternal_saveManagedObjectContext:backgroundSavingContext];
-}
-
-- (void)dctInternal_iOS4mainContextDidSave:(NSNotification *)notification {
-	
-	dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-		[backgroundSavingContext mergeChangesFromContextDidSaveNotification:notification];
-		[self dctInternal_saveManagedObjectContext:backgroundSavingContext];
-	});
-	
-	
 }
 
 - (NSURL *)dctInternal_applicationDocumentsDirectory {
