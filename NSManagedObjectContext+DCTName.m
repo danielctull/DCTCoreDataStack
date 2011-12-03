@@ -47,4 +47,11 @@
 	return objc_getAssociatedObject(self, _cmd);
 }
 
+- (void)saveWithErrorHandler:(DCTManagedObjectContextSaveFailureBlock)handler {
+	
+	NSError *error = nil;
+	if (![self save:&error] && handler != NULL)
+		handler(error);
+}
+
 @end
