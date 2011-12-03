@@ -45,6 +45,11 @@
 
 - (void)dctInternal_setupiOS4ContextWithCoordinator:(NSPersistentStoreCoordinator *)coordinator;
 - (void)dctInternal_setupiOS5ContextsWithCoordinator:(NSPersistentStoreCoordinator *)coordinator;
+
+- (void)dctInternal_saveiOS5ManagedObjectContext:(NSManagedObjectContext *)context;
+- (void)dctInternal_saveiOS4ManagedObjectContext:(NSManagedObjectContext *)context;
+
+- (void)dctInternal_applicationDidEnterBackgroundNotification:(NSNotification *)notification;
 @end
 
 @implementation DCTCoreDataStack {
@@ -76,6 +81,12 @@
 	if (!(self = [super init])) return nil;
 	
 	self.persistentStoreType = NSSQLiteStoreType;
+	
+	if(UIApplicationDidEnterBackgroundNotification != NULL)
+		[[NSNotificationCenter defaultCenter] addObserver:self
+												 selector:@selector(dctInternal_applicationDidEnterBackgroundNotification:) 
+													 name:UIApplicationDidEnterBackgroundNotification 
+												   object:nil];
 	
 	return self;
 }
@@ -186,6 +197,14 @@
 #pragma mark - Internal
 
 - (void)dctInternal_saveManagedObjectContext:(NSManagedObjectContext *)context {
+	
+	if ([context respondsToSelector:@selector(performBlock:)])
+		[self dctInternal_saveiOS5ManagedObjectContext:context];
+	else
+		[self dctInternal_saveiOS4ManagedObjectContext:context];
+}
+	
+- (void)dctInternal_saveiOS5ManagedObjectContext:(NSManagedObjectContext *)context {
 	[context performBlock:^{
 		NSError *error = nil;
 		if (![context save:&error])
@@ -193,12 +212,22 @@
 	}];
 }
 
+- (void)dctInternal_saveiOS4ManagedObjectContext:(NSManagedObjectContext *)context {
+	NSError *error = nil;
+	if (![context save:&error])
+		NSLog(@"%@:%@ %@", self, NSStringFromSelector(_cmd), error);
+}
+	
 - (void)dctInternal_iOS5mainContextDidSave:(NSNotification *)notification; {
 	[self dctInternal_saveManagedObjectContext:backgroundSavingContext];
 }
 
 - (NSURL *)dctInternal_applicationDocumentsDirectory {
     return [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
+}
+
+- (void)dctInternal_applicationDidEnterBackgroundNotification:(NSNotification *)notification {
+	[self dctInternal_saveManagedObjectContext:self.managedObjectContext];
 }
 
 @end
