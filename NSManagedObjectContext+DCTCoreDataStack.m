@@ -48,10 +48,10 @@
 }
 
 - (void)dct_saveWithErrorHandler:(DCTManagedObjectContextSaveErrorBlock)handler {
-	[self dct_saveWithErrorHandler:handler callbackQueue:dispatch_get_current_queue()];
+	[self dct_saveWithCallbackQueue:dispatch_get_current_queue() errorHandler:handler];
 }
 
-- (void)dct_saveWithErrorHandler:(DCTManagedObjectContextSaveErrorBlock)handler callbackQueue:(dispatch_queue_t)queue {
+- (void)dct_saveWithCallbackQueue:(dispatch_queue_t)queue errorHandler:(DCTManagedObjectContextSaveErrorBlock)handler {
 	
 	if (handler != NULL)
 		objc_setAssociatedObject(self, _cmd, [handler copy], OBJC_ASSOCIATION_RETAIN_NONATOMIC);

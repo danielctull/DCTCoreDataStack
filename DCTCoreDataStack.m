@@ -98,14 +98,14 @@ typedef void (^DCTInternalCoreDataStackSaveBlock) (NSManagedObjectContext *manag
 		
 		saveBlock = ^(NSManagedObjectContext *context, DCTManagedObjectContextSaveErrorBlock failureHandler, dispatch_queue_t callbackQueue) {
 			[context performBlock:^{
-				[context dct_saveWithErrorHandler:failureHandler callbackQueue:callbackQueue];
+				[context dct_saveWithCallbackQueue:callbackQueue errorHandler:failureHandler];
 			}];
 		};
 		
 	} else{
 		
 		saveBlock = ^(NSManagedObjectContext *context, DCTManagedObjectContextSaveErrorBlock failureHandler, dispatch_queue_t callbackQueue) {
-			[context dct_saveWithErrorHandler:failureHandler callbackQueue:callbackQueue];
+			[context dct_saveWithCallbackQueue:callbackQueue errorHandler:failureHandler];
 		};
 		
 	}
