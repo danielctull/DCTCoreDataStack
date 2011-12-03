@@ -49,9 +49,14 @@
 
 - (void)saveWithErrorHandler:(DCTManagedObjectContextSaveFailureBlock)handler {
 	
+	if (handler != NULL)
+		objc_setAssociatedObject(self, _cmd, [handler copy], OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+	
 	NSError *error = nil;
 	if (![self save:&error] && handler != NULL)
 		handler(error);
+	
+	objc_setAssociatedObject(self, _cmd, nil, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
 @end

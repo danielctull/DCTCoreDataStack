@@ -47,8 +47,6 @@
 #define dct_nil(x) x = nil
 #endif
 
-typedef void (^DCTCoreDataStackErrorBlock) (NSManagedObjectContext *managedObjectContext, NSError *error);
-
 @interface DCTCoreDataStack : NSObject
 
 - (id)init;
@@ -59,8 +57,6 @@ typedef void (^DCTCoreDataStackErrorBlock) (NSManagedObjectContext *managedObjec
 @property (nonatomic, copy) NSString *persistentStoreType;
 @property (nonatomic, copy) NSDictionary *persistentStoreOptions;
 @property (nonatomic, copy) NSString *modelConfiguration;
-
-@property (nonatomic, copy) DCTCoreDataStackErrorBlock saveFailureHandler;
 
 @property (nonatomic, strong, readonly) NSManagedObjectContext *managedObjectContext;
 @property (nonatomic, strong, readonly) NSManagedObjectModel *managedObjectModel;
