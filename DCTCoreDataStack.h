@@ -37,6 +37,8 @@
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
+typedef void (^DCTCoreDataStackErrorBlock) (NSManagedObjectContext *managedObjectContext, NSError *error);
+
 @interface DCTCoreDataStack : NSObject
 
 - (id)init;
@@ -47,6 +49,8 @@
 @property (nonatomic, copy) NSString *persistentStoreType;
 @property (nonatomic, copy) NSDictionary *persistentStoreOptions;
 @property (nonatomic, copy) NSString *modelConfiguration;
+
+@property (nonatomic, copy) DCTCoreDataStackErrorBlock saveFailureHandler;
 
 @property (nonatomic, strong, readonly) NSManagedObjectContext *managedObjectContext;
 @property (nonatomic, strong, readonly) NSManagedObjectModel *managedObjectModel;

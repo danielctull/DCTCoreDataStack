@@ -66,6 +66,7 @@
 @synthesize modelConfiguration;
 @synthesize modelURL;
 @synthesize storeURL;
+@synthesize saveFailureHandler;
 
 #pragma mark - NSObject
 
@@ -87,6 +88,10 @@
 												 selector:@selector(dctInternal_applicationDidEnterBackgroundNotification:) 
 													 name:UIApplicationDidEnterBackgroundNotification 
 												   object:nil];
+	
+	self.saveFailureHandler = ^(NSManagedObjectContext *context, NSError *error) {
+		NSLog(@"DCTCoreDataStack: %@", error);
+	};
 	
 	return self;
 }
@@ -207,15 +212,15 @@
 - (void)dctInternal_saveiOS5ManagedObjectContext:(NSManagedObjectContext *)context {
 	[context performBlock:^{
 		NSError *error = nil;
-		if (![context save:&error])
-			NSLog(@"%@:%@ %@", self, NSStringFromSelector(_cmd), error);
+		if (![context save:&error] && self.saveFailureHandler != NULL)
+			saveFailureHandler(context, error);
 	}];
 }
 
 - (void)dctInternal_saveiOS4ManagedObjectContext:(NSManagedObjectContext *)context {
 	NSError *error = nil;
-	if (![context save:&error])
-		NSLog(@"%@:%@ %@", self, NSStringFromSelector(_cmd), error);
+	if (![context save:&error] && self.saveFailureHandler != NULL)
+		saveFailureHandler(context, error);
 }
 	
 - (void)dctInternal_iOS5mainContextDidSave:(NSNotification *)notification; {
