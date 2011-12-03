@@ -38,9 +38,9 @@
 #import "NSManagedObjectContext+DCTCoreDataStack.h"
 #import <objc/runtime.h>
 
-typedef void (^DCTInternalCoreDataStackSaveBlock) (NSManagedObjectContext *managedObjectContext, 
-												   dispatch_queue_t callbackQueue,
-												   DCTManagedObjectContextSaveErrorBlock failureHandler);
+typedef void (^DCTInternalCoreDataStackSaveBlock) (NSManagedObjectContext *managedObjectContext,
+												   DCTManagedObjectContextSaveErrorBlock failureHandler,
+												   dispatch_queue_t callbackQueue);
 
 @interface DCTCoreDataStack ()
 - (NSURL *)dctInternal_applicationDocumentsDirectory;
@@ -96,7 +96,7 @@ typedef void (^DCTInternalCoreDataStackSaveBlock) (NSManagedObjectContext *manag
 	
 	if ([[NSManagedObjectContext class] instancesRespondToSelector:@selector(performBlock:)]) {
 		
-		saveBlock = ^(NSManagedObjectContext *context, dispatch_queue_t callbackQueue, DCTManagedObjectContextSaveErrorBlock failureHandler) {
+		saveBlock = ^(NSManagedObjectContext *context, DCTManagedObjectContextSaveErrorBlock failureHandler, dispatch_queue_t callbackQueue) {
 			[context performBlock:^{
 				[context dct_saveWithErrorHandler:failureHandler callbackQueue:callbackQueue];
 			}];
@@ -104,7 +104,7 @@ typedef void (^DCTInternalCoreDataStackSaveBlock) (NSManagedObjectContext *manag
 		
 	} else{
 		
-		saveBlock = ^(NSManagedObjectContext *context, dispatch_queue_t callbackQueue, DCTManagedObjectContextSaveErrorBlock failureHandler) {
+		saveBlock = ^(NSManagedObjectContext *context, DCTManagedObjectContextSaveErrorBlock failureHandler, dispatch_queue_t callbackQueue) {
 			[context dct_saveWithErrorHandler:failureHandler callbackQueue:callbackQueue];
 		};
 		
@@ -239,7 +239,7 @@ typedef void (^DCTInternalCoreDataStackSaveBlock) (NSManagedObjectContext *manag
 	NSManagedObjectContext *moc = [notification object];
 	DCTManagedObjectContextSaveErrorBlock handler = objc_getAssociatedObject(moc, @selector(dct_saveWithErrorHandler:));
 	
-	saveBlock(backgroundSavingContext, dispatch_get_current_queue(), handler);
+	saveBlock(backgroundSavingContext, handler, dispatch_get_current_queue());
 }
 
 - (NSURL *)dctInternal_applicationDocumentsDirectory {
@@ -247,7 +247,7 @@ typedef void (^DCTInternalCoreDataStackSaveBlock) (NSManagedObjectContext *manag
 }
 
 - (void)dctInternal_applicationDidEnterBackgroundNotification:(NSNotification *)notification {
-	saveBlock(self.managedObjectContext, dispatch_get_current_queue(), NULL);
+	saveBlock(self.managedObjectContext, NULL, dispatch_get_current_queue());
 }
 
 @end
