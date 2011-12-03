@@ -134,7 +134,7 @@ typedef void (^DCTInternalCoreDataStackSaveBlock) (NSManagedObjectContext *manag
 
 - (NSManagedObjectContext *)managedObjectContext {
     
-	if (managedObjectContext == nil && self.persistentStoreCoordinator != nil)
+	if (managedObjectContext == nil)
 		[self dctInternal_loadManagedObjectContext];
 	
     return managedObjectContext;
@@ -158,14 +158,16 @@ typedef void (^DCTInternalCoreDataStackSaveBlock) (NSManagedObjectContext *manag
 
 - (NSURL *)modelURL {
 	
-	if (modelURL == nil) [self dctInternal_loadModelURL];
+	if (modelURL == nil)
+		[self dctInternal_loadModelURL];
 	
 	return modelURL;
 }
 
 - (NSURL *)storeURL {
 	
-	if (storeURL == nil) [self dctInternal_loadStoreURL];
+	if (storeURL == nil)
+		[self dctInternal_loadStoreURL];
 	
 	return storeURL;
 }
@@ -174,10 +176,14 @@ typedef void (^DCTInternalCoreDataStackSaveBlock) (NSManagedObjectContext *manag
 
 - (void)dctInternal_loadManagedObjectContext {
 	
+	NSPersistentStoreCoordinator *psc = self.persistentStoreCoordinator;
+	
+	if (psc == nil) return;
+	
 	if ([NSManagedObjectContext instancesRespondToSelector:@selector(initWithConcurrencyType:)]) {
 		
 		backgroundSavingContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
-		[backgroundSavingContext setPersistentStoreCoordinator:self.persistentStoreCoordinator];
+		[backgroundSavingContext setPersistentStoreCoordinator:psc];
 		backgroundSavingContext.dct_name = @"DCTCoreDataStack.backgroundSavingContext";
 		
 		managedObjectContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSMainQueueConcurrencyType];
@@ -191,7 +197,7 @@ typedef void (^DCTInternalCoreDataStackSaveBlock) (NSManagedObjectContext *manag
 	} else {
 		
 		managedObjectContext = [[NSManagedObjectContext alloc] init];
-		[managedObjectContext setPersistentStoreCoordinator:self.persistentStoreCoordinator];
+		[managedObjectContext setPersistentStoreCoordinator:psc];
 		managedObjectContext.dct_name = @"DCTCoreDataStack.managedObjectContext";
 	}
 }
