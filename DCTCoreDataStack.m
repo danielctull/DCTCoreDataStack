@@ -38,16 +38,20 @@
 #import "NSManagedObjectContext+DCTName.h"
 
 typedef void (^DCTInternalCoreDataStackSaveBlock) (NSManagedObjectContext *managedObjectContext);
+typedef void (^DCTInternalCoreDataStackContextSetupBlock) ();
 
 @interface DCTCoreDataStack ()
 - (NSURL *)dctInternal_applicationDocumentsDirectory;
 
 - (void)dctInternal_iOS5mainContextDidSave:(NSNotification *)notification;
 
-- (void)dctInternal_setupiOS4ContextWithCoordinator:(NSPersistentStoreCoordinator *)coordinator;
-- (void)dctInternal_setupiOS5ContextsWithCoordinator:(NSPersistentStoreCoordinator *)coordinator;
-
 - (void)dctInternal_applicationDidEnterBackgroundNotification:(NSNotification *)notification;
+
+- (void)dctInternal_loadModelURL;
+- (void)dctInternal_loadStoreURL;
+- (void)dctInternal_loadManagedObjectContext;
+- (void)dctInternal_loadPersistentStoreCoordinator;
+- (void)dctInternal_loadManagedObjectModel;
 @end
 
 @implementation DCTCoreDataStack {
@@ -59,6 +63,7 @@ typedef void (^DCTInternalCoreDataStackSaveBlock) (NSManagedObjectContext *manag
 	__strong NSManagedObjectContext *backgroundSavingContext;
 	
 	__strong DCTInternalCoreDataStackSaveBlock saveBlock;
+	__strong DCTInternalCoreDataStackContextSetupBlock contextSetupBlock;
 }
 
 @synthesize persistentStoreType;
@@ -116,6 +121,8 @@ typedef void (^DCTInternalCoreDataStackSaveBlock) (NSManagedObjectContext *manag
 	return self;
 }
 
+
+
 #pragma mark - DCTCoreDataStack
 
 - (id)initWithModelName:(NSString *)name {
@@ -131,99 +138,104 @@ typedef void (^DCTInternalCoreDataStackSaveBlock) (NSManagedObjectContext *manag
 
 - (NSManagedObjectContext *)managedObjectContext {
     
-	if (managedObjectContext == nil) {
-		
-		NSPersistentStoreCoordinator *coordinator = self.persistentStoreCoordinator;
-		if (coordinator != nil) {
-			
-			if ([NSManagedObjectContext instancesRespondToSelector:@selector(initWithConcurrencyType:)])
-				[self dctInternal_setupiOS5ContextsWithCoordinator:coordinator];
-			else
-				[self dctInternal_setupiOS4ContextWithCoordinator:coordinator];
-			
-		}
-	}
+	if (managedObjectContext == nil && self.persistentStoreCoordinator != nil)
+		[self dctInternal_loadManagedObjectContext];
 	
     return managedObjectContext;
 }
 
-- (void)dctInternal_setupiOS5ContextsWithCoordinator:(NSPersistentStoreCoordinator *)coordinator {
-	backgroundSavingContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
-	[backgroundSavingContext setPersistentStoreCoordinator:coordinator];
-	backgroundSavingContext.dct_name = @"DCTCoreDataStack.backgroundSavingContext";
-	
-	managedObjectContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSMainQueueConcurrencyType];
-	[managedObjectContext setParentContext:backgroundSavingContext];
-	managedObjectContext.dct_name = @"DCTCoreDataStack.managedObjectContext";
-	
-	[[NSNotificationCenter defaultCenter] addObserver:self 
-											 selector:@selector(dctInternal_iOS5mainContextDidSave:)
-												 name:NSManagedObjectContextDidSaveNotification
-											   object:managedObjectContext];
-}
-
-- (void)dctInternal_setupiOS4ContextWithCoordinator:(NSPersistentStoreCoordinator *)coordinator {
-	managedObjectContext = [[NSManagedObjectContext alloc] init];
-	[managedObjectContext setPersistentStoreCoordinator:coordinator];
-	managedObjectContext.dct_name = @"DCTCoreDataStack.managedObjectContext";
-}
-
-
-
 - (NSManagedObjectModel *)managedObjectModel {
 		
 	if (managedObjectModel == nil)
-		managedObjectModel = [[NSManagedObjectModel alloc] initWithContentsOfURL:self.modelURL];
+		[self dctInternal_loadManagedObjectModel];
 	
 	return managedObjectModel;
 }
 
 - (NSPersistentStoreCoordinator *)persistentStoreCoordinator {
 	
-    if (persistentStoreCoordinator == nil) {
-		
-		NSError *error = nil;
-		persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:self.managedObjectModel];
-		if (![persistentStoreCoordinator addPersistentStoreWithType:self.persistentStoreType
-													  configuration:self.modelConfiguration
-																URL:self.storeURL
-															options:self.persistentStoreOptions
-															  error:&error]) {
-			NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-			abort();
-		}
-    }
+    if (persistentStoreCoordinator == nil)
+		[self dctInternal_loadPersistentStoreCoordinator];
 	
 	return persistentStoreCoordinator;
 }
 
 - (NSURL *)modelURL {
 	
-	if (!modelURL) modelURL = [[NSBundle mainBundle] URLForResource:modelName withExtension:@"momd"];
+	if (modelURL == nil) [self dctInternal_loadModelURL];
 	
 	return modelURL;
 }
 
 - (NSURL *)storeURL {
 	
-	if (!storeURL) {
-		NSString *pathComponent = nil;
-		
-		if ([self.persistentStoreType isEqualToString:NSBinaryStoreType])
-			pathComponent = [NSString stringWithFormat:@"%@.sqlite", modelName];
-		
-		else if ([self.persistentStoreType isEqualToString:NSSQLiteStoreType])
-			pathComponent = [NSString stringWithFormat:@"%@.sqlite", modelName];
-		
-		if (pathComponent) 
-			storeURL = [[self dctInternal_applicationDocumentsDirectory] URLByAppendingPathComponent:pathComponent];
-	}
+	if (storeURL == nil) [self dctInternal_loadStoreURL];
 	
 	return storeURL;
 }
 
-#pragma mark - Internal
+#pragma mark - Internal Loading
+
+- (void)dctInternal_loadManagedObjectContext {
 	
+	if ([NSManagedObjectContext instancesRespondToSelector:@selector(initWithConcurrencyType:)]) {
+		
+		backgroundSavingContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
+		[backgroundSavingContext setPersistentStoreCoordinator:self.persistentStoreCoordinator];
+		backgroundSavingContext.dct_name = @"DCTCoreDataStack.backgroundSavingContext";
+		
+		managedObjectContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSMainQueueConcurrencyType];
+		[managedObjectContext setParentContext:backgroundSavingContext];
+		managedObjectContext.dct_name = @"DCTCoreDataStack.managedObjectContext";
+		
+		[[NSNotificationCenter defaultCenter] addObserver:self
+												 selector:@selector(dctInternal_iOS5mainContextDidSave:)
+													 name:NSManagedObjectContextDidSaveNotification
+												   object:managedObjectContext];
+	} else {
+		
+		managedObjectContext = [[NSManagedObjectContext alloc] init];
+		[managedObjectContext setPersistentStoreCoordinator:self.persistentStoreCoordinator];
+		managedObjectContext.dct_name = @"DCTCoreDataStack.managedObjectContext";
+	}
+}
+
+- (void)dctInternal_loadManagedObjectModel {
+	managedObjectModel = [[NSManagedObjectModel alloc] initWithContentsOfURL:self.modelURL];
+}
+
+- (void)dctInternal_loadPersistentStoreCoordinator {
+	NSError *error = nil;
+	persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:self.managedObjectModel];
+	if (![persistentStoreCoordinator addPersistentStoreWithType:self.persistentStoreType
+												  configuration:self.modelConfiguration
+															URL:self.storeURL
+														options:self.persistentStoreOptions
+														  error:&error]) {
+		NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+		abort();
+	}
+}
+
+- (void)dctInternal_loadModelURL {
+	modelURL = [[NSBundle mainBundle] URLForResource:modelName withExtension:@"momd"];
+}
+
+- (void)dctInternal_loadStoreURL {
+	NSString *pathComponent = nil;
+	
+	if ([self.persistentStoreType isEqualToString:NSBinaryStoreType])
+		pathComponent = [NSString stringWithFormat:@"%@.sqlite", modelName];
+	
+	else if ([self.persistentStoreType isEqualToString:NSSQLiteStoreType])
+		pathComponent = [NSString stringWithFormat:@"%@.sqlite", modelName];
+	
+	if (pathComponent) 
+		storeURL = [[self dctInternal_applicationDocumentsDirectory] URLByAppendingPathComponent:pathComponent];
+}
+
+#pragma mark - Other Internal
+
 - (void)dctInternal_iOS5mainContextDidSave:(NSNotification *)notification; {
 	saveBlock(backgroundSavingContext);
 }
