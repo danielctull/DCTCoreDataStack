@@ -94,24 +94,20 @@ typedef void (^DCTInternalCoreDataStackSaveBlock) (NSManagedObjectContext *manag
 													 name:UIApplicationDidEnterBackgroundNotification 
 												   object:nil];
 	
-	saveBlock = ^(NSManagedObjectContext *context, dispatch_queue_t callbackQueue, DCTManagedObjectContextSaveErrorBlock failureHandler) {
-		NSError *error = nil;
-		if (![context save:&error] && failureHandler != NULL) {
-			dispatch_async(callbackQueue, ^{
-				failureHandler(error);
-			});
-		}
-	};
-	
 	if ([[NSManagedObjectContext class] instancesRespondToSelector:@selector(performBlock:)]) {
-		
-		DCTInternalCoreDataStackSaveBlock oldSaveBlock = [saveBlock copy];
 		
 		saveBlock = ^(NSManagedObjectContext *context, dispatch_queue_t callbackQueue, DCTManagedObjectContextSaveErrorBlock failureHandler) {
 			[context performBlock:^{
-				oldSaveBlock(context, callbackQueue, failureHandler);
+				[context dct_saveWithErrorHandler:failureHandler callbackQueue:callbackQueue];
 			}];
 		};
+		
+	} else{
+		
+		saveBlock = ^(NSManagedObjectContext *context, dispatch_queue_t callbackQueue, DCTManagedObjectContextSaveErrorBlock failureHandler) {
+			[context dct_saveWithErrorHandler:failureHandler callbackQueue:callbackQueue];
+		};
+		
 	}
 	
 	return self;
