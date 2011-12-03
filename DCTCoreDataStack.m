@@ -35,7 +35,7 @@
  */
 
 #import "DCTCoreDataStack.h"
-#import "NSManagedObjectContext+DCTName.h"
+#import "NSManagedObjectContext+DCTCoreDataStack.h"
 #import <objc/runtime.h>
 
 typedef void (^DCTInternalCoreDataStackSaveBlock) (NSManagedObjectContext *managedObjectContext, DCTManagedObjectContextSaveFailureBlock failureHandler);

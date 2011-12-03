@@ -1,5 +1,5 @@
 /*
- NSManagedObjectContext+DCTName.m
+ NSManagedObjectContext+DCTCoreDataStack.m
  DCTCoreDataStack
  
  Created by Daniel Tull on 03.12.2011.
@@ -34,10 +34,10 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#import "NSManagedObjectContext+DCTName.h"
+#import "NSManagedObjectContext+DCTCoreDataStack.h"
 #import <objc/runtime.h>
 
-@implementation NSManagedObjectContext (DCTName)
+@implementation NSManagedObjectContext (DCTCoreDataStack)
 
 - (void)setDct_name:(NSString *)name {
 	objc_setAssociatedObject(self, @selector(dct_name), [name copy], OBJC_ASSOCIATION_RETAIN_NONATOMIC);

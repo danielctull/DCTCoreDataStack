@@ -1,5 +1,5 @@
 /*
- NSManagedObjectContext+DCTName.h
+ NSManagedObjectContext+DCTCoreDataStack.h
  DCTCoreDataStack
  
  Created by Daniel Tull on 03.12.2011.
@@ -38,7 +38,7 @@
 
 typedef void (^DCTManagedObjectContextSaveFailureBlock) (NSError *error);
 
-@interface NSManagedObjectContext (DCTName)
+@interface NSManagedObjectContext (DCTCoreDataStack)
 
 @property (nonatomic, copy) NSString *dct_name;
 
