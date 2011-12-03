@@ -36,12 +36,12 @@
 
 #import <CoreData/CoreData.h>
 
-typedef void (^DCTManagedObjectContextSaveFailureBlock) (NSError *error);
+typedef void (^DCTManagedObjectContextSaveErrorBlock) (NSError *error);
 
 @interface NSManagedObjectContext (DCTCoreDataStack)
 
 @property (nonatomic, copy) NSString *dct_name;
 
-- (void)dct_saveWithErrorHandler:(DCTManagedObjectContextSaveFailureBlock)handler;
+- (void)dct_saveWithErrorHandler:(DCTManagedObjectContextSaveErrorBlock)handler;
 
 @end
