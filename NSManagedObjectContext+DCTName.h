@@ -42,6 +42,6 @@ typedef void (^DCTManagedObjectContextSaveFailureBlock) (NSError *error);
 
 @property (nonatomic, copy) NSString *dct_name;
 
-- (void)saveWithErrorHandler:(DCTManagedObjectContextSaveFailureBlock)handler;
+- (void)dct_saveWithErrorHandler:(DCTManagedObjectContextSaveFailureBlock)handler;
 
 @end

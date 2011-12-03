@@ -47,7 +47,7 @@
 	return objc_getAssociatedObject(self, _cmd);
 }
 
-- (void)saveWithErrorHandler:(DCTManagedObjectContextSaveFailureBlock)handler {
+- (void)dct_saveWithErrorHandler:(DCTManagedObjectContextSaveFailureBlock)handler {
 	
 	if (handler != NULL)
 		objc_setAssociatedObject(self, _cmd, [handler copy], OBJC_ASSOCIATION_RETAIN_NONATOMIC);

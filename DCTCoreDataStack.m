@@ -230,7 +230,7 @@ typedef void (^DCTInternalCoreDataStackSaveBlock) (NSManagedObjectContext *manag
 - (void)dctInternal_iOS5mainContextDidSave:(NSNotification *)notification; {
 	
 	NSManagedObjectContext *moc = [notification object];
-	DCTManagedObjectContextSaveFailureBlock handler = objc_getAssociatedObject(moc, @selector(saveWithErrorHandler:));
+	DCTManagedObjectContextSaveFailureBlock handler = objc_getAssociatedObject(moc, @selector(dct_saveWithErrorHandler:));
 
 	saveBlock(backgroundSavingContext, handler);
 }
