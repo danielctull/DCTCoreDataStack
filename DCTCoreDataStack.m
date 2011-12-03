@@ -88,7 +88,7 @@ typedef void (^DCTInternalCoreDataStackSaveBlock) (NSManagedObjectContext *manag
 	
 	self.persistentStoreType = NSSQLiteStoreType;
 	
-	if(UIApplicationDidEnterBackgroundNotification != NULL)
+	if (UIApplicationDidEnterBackgroundNotification != NULL)
 		[[NSNotificationCenter defaultCenter] addObserver:self
 												 selector:@selector(dctInternal_applicationDidEnterBackgroundNotification:) 
 													 name:UIApplicationDidEnterBackgroundNotification 
