@@ -35,6 +35,7 @@
  */
 
 #import "DCTCoreDataStack.h"
+#import "NSManagedObjectContext+DCTName.h"
 
 @interface DCTCoreDataStack ()
 - (NSURL *)dctInternal_applicationDocumentsDirectory;
@@ -90,7 +91,7 @@
 												   object:nil];
 	
 	self.saveFailureHandler = ^(NSManagedObjectContext *context, NSError *error) {
-		NSLog(@"DCTCoreDataStack: %@", error);
+		NSLog(@"DCTCoreDataStack: Failed to save managed object context with name \"%@\" \n%@", context.dct_name, error);
 	};
 	
 	return self;
@@ -130,9 +131,11 @@
 - (void)dctInternal_setupiOS5ContextsWithCoordinator:(NSPersistentStoreCoordinator *)coordinator {
 	backgroundSavingContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
 	[backgroundSavingContext setPersistentStoreCoordinator:coordinator];
+	backgroundSavingContext.dct_name = @"DCTCoreDataStack.backgroundSavingContext";
 	
 	managedObjectContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSMainQueueConcurrencyType];
 	[managedObjectContext setParentContext:backgroundSavingContext];
+	managedObjectContext.dct_name = @"DCTCoreDataStack.managedObjectContext";
 	
 	[[NSNotificationCenter defaultCenter] addObserver:self 
 											 selector:@selector(dctInternal_iOS5mainContextDidSave:)
@@ -143,6 +146,7 @@
 - (void)dctInternal_setupiOS4ContextWithCoordinator:(NSPersistentStoreCoordinator *)coordinator {
 	managedObjectContext = [[NSManagedObjectContext alloc] init];
 	[managedObjectContext setPersistentStoreCoordinator:coordinator];
+	managedObjectContext.dct_name = @"DCTCoreDataStack.managedObjectContext";
 }
 
 
