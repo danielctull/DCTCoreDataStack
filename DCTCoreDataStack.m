@@ -37,18 +37,15 @@
 #import "DCTCoreDataStack.h"
 #import "NSManagedObjectContext+DCTName.h"
 
+typedef void (^DCTInternalCoreDataStackSaveBlock) (NSManagedObjectContext *managedObjectContext);
+
 @interface DCTCoreDataStack ()
 - (NSURL *)dctInternal_applicationDocumentsDirectory;
 
 - (void)dctInternal_iOS5mainContextDidSave:(NSNotification *)notification;
 
-- (void)dctInternal_saveManagedObjectContext:(NSManagedObjectContext *)context;
-
 - (void)dctInternal_setupiOS4ContextWithCoordinator:(NSPersistentStoreCoordinator *)coordinator;
 - (void)dctInternal_setupiOS5ContextsWithCoordinator:(NSPersistentStoreCoordinator *)coordinator;
-
-- (void)dctInternal_saveiOS5ManagedObjectContext:(NSManagedObjectContext *)context;
-- (void)dctInternal_saveiOS4ManagedObjectContext:(NSManagedObjectContext *)context;
 
 - (void)dctInternal_applicationDidEnterBackgroundNotification:(NSNotification *)notification;
 @end
@@ -60,6 +57,8 @@
 	__strong NSString *modelName;
 	
 	__strong NSManagedObjectContext *backgroundSavingContext;
+	
+	__strong DCTInternalCoreDataStackSaveBlock saveBlock;
 }
 
 @synthesize persistentStoreType;
@@ -89,6 +88,26 @@
 												 selector:@selector(dctInternal_applicationDidEnterBackgroundNotification:) 
 													 name:UIApplicationDidEnterBackgroundNotification 
 												   object:nil];
+	
+	
+	__dct_weak DCTCoreDataStack *weakself = self;
+	
+	saveBlock = ^(NSManagedObjectContext *context) {
+		NSError *error = nil;
+		if (![context save:&error] && weakself.saveFailureHandler != NULL)
+			weakself.saveFailureHandler(context, error);
+	};
+	
+	if ([[NSManagedObjectContext class] instancesRespondToSelector:@selector(performBlock:)]) {
+		
+		DCTInternalCoreDataStackSaveBlock oldSaveBlock = [saveBlock copy];
+		
+		saveBlock = ^(NSManagedObjectContext *context) {
+			[context performBlock:^{
+				oldSaveBlock(context);
+			}];
+		};
+	}
 	
 	self.saveFailureHandler = ^(NSManagedObjectContext *context, NSError *error) {
 		NSLog(@"DCTCoreDataStack: Failed to save managed object context with name \"%@\" \n%@", context.dct_name, error);
@@ -204,31 +223,9 @@
 }
 
 #pragma mark - Internal
-
-- (void)dctInternal_saveManagedObjectContext:(NSManagedObjectContext *)context {
-	
-	if ([context respondsToSelector:@selector(performBlock:)])
-		[self dctInternal_saveiOS5ManagedObjectContext:context];
-	else
-		[self dctInternal_saveiOS4ManagedObjectContext:context];
-}
-	
-- (void)dctInternal_saveiOS5ManagedObjectContext:(NSManagedObjectContext *)context {
-	[context performBlock:^{
-		NSError *error = nil;
-		if (![context save:&error] && self.saveFailureHandler != NULL)
-			saveFailureHandler(context, error);
-	}];
-}
-
-- (void)dctInternal_saveiOS4ManagedObjectContext:(NSManagedObjectContext *)context {
-	NSError *error = nil;
-	if (![context save:&error] && self.saveFailureHandler != NULL)
-		saveFailureHandler(context, error);
-}
 	
 - (void)dctInternal_iOS5mainContextDidSave:(NSNotification *)notification; {
-	[self dctInternal_saveManagedObjectContext:backgroundSavingContext];
+	saveBlock(backgroundSavingContext);
 }
 
 - (NSURL *)dctInternal_applicationDocumentsDirectory {
@@ -236,7 +233,7 @@
 }
 
 - (void)dctInternal_applicationDidEnterBackgroundNotification:(NSNotification *)notification {
-	[self dctInternal_saveManagedObjectContext:self.managedObjectContext];
+	saveBlock(self.managedObjectContext);
 }
 
 @end
