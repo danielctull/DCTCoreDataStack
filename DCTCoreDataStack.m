@@ -49,7 +49,6 @@ typedef void (^DCTInternalCoreDataStackSaveBlock) (NSManagedObjectContext *manag
 
 #ifdef TARGET_OS_IPHONE
 - (void)dctInternal_applicationDidEnterBackgroundNotification:(NSNotification *)notification;
-- (void)dctInternal_applicationWillEnterForegroundNotification:(NSNotification *)notification;
 - (void)dctInternal_applicationWillTerminateNotification:(NSNotification *)notification;
 #endif
 
@@ -69,11 +68,6 @@ typedef void (^DCTInternalCoreDataStackSaveBlock) (NSManagedObjectContext *manag
 	__strong NSManagedObjectContext *backgroundSavingContext;
 	
 	__strong DCTInternalCoreDataStackSaveBlock saveBlock;
-
-#ifdef TARGET_OS_IPHONE
-	BOOL inBackground;
-	UIBackgroundTaskIdentifier backgroundTaskIdentifier;
-#endif
 }
 
 @synthesize storeType;
@@ -94,10 +88,6 @@ typedef void (^DCTInternalCoreDataStackSaveBlock) (NSManagedObjectContext *manag
 	
 	[[NSNotificationCenter defaultCenter] removeObserver:self 
 													name:UIApplicationDidEnterBackgroundNotification
-												  object:app];
-	
-	[[NSNotificationCenter defaultCenter] removeObserver:self
-													name:UIApplicationWillEnterForegroundNotification 
 												  object:app];
 	
 	[[NSNotificationCenter defaultCenter] removeObserver:self 
@@ -135,11 +125,6 @@ typedef void (^DCTInternalCoreDataStackSaveBlock) (NSManagedObjectContext *manag
 	[[NSNotificationCenter defaultCenter] addObserver:self
 											 selector:@selector(dctInternal_applicationDidEnterBackgroundNotification:) 
 												 name:UIApplicationDidEnterBackgroundNotification 
-											   object:app];
-	
-	[[NSNotificationCenter defaultCenter] addObserver:self
-											 selector:@selector(dctInternal_applicationWillEnterForegroundNotification:) 
-												 name:UIApplicationWillEnterForegroundNotification
 											   object:app];
 	
 	[[NSNotificationCenter defaultCenter] addObserver:self
@@ -267,19 +252,8 @@ typedef void (^DCTInternalCoreDataStackSaveBlock) (NSManagedObjectContext *manag
 - (void)dctInternal_iOS5mainContextDidSave:(NSNotification *)notification; {
 	NSManagedObjectContext *moc = [notification object];
 	
-	DCTManagedObjectContextSaveCompletionBlock clientCompletion = objc_getAssociatedObject(moc, @selector(dct_saveWithCompletionHandler:));
+	DCTManagedObjectContextSaveCompletionBlock completion = objc_getAssociatedObject(moc, @selector(dct_saveWithCompletionHandler:));
 	objc_setAssociatedObject(moc, @selector(dct_saveWithCompletionHandler:), nil, OBJC_ASSOCIATION_COPY_NONATOMIC);
-	
-	DCTManagedObjectContextSaveCompletionBlock completion = clientCompletion;
-	
-#ifdef TARGET_OS_IPHONE	
-	completion = ^(BOOL success, NSError *error) {		
-		clientCompletion(success, error);
-		
-		if (inBackground) 
-			[[UIApplication sharedApplication] endBackgroundTask:backgroundTaskIdentifier];
-	};
-#endif
 	
 	saveBlock(backgroundSavingContext, completion);
 }
@@ -290,14 +264,11 @@ typedef void (^DCTInternalCoreDataStackSaveBlock) (NSManagedObjectContext *manag
 
 #ifdef TARGET_OS_IPHONE
 - (void)dctInternal_applicationDidEnterBackgroundNotification:(NSNotification *)notification {
-	inBackground = YES;
-	backgroundTaskIdentifier = [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:^{}];
-	saveBlock(self.managedObjectContext, NULL);
-}
-
-- (void)dctInternal_applicationWillEnterForegroundNotification:(NSNotification *)notification {
-	inBackground = NO;
-	backgroundTaskIdentifier = 0;
+	UIBackgroundTaskIdentifier backgroundTaskIdentifier = [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:^{}];
+	
+	saveBlock(self.managedObjectContext, ^(BOOL success, NSError *error) {
+		[[UIApplication sharedApplication] endBackgroundTask:backgroundTaskIdentifier];
+	});
 }
 
 - (void)dctInternal_applicationWillTerminateNotification:(NSNotification *)notification {
