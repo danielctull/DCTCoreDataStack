@@ -48,6 +48,7 @@ typedef void (^DCTInternalCoreDataStackSaveBlock) (NSManagedObjectContext *manag
 - (void)dctInternal_iOS5mainContextDidSave:(NSNotification *)notification;
 
 - (void)dctInternal_applicationDidEnterBackgroundNotification:(NSNotification *)notification;
+- (void)dctInternal_applicationWillTerminateNotification:(NSNotification *)notification;
 
 - (void)dctInternal_loadManagedObjectContext;
 - (void)dctInternal_loadManagedObjectModel;
@@ -78,6 +79,10 @@ typedef void (^DCTInternalCoreDataStackSaveBlock) (NSManagedObjectContext *manag
 #ifdef TARGET_OS_IPHONE
 	[[NSNotificationCenter defaultCenter] removeObserver:self 
 													name:UIApplicationDidEnterBackgroundNotification
+												  object:nil];
+	
+	[[NSNotificationCenter defaultCenter] removeObserver:self 
+													name:UIApplicationWillTerminateNotification
 												  object:nil];
 #endif
 }
@@ -110,6 +115,11 @@ typedef void (^DCTInternalCoreDataStackSaveBlock) (NSManagedObjectContext *manag
 	[[NSNotificationCenter defaultCenter] addObserver:self
 											 selector:@selector(dctInternal_applicationDidEnterBackgroundNotification:) 
 												 name:UIApplicationDidEnterBackgroundNotification 
+											   object:nil];
+	
+	[[NSNotificationCenter defaultCenter] addObserver:self
+											 selector:@selector(dctInternal_applicationWillTerminateNotification:) 
+												 name:UIApplicationWillTerminateNotification
 											   object:nil];
 #endif
 	
@@ -226,6 +236,10 @@ typedef void (^DCTInternalCoreDataStackSaveBlock) (NSManagedObjectContext *manag
 }
 
 - (void)dctInternal_applicationDidEnterBackgroundNotification:(NSNotification *)notification {
+	saveBlock(self.managedObjectContext, NULL);
+}
+
+- (void)dctInternal_applicationWillTerminateNotification:(NSNotification *)notification {
 	saveBlock(self.managedObjectContext, NULL);
 }
 
