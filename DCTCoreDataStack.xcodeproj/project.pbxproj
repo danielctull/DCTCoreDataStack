@@ -23,11 +23,11 @@
 		243DA85A148B9EE7009C477F /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		243DA85C148B9EE7009C477F /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		243DA85E148B9EE7009C477F /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
-		243DA862148B9EE7009C477F /* DCTCoreDataStack-Info.plist */ = {isa = PBXFileReference; path = "DCTCoreDataStack-Info.plist"; sourceTree = "<group>"; };
+		243DA862148B9EE7009C477F /* DCTCoreDataStack-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "DCTCoreDataStack-Info.plist"; sourceTree = "<group>"; };
 		243DA864148B9EE7009C477F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		243DA866148B9EE7009C477F /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		243DA868148B9EE7009C477F /* DCTCoreDataStack-Prefix.pch */ = {isa = PBXFileReference; path = "DCTCoreDataStack-Prefix.pch"; sourceTree = "<group>"; };
-		243DA869148B9EE8009C477F /* AppDelegate.h */ = {isa = PBXFileReference; path = AppDelegate.h; sourceTree = "<group>"; };
+		243DA868148B9EE7009C477F /* DCTCoreDataStack-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "DCTCoreDataStack-Prefix.pch"; sourceTree = "<group>"; };
+		243DA869148B9EE8009C477F /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		243DA86A148B9EE8009C477F /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		243DA86D148B9EE8009C477F /* DCTCoreDataStack.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DCTCoreDataStack.xcdatamodel; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -50,7 +50,7 @@
 		243DA849148B9EE7009C477F = {
 			isa = PBXGroup;
 			children = (
-				243DA860148B9EE7009C477F /* DCTCoreDataStack */,
+				243DA860148B9EE7009C477F /* DCTCoreDataStack Demo */,
 				243DA857148B9EE7009C477F /* Frameworks */,
 				243DA855148B9EE7009C477F /* Products */,
 			);
@@ -75,7 +75,7 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		243DA860148B9EE7009C477F /* DCTCoreDataStack */ = {
+		243DA860148B9EE7009C477F /* DCTCoreDataStack Demo */ = {
 			isa = PBXGroup;
 			children = (
 				243DA869148B9EE8009C477F /* AppDelegate.h */,
@@ -83,7 +83,7 @@
 				243DA86C148B9EE8009C477F /* DCTCoreDataStack.xcdatamodeld */,
 				243DA861148B9EE7009C477F /* Supporting Files */,
 			);
-			path = DCTCoreDataStack;
+			path = "DCTCoreDataStack Demo";
 			sourceTree = "<group>";
 		};
 		243DA861148B9EE7009C477F /* Supporting Files */ = {
@@ -227,8 +227,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "DCTCoreDataStack/DCTCoreDataStack-Prefix.pch";
-				INFOPLIST_FILE = "DCTCoreDataStack/DCTCoreDataStack-Info.plist";
+				GCC_PREFIX_HEADER = "DCTCoreDataStack Demo/DCTCoreDataStack-Prefix.pch";
+				INFOPLIST_FILE = "DCTCoreDataStack Demo/DCTCoreDataStack-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -238,8 +238,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "DCTCoreDataStack/DCTCoreDataStack-Prefix.pch";
-				INFOPLIST_FILE = "DCTCoreDataStack/DCTCoreDataStack-Info.plist";
+				GCC_PREFIX_HEADER = "DCTCoreDataStack Demo/DCTCoreDataStack-Prefix.pch";
+				INFOPLIST_FILE = "DCTCoreDataStack Demo/DCTCoreDataStack-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -264,6 +264,7 @@
 				243DA873148B9EE8009C477F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 
