@@ -49,7 +49,7 @@
 
 - (void)dct_save {
 	[self dct_saveWithErrorHandler:^(NSError *error) {
-		NSLog(@"NSManagedObjectContext with name %@ failed to save.\n\n%@", self.dct_name, [self dct_detailedDescriptionFromValidationError:error]);
+		NSLog(@"%@", [self dct_detailedDescriptionFromValidationError:error]);
 	}];
 }
 
