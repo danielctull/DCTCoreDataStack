@@ -150,8 +150,7 @@ typedef void (^DCTInternalCoreDataStackSaveBlock) (NSManagedObjectContext *manag
 	
 	if ([[NSManagedObjectContext class] instancesRespondToSelector:@selector(performBlock:)]) {
 		
-		saveBlock = ^(NSManagedObjectContext *context,
-					  DCTManagedObjectContextSaveCompletionBlock completion) {
+		saveBlock = ^(NSManagedObjectContext *context, DCTManagedObjectContextSaveCompletionBlock completion) {
 			[context performBlock:^{
 				[context dct_saveWithCompletionHandler:completion];
 			}];
@@ -159,8 +158,7 @@ typedef void (^DCTInternalCoreDataStackSaveBlock) (NSManagedObjectContext *manag
 		
 	} else{
 		
-		saveBlock = ^(NSManagedObjectContext *context,
-					  DCTManagedObjectContextSaveCompletionBlock completion) {
+		saveBlock = ^(NSManagedObjectContext *context, DCTManagedObjectContextSaveCompletionBlock completion) {
 			[context dct_saveWithCompletionHandler:completion];
 		};
 		
@@ -307,8 +305,7 @@ typedef void (^DCTInternalCoreDataStackSaveBlock) (NSManagedObjectContext *manag
 	// The app is about to terminate, we need to change the saveBlock to use performBlockAndWait:
 	// so the background context saving blocks the main thread.
 	if ([[NSManagedObjectContext class] instancesRespondToSelector:@selector(performBlockAndWait:)]) {
-		saveBlock = ^(NSManagedObjectContext *context,
-					  DCTManagedObjectContextSaveCompletionBlock completion) {
+		saveBlock = ^(NSManagedObjectContext *context, DCTManagedObjectContextSaveCompletionBlock completion) {
 			[context performBlockAndWait:^{
 				[context dct_saveWithCompletionHandler:completion];
 			}];
