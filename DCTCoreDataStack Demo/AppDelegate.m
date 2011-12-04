@@ -19,7 +19,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
 	
-	coreDataStack = [[DCTCoreDataStack alloc] initWithModelName:@"DCTCoreDataStack"];
+	coreDataStack = [[DCTCoreDataStack alloc] initWithStoreFilename:@"DCTCoreDataStack"];
 	NSManagedObjectContext *context = coreDataStack.managedObjectContext;
 	
 	NSString *mainLabel = [NSString stringWithCString:dispatch_queue_get_label(dispatch_get_current_queue())

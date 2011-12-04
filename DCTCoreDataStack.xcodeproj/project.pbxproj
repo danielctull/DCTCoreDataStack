@@ -151,7 +151,7 @@
 		243DA84B148B9EE7009C477F /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0420;
+				LastUpgradeCheck = 0430;
 			};
 			buildConfigurationList = 243DA84E148B9EE7009C477F /* Build configuration list for PBXProject "DCTCoreDataStack" */;
 			compatibilityVersion = "Xcode 3.2";
