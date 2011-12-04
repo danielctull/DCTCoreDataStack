@@ -15,6 +15,8 @@
 		243DA867148B9EE7009C477F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 243DA866148B9EE7009C477F /* main.m */; };
 		243DA86B148B9EE8009C477F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 243DA86A148B9EE8009C477F /* AppDelegate.m */; };
 		243DA86E148B9EE8009C477F /* DCTCoreDataStack.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 243DA86C148B9EE8009C477F /* DCTCoreDataStack.xcdatamodeld */; };
+		243DA87E148B9FF8009C477F /* DCTCoreDataStack.m in Sources */ = {isa = PBXBuildFile; fileRef = 243DA87B148B9FF8009C477F /* DCTCoreDataStack.m */; };
+		243DA87F148B9FF8009C477F /* NSManagedObjectContext+DCTCoreDataStack.m in Sources */ = {isa = PBXBuildFile; fileRef = 243DA87D148B9FF8009C477F /* NSManagedObjectContext+DCTCoreDataStack.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +32,10 @@
 		243DA869148B9EE8009C477F /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		243DA86A148B9EE8009C477F /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		243DA86D148B9EE8009C477F /* DCTCoreDataStack.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DCTCoreDataStack.xcdatamodel; sourceTree = "<group>"; };
+		243DA87A148B9FF8009C477F /* DCTCoreDataStack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCTCoreDataStack.h; sourceTree = "<group>"; };
+		243DA87B148B9FF8009C477F /* DCTCoreDataStack.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCTCoreDataStack.m; sourceTree = "<group>"; };
+		243DA87C148B9FF8009C477F /* NSManagedObjectContext+DCTCoreDataStack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSManagedObjectContext+DCTCoreDataStack.h"; sourceTree = "<group>"; };
+		243DA87D148B9FF8009C477F /* NSManagedObjectContext+DCTCoreDataStack.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSManagedObjectContext+DCTCoreDataStack.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -50,6 +56,7 @@
 		243DA849148B9EE7009C477F = {
 			isa = PBXGroup;
 			children = (
+				243DA879148B9FF8009C477F /* DCTCoreDataStack */,
 				243DA860148B9EE7009C477F /* DCTCoreDataStack Demo */,
 				243DA857148B9EE7009C477F /* Frameworks */,
 				243DA855148B9EE7009C477F /* Products */,
@@ -95,6 +102,17 @@
 				243DA868148B9EE7009C477F /* DCTCoreDataStack-Prefix.pch */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		243DA879148B9FF8009C477F /* DCTCoreDataStack */ = {
+			isa = PBXGroup;
+			children = (
+				243DA87A148B9FF8009C477F /* DCTCoreDataStack.h */,
+				243DA87B148B9FF8009C477F /* DCTCoreDataStack.m */,
+				243DA87C148B9FF8009C477F /* NSManagedObjectContext+DCTCoreDataStack.h */,
+				243DA87D148B9FF8009C477F /* NSManagedObjectContext+DCTCoreDataStack.m */,
+			);
+			path = DCTCoreDataStack;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -161,6 +179,8 @@
 				243DA867148B9EE7009C477F /* main.m in Sources */,
 				243DA86B148B9EE8009C477F /* AppDelegate.m in Sources */,
 				243DA86E148B9EE8009C477F /* DCTCoreDataStack.xcdatamodeld in Sources */,
+				243DA87E148B9FF8009C477F /* DCTCoreDataStack.m in Sources */,
+				243DA87F148B9FF8009C477F /* NSManagedObjectContext+DCTCoreDataStack.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
