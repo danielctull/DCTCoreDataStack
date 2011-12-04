@@ -80,7 +80,9 @@
 	
 	if ([errors count] == 0) return nil;
 	
-	NSMutableString *messages = [[NSMutableString alloc] initWithString:@"Reason(s):\n"];
+	NSMutableString *messages = [[NSMutableString alloc] initWithFormat:@"NSManagedObjectContext with name %@ failed to save with the following reason%@:", 
+								 self.dct_name,
+								 (([errors count] > 1)?@"s":@"")];
 	
 	for (NSError *error in errors) {
 		
@@ -134,7 +136,7 @@
 				break;
 		}
 		
-		[messages appendFormat:@"%@%@%@\n", (entityName?:@""), (attributeName?@".":@""), (attributeName?:@""), (entityName?@": ":@""), message];
+		[messages appendFormat:@"\n    %@%@%@%@%@", (entityName?:@""), (attributeName?@".":@""), (attributeName?:@""), (entityName?@": ":@""), message];
 	}
 	
 	return messages;
