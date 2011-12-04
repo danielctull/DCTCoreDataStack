@@ -65,6 +65,10 @@
 			});
 		};
 		
+		// Put the handler as an associated object because this is used by the stack, which on iOS 5
+		// will have a parent context on a background thread. If this is the case, in its 
+		// handling of NSManagedObjectContextDidSaveNotification about the child context, it will nil
+		// out this association, so the parent calls the completion handler and not the child.
 		objc_setAssociatedObject(self, _cmd, completionHandler, OBJC_ASSOCIATION_COPY_NONATOMIC);
 	}
 	
