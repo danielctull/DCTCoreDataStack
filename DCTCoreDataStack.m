@@ -39,7 +39,6 @@
 #import <objc/runtime.h>
 
 typedef void (^DCTInternalCoreDataStackSaveBlock) (NSManagedObjectContext *managedObjectContext,
-												   dispatch_queue_t callbackQueue,
 												   DCTManagedObjectContextSaveErrorBlock failureHandler);
 
 @interface DCTCoreDataStack ()
@@ -93,6 +92,22 @@ typedef void (^DCTInternalCoreDataStackSaveBlock) (NSManagedObjectContext *manag
 												 selector:@selector(dctInternal_applicationDidEnterBackgroundNotification:) 
 													 name:UIApplicationDidEnterBackgroundNotification 
 												   object:nil];
+	
+	if ([[NSManagedObjectContext class] instancesRespondToSelector:@selector(performBlock:)]) {
+		
+		saveBlock = ^(NSManagedObjectContext *context, DCTManagedObjectContextSaveErrorBlock failureHandler) {
+			[context performBlock:^{
+				[context dct_saveWithErrorHandler:failureHandler];
+			}];
+		};
+		
+	} else{
+		
+		saveBlock = ^(NSManagedObjectContext *context, DCTManagedObjectContextSaveErrorBlock failureHandler) {
+			[context dct_saveWithErrorHandler:failureHandler];
+		};
+		
+	}
 	
 	return self;
 }
@@ -221,7 +236,7 @@ typedef void (^DCTInternalCoreDataStackSaveBlock) (NSManagedObjectContext *manag
 - (void)dctInternal_iOS5mainContextDidSave:(NSNotification *)notification; {
 	NSManagedObjectContext *moc = [notification object];
 	DCTManagedObjectContextSaveErrorBlock handler = objc_getAssociatedObject(moc, @selector(dct_saveWithErrorHandler:));
-	[backgroundSavingContext dct_saveWithErrorHandler:handler];
+	saveBlock(backgroundSavingContext, handler);
 }
 
 - (NSURL *)dctInternal_applicationDocumentsDirectory {
@@ -229,7 +244,7 @@ typedef void (^DCTInternalCoreDataStackSaveBlock) (NSManagedObjectContext *manag
 }
 
 - (void)dctInternal_applicationDidEnterBackgroundNotification:(NSNotification *)notification {
-	[self.managedObjectContext dct_save];
+	saveBlock(self.managedObjectContext, NULL);
 }
 
 @end
