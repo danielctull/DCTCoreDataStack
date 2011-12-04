@@ -53,21 +53,38 @@
 	}];
 }
 
-- (void)dct_saveWithErrorHandler:(DCTManagedObjectContextSaveErrorBlock)passedHandler {
+- (void)dct_saveWithErrorHandler:(DCTManagedObjectContextSaveErrorBlock)errorHandler {
+	
+	
+	
+}
+
+- (void)dct_saveWithErrorHandler:(DCTManagedObjectContextSaveErrorBlock)passedErrorHandler
+			   completionHandler:(DCTManagedObjectContextSaveCompletionBlock)passedCompletionHandler {
 	
 	DCTManagedObjectContextSaveErrorBlock errorHandler = NULL;
+	dispatch_queue_t queue = dispatch_get_current_queue();
 	
-	if (passedHandler != NULL) {
-		
-		dispatch_queue_t queue = dispatch_get_current_queue();
+	if (passedErrorHandler != NULL) {
 		
 		errorHandler = ^(NSError *error) {
 			dispatch_async(queue, ^{
-				passedHandler(error);
+				passedErrorHandler(error);
 			});
 		};
 	
-		objc_setAssociatedObject(self, _cmd, errorHandler, OBJC_ASSOCIATION_COPY_NONATOMIC);
+		objc_setAssociatedObject(self, @selector(dct_saveWithErrorHandler:), errorHandler, OBJC_ASSOCIATION_COPY_NONATOMIC);
+	}
+	
+	if (passedCompletionHandler != NULL) {
+		
+		DCTManagedObjectContextSaveCompletionBlock completionHandler = ^{
+			dispatch_async(queue, ^{
+				passedCompletionHandler();
+			});
+		};
+		
+		objc_setAssociatedObject(self, _cmd, completionHandler, OBJC_ASSOCIATION_COPY_NONATOMIC);
 	}
 	
 	NSError *error = nil;
@@ -75,7 +92,12 @@
 		errorHandler(error);
 	}
 	
-	objc_setAssociatedObject(self, _cmd, nil, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+	DCTManagedObjectContextSaveCompletionBlock completionHandler = objc_getAssociatedObject(self, _cmd);
+	if (completionHandler != NULL)
+		completionHandler();
+	
+	objc_setAssociatedObject(self, @selector(dct_saveWithErrorHandler:), nil, OBJC_ASSOCIATION_COPY_NONATOMIC);
+	objc_setAssociatedObject(self, _cmd, nil, OBJC_ASSOCIATION_COPY_NONATOMIC);
 }
 
 - (NSString *)dct_detailedDescriptionFromValidationError:(NSError *)anError {
