@@ -63,6 +63,7 @@
 @property (nonatomic, strong, readonly) NSManagedObjectContext *managedObjectContext;
 @property (nonatomic, copy) NSURL *storeURL;
 
+@property (nonatomic, strong, readonly) NSPersistentStoreCoordinator *persistentStoreCoordinator;
 @property (nonatomic, strong, readonly) NSManagedObjectModel *managedObjectModel;   // override if need a custom model
 @property (nonatomic, copy, readonly) NSString *persistentStoreType;
 @property (nonatomic, copy, readonly) NSDictionary *persistentStoreOptions;

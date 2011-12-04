@@ -52,11 +52,13 @@ typedef void (^DCTInternalCoreDataStackSaveBlock) (NSManagedObjectContext *manag
 
 - (void)dctInternal_loadManagedObjectContext;
 - (void)dctInternal_loadManagedObjectModel;
+- (void)dctInternal_loadPersistentStoreCoordinator;
 @end
 
 @implementation DCTCoreDataStack {
 	__strong NSManagedObjectContext *managedObjectContext;
 	__strong NSManagedObjectModel *managedObjectModel;
+	__strong NSPersistentStoreCoordinator *persistentStoreCoordinator;
 	__strong NSString *modelName;
 	
 	__strong NSManagedObjectContext *backgroundSavingContext;
@@ -166,21 +168,19 @@ typedef void (^DCTInternalCoreDataStackSaveBlock) (NSManagedObjectContext *manag
 	return managedObjectModel;
 }
 
+- (NSPersistentStoreCoordinator *)persistentStoreCoordinator {
+	
+	if (persistentStoreCoordinator == nil)
+		[self dctInternal_loadPersistentStoreCoordinator];
+	
+	return persistentStoreCoordinator;
+}
+
 #pragma mark - Internal Loading
 
 - (void)dctInternal_loadManagedObjectContext {
 	
-	NSError *error = nil;
-	NSPersistentStoreCoordinator *psc = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:self.managedObjectModel];
-	if (![psc addPersistentStoreWithType:self.persistentStoreType
-												  configuration:self.modelConfiguration
-															URL:self.storeURL
-														options:self.persistentStoreOptions
-														  error:&error]) {
-		NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-		abort();
-	}
-    
+    NSPersistentStoreCoordinator *psc = self.persistentStoreCoordinator;
 	
 	if (psc == nil) return; // when would this ever happen?
 	
@@ -214,6 +214,21 @@ typedef void (^DCTInternalCoreDataStackSaveBlock) (NSManagedObjectContext *manag
     } else {
         managedObjectModel = [NSManagedObjectModel mergedModelFromBundles:[NSArray arrayWithObject:[NSBundle mainBundle]]];
     }
+}
+
+- (void)dctInternal_loadPersistentStoreCoordinator {
+	
+	NSError *error = nil;
+	persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:self.managedObjectModel];
+	
+	if (![persistentStoreCoordinator addPersistentStoreWithType:self.persistentStoreType
+												  configuration:self.modelConfiguration
+															URL:self.storeURL
+														options:self.persistentStoreOptions
+														  error:&error]) {
+		NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+		abort();
+	}
 }
 
 #pragma mark - Other Internal
