@@ -156,10 +156,6 @@ typedef void (^DCTInternalCoreDataStackSaveBlock) (NSManagedObjectContext *manag
 	return [self initWithStoreURL:URL storeType:type storeOptions:options modelConfiguration:configuration modelName:name];
 }
 
-- (id)initWithStoreFilename:(NSString *)filename modelName:(NSString *)name {
-	return [self initWithStoreFilename:filename storeType:NSSQLiteStoreType storeOptions:nil modelConfiguration:nil modelName:name];
-}
-
 - (id)initWithStoreFilename:(NSString *)filename {
 	return [self initWithStoreFilename:filename storeType:NSSQLiteStoreType storeOptions:nil modelConfiguration:nil modelName:nil];
 }

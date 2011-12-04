@@ -51,7 +51,6 @@
 
 // Convenience that assumes XML store, nil config, no options. The model is made up by merging all in the app's main bundle
 - (id)initWithStoreFilename:(NSString *)filename;
-- (id)initWithStoreFilename:(NSString *)filename modelName:(NSString *)name;
 
 // Store is assumed to be in the app's documents folder
 // Designated initializer
