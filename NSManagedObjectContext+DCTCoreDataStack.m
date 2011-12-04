@@ -53,18 +53,29 @@
 	}];
 }
 
-- (void)dct_saveWithErrorHandler:(DCTManagedObjectContextSaveErrorBlock)handler {
+- (void)dct_saveWithErrorHandler:(DCTManagedObjectContextSaveErrorBlock)passedHandler {
 	
-	if (handler != NULL)
-		objc_setAssociatedObject(self, _cmd, handler, OBJC_ASSOCIATION_COPY_NONATOMIC);
+	DCTManagedObjectContextSaveErrorBlock errorHandler = NULL;
 	
-	NSError *error = nil;
-	if (![self save:&error] && handler != NULL) {
-		handler(error);
+	if (passedHandler != NULL) {
+		
+		dispatch_queue_t queue = dispatch_get_current_queue();
+		
+		errorHandler = ^(NSError *error) {
+			dispatch_async(queue, ^{
+				passedHandler(error);
+			});
+		};
+	
+		objc_setAssociatedObject(self, _cmd, errorHandler, OBJC_ASSOCIATION_COPY_NONATOMIC);
 	}
 	
-	if (handler != NULL)
-		objc_setAssociatedObject(self, _cmd, nil, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+	NSError *error = nil;
+	if (![self save:&error] && errorHandler != NULL) {
+		errorHandler(error);
+	}
+	
+	objc_setAssociatedObject(self, _cmd, nil, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
 - (NSString *)dct_detailedDescriptionFromValidationError:(NSError *)anError {
