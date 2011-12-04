@@ -54,9 +54,7 @@
 }
 
 - (void)dct_saveWithErrorHandler:(DCTManagedObjectContextSaveErrorBlock)errorHandler {
-	
-	
-	
+	[self dct_saveWithErrorHandler:errorHandler completionHandler:NULL];
 }
 
 - (void)dct_saveWithErrorHandler:(DCTManagedObjectContextSaveErrorBlock)passedErrorHandler
