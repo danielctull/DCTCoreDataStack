@@ -37,6 +37,8 @@
 #import "NSManagedObjectContext+DCTCoreDataStack.h"
 #import <objc/runtime.h>
 
+typedef void (^DCTInternalCoreDataStackSaveBlock) (dispatch_queue_t callbackQueue, DCTManagedObjectContextSaveErrorBlock failureHandler);
+
 @implementation NSManagedObjectContext (DCTCoreDataStack)
 
 - (void)setDct_name:(NSString *)name {
@@ -53,24 +55,41 @@
 	}];
 }
 
-- (void)dct_saveWithErrorHandler:(DCTManagedObjectContextSaveErrorBlock)handler {
-	[self dct_saveWithCallbackQueue:dispatch_get_current_queue() errorHandler:handler];
-}
+- (void)dct_saveWithErrorHandler:(DCTManagedObjectContextSaveErrorBlock)errorHandler {
+	
+	DCTInternalCoreDataStackSaveBlock saveBlock = ^(dispatch_queue_t queue, DCTManagedObjectContextSaveErrorBlock handler) {
 
-- (void)dct_saveWithCallbackQueue:(dispatch_queue_t)queue errorHandler:(DCTManagedObjectContextSaveErrorBlock)handler {
+		if (handler != NULL)
+			objc_setAssociatedObject(self, _cmd, [handler copy], OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 	
-	if (handler != NULL)
-		objc_setAssociatedObject(self, _cmd, [handler copy], OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+		NSError *error = nil;
+		
+		if (![self save:&error] && handler != NULL) {
+			dispatch_sync(queue, ^{
+				handler(error);
+			});
+		}
 	
-	NSError *error = nil;
-	if (![self save:&error] && handler != NULL) {
-		dispatch_sync(queue, ^{
-			handler(error);
-		});
+		if (handler != NULL)
+			objc_setAssociatedObject(self, _cmd, nil, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+	};
+	
+	
+	
+	if ([self respondsToSelector:@selector(performBlock:)]) {
+		
+		DCTInternalCoreDataStackSaveBlock oldSaveBlock = [saveBlock copy];
+		
+		saveBlock = ^(dispatch_queue_t queue, DCTManagedObjectContextSaveErrorBlock handler) {
+			[self performBlock:^{
+				oldSaveBlock(queue, handler);
+			}];
+		};
 	}
 	
-	if (handler != NULL)
-		objc_setAssociatedObject(self, _cmd, nil, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+	
+	
+	saveBlock(dispatch_get_current_queue(), errorHandler);
 }
 
 - (NSString *)dct_detailedDescriptionFromValidationError:(NSError *)anError {

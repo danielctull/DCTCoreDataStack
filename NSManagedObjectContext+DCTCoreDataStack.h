@@ -44,7 +44,6 @@ typedef void (^DCTManagedObjectContextSaveErrorBlock) (NSError *error);
 
 - (void)dct_save;
 - (void)dct_saveWithErrorHandler:(DCTManagedObjectContextSaveErrorBlock)handler;
-- (void)dct_saveWithCallbackQueue:(dispatch_queue_t)queue errorHandler:(DCTManagedObjectContextSaveErrorBlock)handler;
 
 - (NSString *)dct_detailedDescriptionFromValidationError:(NSError *)anError;
 
