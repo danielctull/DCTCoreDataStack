@@ -49,13 +49,16 @@
 
 @interface DCTCoreDataStack : NSObject
 
-- (id)init;
-- (id)initWithModelName:(NSString *)modelName;  // assumes XML store, nil config, no options
+// Convenience that assumes XML store, nil config, no options. The model is made up by merging all in the app's main bundle
+- (id)initWithStoreFilename:(NSString *)filename;
 
-- (id)initWithType:(NSString *)storeType
-modelConfiguration:(NSString *)configuration
-      storeOptions:(NSDictionary *)storeOptions
-         modelName:(NSString *)modelName;
+// Store is assumed to be in the app's documents folder
+// Designated initializer
+- (id)initWithStoreFilename:(NSString *)filename
+                       type:(NSString *)storeType
+         modelConfiguration:(NSString *)configuration
+               storeOptions:(NSDictionary *)storeOptions
+                  modelName:(NSString *)modelName;
 
 @property (nonatomic, strong, readonly) NSManagedObjectContext *managedObjectContext;
 @property (nonatomic, copy) NSURL *storeURL;

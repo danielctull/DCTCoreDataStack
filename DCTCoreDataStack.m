@@ -43,23 +43,19 @@ typedef void (^DCTInternalCoreDataStackSaveBlock) (NSManagedObjectContext *manag
 
 @interface DCTCoreDataStack ()
 
-@property (nonatomic, copy) NSURL *modelURL;
-
 - (NSURL *)dctInternal_applicationDocumentsDirectory;
 
 - (void)dctInternal_iOS5mainContextDidSave:(NSNotification *)notification;
 
 - (void)dctInternal_applicationDidEnterBackgroundNotification:(NSNotification *)notification;
 
-- (void)dctInternal_loadModelURL;
-- (void)dctInternal_loadStoreURL;
 - (void)dctInternal_loadManagedObjectContext;
 - (void)dctInternal_loadManagedObjectModel;
 @end
 
 @implementation DCTCoreDataStack {
 	__strong NSManagedObjectContext *managedObjectContext;
-	__strong NSManagedObjectModel *managedObjectModel;
+	__strong NSManagedObjectModel *_model;
 	__strong NSString *_modelName;
 	
 	__strong NSManagedObjectContext *backgroundSavingContext;
@@ -70,7 +66,6 @@ typedef void (^DCTInternalCoreDataStackSaveBlock) (NSManagedObjectContext *manag
 @synthesize persistentStoreType = _persistentStoreType;
 @synthesize persistentStoreOptions = _persistentStoreOptions;
 @synthesize modelConfiguration = _modelConfiguration;
-@synthesize modelURL;
 @synthesize storeURL;
 
 #pragma mark - NSObject
@@ -87,10 +82,30 @@ typedef void (^DCTInternalCoreDataStackSaveBlock) (NSManagedObjectContext *manag
 #endif
 }
 
-- (id)init {
+
+
+#pragma mark - Initialization
+
+- (id)initWithStoreFilename:(NSString *)filename
+                       type:(NSString *)storeType
+         modelConfiguration:(NSString *)configuration
+               storeOptions:(NSDictionary *)storeOptions
+                  modelName:(NSString *)modelName;
+{
+    NSParameterAssert(storeType);
+    
+    if (!(self = [self init])) return nil;
 	
-	if (!(self = [super init])) return nil;
-		
+    
+	_modelName = [modelName copy];
+    _persistentStoreType = [storeType copy];
+    _modelConfiguration = [configuration copy];
+    _persistentStoreOptions = [storeOptions copy];
+    
+    
+    storeURL = [[self dctInternal_applicationDocumentsDirectory] URLByAppendingPathComponent:filename];
+    
+	
 #ifdef TARGET_OS_IPHONE
 	[[NSNotificationCenter defaultCenter] addObserver:self
 											 selector:@selector(dctInternal_applicationDidEnterBackgroundNotification:) 
@@ -116,33 +131,12 @@ typedef void (^DCTInternalCoreDataStackSaveBlock) (NSManagedObjectContext *manag
 		
 	}
 	
-	return self;
+    return self;
 }
 
-
-
-#pragma mark - DCTCoreDataStack
-
-- (id)initWithModelName:(NSString *)name {
-	
-	return [self initWithType:NSSQLiteStoreType modelConfiguration:nil storeOptions:nil modelName:name];
-}
-
-- (id)initWithType:(NSString *)storeType
-modelConfiguration:(NSString *)configuration
-      storeOptions:(NSDictionary *)storeOptions
-         modelName:(NSString *)name;
+- (id)initWithStoreFilename:(NSString *)filename
 {
-    NSParameterAssert(storeType);
-    
-    if (!(self = [self init])) return nil;
-	
-	_modelName = [name copy];
-    _persistentStoreType = [storeType copy];
-    _modelConfiguration = [configuration copy];
-    _persistentStoreOptions = [storeOptions copy];
-	
-	return self;
+	return [self initWithStoreFilename:filename type:NSSQLiteStoreType modelConfiguration:nil storeOptions:nil modelName:nil];
 }
 
 #pragma mark - Getters
@@ -157,26 +151,10 @@ modelConfiguration:(NSString *)configuration
 
 - (NSManagedObjectModel *)managedObjectModel {
 		
-	if (managedObjectModel == nil)
+	if (_model == nil)
 		[self dctInternal_loadManagedObjectModel];
 	
-	return managedObjectModel;
-}
-
-- (NSURL *)modelURL {
-	
-	if (modelURL == nil)
-		[self dctInternal_loadModelURL];
-	
-	return modelURL;
-}
-
-- (NSURL *)storeURL {
-	
-	if (storeURL == nil)
-		[self dctInternal_loadStoreURL];
-	
-	return storeURL;
+	return _model;
 }
 
 #pragma mark - Internal Loading
@@ -220,24 +198,16 @@ modelConfiguration:(NSString *)configuration
 }
 
 - (void)dctInternal_loadManagedObjectModel {
-	managedObjectModel = [[NSManagedObjectModel alloc] initWithContentsOfURL:self.modelURL];
-}
-
-- (void)dctInternal_loadModelURL {
-	modelURL = [[NSBundle mainBundle] URLForResource:_modelName withExtension:@"momd"];
-}
-
-- (void)dctInternal_loadStoreURL {
-	NSString *pathComponent = nil;
 	
-	if ([self.persistentStoreType isEqualToString:NSBinaryStoreType])
-		pathComponent = [NSString stringWithFormat:@"%@.binary", _modelName];
-	
-	else if ([self.persistentStoreType isEqualToString:NSSQLiteStoreType])
-		pathComponent = [NSString stringWithFormat:@"%@.sqlite", _modelName];
-	
-	if (pathComponent) 
-		storeURL = [[self dctInternal_applicationDocumentsDirectory] URLByAppendingPathComponent:pathComponent];
+    if (_modelName)
+    {
+        NSURL *modelURL = [[NSBundle mainBundle] URLForResource:_modelName withExtension:@"momd"];
+        _model = [[NSManagedObjectModel alloc] initWithContentsOfURL:modelURL];
+    }
+    else
+    {
+        _model = [NSManagedObjectModel mergedModelFromBundles:[NSArray arrayWithObject:[NSBundle mainBundle]]];
+    }
 }
 
 #pragma mark - Other Internal
