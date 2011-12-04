@@ -76,9 +76,9 @@
 	
 	if (passedCompletionHandler != NULL) {
 		
-		DCTManagedObjectContextSaveCompletionBlock completionHandler = ^{
+		DCTManagedObjectContextSaveCompletionBlock completionHandler = ^(BOOL success){
 			dispatch_async(queue, ^{
-				passedCompletionHandler();
+				passedCompletionHandler(success);
 			});
 		};
 		
@@ -86,13 +86,14 @@
 	}
 	
 	NSError *error = nil;
-	if (![self save:&error] && errorHandler != NULL) {
+	BOOL success = [self save:&error];
+	if (!success && errorHandler != NULL) {
 		errorHandler(error);
 	}
 	
 	DCTManagedObjectContextSaveCompletionBlock completionHandler = objc_getAssociatedObject(self, _cmd);
 	if (completionHandler != NULL)
-		completionHandler();
+		completionHandler(success);
 	
 	objc_setAssociatedObject(self, @selector(dct_saveWithErrorHandler:), nil, OBJC_ASSOCIATION_COPY_NONATOMIC);
 	objc_setAssociatedObject(self, _cmd, nil, OBJC_ASSOCIATION_COPY_NONATOMIC);

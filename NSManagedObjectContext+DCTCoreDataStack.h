@@ -37,7 +37,7 @@
 #import <CoreData/CoreData.h>
 
 typedef void (^DCTManagedObjectContextSaveErrorBlock) (NSError *error);
-typedef void (^DCTManagedObjectContextSaveCompletionBlock) ();
+typedef void (^DCTManagedObjectContextSaveCompletionBlock) (BOOL success);
 
 @interface NSManagedObjectContext (DCTCoreDataStack)
 
