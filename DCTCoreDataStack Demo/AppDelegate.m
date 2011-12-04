@@ -7,12 +7,23 @@
 //
 
 #import "AppDelegate.h"
+#import "DCTCoreDataStack.h"
+#import "Event.h"
+#import "NSManagedObjectContext+DCTCoreDataStack.h"
 
-@implementation AppDelegate
+@implementation AppDelegate {
+	DCTCoreDataStack *coreDataStack;
+}
 
 @synthesize window;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+	
+	coreDataStack = [[DCTCoreDataStack alloc] initWithModelName:@"DCTCoreDataStack"];
+	
+	NSManagedObjectContext *context = coreDataStack.managedObjectContext;
+	[Event insertInManagedObjectContext:context];
+	[context dct_save];
 	
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.window.backgroundColor = [UIColor whiteColor];

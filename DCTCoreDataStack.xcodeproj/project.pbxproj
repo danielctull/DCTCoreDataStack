@@ -17,6 +17,8 @@
 		243DA86E148B9EE8009C477F /* DCTCoreDataStack.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 243DA86C148B9EE8009C477F /* DCTCoreDataStack.xcdatamodeld */; };
 		243DA87E148B9FF8009C477F /* DCTCoreDataStack.m in Sources */ = {isa = PBXBuildFile; fileRef = 243DA87B148B9FF8009C477F /* DCTCoreDataStack.m */; };
 		243DA87F148B9FF8009C477F /* NSManagedObjectContext+DCTCoreDataStack.m in Sources */ = {isa = PBXBuildFile; fileRef = 243DA87D148B9FF8009C477F /* NSManagedObjectContext+DCTCoreDataStack.m */; };
+		243DA888148BA29E009C477F /* _Event.m in Sources */ = {isa = PBXBuildFile; fileRef = 243DA885148BA29D009C477F /* _Event.m */; };
+		243DA889148BA29E009C477F /* Event.m in Sources */ = {isa = PBXBuildFile; fileRef = 243DA887148BA29D009C477F /* Event.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +38,10 @@
 		243DA87B148B9FF8009C477F /* DCTCoreDataStack.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCTCoreDataStack.m; sourceTree = "<group>"; };
 		243DA87C148B9FF8009C477F /* NSManagedObjectContext+DCTCoreDataStack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSManagedObjectContext+DCTCoreDataStack.h"; sourceTree = "<group>"; };
 		243DA87D148B9FF8009C477F /* NSManagedObjectContext+DCTCoreDataStack.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSManagedObjectContext+DCTCoreDataStack.m"; sourceTree = "<group>"; };
+		243DA884148BA29D009C477F /* _Event.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _Event.h; sourceTree = "<group>"; };
+		243DA885148BA29D009C477F /* _Event.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _Event.m; sourceTree = "<group>"; };
+		243DA886148BA29D009C477F /* Event.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Event.h; sourceTree = "<group>"; };
+		243DA887148BA29D009C477F /* Event.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Event.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -85,6 +91,10 @@
 		243DA860148B9EE7009C477F /* DCTCoreDataStack Demo */ = {
 			isa = PBXGroup;
 			children = (
+				243DA884148BA29D009C477F /* _Event.h */,
+				243DA885148BA29D009C477F /* _Event.m */,
+				243DA886148BA29D009C477F /* Event.h */,
+				243DA887148BA29D009C477F /* Event.m */,
 				243DA869148B9EE8009C477F /* AppDelegate.h */,
 				243DA86A148B9EE8009C477F /* AppDelegate.m */,
 				243DA86C148B9EE8009C477F /* DCTCoreDataStack.xcdatamodeld */,
@@ -181,6 +191,8 @@
 				243DA86E148B9EE8009C477F /* DCTCoreDataStack.xcdatamodeld in Sources */,
 				243DA87E148B9FF8009C477F /* DCTCoreDataStack.m in Sources */,
 				243DA87F148B9FF8009C477F /* NSManagedObjectContext+DCTCoreDataStack.m in Sources */,
+				243DA888148BA29E009C477F /* _Event.m in Sources */,
+				243DA889148BA29E009C477F /* Event.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

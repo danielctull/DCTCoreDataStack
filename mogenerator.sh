@@ -1,0 +1,1 @@
+mogenerator -m DCTCoreDataStack\ Demo/DCTCoreDataStack.xcdatamodeld/DCTCoreDataStack.xcdatamodel -M DCTCoreDataStack\ Demo/ -H DCTCoreDataStack\ Demo/ --template-var arc=true
