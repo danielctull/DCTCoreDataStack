@@ -43,6 +43,9 @@ typedef void (^DCTInternalCoreDataStackSaveBlock) (NSManagedObjectContext *manag
 												   DCTManagedObjectContextSaveCompletionBlock completionHandler);
 
 @interface DCTCoreDataStack ()
+
+@property (nonatomic, copy) NSURL *modelURL;
+
 - (NSURL *)dctInternal_applicationDocumentsDirectory;
 
 - (void)dctInternal_iOS5mainContextDidSave:(NSNotification *)notification;

@@ -52,14 +52,13 @@
 - (id)init;
 - (id)initWithModelName:(NSString *)modelName;
 
-@property (nonatomic, copy) NSURL *modelURL;
 @property (nonatomic, copy) NSURL *storeURL;
 @property (nonatomic, copy) NSString *persistentStoreType;
 @property (nonatomic, copy) NSDictionary *persistentStoreOptions;
 @property (nonatomic, copy) NSString *modelConfiguration;
 
 @property (nonatomic, strong, readonly) NSManagedObjectContext *managedObjectContext;
-@property (nonatomic, strong, readonly) NSManagedObjectModel *managedObjectModel;
+@property (nonatomic, strong, readonly) NSManagedObjectModel *managedObjectModel;   // override if need a custom model
 @property (nonatomic, strong, readonly) NSPersistentStoreCoordinator *persistentStoreCoordinator;
 
 @end
