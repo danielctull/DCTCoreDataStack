@@ -50,14 +50,21 @@
 @interface DCTCoreDataStack : NSObject
 
 - (id)init;
-- (id)initWithModelName:(NSString *)modelName;
+- (id)initWithModelName:(NSString *)modelName;  // assumes XML store, nil config, no options
 
-@property (nonatomic, copy) NSURL *storeURL;
+- (id)initWithType:(NSString *)storeType
+modelConfiguration:(NSString *)configuration
+      storeOptions:(NSDictionary *)storeOptions
+         modelName:(NSString *)modelName;
+
 @property (nonatomic, strong, readonly) NSManagedObjectContext *managedObjectContext;
-@property (nonatomic, strong, readonly) NSManagedObjectModel *managedObjectModel;   // override if need a custom model
+@property (nonatomic, copy) NSURL *storeURL;
 
-@property (nonatomic, copy) NSString *persistentStoreType;
-@property (nonatomic, copy) NSDictionary *persistentStoreOptions;
-@property (nonatomic, copy) NSString *modelConfiguration;
+
+#pragma mark Configuration
+@property (nonatomic, strong, readonly) NSManagedObjectModel *managedObjectModel;   // override if need a custom model
+@property (nonatomic, copy, readonly) NSString *persistentStoreType;
+@property (nonatomic, copy, readonly) NSDictionary *persistentStoreOptions;
+@property (nonatomic, copy, readonly) NSString *modelConfiguration;
 
 @end
