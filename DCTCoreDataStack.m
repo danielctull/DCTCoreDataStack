@@ -38,8 +38,7 @@
 #import "NSManagedObjectContext+DCTCoreDataStack.h"
 #import <objc/runtime.h>
 
-typedef void (^DCTInternalCoreDataStackSaveBlock) (NSManagedObjectContext *managedObjectContext, 
-												   DCTManagedObjectContextSaveErrorBlock failureHandler,
+typedef void (^DCTInternalCoreDataStackSaveBlock) (NSManagedObjectContext *managedObjectContext,
 												   DCTManagedObjectContextSaveCompletionBlock completionHandler);
 
 @interface DCTCoreDataStack ()
@@ -101,20 +100,18 @@ typedef void (^DCTInternalCoreDataStackSaveBlock) (NSManagedObjectContext *manag
 	
 	if ([[NSManagedObjectContext class] instancesRespondToSelector:@selector(performBlock:)]) {
 		
-		saveBlock = ^(NSManagedObjectContext *context, 
-					  DCTManagedObjectContextSaveErrorBlock failure,
+		saveBlock = ^(NSManagedObjectContext *context,
 					  DCTManagedObjectContextSaveCompletionBlock completion) {
 			[context performBlock:^{
-				[context dct_saveWithErrorHandler:failure completionHandler:completion];
+				[context dct_saveWithCompletionHandler:completion];
 			}];
 		};
 		
 	} else{
 		
-		saveBlock = ^(NSManagedObjectContext *context, 
-					  DCTManagedObjectContextSaveErrorBlock failure,
+		saveBlock = ^(NSManagedObjectContext *context,
 					  DCTManagedObjectContextSaveCompletionBlock completion) {
-			[context dct_saveWithErrorHandler:failure completionHandler:completion];
+			[context dct_saveWithCompletionHandler:completion];
 		};
 		
 	}
@@ -248,12 +245,10 @@ modelConfiguration:(NSString *)configuration
 - (void)dctInternal_iOS5mainContextDidSave:(NSNotification *)notification; {
 	NSManagedObjectContext *moc = [notification object];
 	
-	DCTManagedObjectContextSaveErrorBlock error = objc_getAssociatedObject(moc, @selector(dct_saveWithErrorHandler:));
+	DCTManagedObjectContextSaveCompletionBlock completion = objc_getAssociatedObject(moc, @selector(dct_saveWithCompletionHandler:));
+	objc_setAssociatedObject(moc, @selector(dct_saveWithCompletionHandler:), nil, OBJC_ASSOCIATION_COPY_NONATOMIC);
 	
-	DCTManagedObjectContextSaveCompletionBlock completion = objc_getAssociatedObject(moc, @selector(dct_saveWithErrorHandler:completionHandler:));
-	objc_setAssociatedObject(moc, @selector(dct_saveWithErrorHandler:completionHandler:), nil, OBJC_ASSOCIATION_COPY_NONATOMIC);
-	
-	saveBlock(backgroundSavingContext, error, completion);
+	saveBlock(backgroundSavingContext, completion);
 }
 
 - (NSURL *)dctInternal_applicationDocumentsDirectory {
@@ -261,7 +256,7 @@ modelConfiguration:(NSString *)configuration
 }
 
 - (void)dctInternal_applicationDidEnterBackgroundNotification:(NSNotification *)notification {
-	saveBlock(self.managedObjectContext, NULL, NULL);
+	saveBlock(self.managedObjectContext, NULL);
 }
 
 @end
