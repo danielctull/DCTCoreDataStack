@@ -75,7 +75,6 @@
 	if (completionHandler != NULL)
 		completionHandler(success, error);
 	
-	objc_setAssociatedObject(self, @selector(dct_saveWithErrorHandler:), nil, OBJC_ASSOCIATION_COPY_NONATOMIC);
 	objc_setAssociatedObject(self, _cmd, nil, OBJC_ASSOCIATION_COPY_NONATOMIC);
 }
 

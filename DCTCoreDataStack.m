@@ -244,8 +244,8 @@ typedef void (^DCTInternalCoreDataStackSaveBlock) (NSManagedObjectContext *manag
 - (void)dctInternal_iOS5mainContextDidSave:(NSNotification *)notification; {
 	NSManagedObjectContext *moc = [notification object];
 	
-	DCTManagedObjectContextSaveCompletionBlock completion = objc_getAssociatedObject(moc, @selector(dct_saveWithErrorHandler:completionHandler:));
-	objc_setAssociatedObject(moc, @selector(dct_saveWithErrorHandler:completionHandler:), nil, OBJC_ASSOCIATION_COPY_NONATOMIC);
+	DCTManagedObjectContextSaveCompletionBlock completion = objc_getAssociatedObject(moc, @selector(dct_saveWithCompletionHandler:));
+	objc_setAssociatedObject(moc, @selector(dct_saveWithCompletionHandler:), nil, OBJC_ASSOCIATION_COPY_NONATOMIC);
 	
 	saveBlock(backgroundSavingContext, completion);
 }
