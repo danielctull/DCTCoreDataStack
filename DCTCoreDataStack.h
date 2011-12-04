@@ -51,22 +51,30 @@
 
 // Convenience that assumes XML store, nil config, no options. The model is made up by merging all in the app's main bundle
 - (id)initWithStoreFilename:(NSString *)filename;
+- (id)initWithStoreFilename:(NSString *)filename modelName:(NSString *)name;
 
 // Store is assumed to be in the app's documents folder
 // Designated initializer
-- (id)initWithStoreFilename:(NSString *)filename
-                       type:(NSString *)storeType
-         modelConfiguration:(NSString *)configuration
+- (id)initWithStoreFilename:(NSString *)storeFilename
+				  storeType:(NSString *)storeType
                storeOptions:(NSDictionary *)storeOptions
+		 modelConfiguration:(NSString *)modelConfiguration 
                   modelName:(NSString *)modelName;
 
-@property (nonatomic, strong, readonly) NSManagedObjectContext *managedObjectContext;
-@property (nonatomic, copy) NSURL *storeURL;
+- (id)initWithStoreURL:(NSURL *)storeURL
+			 storeType:(NSString *)storeType
+		  storeOptions:(NSDictionary *)storeOptions
+	modelConfiguration:(NSString *)modelConfiguration
+			 modelName:(NSString *)modelName;
 
-@property (nonatomic, strong, readonly) NSPersistentStoreCoordinator *persistentStoreCoordinator;
-@property (nonatomic, strong, readonly) NSManagedObjectModel *managedObjectModel;   // override if need a custom model
-@property (nonatomic, copy, readonly) NSString *persistentStoreType;
-@property (nonatomic, copy, readonly) NSDictionary *persistentStoreOptions;
+@property (nonatomic, strong, readonly) NSManagedObjectContext *managedObjectContext;
+@property (nonatomic, strong, readonly) NSManagedObjectModel *managedObjectModel;
+
+@property (nonatomic, copy, readonly) NSURL *storeURL;
+@property (nonatomic, copy, readonly) NSString *storeType;
+@property (nonatomic, copy, readonly) NSDictionary *storeOptions;
+
+@property (nonatomic, copy, readonly) NSString *modelName;
 @property (nonatomic, copy, readonly) NSString *modelConfiguration;
 
 @end
