@@ -40,7 +40,7 @@
 @implementation NSManagedObjectContext (DCTCoreDataStack)
 
 - (void)setDct_name:(NSString *)name {
-	objc_setAssociatedObject(self, @selector(dct_name), [name copy], OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+	objc_setAssociatedObject(self, @selector(dct_name), name, OBJC_ASSOCIATION_COPY_NONATOMIC);
 }
 
 - (NSString *)dct_name {
