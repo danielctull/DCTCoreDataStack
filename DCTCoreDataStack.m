@@ -108,7 +108,7 @@ typedef void (^DCTInternalCoreDataStackSaveBlock) (NSManagedObjectContext *manag
 			 modelName:(NSString *)name {
 	
 	NSParameterAssert(URL);
-	NSParameterAssert(storeType);
+	NSParameterAssert(type);
 	
 	if (!(self = [self init])) return nil;
 	
