@@ -22,36 +22,25 @@
 	coreDataStack = [[DCTCoreDataStack alloc] initWithModelName:@"DCTCoreDataStack"];
 	NSManagedObjectContext *context = coreDataStack.managedObjectContext;
 	
-	dispatch_queue_t queue = dispatch_get_current_queue();
+	NSString *mainLabel = [NSString stringWithCString:dispatch_queue_get_label(dispatch_get_current_queue())
+											 encoding:NSUTF8StringEncoding];
 	
-	DCTManagedObjectContextSaveCompletionBlock completion = ^(BOOL success) {
-		NSString *mainLabel = [NSString stringWithCString:dispatch_queue_get_label(queue)
-												 encoding:NSUTF8StringEncoding];
+	DCTManagedObjectContextSaveCompletionBlock completion = ^(BOOL success, NSError *error) {
 		
 		NSString *currentLabel = [NSString stringWithCString:dispatch_queue_get_label(dispatch_get_current_queue())
 													encoding:NSUTF8StringEncoding];
 		
 		NSLog(@"Completion with %@: main:%@, current:%@", (success?@"success":@"failure"), mainLabel, currentLabel);
-	};
-	
-	DCTManagedObjectContextSaveErrorBlock error = ^(NSError *error) {
-		NSLog(@"%@", [context dct_detailedDescriptionFromValidationError:error]);
 		
-		NSString *mainLabel = [NSString stringWithCString:dispatch_queue_get_label(queue)
-												 encoding:NSUTF8StringEncoding];
-		
-		NSString *currentLabel = [NSString stringWithCString:dispatch_queue_get_label(dispatch_get_current_queue())
-													encoding:NSUTF8StringEncoding];
-		
-		NSLog(@"Error: main:%@, current:%@", mainLabel, currentLabel);
+		if (!success) NSLog(@"%@", [context dct_detailedDescriptionFromValidationError:error]);
 	};
 	
 	Event *event = [Event insertInManagedObjectContext:context];
 	event.name = @"Some name";
-	[context dct_saveWithErrorHandler:error completionHandler:completion];
+	[context dct_saveWithCompletionHandler:completion];
 	
 	[Event insertInManagedObjectContext:context];
-	[context dct_saveWithErrorHandler:error completionHandler:completion];
+	[context dct_saveWithCompletionHandler:completion];
 	
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.window.backgroundColor = [UIColor whiteColor];
