@@ -38,8 +38,7 @@
 #import "NSManagedObjectContext+DCTCoreDataStack.h"
 #import <objc/runtime.h>
 
-typedef void (^DCTInternalCoreDataStackSaveBlock) (NSManagedObjectContext *managedObjectContext,
-												   DCTManagedObjectContextSaveErrorBlock failureHandler);
+typedef void (^DCTInternalCoreDataStackSaveBlock) (NSManagedObjectContext *managedObjectContext, DCTManagedObjectContextSaveErrorBlock failureHandler);
 
 @interface DCTCoreDataStack ()
 - (NSURL *)dctInternal_applicationDocumentsDirectory;
@@ -222,7 +221,7 @@ typedef void (^DCTInternalCoreDataStackSaveBlock) (NSManagedObjectContext *manag
 	NSString *pathComponent = nil;
 	
 	if ([self.persistentStoreType isEqualToString:NSBinaryStoreType])
-		pathComponent = [NSString stringWithFormat:@"%@.sqlite", modelName];
+		pathComponent = [NSString stringWithFormat:@"%@.binary", modelName];
 	
 	else if ([self.persistentStoreType isEqualToString:NSSQLiteStoreType])
 		pathComponent = [NSString stringWithFormat:@"%@.sqlite", modelName];
