@@ -78,6 +78,11 @@ typedef void (^DCTInternalCoreDataStackSaveBlock) (NSManagedObjectContext *manag
 		[[NSNotificationCenter defaultCenter] removeObserver:self 
 														name:NSManagedObjectContextDidSaveNotification
 													  object:managedObjectContext];
+#ifdef TARGET_OS_IPHONE
+	[[NSNotificationCenter defaultCenter] removeObserver:self 
+													name:UIApplicationDidEnterBackgroundNotification
+												  object:nil];
+#endif
 }
 
 - (id)init {
@@ -86,11 +91,12 @@ typedef void (^DCTInternalCoreDataStackSaveBlock) (NSManagedObjectContext *manag
 	
 	self.persistentStoreType = NSSQLiteStoreType;
 	
-	if (UIApplicationDidEnterBackgroundNotification != NULL)
-		[[NSNotificationCenter defaultCenter] addObserver:self
-												 selector:@selector(dctInternal_applicationDidEnterBackgroundNotification:) 
-													 name:UIApplicationDidEnterBackgroundNotification 
-												   object:nil];
+#ifdef TARGET_OS_IPHONE
+	[[NSNotificationCenter defaultCenter] addObserver:self
+											 selector:@selector(dctInternal_applicationDidEnterBackgroundNotification:) 
+												 name:UIApplicationDidEnterBackgroundNotification 
+											   object:nil];
+#endif
 	
 	if ([[NSManagedObjectContext class] instancesRespondToSelector:@selector(performBlock:)]) {
 		
