@@ -55,14 +55,12 @@ typedef void (^DCTInternalCoreDataStackSaveBlock) (NSManagedObjectContext *manag
 - (void)dctInternal_loadModelURL;
 - (void)dctInternal_loadStoreURL;
 - (void)dctInternal_loadManagedObjectContext;
-- (void)dctInternal_loadPersistentStoreCoordinator;
 - (void)dctInternal_loadManagedObjectModel;
 @end
 
 @implementation DCTCoreDataStack {
 	__strong NSManagedObjectContext *managedObjectContext;
 	__strong NSManagedObjectModel *managedObjectModel;
-	__strong NSPersistentStoreCoordinator *persistentStoreCoordinator;
 	__strong NSString *modelName;
 	
 	__strong NSManagedObjectContext *backgroundSavingContext;
@@ -157,14 +155,6 @@ typedef void (^DCTInternalCoreDataStackSaveBlock) (NSManagedObjectContext *manag
 	return managedObjectModel;
 }
 
-- (NSPersistentStoreCoordinator *)persistentStoreCoordinator {
-	
-    if (persistentStoreCoordinator == nil)
-		[self dctInternal_loadPersistentStoreCoordinator];
-	
-	return persistentStoreCoordinator;
-}
-
 - (NSURL *)modelURL {
 	
 	if (modelURL == nil)
@@ -185,9 +175,19 @@ typedef void (^DCTInternalCoreDataStackSaveBlock) (NSManagedObjectContext *manag
 
 - (void)dctInternal_loadManagedObjectContext {
 	
-	NSPersistentStoreCoordinator *psc = self.persistentStoreCoordinator;
+	NSError *error = nil;
+	NSPersistentStoreCoordinator *psc = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:self.managedObjectModel];
+	if (![psc addPersistentStoreWithType:self.persistentStoreType
+												  configuration:self.modelConfiguration
+															URL:self.storeURL
+														options:self.persistentStoreOptions
+														  error:&error]) {
+		NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+		abort();
+	}
+    
 	
-	if (psc == nil) return;
+	if (psc == nil) return; // when would this ever happen?
 	
 	if ([NSManagedObjectContext instancesRespondToSelector:@selector(initWithConcurrencyType:)]) {
 		
@@ -213,19 +213,6 @@ typedef void (^DCTInternalCoreDataStackSaveBlock) (NSManagedObjectContext *manag
 
 - (void)dctInternal_loadManagedObjectModel {
 	managedObjectModel = [[NSManagedObjectModel alloc] initWithContentsOfURL:self.modelURL];
-}
-
-- (void)dctInternal_loadPersistentStoreCoordinator {
-	NSError *error = nil;
-	persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:self.managedObjectModel];
-	if (![persistentStoreCoordinator addPersistentStoreWithType:self.persistentStoreType
-												  configuration:self.modelConfiguration
-															URL:self.storeURL
-														options:self.persistentStoreOptions
-														  error:&error]) {
-		NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-		abort();
-	}
 }
 
 - (void)dctInternal_loadModelURL {
