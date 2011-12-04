@@ -69,77 +69,75 @@
 
 - (NSString *)dct_detailedDescriptionFromValidationError:(NSError *)anError {
 	
-    if (anError && [[anError domain] isEqualToString:@"NSCocoaErrorDomain"]) {
-        NSArray *errors = nil;
-		
-        // multiple errors?
-        if ([anError code] == NSValidationMultipleErrorsError) {
-            errors = [[anError userInfo] objectForKey:NSDetailedErrorsKey];
-        } else {
-            errors = [NSArray arrayWithObject:anError];
-        }
-		
-        if (errors && [errors count] > 0) {
-            NSString *messages = @"Reason(s):\n";
-			
-            for (NSError * error in errors) {
-                NSString *entityName = [[[[error userInfo] objectForKey:@"NSValidationErrorObject"] entity] name];
-                NSString *attributeName = [[error userInfo] objectForKey:@"NSValidationErrorKey"];
-                NSString *msg;
-                switch ([error code]) {
-                    case NSManagedObjectValidationError:
-                        msg = @"Generic validation error.";
-                        break;
-                    case NSValidationMissingMandatoryPropertyError:
-                        msg = [NSString stringWithFormat:@"The attribute '%@' mustn't be empty.", attributeName];
-                        break;
-                    case NSValidationRelationshipLacksMinimumCountError:  
-                        msg = [NSString stringWithFormat:@"The relationship '%@' doesn't have enough entries.", attributeName];
-                        break;
-                    case NSValidationRelationshipExceedsMaximumCountError:
-                        msg = [NSString stringWithFormat:@"The relationship '%@' has too many entries.", attributeName];
-                        break;
-                    case NSValidationRelationshipDeniedDeleteError:
-                        msg = [NSString stringWithFormat:@"To delete, the relationship '%@' must be empty.", attributeName];
-                        break;
-                    case NSValidationNumberTooLargeError:                 
-                        msg = [NSString stringWithFormat:@"The number of the attribute '%@' is too large.", attributeName];
-                        break;
-                    case NSValidationNumberTooSmallError:                 
-                        msg = [NSString stringWithFormat:@"The number of the attribute '%@' is too small.", attributeName];
-                        break;
-                    case NSValidationDateTooLateError:                    
-                        msg = [NSString stringWithFormat:@"The date of the attribute '%@' is too late.", attributeName];
-                        break;
-                    case NSValidationDateTooSoonError:                    
-                        msg = [NSString stringWithFormat:@"The date of the attribute '%@' is too soon.", attributeName];
-                        break;
-                    case NSValidationInvalidDateError:                    
-                        msg = [NSString stringWithFormat:@"The date of the attribute '%@' is invalid.", attributeName];
-                        break;
-                    case NSValidationStringTooLongError:      
-                        msg = [NSString stringWithFormat:@"The text of the attribute '%@' is too long.", attributeName];
-                        break;
-                    case NSValidationStringTooShortError:                 
-                        msg = [NSString stringWithFormat:@"The text of the attribute '%@' is too short.", attributeName];
-                        break;
-                    case NSValidationStringPatternMatchingError:          
-                        msg = [NSString stringWithFormat:@"The text of the attribute '%@' doesn't match the required pattern.", attributeName];
-                        break;
-                    default:
-                        msg = [NSString stringWithFormat:@"Unknown error (code %i).", [error code]];
-                        break;
-                }
-				
-                messages = [messages stringByAppendingFormat:@"%@%@%@\n", (entityName?:@""),(entityName?@": ":@""),msg];
-            }
-			
-			return messages;
-			
-        }
-    }
+    if (![[anError domain] isEqualToString:@"NSCocoaErrorDomain"]) return nil;
 	
-	return nil;
+	NSArray *errors = nil;
+	
+	if ([anError code] == NSValidationMultipleErrorsError)
+		errors = [[anError userInfo] objectForKey:NSDetailedErrorsKey];
+	else
+		errors = [NSArray arrayWithObject:anError];
+	
+	if ([errors count] == 0) return nil;
+	
+	NSMutableString *messages = [[NSMutableString alloc] initWithString:@"Reason(s):\n"];
+	
+	for (NSError *error in errors) {
+		
+		NSString *entityName = [[[[error userInfo] objectForKey:@"NSValidationErrorObject"] entity] name];
+		NSString *attributeName = [[error userInfo] objectForKey:@"NSValidationErrorKey"];
+		
+		NSString *message = nil;
+		
+		switch ([error code]) {
+			case NSManagedObjectValidationError:
+				message = @"Generic validation error.";
+				break;
+			case NSValidationMissingMandatoryPropertyError:
+				message = [NSString stringWithFormat:@"The attribute '%@' must not be empty.", attributeName];
+				break;
+			case NSValidationRelationshipLacksMinimumCountError:  
+				message = [NSString stringWithFormat:@"The relationship '%@' doesn't have enough entries.", attributeName];
+				break;
+			case NSValidationRelationshipExceedsMaximumCountError:
+				message = [NSString stringWithFormat:@"The relationship '%@' has too many entries.", attributeName];
+				break;
+			case NSValidationRelationshipDeniedDeleteError:
+				message = [NSString stringWithFormat:@"To delete, the relationship '%@' must be empty.", attributeName];
+				break;
+			case NSValidationNumberTooLargeError:                 
+				message = [NSString stringWithFormat:@"The number of the attribute '%@' is too large.", attributeName];
+				break;
+			case NSValidationNumberTooSmallError:                 
+				message = [NSString stringWithFormat:@"The number of the attribute '%@' is too small.", attributeName];
+				break;
+			case NSValidationDateTooLateError:                    
+				message = [NSString stringWithFormat:@"The date of the attribute '%@' is too late.", attributeName];
+				break;
+			case NSValidationDateTooSoonError:                    
+				message = [NSString stringWithFormat:@"The date of the attribute '%@' is too soon.", attributeName];
+				break;
+			case NSValidationInvalidDateError:                    
+				message = [NSString stringWithFormat:@"The date of the attribute '%@' is invalid.", attributeName];
+				break;
+			case NSValidationStringTooLongError:      
+				message = [NSString stringWithFormat:@"The text of the attribute '%@' is too long.", attributeName];
+				break;
+			case NSValidationStringTooShortError:                 
+				message = [NSString stringWithFormat:@"The text of the attribute '%@' is too short.", attributeName];
+				break;
+			case NSValidationStringPatternMatchingError:          
+				message = [NSString stringWithFormat:@"The text of the attribute '%@' doesn't match the required pattern.", attributeName];
+				break;
+			default:
+				message = [NSString stringWithFormat:@"Unknown error (code %i).", [error code]];
+				break;
+		}
+		
+		[messages appendFormat:@"%@%@%@\n", (entityName?:@""), (attributeName?@".":@""), (attributeName?:@""), (entityName?@": ":@""), message];
+	}
+	
+	return messages;
 }
 
 @end
