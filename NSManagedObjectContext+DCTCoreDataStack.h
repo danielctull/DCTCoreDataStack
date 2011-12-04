@@ -36,8 +36,7 @@
 
 #import <CoreData/CoreData.h>
 
-typedef void (^DCTManagedObjectContextSaveErrorBlock) (NSError *error);
-typedef void (^DCTManagedObjectContextSaveCompletionBlock) (BOOL success);
+typedef void (^DCTManagedObjectContextSaveCompletionBlock) (BOOL success, NSError *error);
 
 @interface NSManagedObjectContext (DCTCoreDataStack)
 
@@ -45,10 +44,7 @@ typedef void (^DCTManagedObjectContextSaveCompletionBlock) (BOOL success);
 
 - (void)dct_save;
 
-- (void)dct_saveWithErrorHandler:(DCTManagedObjectContextSaveErrorBlock)handler;
-
-- (void)dct_saveWithErrorHandler:(DCTManagedObjectContextSaveErrorBlock)errorHandler
-			   completionHandler:(DCTManagedObjectContextSaveCompletionBlock)completionHandler;
+- (void)dct_saveWithCompletionHandler:(DCTManagedObjectContextSaveCompletionBlock)completionHandler;
 
 - (NSString *)dct_detailedDescriptionFromValidationError:(NSError *)anError;
 

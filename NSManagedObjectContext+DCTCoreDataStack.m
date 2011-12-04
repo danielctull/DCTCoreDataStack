@@ -48,37 +48,20 @@
 }
 
 - (void)dct_save {
-	[self dct_saveWithErrorHandler:^(NSError *error) {
-		NSLog(@"%@", [self dct_detailedDescriptionFromValidationError:error]);
+	[self dct_saveWithCompletionHandler:^(BOOL success, NSError *error) {
+		if (!success) NSLog(@"%@", [self dct_detailedDescriptionFromValidationError:error]);
 	}];
 }
 
-- (void)dct_saveWithErrorHandler:(DCTManagedObjectContextSaveErrorBlock)errorHandler {
-	[self dct_saveWithErrorHandler:errorHandler completionHandler:NULL];
-}
-
-- (void)dct_saveWithErrorHandler:(DCTManagedObjectContextSaveErrorBlock)passedErrorHandler
-			   completionHandler:(DCTManagedObjectContextSaveCompletionBlock)passedCompletionHandler {
+- (void)dct_saveWithCompletionHandler:(DCTManagedObjectContextSaveCompletionBlock)passedCompletionHandler {
 	
-	DCTManagedObjectContextSaveErrorBlock errorHandler = NULL;
 	dispatch_queue_t queue = dispatch_get_current_queue();
-	
-	if (passedErrorHandler != NULL) {
-		
-		errorHandler = ^(NSError *error) {
-			dispatch_async(queue, ^{
-				passedErrorHandler(error);
-			});
-		};
-	
-		objc_setAssociatedObject(self, @selector(dct_saveWithErrorHandler:), errorHandler, OBJC_ASSOCIATION_COPY_NONATOMIC);
-	}
 	
 	if (passedCompletionHandler != NULL) {
 		
-		DCTManagedObjectContextSaveCompletionBlock completionHandler = ^(BOOL success){
+		DCTManagedObjectContextSaveCompletionBlock completionHandler = ^(BOOL success, NSError *error){
 			dispatch_async(queue, ^{
-				passedCompletionHandler(success);
+				passedCompletionHandler(success, error);
 			});
 		};
 		
@@ -87,13 +70,10 @@
 	
 	NSError *error = nil;
 	BOOL success = [self save:&error];
-	if (!success && errorHandler != NULL) {
-		errorHandler(error);
-	}
 	
 	DCTManagedObjectContextSaveCompletionBlock completionHandler = objc_getAssociatedObject(self, _cmd);
 	if (completionHandler != NULL)
-		completionHandler(success);
+		completionHandler(success, error);
 	
 	objc_setAssociatedObject(self, @selector(dct_saveWithErrorHandler:), nil, OBJC_ASSOCIATION_COPY_NONATOMIC);
 	objc_setAssociatedObject(self, _cmd, nil, OBJC_ASSOCIATION_COPY_NONATOMIC);
