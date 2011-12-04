@@ -56,17 +56,17 @@ typedef void (^DCTInternalCoreDataStackSaveBlock) (NSManagedObjectContext *manag
 
 @implementation DCTCoreDataStack {
 	__strong NSManagedObjectContext *managedObjectContext;
-	__strong NSManagedObjectModel *_model;
-	__strong NSString *_modelName;
+	__strong NSManagedObjectModel *managedObjectModel;
+	__strong NSString *modelName;
 	
 	__strong NSManagedObjectContext *backgroundSavingContext;
 	
 	__strong DCTInternalCoreDataStackSaveBlock saveBlock;
 }
 
-@synthesize persistentStoreType = _persistentStoreType;
-@synthesize persistentStoreOptions = _persistentStoreOptions;
-@synthesize modelConfiguration = _modelConfiguration;
+@synthesize persistentStoreType = persistentStoreType;
+@synthesize persistentStoreOptions = persistentStoreOptions;
+@synthesize modelConfiguration = modelConfiguration;
 @synthesize storeURL;
 
 #pragma mark - NSObject
@@ -95,17 +95,17 @@ typedef void (^DCTInternalCoreDataStackSaveBlock) (NSManagedObjectContext *manag
                        type:(NSString *)storeType
          modelConfiguration:(NSString *)configuration
                storeOptions:(NSDictionary *)storeOptions
-                  modelName:(NSString *)modelName;
+                  modelName:(NSString *)aModelName;
 {
     NSParameterAssert(storeType);
     
     if (!(self = [self init])) return nil;
 	
     
-	_modelName = [modelName copy];
-    _persistentStoreType = [storeType copy];
-    _modelConfiguration = [configuration copy];
-    _persistentStoreOptions = [storeOptions copy];
+	modelName = [aModelName copy];
+    persistentStoreType = [storeType copy];
+    modelConfiguration = [configuration copy];
+    persistentStoreOptions = [storeOptions copy];
     
     
     storeURL = [[self dctInternal_applicationDocumentsDirectory] URLByAppendingPathComponent:filename];
@@ -144,8 +144,7 @@ typedef void (^DCTInternalCoreDataStackSaveBlock) (NSManagedObjectContext *manag
     return self;
 }
 
-- (id)initWithStoreFilename:(NSString *)filename
-{
+- (id)initWithStoreFilename:(NSString *)filename {
 	return [self initWithStoreFilename:filename type:NSSQLiteStoreType modelConfiguration:nil storeOptions:nil modelName:nil];
 }
 
@@ -161,10 +160,10 @@ typedef void (^DCTInternalCoreDataStackSaveBlock) (NSManagedObjectContext *manag
 
 - (NSManagedObjectModel *)managedObjectModel {
 		
-	if (_model == nil)
+	if (managedObjectModel == nil)
 		[self dctInternal_loadManagedObjectModel];
 	
-	return _model;
+	return managedObjectModel;
 }
 
 #pragma mark - Internal Loading
@@ -209,14 +208,11 @@ typedef void (^DCTInternalCoreDataStackSaveBlock) (NSManagedObjectContext *manag
 
 - (void)dctInternal_loadManagedObjectModel {
 	
-    if (_modelName)
-    {
-        NSURL *modelURL = [[NSBundle mainBundle] URLForResource:_modelName withExtension:@"momd"];
-        _model = [[NSManagedObjectModel alloc] initWithContentsOfURL:modelURL];
-    }
-    else
-    {
-        _model = [NSManagedObjectModel mergedModelFromBundles:[NSArray arrayWithObject:[NSBundle mainBundle]]];
+    if (modelName) {
+        NSURL *modelURL = [[NSBundle mainBundle] URLForResource:modelName withExtension:@"momd"];
+        managedObjectModel = [[NSManagedObjectModel alloc] initWithContentsOfURL:modelURL];
+    } else {
+        managedObjectModel = [NSManagedObjectModel mergedModelFromBundles:[NSArray arrayWithObject:[NSBundle mainBundle]]];
     }
 }
 

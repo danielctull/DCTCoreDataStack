@@ -63,8 +63,6 @@
 @property (nonatomic, strong, readonly) NSManagedObjectContext *managedObjectContext;
 @property (nonatomic, copy) NSURL *storeURL;
 
-
-#pragma mark Configuration
 @property (nonatomic, strong, readonly) NSManagedObjectModel *managedObjectModel;   // override if need a custom model
 @property (nonatomic, copy, readonly) NSString *persistentStoreType;
 @property (nonatomic, copy, readonly) NSDictionary *persistentStoreOptions;
