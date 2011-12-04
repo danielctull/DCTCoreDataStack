@@ -303,6 +303,18 @@ typedef void (^DCTInternalCoreDataStackSaveBlock) (NSManagedObjectContext *manag
 }
 
 - (void)dctInternal_applicationWillTerminateNotification:(NSNotification *)notification {
+	
+	// The app is about to terminate, we need to change the saveBlock to use performBlockAndWait:
+	// so the background context saving blocks the main thread.
+	if ([[NSManagedObjectContext class] instancesRespondToSelector:@selector(performBlockAndWait:)]) {
+		saveBlock = ^(NSManagedObjectContext *context,
+					  DCTManagedObjectContextSaveCompletionBlock completion) {
+			[context performBlockAndWait:^{
+				[context dct_saveWithCompletionHandler:completion];
+			}];
+		};
+	}
+	
 	saveBlock(self.managedObjectContext, NULL);
 }
 #endif
