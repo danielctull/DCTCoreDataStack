@@ -53,13 +53,13 @@
 - (id)initWithStoreFilename:(NSString *)filename;
 
 // Store is assumed to be in the app's documents folder
-// Designated initializer
 - (id)initWithStoreFilename:(NSString *)storeFilename
 				  storeType:(NSString *)storeType
                storeOptions:(NSDictionary *)storeOptions
 		 modelConfiguration:(NSString *)modelConfiguration 
                   modelName:(NSString *)modelName;
 
+// Designated initializer
 - (id)initWithStoreURL:(NSURL *)storeURL
 			 storeType:(NSString *)storeType
 		  storeOptions:(NSDictionary *)storeOptions
