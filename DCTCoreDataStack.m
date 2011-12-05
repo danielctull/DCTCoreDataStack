@@ -290,6 +290,8 @@ typedef void (^DCTInternalCoreDataStackSaveBlock) (NSManagedObjectContext *manag
 	
 	UIBackgroundTaskIdentifier backgroundTaskIdentifier = [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:^{}];
 	
+	if (backgroundTaskIdentifier == UIBackgroundTaskInvalid) return;
+	
 	dispatch_queue_t queue = dispatch_get_current_queue();
 	
 	saveBlock(self.managedObjectContext, ^(BOOL success, NSError *error) {
