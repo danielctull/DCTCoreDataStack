@@ -278,13 +278,13 @@ typedef void (^DCTInternalCoreDataStackSaveBlock) (NSManagedObjectContext *manag
 #ifdef TARGET_OS_IPHONE
 - (void)dctInternal_applicationDidEnterBackgroundNotification:(NSNotification *)notification {
 	
-	if (![self.managedObjectContext hasChanges]) return;
-	
-	UIBackgroundTaskIdentifier backgroundTaskIdentifier = [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:^{}];
-	
-	saveBlock(self.managedObjectContext, ^(BOOL success, NSError *error) {
-		[[UIApplication sharedApplication] endBackgroundTask:backgroundTaskIdentifier];
-	});
+    // Save any pending changes the app might not have saved itself
+    NSManagedObjectContext *context = self.managedObjectContext;
+	if ([context hasChanges])
+    {
+        [context save:NULL];    // on iOS5+, triggers an async save of the background context as a background task
+        // TODO: what if there was a save error?
+    }
 }
 
 - (void)dctInternal_applicationWillTerminateNotification:(NSNotification *)notification {
