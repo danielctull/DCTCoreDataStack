@@ -34,6 +34,20 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+
+// DCTCoreDataStack is intended for non-document based apps, and provides the following features:
+//
+// 1) An encapsulation of the complete Core Data stack of NSManagedObjectContext, NSPersistentStoreCoordinator, NSPersistentStore, and NSManagedObjectModel
+//
+// 2) On new enough OS's that support it, writing to disk is performed on a background thread, by using a parent context. Saving the main context automatically triggers saving the parent context asynchronously
+//
+// 3) -[NSManagedObjectContext dct_saveWithCompletionHandler:] method can be used to be notified when saving to disk finishes, asynchronously if possible
+//
+// 4) On iOS, the app entering the background automatically triggers a save
+//
+// 5) On iOS, when saving on a background thread, the stack protects against termination/suspension by declaring the save as a background task
+
+
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
