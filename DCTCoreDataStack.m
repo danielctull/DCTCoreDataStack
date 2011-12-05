@@ -262,7 +262,10 @@ typedef void (^DCTInternalCoreDataStackSaveBlock) (NSManagedObjectContext *manag
 	UIBackgroundTaskIdentifier backgroundTaskIdentifier = [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:^{}];
 	
 	completion = ^(BOOL success, NSError *error) {
-		clientCompletion(success, error);
+		
+		if (clientCompletion != NULL)
+			clientCompletion(success, error);
+		
 		[[UIApplication sharedApplication] endBackgroundTask:backgroundTaskIdentifier];
 	};
 	
