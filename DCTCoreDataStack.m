@@ -35,7 +35,6 @@
  */
 
 #import "DCTCoreDataStack.h"
-#import "NSManagedObjectContext+DCTCoreDataStack.h"
 #import <objc/runtime.h>
 
 typedef void (^DCTInternalCoreDataStackSaveBlock) (NSManagedObjectContext *managedObjectContext,
@@ -68,6 +67,8 @@ typedef void (^DCTInternalCoreDataStackSaveBlock) (NSManagedObjectContext *manag
 	__strong NSManagedObjectContext *backgroundSavingContext;
 	
 	__strong DCTInternalCoreDataStackSaveBlock saveBlock;
+	
+	dispatch_queue_t automaticSaveCompletionHandlerQueue;
 }
 
 @synthesize storeType;
@@ -75,6 +76,7 @@ typedef void (^DCTInternalCoreDataStackSaveBlock) (NSManagedObjectContext *manag
 @synthesize modelConfiguration;
 @synthesize storeURL;
 @synthesize modelName;
+@synthesize automaticSaveCompletionHandler;
 
 #pragma mark - NSObject
 
@@ -182,6 +184,13 @@ typedef void (^DCTInternalCoreDataStackSaveBlock) (NSManagedObjectContext *manag
 		[self dctInternal_loadManagedObjectModel];
 	
 	return managedObjectModel;
+}
+
+#pragma mark - Setters
+
+- (void)setAutomaticSaveCompletionHandler:(DCTManagedObjectContextSaveCompletionBlock)handler {
+	automaticSaveCompletionHandler = handler;
+	automaticSaveCompletionHandlerQueue = dispatch_get_current_queue();
 }
 
 #pragma mark - Internal Loading
@@ -292,13 +301,18 @@ typedef void (^DCTInternalCoreDataStackSaveBlock) (NSManagedObjectContext *manag
 	
 	dispatch_queue_t queue = dispatch_get_current_queue();
 	
-	saveBlock(self.managedObjectContext, ^(BOOL success, NSError *error) {
+	saveBlock(self.managedObjectContext, ^(BOOL success, NSError *error) {		
 		dispatch_async(queue, ^{
+			
+			if (self.automaticSaveCompletionHandler != NULL) {
+				dispatch_async(automaticSaveCompletionHandlerQueue, ^{
+					self.automaticSaveCompletionHandler(success, error);			
+				});		
+			}
+			
 			[[UIApplication sharedApplication] endBackgroundTask:backgroundTaskIdentifier];
 		});
 	});
-	
-	// TODO: what if there was a save error?
 }
 
 - (void)dctInternal_applicationWillTerminateNotification:(NSNotification *)notification {
@@ -315,7 +329,14 @@ typedef void (^DCTInternalCoreDataStackSaveBlock) (NSManagedObjectContext *manag
 		};
 	}
 	
-	saveBlock(self.managedObjectContext, NULL);
+	saveBlock(self.managedObjectContext, ^(BOOL success, NSError *error) {
+		
+		if (self.automaticSaveCompletionHandler != NULL) {
+			dispatch_async(automaticSaveCompletionHandlerQueue, ^{
+				self.automaticSaveCompletionHandler(success, error);			
+			});		
+		}
+	});
 }
 #endif
 

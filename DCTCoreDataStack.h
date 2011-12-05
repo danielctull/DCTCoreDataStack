@@ -36,6 +36,7 @@
 
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
+#import "NSManagedObjectContext+DCTCoreDataStack.h"
 
 #if !defined dct_weak && __IPHONE_OS_VERSION_MIN_REQUIRED >= __IPHONE_5_0
 #define dct_weak weak
@@ -77,5 +78,7 @@
 
 @property (nonatomic, copy, readonly) NSString *modelName;
 @property (nonatomic, copy, readonly) NSString *modelConfiguration;
+
+@property (nonatomic, copy) DCTManagedObjectContextSaveCompletionBlock automaticSaveCompletionHandler;
 
 @end
