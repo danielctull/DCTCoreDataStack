@@ -288,17 +288,8 @@ typedef void (^DCTInternalCoreDataStackSaveBlock) (NSManagedObjectContext *manag
 	
 	if (![self.managedObjectContext hasChanges]) return;
 	
-	UIBackgroundTaskIdentifier backgroundTaskIdentifier = [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:^{}];
-	
-	dispatch_queue_t queue = dispatch_get_current_queue();
-	
-	saveBlock(self.managedObjectContext, ^(BOOL success, NSError *error) {
-		dispatch_async(queue, ^{
-			[[UIApplication sharedApplication] endBackgroundTask:backgroundTaskIdentifier];
-		});
-	});
-	
-	// TODO: what if there was a save error?
+    // On iOS5+, writing the changes to disk will be happen on a background thread, which is protected by a background task request
+	saveBlock(self.managedObjectContext, NULL);
 }
 
 - (void)dctInternal_applicationWillTerminateNotification:(NSNotification *)notification {
