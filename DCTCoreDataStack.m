@@ -250,6 +250,7 @@ typedef void (^DCTInternalCoreDataStackSaveBlock) (NSManagedObjectContext *manag
 #pragma mark - Other Internal
 
 - (void)dctInternal_iOS5mainContextDidSave:(NSNotification *)notification; {
+	
 	NSManagedObjectContext *moc = [notification object];
 	
 	DCTManagedObjectContextSaveCompletionBlock completion = objc_getAssociatedObject(moc, @selector(dct_saveWithCompletionHandler:));
@@ -261,11 +262,13 @@ typedef void (^DCTInternalCoreDataStackSaveBlock) (NSManagedObjectContext *manag
 	
 	UIBackgroundTaskIdentifier backgroundTaskIdentifier = [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:^{}];
 	
+	dispatch_queue_t queue = dispatch_get_current_queue();
+	
 	completion = ^(BOOL success, NSError *error) {
-		
+			
 		if (clientCompletion != NULL)
 			clientCompletion(success, error);
-		
+			
 		[[UIApplication sharedApplication] endBackgroundTask:backgroundTaskIdentifier];
 	};
 	
@@ -281,12 +284,15 @@ typedef void (^DCTInternalCoreDataStackSaveBlock) (NSManagedObjectContext *manag
 #ifdef TARGET_OS_IPHONE
 - (void)dctInternal_applicationDidEnterBackgroundNotification:(NSNotification *)notification {
 	
-	// Save any pending changes the app might not have saved itself
-	NSManagedObjectContext *context = self.managedObjectContext;
+	if (![self.managedObjectContext hasChanges]) return;
 	
-	if (![context hasChanges]) return;
+	UIBackgroundTaskIdentifier backgroundTaskIdentifier = [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:^{}];
 	
-	saveBlock(context, NULL); // on iOS5+, triggers an async save of the background context as a background task
+	dispatch_queue_t queue = dispatch_get_current_queue();
+	
+	saveBlock(self.managedObjectContext, ^(BOOL success, NSError *error) {
+		[[UIApplication sharedApplication] endBackgroundTask:backgroundTaskIdentifier];
+	});
 	
 	// TODO: what if there was a save error?
 }
