@@ -264,6 +264,9 @@ typedef void (^DCTInternalCoreDataStackSaveBlock) (NSManagedObjectContext *manag
 
 #ifdef TARGET_OS_IPHONE
 - (void)dctInternal_applicationDidEnterBackgroundNotification:(NSNotification *)notification {
+	
+	if (![self.managedObjectContext hasChanges]) return;
+	
 	UIBackgroundTaskIdentifier backgroundTaskIdentifier = [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:^{}];
 	
 	saveBlock(self.managedObjectContext, ^(BOOL success, NSError *error) {
@@ -272,6 +275,8 @@ typedef void (^DCTInternalCoreDataStackSaveBlock) (NSManagedObjectContext *manag
 }
 
 - (void)dctInternal_applicationWillTerminateNotification:(NSNotification *)notification {
+	
+	if (![self.managedObjectContext hasChanges]) return;
 	
 	// The app is about to terminate, we need to change the saveBlock to use performBlockAndWait:
 	// so the background context saving blocks the main thread.
