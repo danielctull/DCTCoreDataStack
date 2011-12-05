@@ -43,13 +43,14 @@
 //
 // 3) -[NSManagedObjectContext dct_saveWithCompletionHandler:] method can be used to be notified when saving to disk finishes, asynchronously if possible
 //
-// 4) On iOS, the app entering the background automatically triggers a save
+// 4) On iOS, the app entering the background, or terminating, automatically triggers a save if needed. You can be notified of such saves by setting the .automaticSaveCompletionHandler property
 //
 // 5) On iOS, when saving on a background thread, the stack protects against termination/suspension by declaring the save as a background task
 
 
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
+#import "NSManagedObjectContext+DCTCoreDataStack.h"
 
 #if !defined dct_weak && __IPHONE_OS_VERSION_MIN_REQUIRED >= __IPHONE_5_0
 #define dct_weak weak
@@ -91,5 +92,7 @@
 
 @property (nonatomic, copy, readonly) NSString *modelName;
 @property (nonatomic, copy, readonly) NSString *modelConfiguration;
+
+@property (nonatomic, copy) DCTManagedObjectContextSaveCompletionBlock automaticSaveCompletionHandler;
 
 @end
