@@ -50,9 +50,11 @@
 @interface DCTCoreDataStack : NSObject
 
 // Convenience that assumes XML store, nil config, no options. The model is made up by merging all in the app's main bundle
+// Generally the best method to use when getting started
 - (id)initWithStoreFilename:(NSString *)filename;
 
 // Store is assumed to be in the app's documents folder
+// This method is helpful for when your app has previously been using -initWithStoreFilename: but now needs to migrate an existing store. To do so, specify the name of the *new* model; set the options values corresponding to both the NSMigratePersistentStoresAutomaticallyOption and the NSInferMappingModelAutomaticallyOption keys to YES. For more details see Apple's Core Data versioning and migration guide.
 - (id)initWithStoreFilename:(NSString *)storeFilename
 				  storeType:(NSString *)storeType
                storeOptions:(NSDictionary *)storeOptions
