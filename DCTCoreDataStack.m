@@ -255,6 +255,19 @@ typedef void (^DCTInternalCoreDataStackSaveBlock) (NSManagedObjectContext *manag
 	DCTManagedObjectContextSaveCompletionBlock completion = objc_getAssociatedObject(moc, @selector(dct_saveWithCompletionHandler:));
 	objc_setAssociatedObject(moc, @selector(dct_saveWithCompletionHandler:), nil, OBJC_ASSOCIATION_COPY_NONATOMIC);
 	
+#ifdef TARGET_OS_IPHONE
+	
+	DCTManagedObjectContextSaveCompletionBlock clientCompletion = completion;
+	
+	UIBackgroundTaskIdentifier backgroundTaskIdentifier = [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:^{}];
+	
+	completion = ^(BOOL success, NSError *error) {
+		clientCompletion(success, error);
+		[[UIApplication sharedApplication] endBackgroundTask:backgroundTaskIdentifier];
+	};
+	
+#endif
+	
 	saveBlock(backgroundSavingContext, completion);
 }
 
