@@ -265,11 +265,13 @@ typedef void (^DCTInternalCoreDataStackSaveBlock) (NSManagedObjectContext *manag
 	dispatch_queue_t queue = dispatch_get_current_queue();
 	
 	completion = ^(BOOL success, NSError *error) {
+		dispatch_async(queue, ^{
 			
-		if (clientCompletion != NULL)
-			clientCompletion(success, error);
+			if (clientCompletion != NULL)
+				clientCompletion(success, error);
 			
-		[[UIApplication sharedApplication] endBackgroundTask:backgroundTaskIdentifier];
+			[[UIApplication sharedApplication] endBackgroundTask:backgroundTaskIdentifier];
+		});
 	};
 	
 #endif
@@ -291,7 +293,9 @@ typedef void (^DCTInternalCoreDataStackSaveBlock) (NSManagedObjectContext *manag
 	dispatch_queue_t queue = dispatch_get_current_queue();
 	
 	saveBlock(self.managedObjectContext, ^(BOOL success, NSError *error) {
-		[[UIApplication sharedApplication] endBackgroundTask:backgroundTaskIdentifier];
+		dispatch_async(queue, ^{
+			[[UIApplication sharedApplication] endBackgroundTask:backgroundTaskIdentifier];
+		});
 	});
 	
 	// TODO: what if there was a save error?
