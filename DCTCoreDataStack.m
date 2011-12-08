@@ -334,11 +334,7 @@ typedef void (^DCTInternalCoreDataStackSaveBlock) (NSManagedObjectContext *manag
 	
 	if (![self.managedObjectContext hasChanges]) return;
 	
-	// The app is about to terminate, we need to change the saveBlock to use performBlockAndWait:
-	// so the background context saving blocks the main thread.
-	self.saveBlock = self.syncSaveBlock;
-	
-	self.saveBlock(self.managedObjectContext, NULL);
+	[self.managedObjectContext save:nil];
 }
 #endif
 
@@ -354,18 +350,16 @@ typedef void (^DCTInternalCoreDataStackSaveBlock) (NSManagedObjectContext *manag
 	
 	if (object) return [super save:error];
 	
-	DCTInternalCoreDataStackSaveBlock block = self.dctInternal_stack.saveBlock;
-	self.dctInternal_stack.saveBlock = self.dctInternal_stack.syncSaveBlock;
+	__block BOOL success = [super save:error];
 	
-	__block NSError *returnError = nil;
-	__block BOOL success = NO;
-	[self dct_saveWithCompletionHandler:^(BOOL s, NSError *e) {
-		returnError = e;
-		success = s;
-	}];
-	*error = returnError;
-	
-	self.dctInternal_stack.saveBlock = block;
+	if (success) {
+		
+		NSManagedObjectContext *parent = self.parentContext;
+		
+		[parent performBlockAndWait:^{
+			success = [parent save:error];
+		}];
+	}
 	
 	return success;
 }
