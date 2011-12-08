@@ -41,7 +41,6 @@
 
 
 @interface DCTCoreDataStack_ManagedObjectContext : NSManagedObjectContext
-@property (nonatomic, weak) DCTCoreDataStack *dctInternal_stack;
 @end
 
 
@@ -192,9 +191,7 @@ typedef void (^DCTInternalCoreDataStackSaveBlock) (NSManagedObjectContext *manag
 		[backgroundSavingContext setPersistentStoreCoordinator:psc];
 		backgroundSavingContext.dct_name = @"DCTCoreDataStack.backgroundSavingContext";
 		
-		DCTCoreDataStack_ManagedObjectContext *moc = [[DCTCoreDataStack_ManagedObjectContext alloc] initWithConcurrencyType:NSMainQueueConcurrencyType];
-		moc.dctInternal_stack = self;
-		managedObjectContext = moc;
+		managedObjectContext = [[DCTCoreDataStack_ManagedObjectContext alloc] initWithConcurrencyType:NSMainQueueConcurrencyType];
 		[managedObjectContext setParentContext:backgroundSavingContext];
 		managedObjectContext.dct_name = @"DCTCoreDataStack.managedObjectContext";
 		
@@ -276,8 +273,6 @@ typedef void (^DCTInternalCoreDataStackSaveBlock) (NSManagedObjectContext *manag
 @end
 
 @implementation DCTCoreDataStack_ManagedObjectContext
-
-@synthesize dctInternal_stack;
 
 - (BOOL)save:(NSError **)error {
 	
