@@ -57,31 +57,22 @@
 	
 	dispatch_queue_t queue = dispatch_get_current_queue();
 	
+	DCTManagedObjectContextSaveCompletionBlock completionHandler = NULL;
+	
 	if (passedCompletionHandler != NULL) {
 		
-		DCTManagedObjectContextSaveCompletionBlock completionHandler = ^(BOOL success, NSError *error){
+		completionHandler = ^(BOOL success, NSError *error){
 			dispatch_async(queue, ^{
 				passedCompletionHandler(success, error);
 			});
 		};
-		
-		// Put the handler as an associated object because this is used by the stack, which on iOS 5
-		// will have a parent context on a background thread. If this is the case, in its 
-		// handling of NSManagedObjectContextDidSaveNotification about the child context, it will nil
-		// out this association, so the parent calls the completion handler and not the child.
-		objc_setAssociatedObject(self, _cmd, completionHandler, OBJC_ASSOCIATION_COPY_NONATOMIC);
-	} else {
-		objc_setAssociatedObject(self, _cmd, [NSNull null], OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 	}
 	
 	NSError *error = nil;
 	BOOL success = [self save:&error];
 	
-	DCTManagedObjectContextSaveCompletionBlock completionHandler = objc_getAssociatedObject(self, _cmd);
 	if (completionHandler != NULL)
 		completionHandler(success, error);
-	
-	objc_setAssociatedObject(self, _cmd, nil, OBJC_ASSOCIATION_COPY_NONATOMIC);
 }
 
 - (NSString *)dct_detailedDescriptionFromValidationError:(NSError *)anError {

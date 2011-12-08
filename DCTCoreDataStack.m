@@ -323,8 +323,13 @@ typedef void (^DCTInternalCoreDataStackSaveBlock) (NSManagedObjectContext *manag
 		});
 	};
 	
+	// Put anything in this association to switch on save:
+	objc_setAssociatedObject(self, _cmd, [NSNull null], OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 	
 	[super dct_saveWithCompletionHandler:^(BOOL success, NSError *error) {
+		
+		// Clear the association after the save
+		objc_setAssociatedObject(self, _cmd, nil, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 		
 		if (!success) {
 			completion(success, error);
