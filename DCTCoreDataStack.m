@@ -230,10 +230,11 @@ typedef void (^DCTInternalCoreDataStackSaveBlock) (NSManagedObjectContext *manag
 		[backgroundSavingContext setPersistentStoreCoordinator:psc];
 		backgroundSavingContext.dct_name = @"DCTCoreDataStack.backgroundSavingContext";
 		
-		managedObjectContext = [[DCTCoreDataStack_ManagedObjectContext alloc] initWithConcurrencyType:NSMainQueueConcurrencyType];
+		DCTCoreDataStack_ManagedObjectContext *moc = [[DCTCoreDataStack_ManagedObjectContext alloc] initWithConcurrencyType:NSMainQueueConcurrencyType];
+		moc.dctInternal_stack = self;
+		managedObjectContext = moc;
 		[managedObjectContext setParentContext:backgroundSavingContext];
 		managedObjectContext.dct_name = @"DCTCoreDataStack.managedObjectContext";
-		((DCTCoreDataStack_ManagedObjectContext *)managedObjectContext).dctInternal_stack = self;
 		
 		[[NSNotificationCenter defaultCenter] addObserver:self
 												 selector:@selector(dctInternal_iOS5mainContextDidSave:)
