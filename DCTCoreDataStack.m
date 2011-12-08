@@ -52,11 +52,6 @@ typedef void (^DCTInternalCoreDataStackSaveBlock) (NSManagedObjectContext *manag
 
 + (NSURL *)dctInternal_applicationDocumentsDirectory;
 
-#ifdef TARGET_OS_IPHONE
-- (void)dctInternal_applicationDidEnterBackgroundNotification:(NSNotification *)notification;
-- (void)dctInternal_applicationWillTerminateNotification:(NSNotification *)notification;
-#endif
-
 - (void)dctInternal_loadManagedObjectContext;
 - (void)dctInternal_loadManagedObjectModel;
 - (void)dctInternal_loadPersistentStoreCoordinator;
@@ -80,27 +75,44 @@ typedef void (^DCTInternalCoreDataStackSaveBlock) (NSManagedObjectContext *manag
 @synthesize storeURL;
 @synthesize modelName;
 
+
+static NSMutableArray *initBlocks = nil;
+static NSMutableArray *deallocBlocks = nil;
+
++ (void)addInitBlock:(void(^)(void))block {
+	static dispatch_once_t sharedToken;
+	dispatch_once(&sharedToken, ^{
+		initBlocks = [[NSMutableArray alloc] initWithCapacity:1];
+	});
+	[initBlocks addObject:[block copy]];
+}
+
++ (void)addDeallocBlock:(void(^)(void))block {
+	static dispatch_once_t sharedToken;
+	dispatch_once(&sharedToken, ^{
+		deallocBlocks = [[NSMutableArray alloc] initWithCapacity:1];
+	});
+	[deallocBlocks addObject:[block copy]];
+}
+
 #pragma mark - NSObject
 
 - (void)dealloc {
-
-#ifdef TARGET_OS_IPHONE
-	UIApplication *app = [UIApplication sharedApplication];
-	
-	[[NSNotificationCenter defaultCenter] removeObserver:self 
-													name:UIApplicationDidEnterBackgroundNotification
-												  object:app];
-	
-	[[NSNotificationCenter defaultCenter] removeObserver:self 
-													name:UIApplicationWillTerminateNotification
-												  object:app];
-	
-#endif
+	for (void(^block)() in deallocBlocks)
+		block();
 }
 
-
-
 #pragma mark - Initialization
+
+- (id)init {
+	
+	if (!(self = [super init])) return nil;
+	
+	for (void(^block)() in initBlocks)
+		block();
+	
+	return self;
+}
 
 - (id)initWithStoreURL:(NSURL *)URL
 			 storeType:(NSString *)type
@@ -118,21 +130,6 @@ typedef void (^DCTInternalCoreDataStackSaveBlock) (NSManagedObjectContext *manag
 	storeOptions = [options copy];
 	modelName = [name copy];
 	modelConfiguration = [configuration copy];
-		
-#ifdef TARGET_OS_IPHONE
-	
-	UIApplication *app = [UIApplication sharedApplication];
-	
-	[[NSNotificationCenter defaultCenter] addObserver:self
-											 selector:@selector(dctInternal_applicationDidEnterBackgroundNotification:) 
-												 name:UIApplicationDidEnterBackgroundNotification 
-											   object:app];
-	
-	[[NSNotificationCenter defaultCenter] addObserver:self
-											 selector:@selector(dctInternal_applicationWillTerminateNotification:) 
-												 name:UIApplicationWillTerminateNotification
-											   object:app];
-#endif
 	
 	return self;
 }
@@ -233,42 +230,6 @@ typedef void (^DCTInternalCoreDataStackSaveBlock) (NSManagedObjectContext *manag
 + (NSURL *)dctInternal_applicationDocumentsDirectory {
     return [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
 }
-
-#ifdef TARGET_OS_IPHONE
-- (void)dctInternal_applicationDidEnterBackgroundNotification:(NSNotification *)notification {
-	
-	if (![self.managedObjectContext hasChanges]) return;
-	
-	if ([self.managedObjectContext respondsToSelector:@selector(performBlock:)]) {
-	
-		[self.managedObjectContext performBlock:^{
-			[self.managedObjectContext dct_saveWithCompletionHandler:NULL];
-		}];
-
-	} else {
-		
-		[self.managedObjectContext dct_saveWithCompletionHandler:NULL];
-	}
-	
-	// TODO: what if there was a save error?
-}
-
-- (void)dctInternal_applicationWillTerminateNotification:(NSNotification *)notification {
-	
-	if (![self.managedObjectContext hasChanges]) return;
-	
-	if ([self.managedObjectContext respondsToSelector:@selector(performBlock:)]) {
-		
-		[self.managedObjectContext performBlock:^{
-			[self.managedObjectContext save:nil];
-		}];
-		
-	} else {
-		
-		[self.managedObjectContext save:nil];
-	}
-}
-#endif
 
 @end
 

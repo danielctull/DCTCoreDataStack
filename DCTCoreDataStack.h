@@ -78,4 +78,7 @@
 @property (nonatomic, copy, readonly) NSString *modelName;
 @property (nonatomic, copy, readonly) NSString *modelConfiguration;
 
++ (void)addInitBlock:(void(^)(void))block;
++ (void)addDeallocBlock:(void(^)(void))block;
+
 @end
