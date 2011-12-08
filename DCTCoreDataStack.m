@@ -67,7 +67,8 @@ typedef void (^DCTInternalCoreDataStackSaveBlock) (NSManagedObjectContext *manag
 @property (nonatomic, readonly) NSPersistentStoreCoordinator *dctInternal_persistentStoreCoordinator;
 
 @property (nonatomic, strong) DCTInternalCoreDataStackSaveBlock saveBlock;
-@property (nonatomic, copy) DCTInternalCoreDataStackSaveBlock asyncSaveBlock, syncSaveBlock;
+@property (nonatomic, strong) DCTInternalCoreDataStackSaveBlock asyncSaveBlock;
+@property (nonatomic, strong) DCTInternalCoreDataStackSaveBlock syncSaveBlock;
 
 @end
 
@@ -86,7 +87,9 @@ typedef void (^DCTInternalCoreDataStackSaveBlock) (NSManagedObjectContext *manag
 @synthesize storeURL;
 @synthesize modelName;
 
-@synthesize saveBlock, asyncSaveBlock, syncSaveBlock;
+@synthesize saveBlock;
+@synthesize syncSaveBlock;
+@synthesize asyncSaveBlock;
 
 #pragma mark - NSObject
 
@@ -159,7 +162,7 @@ typedef void (^DCTInternalCoreDataStackSaveBlock) (NSManagedObjectContext *manag
 			}];
 		};
 		
-	} else{
+	} else {
 		
 		self.asyncSaveBlock = ^(NSManagedObjectContext *context, DCTManagedObjectContextSaveCompletionBlock completion) {
 			[context dct_saveWithCompletionHandler:completion];
