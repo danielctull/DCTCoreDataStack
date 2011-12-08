@@ -79,7 +79,7 @@ typedef void (^DCTInternalCoreDataStackSaveBlock) (NSManagedObjectContext *manag
 static NSMutableArray *initBlocks = nil;
 static NSMutableArray *deallocBlocks = nil;
 
-+ (void)addInitBlock:(void(^)(void))block {
++ (void)addInitBlock:(void(^)(DCTCoreDataStack *))block {
 	static dispatch_once_t sharedToken;
 	dispatch_once(&sharedToken, ^{
 		initBlocks = [[NSMutableArray alloc] initWithCapacity:1];
@@ -87,7 +87,7 @@ static NSMutableArray *deallocBlocks = nil;
 	[initBlocks addObject:[block copy]];
 }
 
-+ (void)addDeallocBlock:(void(^)(void))block {
++ (void)addDeallocBlock:(void(^)(DCTCoreDataStack *))block {
 	static dispatch_once_t sharedToken;
 	dispatch_once(&sharedToken, ^{
 		deallocBlocks = [[NSMutableArray alloc] initWithCapacity:1];
@@ -98,8 +98,8 @@ static NSMutableArray *deallocBlocks = nil;
 #pragma mark - NSObject
 
 - (void)dealloc {
-	for (void(^block)() in deallocBlocks)
-		block();
+	for (void(^block)(DCTCoreDataStack *) in deallocBlocks)
+		block(self);
 }
 
 #pragma mark - Initialization
@@ -108,8 +108,8 @@ static NSMutableArray *deallocBlocks = nil;
 	
 	if (!(self = [super init])) return nil;
 	
-	for (void(^block)() in initBlocks)
-		block();
+	for (void(^block)(DCTCoreDataStack *) in initBlocks)
+		block(self);
 	
 	return self;
 }

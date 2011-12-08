@@ -20,25 +20,25 @@
 	
 	UIApplication *app = [UIApplication sharedApplication];
 	
-	[self addInitBlock:^{
-		[[NSNotificationCenter defaultCenter] addObserver:self
+	[self addInitBlock:^(DCTCoreDataStack *stack) {
+		[[NSNotificationCenter defaultCenter] addObserver:stack
 												 selector:@selector(dctInternal_applicationDidEnterBackgroundNotification:) 
 													 name:UIApplicationDidEnterBackgroundNotification 
 												   object:app];
 		
-		[[NSNotificationCenter defaultCenter] addObserver:self
+		[[NSNotificationCenter defaultCenter] addObserver:stack
 												 selector:@selector(dctInternal_applicationWillTerminateNotification:) 
 													 name:UIApplicationWillTerminateNotification
 												   object:app];		
 	}];
 	
-	[self addDeallocBlock:^{
+	[self addDeallocBlock:^(DCTCoreDataStack *stack) {
 		
-		[[NSNotificationCenter defaultCenter] removeObserver:self 
+		[[NSNotificationCenter defaultCenter] removeObserver:stack
 														name:UIApplicationDidEnterBackgroundNotification
 													  object:app];
 		
-		[[NSNotificationCenter defaultCenter] removeObserver:self 
+		[[NSNotificationCenter defaultCenter] removeObserver:stack
 														name:UIApplicationWillTerminateNotification
 													  object:app];
 	}];
