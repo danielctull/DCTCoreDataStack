@@ -53,8 +53,6 @@ typedef void (^DCTInternalCoreDataStackSaveBlock) (NSManagedObjectContext *manag
 
 + (NSURL *)dctInternal_applicationDocumentsDirectory;
 
-- (void)dctInternal_iOS5mainContextDidSave:(NSNotification *)notification;
-
 #ifdef TARGET_OS_IPHONE
 - (void)dctInternal_applicationDidEnterBackgroundNotification:(NSNotification *)notification;
 - (void)dctInternal_applicationWillTerminateNotification:(NSNotification *)notification;
@@ -92,10 +90,7 @@ typedef void (^DCTInternalCoreDataStackSaveBlock) (NSManagedObjectContext *manag
 #pragma mark - NSObject
 
 - (void)dealloc {
-	if (backgroundSavingContext != nil)
-		[[NSNotificationCenter defaultCenter] removeObserver:self 
-														name:NSManagedObjectContextDidSaveNotification
-													  object:managedObjectContext];
+
 #ifdef TARGET_OS_IPHONE
 	UIApplication *app = [UIApplication sharedApplication];
 	
@@ -232,10 +227,6 @@ typedef void (^DCTInternalCoreDataStackSaveBlock) (NSManagedObjectContext *manag
 		[managedObjectContext setParentContext:backgroundSavingContext];
 		managedObjectContext.dct_name = @"DCTCoreDataStack.managedObjectContext";
 		
-		[[NSNotificationCenter defaultCenter] addObserver:self
-												 selector:@selector(dctInternal_iOS5mainContextDidSave:)
-													 name:NSManagedObjectContextDidSaveNotification
-												   object:managedObjectContext];
 	} else {
 		
 		managedObjectContext = [[NSManagedObjectContext alloc] init];
@@ -270,41 +261,6 @@ typedef void (^DCTInternalCoreDataStackSaveBlock) (NSManagedObjectContext *manag
 }
 
 #pragma mark - Other Internal
-
-- (void)dctInternal_iOS5mainContextDidSave:(NSNotification *)notification; {
-	
-	NSManagedObjectContext *moc = [notification object];
-	
-	DCTManagedObjectContextSaveCompletionBlock completion = objc_getAssociatedObject(moc, @selector(dct_saveWithCompletionHandler:));
-	
-	// This association always gets set to switch the MOC save: method.
-	if ([completion class] == [NSNull class])
-		completion = NULL;
-	
-	objc_setAssociatedObject(moc, @selector(dct_saveWithCompletionHandler:), nil, OBJC_ASSOCIATION_COPY_NONATOMIC);
-	
-#ifdef TARGET_OS_IPHONE
-	
-	DCTManagedObjectContextSaveCompletionBlock clientCompletion = completion;
-	
-	UIBackgroundTaskIdentifier backgroundTaskIdentifier = [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:NULL];
-	
-	dispatch_queue_t queue = dispatch_get_current_queue();
-	
-	completion = ^(BOOL success, NSError *error) {
-		dispatch_async(queue, ^{
-			
-			if (clientCompletion != NULL)
-				clientCompletion(success, error);
-			
-			[[UIApplication sharedApplication] endBackgroundTask:backgroundTaskIdentifier];
-		});
-	};
-	
-#endif
-	
-	self.saveBlock(backgroundSavingContext, completion);
-}
 
 + (NSURL *)dctInternal_applicationDocumentsDirectory {
     return [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
