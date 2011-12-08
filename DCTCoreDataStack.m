@@ -64,9 +64,6 @@ typedef void (^DCTInternalCoreDataStackSaveBlock) (NSManagedObjectContext *manag
 
 @property (nonatomic, readonly) NSPersistentStoreCoordinator *dctInternal_persistentStoreCoordinator;
 
-@property (nonatomic, strong) DCTInternalCoreDataStackSaveBlock saveBlock;
-@property (nonatomic, strong) DCTInternalCoreDataStackSaveBlock syncSaveBlock;
-
 @end
 
 @implementation DCTCoreDataStack {
@@ -83,9 +80,6 @@ typedef void (^DCTInternalCoreDataStackSaveBlock) (NSManagedObjectContext *manag
 @synthesize modelConfiguration;
 @synthesize storeURL;
 @synthesize modelName;
-
-@synthesize saveBlock;
-@synthesize syncSaveBlock;
 
 #pragma mark - NSObject
 
@@ -140,29 +134,6 @@ typedef void (^DCTInternalCoreDataStackSaveBlock) (NSManagedObjectContext *manag
 												 name:UIApplicationWillTerminateNotification
 											   object:app];
 #endif
-	
-	if ([[NSManagedObjectContext class] instancesRespondToSelector:@selector(performBlock:)]) {
-		
-		self.saveBlock = ^(NSManagedObjectContext *context, DCTManagedObjectContextSaveCompletionBlock completion) {
-			[context performBlock:^{
-				[context dct_saveWithCompletionHandler:completion];
-			}];
-		};
-		
-		self.syncSaveBlock = ^(NSManagedObjectContext *context, DCTManagedObjectContextSaveCompletionBlock completion) {
-			[context performBlockAndWait:^{
-				[context dct_saveWithCompletionHandler:completion];
-			}];
-		};
-		
-	} else {
-		
-		self.saveBlock = ^(NSManagedObjectContext *context, DCTManagedObjectContextSaveCompletionBlock completion) {
-			[context dct_saveWithCompletionHandler:completion];
-		};
-		
-		self.syncSaveBlock = self.saveBlock;
-	}
 	
 	return self;
 }
