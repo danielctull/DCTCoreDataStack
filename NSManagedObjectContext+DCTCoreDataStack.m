@@ -70,6 +70,8 @@
 		// handling of NSManagedObjectContextDidSaveNotification about the child context, it will nil
 		// out this association, so the parent calls the completion handler and not the child.
 		objc_setAssociatedObject(self, _cmd, completionHandler, OBJC_ASSOCIATION_COPY_NONATOMIC);
+	} else {
+		objc_setAssociatedObject(self, _cmd, [NSNull null], OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 	}
 	
 	NSError *error = nil;

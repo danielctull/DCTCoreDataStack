@@ -276,6 +276,11 @@ typedef void (^DCTInternalCoreDataStackSaveBlock) (NSManagedObjectContext *manag
 	NSManagedObjectContext *moc = [notification object];
 	
 	DCTManagedObjectContextSaveCompletionBlock completion = objc_getAssociatedObject(moc, @selector(dct_saveWithCompletionHandler:));
+	
+	// This association always gets set to switch the MOC save: method.
+	if ([completion class] == [NSNull class])
+		completion = NULL;
+	
 	objc_setAssociatedObject(moc, @selector(dct_saveWithCompletionHandler:), nil, OBJC_ASSOCIATION_COPY_NONATOMIC);
 	
 #ifdef TARGET_OS_IPHONE
@@ -339,20 +344,15 @@ typedef void (^DCTInternalCoreDataStackSaveBlock) (NSManagedObjectContext *manag
 
 @end
 
-@implementation DCTCoreDataStack_ManagedObjectContext {
-	BOOL passedThrough;
-}
+@implementation DCTCoreDataStack_ManagedObjectContext
 
 @synthesize dctInternal_stack;
 
 - (BOOL)save:(NSError **)error {
 	
-	if (passedThrough) {
-		passedThrough = NO;
-		return [super save:error];
-	}
+	id object = objc_getAssociatedObject(self, @selector(dct_saveWithCompletionHandler:));
 	
-	passedThrough = YES;
+	if (object) return [super save:error];
 	
 	DCTInternalCoreDataStackSaveBlock block = self.dctInternal_stack.saveBlock;
 	self.dctInternal_stack.saveBlock = self.dctInternal_stack.syncSaveBlock;
