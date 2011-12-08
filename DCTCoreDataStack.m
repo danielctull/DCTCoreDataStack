@@ -357,7 +357,13 @@ typedef void (^DCTInternalCoreDataStackSaveBlock) (NSManagedObjectContext *manag
 	DCTInternalCoreDataStackSaveBlock block = self.dctInternal_stack.saveBlock;
 	self.dctInternal_stack.saveBlock = self.dctInternal_stack.syncSaveBlock;
 	
-	BOOL success = [super save:error];
+	__block NSError *returnError = nil;
+	__block BOOL success = NO;
+	[self dct_saveWithCompletionHandler:^(BOOL s, NSError *e) {
+		returnError = e;
+		success = s;
+	}];
+	*error = returnError;
 	
 	self.dctInternal_stack.saveBlock = block;
 	
