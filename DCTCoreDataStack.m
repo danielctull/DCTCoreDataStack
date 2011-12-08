@@ -38,6 +38,14 @@
 #import "NSManagedObjectContext+DCTCoreDataStack.h"
 #import <objc/runtime.h>
 
+
+
+@interface DCTCoreDataStack_ManagedObjectContext : NSManagedObjectContext
+@property (nonatomic, weak) DCTCoreDataStack *dctInternal_stack;
+@end
+
+
+
 typedef void (^DCTInternalCoreDataStackSaveBlock) (NSManagedObjectContext *managedObjectContext,
 												   DCTManagedObjectContextSaveCompletionBlock completionHandler);
 
@@ -57,6 +65,10 @@ typedef void (^DCTInternalCoreDataStackSaveBlock) (NSManagedObjectContext *manag
 - (void)dctInternal_loadPersistentStoreCoordinator;
 
 @property (nonatomic, readonly) NSPersistentStoreCoordinator *dctInternal_persistentStoreCoordinator;
+
+@property (nonatomic, strong) DCTInternalCoreDataStackSaveBlock saveBlock;
+@property (nonatomic, copy) DCTInternalCoreDataStackSaveBlock asyncSaveBlock, syncSaveBlock;
+
 @end
 
 @implementation DCTCoreDataStack {
@@ -66,8 +78,6 @@ typedef void (^DCTInternalCoreDataStackSaveBlock) (NSManagedObjectContext *manag
 	__strong NSString *modelName;
 	
 	__strong NSManagedObjectContext *backgroundSavingContext;
-	
-	__strong DCTInternalCoreDataStackSaveBlock saveBlock;
 }
 
 @synthesize storeType;
@@ -75,6 +85,8 @@ typedef void (^DCTInternalCoreDataStackSaveBlock) (NSManagedObjectContext *manag
 @synthesize modelConfiguration;
 @synthesize storeURL;
 @synthesize modelName;
+
+@synthesize saveBlock, asyncSaveBlock, syncSaveBlock;
 
 #pragma mark - NSObject
 
@@ -135,19 +147,28 @@ typedef void (^DCTInternalCoreDataStackSaveBlock) (NSManagedObjectContext *manag
 	
 	if ([[NSManagedObjectContext class] instancesRespondToSelector:@selector(performBlock:)]) {
 		
-		saveBlock = ^(NSManagedObjectContext *context, DCTManagedObjectContextSaveCompletionBlock completion) {
+		self.asyncSaveBlock = ^(NSManagedObjectContext *context, DCTManagedObjectContextSaveCompletionBlock completion) {
 			[context performBlock:^{
+				[context dct_saveWithCompletionHandler:completion];
+			}];
+		};
+		
+		self.syncSaveBlock = ^(NSManagedObjectContext *context, DCTManagedObjectContextSaveCompletionBlock completion) {
+			[context performBlockAndWait:^{
 				[context dct_saveWithCompletionHandler:completion];
 			}];
 		};
 		
 	} else{
 		
-		saveBlock = ^(NSManagedObjectContext *context, DCTManagedObjectContextSaveCompletionBlock completion) {
+		self.asyncSaveBlock = ^(NSManagedObjectContext *context, DCTManagedObjectContextSaveCompletionBlock completion) {
 			[context dct_saveWithCompletionHandler:completion];
 		};
 		
+		self.syncSaveBlock = self.asyncSaveBlock;
 	}
+	
+	self.saveBlock = self.asyncSaveBlock;
 	
 	return self;
 }
@@ -206,9 +227,10 @@ typedef void (^DCTInternalCoreDataStackSaveBlock) (NSManagedObjectContext *manag
 		[backgroundSavingContext setPersistentStoreCoordinator:psc];
 		backgroundSavingContext.dct_name = @"DCTCoreDataStack.backgroundSavingContext";
 		
-		managedObjectContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSMainQueueConcurrencyType];
+		managedObjectContext = [[DCTCoreDataStack_ManagedObjectContext alloc] initWithConcurrencyType:NSMainQueueConcurrencyType];
 		[managedObjectContext setParentContext:backgroundSavingContext];
 		managedObjectContext.dct_name = @"DCTCoreDataStack.managedObjectContext";
+		((DCTCoreDataStack_ManagedObjectContext *)managedObjectContext).dctInternal_stack = self;
 		
 		[[NSNotificationCenter defaultCenter] addObserver:self
 												 selector:@selector(dctInternal_iOS5mainContextDidSave:)
@@ -276,7 +298,7 @@ typedef void (^DCTInternalCoreDataStackSaveBlock) (NSManagedObjectContext *manag
 	
 #endif
 	
-	saveBlock(backgroundSavingContext, completion);
+	self.saveBlock(backgroundSavingContext, completion);
 }
 
 + (NSURL *)dctInternal_applicationDocumentsDirectory {
@@ -294,7 +316,7 @@ typedef void (^DCTInternalCoreDataStackSaveBlock) (NSManagedObjectContext *manag
 	
 	dispatch_queue_t queue = dispatch_get_current_queue();
 	
-	saveBlock(self.managedObjectContext, ^(BOOL success, NSError *error) {
+	self.saveBlock(self.managedObjectContext, ^(BOOL success, NSError *error) {
 		dispatch_async(queue, ^{
 			[[UIApplication sharedApplication] endBackgroundTask:backgroundTaskIdentifier];
 		});
@@ -309,16 +331,43 @@ typedef void (^DCTInternalCoreDataStackSaveBlock) (NSManagedObjectContext *manag
 	
 	// The app is about to terminate, we need to change the saveBlock to use performBlockAndWait:
 	// so the background context saving blocks the main thread.
-	if ([[NSManagedObjectContext class] instancesRespondToSelector:@selector(performBlockAndWait:)]) {
-		saveBlock = ^(NSManagedObjectContext *context, DCTManagedObjectContextSaveCompletionBlock completion) {
-			[context performBlockAndWait:^{
-				[context dct_saveWithCompletionHandler:completion];
-			}];
-		};
-	}
+	self.saveBlock = self.syncSaveBlock;
 	
-	saveBlock(self.managedObjectContext, NULL);
+	self.saveBlock(self.managedObjectContext, NULL);
 }
 #endif
+
+@end
+
+@implementation DCTCoreDataStack_ManagedObjectContext {
+	BOOL passedThrough;
+}
+
+@synthesize dctInternal_stack;
+
+- (BOOL)save:(NSError **)error {
+	
+	if (passedThrough) {
+		passedThrough = NO;
+		return [super save:error];
+	}
+	
+	passedThrough = YES;
+	
+	DCTInternalCoreDataStackSaveBlock block = self.dctInternal_stack.saveBlock;
+	self.dctInternal_stack.saveBlock = self.dctInternal_stack.syncSaveBlock;
+	
+	__block NSError *returnError = nil;
+	__block BOOL success = NO;
+	[self dct_saveWithCompletionHandler:^(BOOL s, NSError *e) {
+		returnError = e;
+		success = s;
+	}];
+	*error = returnError;
+	
+	self.dctInternal_stack.saveBlock = block;
+	
+	return success;
+}
 
 @end
