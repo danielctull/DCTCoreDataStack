@@ -364,4 +364,43 @@ typedef void (^DCTInternalCoreDataStackSaveBlock) (NSManagedObjectContext *manag
 	return success;
 }
 
+- (void)dct_saveWithCompletionHandler:(DCTManagedObjectContextSaveCompletionBlock)clientCompletion {
+	
+	dispatch_queue_t queue = dispatch_get_current_queue();
+	
+	NSManagedObjectContext *parent = self.parentContext;
+	
+#ifdef TARGET_OS_IPHONE
+	UIBackgroundTaskIdentifier backgroundTaskIdentifier = [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:NULL];
+#endif
+	
+	DCTManagedObjectContextSaveCompletionBlock completion = ^(BOOL success, NSError *error) {
+		
+		dispatch_async(queue, ^{
+			
+			if (clientCompletion != NULL)
+				clientCompletion(success, error);
+
+#ifdef TARGET_OS_IPHONE
+			[[UIApplication sharedApplication] endBackgroundTask:backgroundTaskIdentifier];
+#endif
+			
+		});
+	};
+	
+	
+	[super dct_saveWithCompletionHandler:^(BOOL success, NSError *error) {
+		
+		if (!success) {
+			completion(success, error);
+			return;
+		}
+		
+		[parent performBlock:^{
+			[parent dct_saveWithCompletionHandler:completion];
+		}];
+		
+	}];
+}
+
 @end
