@@ -47,6 +47,10 @@
 #define dct_nil(x) x = nil
 #endif
 
+
+typedef void (^DCTCoreDataStackErrorBlock) (NSError *error);
+
+
 @interface DCTCoreDataStack : NSObject
 
 // Convenience that assumes XML store, nil config, no options. The model is made up by merging all in the app's main bundle
@@ -67,6 +71,8 @@
 		  storeOptions:(NSDictionary *)storeOptions
 	modelConfiguration:(NSString *)modelConfiguration
 			 modelName:(NSString *)modelName;
+
+@property (nonatomic, copy) DCTCoreDataStackErrorBlock persistentStoreErrorHandler;
 
 @property (nonatomic, strong, readonly) NSManagedObjectContext *managedObjectContext;
 @property (nonatomic, strong, readonly) NSManagedObjectModel *managedObjectModel;

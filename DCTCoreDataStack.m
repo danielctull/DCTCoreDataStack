@@ -79,6 +79,7 @@ typedef void (^DCTInternalCoreDataStackSaveBlock) (NSManagedObjectContext *manag
 @synthesize modelConfiguration;
 @synthesize storeURL;
 @synthesize modelName;
+@synthesize persistentStoreErrorHandler;
 
 #pragma mark - NSObject
 
@@ -118,6 +119,11 @@ typedef void (^DCTInternalCoreDataStackSaveBlock) (NSManagedObjectContext *manag
 	storeOptions = [options copy];
 	modelName = [name copy];
 	modelConfiguration = [configuration copy];
+	
+	self.persistentStoreErrorHandler = ^(NSError *error) {
+		NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+		abort();
+	};
 		
 #ifdef TARGET_OS_IPHONE
 	
@@ -218,26 +224,21 @@ typedef void (^DCTInternalCoreDataStackSaveBlock) (NSManagedObjectContext *manag
 	persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:self.managedObjectModel];
 	
 	NSError *error = nil;
-	if (![persistentStoreCoordinator addPersistentStoreWithType:self.storeType
-												  configuration:self.modelConfiguration
-															URL:self.storeURL
-														options:self.storeOptions
-														  error:&error]) {
-		NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+	NSPersistentStore *persistentStore = [persistentStoreCoordinator addPersistentStoreWithType:self.storeType
+																				  configuration:self.modelConfiguration
+																							URL:self.storeURL
+																						options:self.storeOptions
+																						  error:&error];
+	
+	if (!persistentStore && self.persistentStoreErrorHandler) {
+		self.persistentStoreErrorHandler(error);
 		
-		
-		NSFileManager *fileManager = [NSFileManager defaultManager];
-		if ([fileManager fileExistsAtPath:[storeURL path]]) {
-			[fileManager removeItemAtURL:self.storeURL error:NULL];
-			
-			[persistentStoreCoordinator addPersistentStoreWithType:self.storeType
-													 configuration:self.modelConfiguration
-															   URL:self.storeURL
-														   options:self.storeOptions
-															 error:NULL];
-		} else {
-			abort();
-		}		
+		// Call again, because the failure block may have resolved the failure so we should try again
+		[persistentStoreCoordinator addPersistentStoreWithType:self.storeType
+												 configuration:self.modelConfiguration
+														   URL:self.storeURL
+													   options:self.storeOptions
+														 error:NULL];
 	}
 }
 
