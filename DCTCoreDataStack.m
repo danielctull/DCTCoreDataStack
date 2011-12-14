@@ -224,7 +224,20 @@ typedef void (^DCTInternalCoreDataStackSaveBlock) (NSManagedObjectContext *manag
 														options:self.storeOptions
 														  error:&error]) {
 		NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-		abort();
+		
+		
+		NSFileManager *fileManager = [NSFileManager defaultManager];
+		if ([fileManager fileExistsAtPath:[storeURL path]]) {
+			[fileManager removeItemAtURL:self.storeURL error:NULL];
+			
+			[persistentStoreCoordinator addPersistentStoreWithType:self.storeType
+													 configuration:self.modelConfiguration
+															   URL:self.storeURL
+														   options:self.storeOptions
+															 error:NULL];
+		} else {
+			abort();
+		}		
 	}
 }
 
