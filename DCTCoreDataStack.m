@@ -79,7 +79,7 @@ typedef void (^DCTInternalCoreDataStackSaveBlock) (NSManagedObjectContext *manag
 @synthesize modelConfiguration;
 @synthesize storeURL;
 @synthesize modelName;
-@synthesize persistentStoreErrorHandler;
+@synthesize didResolvePersistentStoreErrorHandler;
 
 #pragma mark - NSObject
 
@@ -120,9 +120,10 @@ typedef void (^DCTInternalCoreDataStackSaveBlock) (NSManagedObjectContext *manag
 	modelName = [name copy];
 	modelConfiguration = [configuration copy];
 	
-	self.persistentStoreErrorHandler = ^(NSError *error) {
+	self.didResolvePersistentStoreErrorHandler = ^(NSError *error) {
 		NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
 		abort();
+		return NO;
 	};
 		
 #ifdef TARGET_OS_IPHONE
@@ -230,15 +231,14 @@ typedef void (^DCTInternalCoreDataStackSaveBlock) (NSManagedObjectContext *manag
 																						options:self.storeOptions
 																						  error:&error];
 	
-	if (!persistentStore && self.persistentStoreErrorHandler) {
-		self.persistentStoreErrorHandler(error);
+	if (!persistentStore && self.didResolvePersistentStoreErrorHandler) {
 		
-		// Call again, because the failure block may have resolved the failure so we should try again
-		[persistentStoreCoordinator addPersistentStoreWithType:self.storeType
-												 configuration:self.modelConfiguration
-														   URL:self.storeURL
-													   options:self.storeOptions
-														 error:NULL];
+		if (self.didResolvePersistentStoreErrorHandler(error))
+			[persistentStoreCoordinator addPersistentStoreWithType:self.storeType
+													 configuration:self.modelConfiguration
+															   URL:self.storeURL
+														   options:self.storeOptions
+															 error:NULL];
 	}
 }
 

@@ -47,8 +47,8 @@
 #define dct_nil(x) x = nil
 #endif
 
-
-typedef void (^DCTCoreDataStackErrorBlock) (NSError *error);
+// Return YES if the error was resolved
+typedef BOOL (^DCTCoreDataStackPersistentStoreErrorResolutionBlock) (NSError *error);
 
 
 @interface DCTCoreDataStack : NSObject
@@ -72,7 +72,7 @@ typedef void (^DCTCoreDataStackErrorBlock) (NSError *error);
 	modelConfiguration:(NSString *)modelConfiguration
 			 modelName:(NSString *)modelName;
 
-@property (nonatomic, copy) DCTCoreDataStackErrorBlock persistentStoreErrorHandler;
+@property (nonatomic, copy) DCTCoreDataStackPersistentStoreErrorResolutionBlock didResolvePersistentStoreErrorHandler;
 
 @property (nonatomic, strong, readonly) NSManagedObjectContext *managedObjectContext;
 @property (nonatomic, strong, readonly) NSManagedObjectModel *managedObjectModel;
