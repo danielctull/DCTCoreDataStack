@@ -14,25 +14,25 @@
 		24E38FDF149A3D030006B6CB /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 24E38FDD149A3D030006B6CB /* InfoPlist.strings */; };
 		24E38FE1149A3D030006B6CB /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 24E38FE0149A3D030006B6CB /* main.m */; };
 		24E38FE5149A3D030006B6CB /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 24E38FE4149A3D030006B6CB /* AppDelegate.m */; };
-		24E38FE8149A3D030006B6CB /* BackgroundInsertionTest.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 24E38FE6149A3D030006B6CB /* BackgroundInsertionTest.xcdatamodeld */; };
+		24E38FE8149A3D030006B6CB /* DCTCoreDataStack.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 24E38FE6149A3D030006B6CB /* DCTCoreDataStack.xcdatamodeld */; };
 		24E38FEB149A3D030006B6CB /* MasterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 24E38FEA149A3D030006B6CB /* MasterViewController.m */; };
 		24E38FFF149A413C0006B6CB /* DCTCoreDataStack.m in Sources */ = {isa = PBXBuildFile; fileRef = 24E38FFC149A413C0006B6CB /* DCTCoreDataStack.m */; };
 		24E39000149A413C0006B6CB /* NSManagedObjectContext+DCTCoreDataStack.m in Sources */ = {isa = PBXBuildFile; fileRef = 24E38FFE149A413C0006B6CB /* NSManagedObjectContext+DCTCoreDataStack.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		24E38FCE149A3D030006B6CB /* BackgroundInsertionTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BackgroundInsertionTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		24E38FCE149A3D030006B6CB /* DCTCoreDataStack.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DCTCoreDataStack.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		24E38FD2149A3D030006B6CB /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		24E38FD4149A3D030006B6CB /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		24E38FD6149A3D030006B6CB /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		24E38FD8149A3D030006B6CB /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
-		24E38FDC149A3D030006B6CB /* BackgroundInsertionTest-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "BackgroundInsertionTest-Info.plist"; sourceTree = "<group>"; };
+		24E38FDC149A3D030006B6CB /* DCTCoreDataStack-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "DCTCoreDataStack-Info.plist"; sourceTree = "<group>"; };
 		24E38FDE149A3D030006B6CB /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		24E38FE0149A3D030006B6CB /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		24E38FE2149A3D030006B6CB /* BackgroundInsertionTest-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "BackgroundInsertionTest-Prefix.pch"; sourceTree = "<group>"; };
+		24E38FE2149A3D030006B6CB /* DCTCoreDataStack-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "DCTCoreDataStack-Prefix.pch"; sourceTree = "<group>"; };
 		24E38FE3149A3D030006B6CB /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		24E38FE4149A3D030006B6CB /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		24E38FE7149A3D030006B6CB /* BackgroundInsertionTest.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = BackgroundInsertionTest.xcdatamodel; sourceTree = "<group>"; };
+		24E38FE7149A3D030006B6CB /* DCTCoreDataStack.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DCTCoreDataStack.xcdatamodel; sourceTree = "<group>"; };
 		24E38FE9149A3D030006B6CB /* MasterViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MasterViewController.h; sourceTree = "<group>"; };
 		24E38FEA149A3D030006B6CB /* MasterViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MasterViewController.m; sourceTree = "<group>"; };
 		24E38FFB149A413C0006B6CB /* DCTCoreDataStack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCTCoreDataStack.h; sourceTree = "<group>"; };
@@ -60,7 +60,7 @@
 			isa = PBXGroup;
 			children = (
 				24E38FFA149A413C0006B6CB /* DCTCoreDataStack */,
-				24E38FDA149A3D030006B6CB /* BackgroundInsertionTest */,
+				24E38FDA149A3D030006B6CB /* DCTCoreDataStack Demo */,
 				24E38FD1149A3D030006B6CB /* Frameworks */,
 				24E38FCF149A3D030006B6CB /* Products */,
 			);
@@ -69,7 +69,7 @@
 		24E38FCF149A3D030006B6CB /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				24E38FCE149A3D030006B6CB /* BackgroundInsertionTest.app */,
+				24E38FCE149A3D030006B6CB /* DCTCoreDataStack.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -85,26 +85,26 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		24E38FDA149A3D030006B6CB /* BackgroundInsertionTest */ = {
+		24E38FDA149A3D030006B6CB /* DCTCoreDataStack Demo */ = {
 			isa = PBXGroup;
 			children = (
 				24E38FE3149A3D030006B6CB /* AppDelegate.h */,
 				24E38FE4149A3D030006B6CB /* AppDelegate.m */,
 				24E38FE9149A3D030006B6CB /* MasterViewController.h */,
 				24E38FEA149A3D030006B6CB /* MasterViewController.m */,
-				24E38FE6149A3D030006B6CB /* BackgroundInsertionTest.xcdatamodeld */,
+				24E38FE6149A3D030006B6CB /* DCTCoreDataStack.xcdatamodeld */,
 				24E38FDB149A3D030006B6CB /* Supporting Files */,
 			);
-			path = BackgroundInsertionTest;
+			path = "DCTCoreDataStack Demo";
 			sourceTree = "<group>";
 		};
 		24E38FDB149A3D030006B6CB /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				24E38FDC149A3D030006B6CB /* BackgroundInsertionTest-Info.plist */,
+				24E38FDC149A3D030006B6CB /* DCTCoreDataStack-Info.plist */,
 				24E38FDD149A3D030006B6CB /* InfoPlist.strings */,
 				24E38FE0149A3D030006B6CB /* main.m */,
-				24E38FE2149A3D030006B6CB /* BackgroundInsertionTest-Prefix.pch */,
+				24E38FE2149A3D030006B6CB /* DCTCoreDataStack-Prefix.pch */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -123,9 +123,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		24E38FCD149A3D030006B6CB /* BackgroundInsertionTest */ = {
+		24E38FCD149A3D030006B6CB /* DCTCoreDataStack */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 24E38FF7149A3D030006B6CB /* Build configuration list for PBXNativeTarget "BackgroundInsertionTest" */;
+			buildConfigurationList = 24E38FF7149A3D030006B6CB /* Build configuration list for PBXNativeTarget "DCTCoreDataStack" */;
 			buildPhases = (
 				24E38FCA149A3D030006B6CB /* Sources */,
 				24E38FCB149A3D030006B6CB /* Frameworks */,
@@ -135,9 +135,9 @@
 			);
 			dependencies = (
 			);
-			name = BackgroundInsertionTest;
+			name = DCTCoreDataStack;
 			productName = BackgroundInsertionTest;
-			productReference = 24E38FCE149A3D030006B6CB /* BackgroundInsertionTest.app */;
+			productReference = 24E38FCE149A3D030006B6CB /* DCTCoreDataStack.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -149,7 +149,7 @@
 				LastUpgradeCheck = 0430;
 				ORGANIZATIONNAME = "Daniel Tull Limited";
 			};
-			buildConfigurationList = 24E38FC8149A3D030006B6CB /* Build configuration list for PBXProject "BackgroundInsertionTest" */;
+			buildConfigurationList = 24E38FC8149A3D030006B6CB /* Build configuration list for PBXProject "DCTCoreDataStack" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -161,7 +161,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				24E38FCD149A3D030006B6CB /* BackgroundInsertionTest */,
+				24E38FCD149A3D030006B6CB /* DCTCoreDataStack */,
 			);
 		};
 /* End PBXProject section */
@@ -184,7 +184,7 @@
 			files = (
 				24E38FE1149A3D030006B6CB /* main.m in Sources */,
 				24E38FE5149A3D030006B6CB /* AppDelegate.m in Sources */,
-				24E38FE8149A3D030006B6CB /* BackgroundInsertionTest.xcdatamodeld in Sources */,
+				24E38FE8149A3D030006B6CB /* DCTCoreDataStack.xcdatamodeld in Sources */,
 				24E38FEB149A3D030006B6CB /* MasterViewController.m in Sources */,
 				24E38FFF149A413C0006B6CB /* DCTCoreDataStack.m in Sources */,
 				24E39000149A413C0006B6CB /* NSManagedObjectContext+DCTCoreDataStack.m in Sources */,
@@ -254,10 +254,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "BackgroundInsertionTest/BackgroundInsertionTest-Prefix.pch";
-				INFOPLIST_FILE = "BackgroundInsertionTest/BackgroundInsertionTest-Info.plist";
+				GCC_PREFIX_HEADER = "DCTCoreDataStack Demo/DCTCoreDataStack-Prefix.pch";
+				INFOPLIST_FILE = "DCTCoreDataStack Demo/DCTCoreDataStack-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = DCTCoreDataStack;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -266,10 +266,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "BackgroundInsertionTest/BackgroundInsertionTest-Prefix.pch";
-				INFOPLIST_FILE = "BackgroundInsertionTest/BackgroundInsertionTest-Info.plist";
+				GCC_PREFIX_HEADER = "DCTCoreDataStack Demo/DCTCoreDataStack-Prefix.pch";
+				INFOPLIST_FILE = "DCTCoreDataStack Demo/DCTCoreDataStack-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = DCTCoreDataStack;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -277,7 +277,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		24E38FC8149A3D030006B6CB /* Build configuration list for PBXProject "BackgroundInsertionTest" */ = {
+		24E38FC8149A3D030006B6CB /* Build configuration list for PBXProject "DCTCoreDataStack" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				24E38FF5149A3D030006B6CB /* Debug */,
@@ -286,7 +286,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		24E38FF7149A3D030006B6CB /* Build configuration list for PBXNativeTarget "BackgroundInsertionTest" */ = {
+		24E38FF7149A3D030006B6CB /* Build configuration list for PBXNativeTarget "DCTCoreDataStack" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				24E38FF8149A3D030006B6CB /* Debug */,
@@ -297,13 +297,13 @@
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
-		24E38FE6149A3D030006B6CB /* BackgroundInsertionTest.xcdatamodeld */ = {
+		24E38FE6149A3D030006B6CB /* DCTCoreDataStack.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
-				24E38FE7149A3D030006B6CB /* BackgroundInsertionTest.xcdatamodel */,
+				24E38FE7149A3D030006B6CB /* DCTCoreDataStack.xcdatamodel */,
 			);
-			currentVersion = 24E38FE7149A3D030006B6CB /* BackgroundInsertionTest.xcdatamodel */;
-			path = BackgroundInsertionTest.xcdatamodeld;
+			currentVersion = 24E38FE7149A3D030006B6CB /* DCTCoreDataStack.xcdatamodel */;
+			path = DCTCoreDataStack.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
 		};
