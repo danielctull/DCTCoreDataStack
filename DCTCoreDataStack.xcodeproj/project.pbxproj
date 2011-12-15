@@ -18,6 +18,10 @@
 		24E38FEB149A3D030006B6CB /* MasterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 24E38FEA149A3D030006B6CB /* MasterViewController.m */; };
 		24E38FFF149A413C0006B6CB /* DCTCoreDataStack.m in Sources */ = {isa = PBXBuildFile; fileRef = 24E38FFC149A413C0006B6CB /* DCTCoreDataStack.m */; };
 		24E39000149A413C0006B6CB /* NSManagedObjectContext+DCTCoreDataStack.m in Sources */ = {isa = PBXBuildFile; fileRef = 24E38FFE149A413C0006B6CB /* NSManagedObjectContext+DCTCoreDataStack.m */; };
+		24E39011149A48360006B6CB /* _Message.m in Sources */ = {isa = PBXBuildFile; fileRef = 24E3900A149A48360006B6CB /* _Message.m */; };
+		24E39012149A48360006B6CB /* _User.m in Sources */ = {isa = PBXBuildFile; fileRef = 24E3900C149A48360006B6CB /* _User.m */; };
+		24E39013149A48360006B6CB /* Message.m in Sources */ = {isa = PBXBuildFile; fileRef = 24E3900E149A48360006B6CB /* Message.m */; };
+		24E39014149A48360006B6CB /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 24E39010149A48360006B6CB /* User.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -39,6 +43,14 @@
 		24E38FFC149A413C0006B6CB /* DCTCoreDataStack.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCTCoreDataStack.m; sourceTree = "<group>"; };
 		24E38FFD149A413C0006B6CB /* NSManagedObjectContext+DCTCoreDataStack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSManagedObjectContext+DCTCoreDataStack.h"; sourceTree = "<group>"; };
 		24E38FFE149A413C0006B6CB /* NSManagedObjectContext+DCTCoreDataStack.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSManagedObjectContext+DCTCoreDataStack.m"; sourceTree = "<group>"; };
+		24E39009149A48360006B6CB /* _Message.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _Message.h; sourceTree = "<group>"; };
+		24E3900A149A48360006B6CB /* _Message.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _Message.m; sourceTree = "<group>"; };
+		24E3900B149A48360006B6CB /* _User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _User.h; sourceTree = "<group>"; };
+		24E3900C149A48360006B6CB /* _User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _User.m; sourceTree = "<group>"; };
+		24E3900D149A48360006B6CB /* Message.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Message.h; sourceTree = "<group>"; };
+		24E3900E149A48360006B6CB /* Message.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Message.m; sourceTree = "<group>"; };
+		24E3900F149A48360006B6CB /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
+		24E39010149A48360006B6CB /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,6 +106,14 @@
 				24E38FEA149A3D030006B6CB /* MasterViewController.m */,
 				24E38FE6149A3D030006B6CB /* DCTCoreDataStack.xcdatamodeld */,
 				24E38FDB149A3D030006B6CB /* Supporting Files */,
+				24E3900D149A48360006B6CB /* Message.h */,
+				24E3900E149A48360006B6CB /* Message.m */,
+				24E3900F149A48360006B6CB /* User.h */,
+				24E39010149A48360006B6CB /* User.m */,
+				24E39009149A48360006B6CB /* _Message.h */,
+				24E3900A149A48360006B6CB /* _Message.m */,
+				24E3900B149A48360006B6CB /* _User.h */,
+				24E3900C149A48360006B6CB /* _User.m */,
 			);
 			path = "DCTCoreDataStack Demo";
 			sourceTree = "<group>";
@@ -188,6 +208,10 @@
 				24E38FEB149A3D030006B6CB /* MasterViewController.m in Sources */,
 				24E38FFF149A413C0006B6CB /* DCTCoreDataStack.m in Sources */,
 				24E39000149A413C0006B6CB /* NSManagedObjectContext+DCTCoreDataStack.m in Sources */,
+				24E39011149A48360006B6CB /* _Message.m in Sources */,
+				24E39012149A48360006B6CB /* _User.m in Sources */,
+				24E39013149A48360006B6CB /* Message.m in Sources */,
+				24E39014149A48360006B6CB /* User.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -293,6 +317,7 @@
 				24E38FF9149A3D030006B6CB /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 

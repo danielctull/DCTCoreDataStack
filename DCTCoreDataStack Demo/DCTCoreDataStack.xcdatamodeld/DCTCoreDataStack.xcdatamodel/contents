@@ -1,9 +1,18 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model name="" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="875" systemVersion="11C74" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
-    <entity name="Event">
-        <attribute name="timeStamp" optional="YES" attributeType="Date"/>
+    <entity name="Message" representedClassName="Message" syncable="YES">
+        <attribute name="date" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="text" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="user" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="User" inverseName="messages" inverseEntity="User" syncable="YES"/>
+    </entity>
+    <entity name="User" representedClassName="User" syncable="YES">
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="followers" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="User" inverseName="following" inverseEntity="User" syncable="YES"/>
+        <relationship name="following" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="User" inverseName="followers" inverseEntity="User" syncable="YES"/>
+        <relationship name="messages" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Message" inverseName="user" inverseEntity="Message" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Event" positionX="261" positionY="189" width="128" height="60"/>
+        <element name="User" positionX="160" positionY="192" width="128" height="105"/>
+        <element name="Message" positionX="160" positionY="192" width="128" height="90"/>
     </elements>
 </model>

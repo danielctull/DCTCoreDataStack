@@ -8,12 +8,15 @@
 
 #import "MasterViewController.h"
 #import "NSManagedObjectContext+DCTCoreDataStack.h"
+#import "User.h"
+#import "Message.h"
 
 @interface MasterViewController () <NSFetchedResultsControllerDelegate>
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath;
 - (IBAction)insertNewObject:(id)sender;
 @property (strong, nonatomic) NSFetchedResultsController *fetchedResultsController;
 @property (strong, nonatomic) NSManagedObjectContext *backgroundProcessingContext;
+@property (strong, nonatomic) User *me;
 @end
 
 @implementation MasterViewController
@@ -21,6 +24,7 @@
 @synthesize fetchedResultsController;
 @synthesize managedObjectContext;
 @synthesize backgroundProcessingContext;
+@synthesize me;
 
 #pragma mark - View lifecycle
 
@@ -28,22 +32,37 @@
     [super viewDidLoad];
 	UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(insertNewObject:)];
 	self.navigationItem.rightBarButtonItem = addButton;
+	
+	NSManagedObjectContext *mainContext = self.managedObjectContext;
+	
+	me = [User insertInManagedObjectContext:mainContext];
+	me.name = @"Daniel";
+	
+	for (NSInteger i = 0; i < 5; i++) {
+		User *someoneElse = [User insertInManagedObjectContext:mainContext];
+		someoneElse.name = [NSString stringWithFormat:@"Friend %i", i];
+		[me addFollowingObject:someoneElse];
+	}
+		
+	[mainContext dct_save];
 }
 
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
-    NSManagedObject *managedObject = [self.fetchedResultsController objectAtIndexPath:indexPath];
-    cell.textLabel.text = [[managedObject valueForKey:@"timeStamp"] description];
+    Message *message = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    cell.textLabel.text = [NSString stringWithFormat:@"%@: %@", message.user.name, message.text];
 }
 
 - (IBAction)insertNewObject:(id)sender {
 	
 	NSManagedObjectContext *context = self.backgroundProcessingContext;
-	NSString *entityName = [[self.fetchedResultsController fetchRequest] entityName];
+	NSManagedObjectID *userID = [[me.following anyObject] objectID];
 	
 	[context performBlock:^{
 		
-		NSManagedObject *mo = [NSEntityDescription insertNewObjectForEntityForName:entityName inManagedObjectContext:context];
-		[mo setValue:[NSDate date] forKey:@"timeStamp"];
+		Message *message = [Message insertInManagedObjectContext:context];
+		message.user = (User *)[context objectWithID:userID];
+		message.date = [NSDate date];
+		message.text = @"Hello";
 		
 		[context dct_saveWithCompletionHandler:^(BOOL success, NSError *error) {
 			[self.managedObjectContext performBlock:^{
@@ -71,13 +90,14 @@
         return fetchedResultsController;
     
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-    
-	NSEntityDescription *entity = [NSEntityDescription entityForName:@"Event" inManagedObjectContext:self.managedObjectContext];
-	[fetchRequest setEntity:entity];
 	
-    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"timeStamp" ascending:NO];
-    NSArray *sortDescriptors = [NSArray arrayWithObject:sortDescriptor];
-    [fetchRequest setSortDescriptors:sortDescriptors];
+	fetchRequest.entity = [Message entityInManagedObjectContext:self.managedObjectContext];
+	
+	fetchRequest.predicate = [NSPredicate predicateWithFormat:@"%K.%K contains %@", MessageRelationships.user, UserRelationships.followers, self.me];
+	
+    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:MessageAttributes.date 
+																   ascending:NO];
+    fetchRequest.sortDescriptors = [NSArray arrayWithObject:sortDescriptor];
     
     fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:self.managedObjectContext sectionNameKeyPath:nil cacheName:@"Master"];
     fetchedResultsController.delegate = self;    
@@ -104,8 +124,7 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
 	
-	NSManagedObject *managedObject = [self.fetchedResultsController objectAtIndexPath:indexPath];
-    cell.textLabel.text = [[managedObject valueForKey:@"timeStamp"] description];
+	[self configureCell:cell atIndexPath:indexPath];
 	
     return cell;
 }
