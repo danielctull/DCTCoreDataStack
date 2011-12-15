@@ -30,8 +30,18 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-	UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(insertNewObject:)];
+	UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithTitle:@"Add from friend"
+																  style:UIBarButtonItemStyleBordered
+																 target:self
+																 action:@selector(insertNewObject:)];
+	
 	self.navigationItem.rightBarButtonItem = addButton;
+	
+	addButton = [[UIBarButtonItem alloc] initWithTitle:@"Add not from friend"
+												 style:UIBarButtonItemStyleBordered
+												target:self
+												action:@selector(insertNewObject:)];
+	self.navigationItem.leftBarButtonItem = addButton;
 	
 	NSManagedObjectContext *mainContext = self.managedObjectContext;
 	
@@ -57,12 +67,20 @@
 	NSManagedObjectContext *context = self.backgroundProcessingContext;
 	NSManagedObjectID *userID = [[me.following anyObject] objectID];
 	
+	if ([sender isEqual:self.navigationItem.leftBarButtonItem]) {
+		User *user = [User insertInManagedObjectContext:self.managedObjectContext];
+		user.name = @"Not friend";
+		userID = user.objectID;
+	}
+	
 	[context performBlock:^{
 		
 		Message *message = [Message insertInManagedObjectContext:context];
 		message.user = (User *)[context objectWithID:userID];
 		message.date = [NSDate date];
 		message.text = @"Hello";
+		
+		NSLog(@"%@: \"%@\"", message.user.name, message.text);
 		
 		[context dct_saveWithCompletionHandler:^(BOOL success, NSError *error) {
 			[self.managedObjectContext performBlock:^{
