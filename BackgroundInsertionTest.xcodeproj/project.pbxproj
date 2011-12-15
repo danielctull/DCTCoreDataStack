@@ -16,6 +16,8 @@
 		24E38FE5149A3D030006B6CB /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 24E38FE4149A3D030006B6CB /* AppDelegate.m */; };
 		24E38FE8149A3D030006B6CB /* BackgroundInsertionTest.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 24E38FE6149A3D030006B6CB /* BackgroundInsertionTest.xcdatamodeld */; };
 		24E38FEB149A3D030006B6CB /* MasterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 24E38FEA149A3D030006B6CB /* MasterViewController.m */; };
+		24E38FFF149A413C0006B6CB /* DCTCoreDataStack.m in Sources */ = {isa = PBXBuildFile; fileRef = 24E38FFC149A413C0006B6CB /* DCTCoreDataStack.m */; };
+		24E39000149A413C0006B6CB /* NSManagedObjectContext+DCTCoreDataStack.m in Sources */ = {isa = PBXBuildFile; fileRef = 24E38FFE149A413C0006B6CB /* NSManagedObjectContext+DCTCoreDataStack.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,6 +35,10 @@
 		24E38FE7149A3D030006B6CB /* BackgroundInsertionTest.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = BackgroundInsertionTest.xcdatamodel; sourceTree = "<group>"; };
 		24E38FE9149A3D030006B6CB /* MasterViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MasterViewController.h; sourceTree = "<group>"; };
 		24E38FEA149A3D030006B6CB /* MasterViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MasterViewController.m; sourceTree = "<group>"; };
+		24E38FFB149A413C0006B6CB /* DCTCoreDataStack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCTCoreDataStack.h; sourceTree = "<group>"; };
+		24E38FFC149A413C0006B6CB /* DCTCoreDataStack.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCTCoreDataStack.m; sourceTree = "<group>"; };
+		24E38FFD149A413C0006B6CB /* NSManagedObjectContext+DCTCoreDataStack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSManagedObjectContext+DCTCoreDataStack.h"; sourceTree = "<group>"; };
+		24E38FFE149A413C0006B6CB /* NSManagedObjectContext+DCTCoreDataStack.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSManagedObjectContext+DCTCoreDataStack.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -53,6 +59,7 @@
 		24E38FC3149A3D030006B6CB = {
 			isa = PBXGroup;
 			children = (
+				24E38FFA149A413C0006B6CB /* DCTCoreDataStack */,
 				24E38FDA149A3D030006B6CB /* BackgroundInsertionTest */,
 				24E38FD1149A3D030006B6CB /* Frameworks */,
 				24E38FCF149A3D030006B6CB /* Products */,
@@ -100,6 +107,17 @@
 				24E38FE2149A3D030006B6CB /* BackgroundInsertionTest-Prefix.pch */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		24E38FFA149A413C0006B6CB /* DCTCoreDataStack */ = {
+			isa = PBXGroup;
+			children = (
+				24E38FFB149A413C0006B6CB /* DCTCoreDataStack.h */,
+				24E38FFC149A413C0006B6CB /* DCTCoreDataStack.m */,
+				24E38FFD149A413C0006B6CB /* NSManagedObjectContext+DCTCoreDataStack.h */,
+				24E38FFE149A413C0006B6CB /* NSManagedObjectContext+DCTCoreDataStack.m */,
+			);
+			path = DCTCoreDataStack;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -168,6 +186,8 @@
 				24E38FE5149A3D030006B6CB /* AppDelegate.m in Sources */,
 				24E38FE8149A3D030006B6CB /* BackgroundInsertionTest.xcdatamodeld in Sources */,
 				24E38FEB149A3D030006B6CB /* MasterViewController.m in Sources */,
+				24E38FFF149A413C0006B6CB /* DCTCoreDataStack.m in Sources */,
+				24E39000149A413C0006B6CB /* NSManagedObjectContext+DCTCoreDataStack.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
