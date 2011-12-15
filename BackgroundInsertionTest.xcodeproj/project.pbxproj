@@ -16,9 +16,6 @@
 		24E38FE5149A3D030006B6CB /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 24E38FE4149A3D030006B6CB /* AppDelegate.m */; };
 		24E38FE8149A3D030006B6CB /* BackgroundInsertionTest.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 24E38FE6149A3D030006B6CB /* BackgroundInsertionTest.xcdatamodeld */; };
 		24E38FEB149A3D030006B6CB /* MasterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 24E38FEA149A3D030006B6CB /* MasterViewController.m */; };
-		24E38FEE149A3D030006B6CB /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 24E38FED149A3D030006B6CB /* DetailViewController.m */; };
-		24E38FF1149A3D030006B6CB /* MasterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 24E38FEF149A3D030006B6CB /* MasterViewController.xib */; };
-		24E38FF4149A3D030006B6CB /* DetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 24E38FF2149A3D030006B6CB /* DetailViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,19 +24,15 @@
 		24E38FD4149A3D030006B6CB /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		24E38FD6149A3D030006B6CB /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		24E38FD8149A3D030006B6CB /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
-		24E38FDC149A3D030006B6CB /* BackgroundInsertionTest-Info.plist */ = {isa = PBXFileReference; path = "BackgroundInsertionTest-Info.plist"; sourceTree = "<group>"; };
+		24E38FDC149A3D030006B6CB /* BackgroundInsertionTest-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "BackgroundInsertionTest-Info.plist"; sourceTree = "<group>"; };
 		24E38FDE149A3D030006B6CB /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		24E38FE0149A3D030006B6CB /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		24E38FE2149A3D030006B6CB /* BackgroundInsertionTest-Prefix.pch */ = {isa = PBXFileReference; path = "BackgroundInsertionTest-Prefix.pch"; sourceTree = "<group>"; };
-		24E38FE3149A3D030006B6CB /* AppDelegate.h */ = {isa = PBXFileReference; path = AppDelegate.h; sourceTree = "<group>"; };
+		24E38FE2149A3D030006B6CB /* BackgroundInsertionTest-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "BackgroundInsertionTest-Prefix.pch"; sourceTree = "<group>"; };
+		24E38FE3149A3D030006B6CB /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		24E38FE4149A3D030006B6CB /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		24E38FE7149A3D030006B6CB /* BackgroundInsertionTest.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = BackgroundInsertionTest.xcdatamodel; sourceTree = "<group>"; };
-		24E38FE9149A3D030006B6CB /* MasterViewController.h */ = {isa = PBXFileReference; path = MasterViewController.h; sourceTree = "<group>"; };
+		24E38FE9149A3D030006B6CB /* MasterViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MasterViewController.h; sourceTree = "<group>"; };
 		24E38FEA149A3D030006B6CB /* MasterViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MasterViewController.m; sourceTree = "<group>"; };
-		24E38FEC149A3D030006B6CB /* DetailViewController.h */ = {isa = PBXFileReference; path = DetailViewController.h; sourceTree = "<group>"; };
-		24E38FED149A3D030006B6CB /* DetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DetailViewController.m; sourceTree = "<group>"; };
-		24E38FF0149A3D030006B6CB /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MasterViewController.xib; sourceTree = "<group>"; };
-		24E38FF3149A3D030006B6CB /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/DetailViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -92,10 +85,6 @@
 				24E38FE4149A3D030006B6CB /* AppDelegate.m */,
 				24E38FE9149A3D030006B6CB /* MasterViewController.h */,
 				24E38FEA149A3D030006B6CB /* MasterViewController.m */,
-				24E38FEC149A3D030006B6CB /* DetailViewController.h */,
-				24E38FED149A3D030006B6CB /* DetailViewController.m */,
-				24E38FEF149A3D030006B6CB /* MasterViewController.xib */,
-				24E38FF2149A3D030006B6CB /* DetailViewController.xib */,
 				24E38FE6149A3D030006B6CB /* BackgroundInsertionTest.xcdatamodeld */,
 				24E38FDB149A3D030006B6CB /* Supporting Files */,
 			);
@@ -165,8 +154,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				24E38FDF149A3D030006B6CB /* InfoPlist.strings in Resources */,
-				24E38FF1149A3D030006B6CB /* MasterViewController.xib in Resources */,
-				24E38FF4149A3D030006B6CB /* DetailViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -181,7 +168,6 @@
 				24E38FE5149A3D030006B6CB /* AppDelegate.m in Sources */,
 				24E38FE8149A3D030006B6CB /* BackgroundInsertionTest.xcdatamodeld in Sources */,
 				24E38FEB149A3D030006B6CB /* MasterViewController.m in Sources */,
-				24E38FEE149A3D030006B6CB /* DetailViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -194,22 +180,6 @@
 				24E38FDE149A3D030006B6CB /* en */,
 			);
 			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
-		24E38FEF149A3D030006B6CB /* MasterViewController.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				24E38FF0149A3D030006B6CB /* en */,
-			);
-			name = MasterViewController.xib;
-			sourceTree = "<group>";
-		};
-		24E38FF2149A3D030006B6CB /* DetailViewController.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				24E38FF3149A3D030006B6CB /* en */,
-			);
-			name = DetailViewController.xib;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
