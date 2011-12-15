@@ -7,10 +7,13 @@
 //
 
 #import "MasterViewController.h"
+#import "NSManagedObjectContext+DCTCoreDataStack.h"
 
-@interface MasterViewController ()
+@interface MasterViewController () <NSFetchedResultsControllerDelegate>
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath;
 - (IBAction)insertNewObject:(id)sender;
+@property (strong, nonatomic) NSFetchedResultsController *fetchedResultsController;
+@property (strong, nonatomic) NSManagedObjectContext *backgroundProcessingContext;
 @end
 
 @implementation MasterViewController
@@ -42,23 +45,11 @@
 		NSManagedObject *mo = [NSEntityDescription insertNewObjectForEntityForName:entityName inManagedObjectContext:context];
 		[mo setValue:[NSDate date] forKey:@"timeStamp"];
 		
-		NSError *error = nil;
-		if (![context save:&error]) {
-			NSLog(@"Unresolved error in child context saving %@, %@", error, [error userInfo]);
-			abort();
-		}
-		
-		[self.managedObjectContext performBlock:^{
-			NSError *error = nil;
-			if (![self.managedObjectContext save:&error]) {
-				NSLog(@"Unresolved error in main context saving %@, %@", error, [error userInfo]);
-				abort();
-			}
+		[context dct_saveWithCompletionHandler:^(BOOL success, NSError *error) {
+			[self.managedObjectContext performBlock:^{
+				[self.managedObjectContext dct_save];
+			}];
 		}];
-			
-		
-		
-		
 	}];
 }
 
@@ -112,7 +103,10 @@
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
-	[self configureCell:cell atIndexPath:indexPath];
+	
+	NSManagedObject *managedObject = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    cell.textLabel.text = [[managedObject valueForKey:@"timeStamp"] description];
+	
     return cell;
 }
 
