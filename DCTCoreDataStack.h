@@ -37,14 +37,9 @@
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
-#if !defined dct_weak && __IPHONE_OS_VERSION_MIN_REQUIRED >= __IPHONE_5_0
-#define dct_weak weak
-#define __dct_weak __weak
-#define dct_nil(x)
-#elif !defined dct_weak && __IPHONE_OS_VERSION_MIN_REQUIRED >= __IPHONE_4_3
-#define dct_weak unsafe_unretained
-#define __dct_weak __unsafe_unretained
-#define dct_nil(x) x = nil
+#ifndef dctcoredatastack
+#define dctcoredatastack_1_0     10000
+#define dctcoredatastack         dctcoredatastack_1_0
 #endif
 
 // Return YES if the error was resolved
