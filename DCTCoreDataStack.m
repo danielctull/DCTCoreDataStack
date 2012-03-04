@@ -253,16 +253,7 @@ typedef void (^DCTInternalCoreDataStackSaveBlock) (NSManagedObjectContext *manag
 	
 	if (![self.managedObjectContext hasChanges]) return;
 	
-	if ([self.managedObjectContext respondsToSelector:@selector(performBlock:)]) {
-	
-		[self.managedObjectContext performBlock:^{
-			[self.managedObjectContext dct_saveWithCompletionHandler:NULL];
-		}];
-
-	} else {
-		
-		[self.managedObjectContext dct_saveWithCompletionHandler:NULL];
-	}
+    [self.managedObjectContext dct_saveWithCompletionHandler:NULL];
 	
 	// TODO: what if there was a save error?
 }
@@ -271,16 +262,7 @@ typedef void (^DCTInternalCoreDataStackSaveBlock) (NSManagedObjectContext *manag
 	
 	if (![self.managedObjectContext hasChanges]) return;
 	
-	if ([self.managedObjectContext respondsToSelector:@selector(performBlock:)]) {
-		
-		[self.managedObjectContext performBlock:^{
-			[self.managedObjectContext save:nil];
-		}];
-		
-	} else {
-		
-		[self.managedObjectContext save:nil];
-	}
+    [self.managedObjectContext save:nil];
 }
 #endif
 
