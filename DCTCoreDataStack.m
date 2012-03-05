@@ -312,19 +312,14 @@ typedef void (^DCTInternalCoreDataStackSaveBlock) (NSManagedObjectContext *manag
 	
 #ifdef TARGET_OS_IPHONE
 	
-	dispatch_queue_t queue = dispatch_get_current_queue();
-	
 	UIBackgroundTaskIdentifier backgroundTaskIdentifier = [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:NULL];
 	
 	DCTManagedObjectContextSaveCompletionBlock iphoneCompletion = ^(BOOL success, NSError *error) {
 		
-		dispatch_async(queue, ^{
-			
-			if (completion != NULL)
-				completion(success, error);
+		if (completion != NULL)
+			completion(success, error);
 
 			[[UIApplication sharedApplication] endBackgroundTask:backgroundTaskIdentifier];
-		});
 	};
 	
 	completion = iphoneCompletion;
