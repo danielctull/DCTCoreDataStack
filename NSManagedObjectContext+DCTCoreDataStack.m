@@ -53,20 +53,7 @@
 	}];
 }
 
-- (void)dct_saveWithCompletionHandler:(void(^)(BOOL success, NSError *error))passedCompletionHandler {
-	
-	dispatch_queue_t queue = dispatch_get_current_queue();
-	
-	void(^completionHandler)(BOOL success, NSError *error) = NULL;
-	
-	if (passedCompletionHandler != NULL) {
-		
-		completionHandler = ^(BOOL success, NSError *error){
-			dispatch_async(queue, ^{
-				passedCompletionHandler(success, error);
-			});
-		};
-	}
+- (void)dct_saveWithCompletionHandler:(void(^)(BOOL success, NSError *error))completionHandler {
 	
 	NSError *error = nil;
 	BOOL success = [self save:&error];
