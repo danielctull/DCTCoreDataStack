@@ -78,6 +78,7 @@
 @synthesize storeURL;
 @synthesize modelName;
 @synthesize didResolvePersistentStoreErrorHandler;
+@synthesize automaticSaveCompletionHandler;
 
 #pragma mark - NSObject
 
@@ -254,12 +255,12 @@
 	if ([self.managedObjectContext respondsToSelector:@selector(performBlock:)] && ![NSThread isMainThread]) {
         
 		[self.managedObjectContext performBlock:^{
-			[self.managedObjectContext dct_saveWithCompletionHandler:NULL];
+			[self.managedObjectContext dct_saveWithCompletionHandler:self.automaticSaveCompletionHandler];
 		}];
         
 	} else {
 		
-		[self.managedObjectContext dct_saveWithCompletionHandler:NULL];
+		[self.managedObjectContext dct_saveWithCompletionHandler:self.automaticSaveCompletionHandler];
 	}
 	
 	// TODO: what if there was a save error?
@@ -269,16 +270,22 @@
 	
 	if (![self.managedObjectContext hasChanges]) return;
 	
+	__block BOOL success = NO;
+	__block NSError *error = nil;
+	
 	if ([self.managedObjectContext respondsToSelector:@selector(performBlock:)] && ![NSThread isMainThread]) {
 		
 		[self.managedObjectContext performBlock:^{
-			[self.managedObjectContext save:nil];
+			success = [self.managedObjectContext save:&error];
 		}];
 		
 	} else {
 		
-		[self.managedObjectContext save:nil];
+		success = [self.managedObjectContext save:&error];
 	}
+	
+	if (self.automaticSaveCompletionHandler != NULL)
+		self.automaticSaveCompletionHandler(success, error);
 }
 #endif
 

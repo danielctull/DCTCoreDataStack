@@ -93,4 +93,8 @@ typedef BOOL (^DCTCoreDataStackPersistentStoreErrorResolutionBlock) (NSError *er
 @property (nonatomic, copy, readonly) NSString *modelName;
 @property (nonatomic, copy, readonly) NSString *modelConfiguration;
 
+#ifdef TARGET_OS_IPHONE
+@property (nonatomic, copy) void(^automaticSaveCompletionHandler)(BOOL success, NSError *error);
+#endif
+
 @end
