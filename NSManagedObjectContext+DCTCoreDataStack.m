@@ -53,11 +53,11 @@
 	}];
 }
 
-- (void)dct_saveWithCompletionHandler:(DCTManagedObjectContextSaveCompletionBlock)passedCompletionHandler {
+- (void)dct_saveWithCompletionHandler:(void(^)(BOOL success, NSError *error))passedCompletionHandler {
 	
 	dispatch_queue_t queue = dispatch_get_current_queue();
 	
-	DCTManagedObjectContextSaveCompletionBlock completionHandler = NULL;
+	void(^completionHandler)(BOOL success, NSError *error) = NULL;
 	
 	if (passedCompletionHandler != NULL) {
 		

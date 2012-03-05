@@ -306,13 +306,13 @@
 	return success;
 }
 
-- (void)dct_saveWithCompletionHandler:(DCTManagedObjectContextSaveCompletionBlock)completion {
+- (void)dct_saveWithCompletionHandler:(void(^)(BOOL success, NSError *error))completion {
 	
 #ifdef TARGET_OS_IPHONE
 	
 	UIBackgroundTaskIdentifier backgroundTaskIdentifier = [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:NULL];
 	
-	DCTManagedObjectContextSaveCompletionBlock iphoneCompletion = ^(BOOL success, NSError *error) {
+	void(^iphoneCompletion)(BOOL, NSError *) = ^(BOOL success, NSError *error) {
 		
 		if (completion != NULL)
 			completion(success, error);

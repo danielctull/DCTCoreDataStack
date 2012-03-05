@@ -36,15 +36,13 @@
 
 #import <CoreData/CoreData.h>
 
-typedef void (^DCTManagedObjectContextSaveCompletionBlock) (BOOL success, NSError *error);
-
 @interface NSManagedObjectContext (DCTCoreDataStack)
 
 @property (nonatomic, copy) NSString *dct_name;
 
 - (void)dct_save;
 
-- (void)dct_saveWithCompletionHandler:(DCTManagedObjectContextSaveCompletionBlock)completionHandler;
+- (void)dct_saveWithCompletionHandler:(void(^)(BOOL success, NSError *error))completionHandler;
 
 - (NSString *)dct_detailedDescriptionFromValidationError:(NSError *)anError;
 
