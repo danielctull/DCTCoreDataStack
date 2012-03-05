@@ -45,8 +45,6 @@
 
 
 
-typedef void (^DCTInternalCoreDataStackSaveBlock) (NSManagedObjectContext *managedObjectContext,
-												   DCTManagedObjectContextSaveCompletionBlock completionHandler);
 
 @interface DCTCoreDataStack ()
 
