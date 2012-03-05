@@ -78,13 +78,15 @@
 @synthesize storeURL;
 @synthesize modelName;
 @synthesize didResolvePersistentStoreErrorHandler;
+
+#ifdef TARGET_OS_IPHONE
 @synthesize automaticSaveCompletionHandler;
+#endif
 
 #pragma mark - NSObject
 
-- (void)dealloc {
-
 #ifdef TARGET_OS_IPHONE
+- (void)dealloc {
 	UIApplication *app = [UIApplication sharedApplication];
 	
 	[[NSNotificationCenter defaultCenter] removeObserver:self 
@@ -94,11 +96,8 @@
 	[[NSNotificationCenter defaultCenter] removeObserver:self 
 													name:UIApplicationWillTerminateNotification
 												  object:app];
-	
-#endif
 }
-
-
+#endif
 
 #pragma mark - Initialization
 
