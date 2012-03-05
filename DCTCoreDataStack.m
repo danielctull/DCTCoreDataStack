@@ -308,29 +308,30 @@ typedef void (^DCTInternalCoreDataStackSaveBlock) (NSManagedObjectContext *manag
 	return success;
 }
 
-- (void)dct_saveWithCompletionHandler:(DCTManagedObjectContextSaveCompletionBlock)clientCompletion {
+- (void)dct_saveWithCompletionHandler:(DCTManagedObjectContextSaveCompletionBlock)completion {
+	
+#ifdef TARGET_OS_IPHONE
 	
 	dispatch_queue_t queue = dispatch_get_current_queue();
 	
-	NSManagedObjectContext *parent = self.parentContext;
-	
-#ifdef TARGET_OS_IPHONE
 	UIBackgroundTaskIdentifier backgroundTaskIdentifier = [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:NULL];
-#endif
 	
-	DCTManagedObjectContextSaveCompletionBlock completion = ^(BOOL success, NSError *error) {
+	DCTManagedObjectContextSaveCompletionBlock iphoneCompletion = ^(BOOL success, NSError *error) {
 		
 		dispatch_async(queue, ^{
 			
-			if (clientCompletion != NULL)
-				clientCompletion(success, error);
+			if (completion != NULL)
+				completion(success, error);
 
-#ifdef TARGET_OS_IPHONE
 			[[UIApplication sharedApplication] endBackgroundTask:backgroundTaskIdentifier];
-#endif
-			
 		});
 	};
+	
+	completion = iphoneCompletion;
+	
+#endif
+	
+	NSManagedObjectContext *parent = self.parentContext;
 	
 	// Put anything in this association to switch on save:
 	objc_setAssociatedObject(self, _cmd, [NSNull null], OBJC_ASSOCIATION_RETAIN_NONATOMIC);
@@ -340,7 +341,7 @@ typedef void (^DCTInternalCoreDataStackSaveBlock) (NSManagedObjectContext *manag
 		// Clear the association after the save
 		objc_setAssociatedObject(self, _cmd, nil, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 		
-		if (!success) {
+		if (!success && completion != NULL) {
 			completion(success, error);
 			return;
 		}
