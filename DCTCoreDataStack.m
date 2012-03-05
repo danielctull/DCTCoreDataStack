@@ -324,6 +324,8 @@
 	
 #endif
 	
+	dispatch_queue_t queue = dispatch_get_current_queue();
+	
 	NSManagedObjectContext *parent = self.parentContext;
 	
 	// Put anything in this association to switch on save:
@@ -340,9 +342,13 @@
 		}
 		
 		[parent performBlock:^{
-			[parent dct_saveWithCompletionHandler:completion];
+			[parent dct_saveWithCompletionHandler:^(BOOL success, NSError *error) {
+				dispatch_async(queue, ^{
+					if (completion != NULL) 
+						completion(success, error);
+				});
+			}];
 		}];
-		
 	}];
 }
 
