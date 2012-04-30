@@ -342,8 +342,10 @@
 		// Clear the association after the save
 		objc_setAssociatedObject(self, _cmd, nil, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 		
-		if (!success && completion != NULL) {
-			completion(success, error);
+		if (!success) {
+			if (completion != NULL)
+				completion(success, error);
+			
 			return;
 		}
 		
