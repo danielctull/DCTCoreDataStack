@@ -294,6 +294,15 @@
 
 - (BOOL)save:(NSError **)error {
 	
+	NSSet *insertedObjects = [self insertedObjects];
+	NSMutableArray *tempObjects = [[NSMutableArray alloc] initWithCapacity:[insertedObjects count]];
+	[insertedObjects enumerateObjectsUsingBlock:^(NSManagedObject *mo, BOOL *stop) {
+		if ([mo.objectID isTemporaryID])
+			[tempObjects addObject:mo];
+	}];
+	if (![self obtainPermanentIDsForObjects:tempObjects error:error])
+		return NO;
+	
 	id object = objc_getAssociatedObject(self, @selector(dct_saveWithCompletionHandler:));
 	
 	if (object) return [super save:error];
