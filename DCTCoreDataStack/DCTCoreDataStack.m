@@ -35,9 +35,11 @@
  */
 
 #import "DCTCoreDataStack.h"
-#import "NSManagedObjectContext+DCTCoreDataStack.h"
 #import <objc/runtime.h>
 
+#ifdef TARGET_OS_IPHONE
+#import <UIKit/UIKit.h>
+#endif
 
 
 @interface DCTCoreDataStack_ManagedObjectContext : NSManagedObjectContext

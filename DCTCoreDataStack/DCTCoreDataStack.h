@@ -36,6 +36,7 @@
 
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
+#import "NSManagedObjectContext+DCTCoreDataStack.h"
 
 #ifndef dctcoredatastack
 #define dctcoredatastack_1_0     10000
