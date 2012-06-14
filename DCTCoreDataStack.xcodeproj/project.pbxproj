@@ -331,6 +331,7 @@
 				GCC_PREFIX_HEADER = "";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PUBLIC_HEADERS_FOLDER_PATH = "include/$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 			};
 			name = Debug;
@@ -343,6 +344,7 @@
 				GCC_PREFIX_HEADER = "";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PUBLIC_HEADERS_FOLDER_PATH = "include/$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 			};
 			name = Release;
@@ -396,6 +398,7 @@
 				24F6EC16158A261000CEDD41 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		24F6EC17158A261000CEDD41 /* Build configuration list for PBXNativeTarget "DCTCoreDataStackTests" */ = {
 			isa = XCConfigurationList;
@@ -404,6 +407,7 @@
 				24F6EC19158A261000CEDD41 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
