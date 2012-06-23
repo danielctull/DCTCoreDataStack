@@ -71,17 +71,8 @@ typedef void (^DCTInternalCoreDataStackSaveBlock) (NSManagedObjectContext *manag
 	__strong NSManagedObjectContext *managedObjectContext;
 	__strong NSManagedObjectModel *managedObjectModel;
 	__strong NSPersistentStoreCoordinator *persistentStoreCoordinator;
-	__strong NSString *modelName;
-	
 	__strong NSManagedObjectContext *backgroundSavingContext;
 }
-
-@synthesize storeType;
-@synthesize storeOptions;
-@synthesize modelConfiguration;
-@synthesize storeURL;
-@synthesize modelName;
-@synthesize didResolvePersistentStoreErrorHandler;
 
 #pragma mark - NSObject
 
@@ -105,29 +96,29 @@ typedef void (^DCTInternalCoreDataStackSaveBlock) (NSManagedObjectContext *manag
 
 #pragma mark - Initialization
 
-- (id)initWithStoreURL:(NSURL *)URL
-			 storeType:(NSString *)type
-		  storeOptions:(NSDictionary *)options
-	modelConfiguration:(NSString *)configuration
-			 modelName:(NSString *)name {
-	
-	NSParameterAssert(URL);
-	NSParameterAssert(type);
+- (id)initWithStoreURL:(NSURL *)storeURL
+			 storeType:(NSString *)storeType
+		  storeOptions:(NSDictionary *)storeOptions
+	modelConfiguration:(NSString *)modelConfiguration
+			  modelURL:(NSURL *)modelURL {
+
+	NSParameterAssert(storeURL);
+	NSParameterAssert(storeType);
 	
 	if (!(self = [self init])) return nil;
 	
-	storeURL = [URL copy];
-	storeType = [type copy];
-	storeOptions = [options copy];
-	modelName = [name copy];
-	modelConfiguration = [configuration copy];
+	_storeURL = [storeURL copy];
+	_storeType = [storeType copy];
+	_storeOptions = [storeOptions copy];
+	_modelURL = [modelURL copy];
+	_modelConfiguration = [modelConfiguration copy];
 	
 	self.didResolvePersistentStoreErrorHandler = ^(NSError *error) {
 		NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
 		abort();
 		return NO;
 	};
-		
+	
 #ifdef TARGET_OS_IPHONE
 	
 	UIApplication *app = [UIApplication sharedApplication];
@@ -146,14 +137,28 @@ typedef void (^DCTInternalCoreDataStackSaveBlock) (NSManagedObjectContext *manag
 	return self;
 }
 
+- (id)initWithStoreURL:(NSURL *)storeURL
+			 storeType:(NSString *)type
+		  storeOptions:(NSDictionary *)options
+	modelConfiguration:(NSString *)configuration
+			 modelName:(NSString *)modelName {
+
+	NSURL *modelURL = [[NSBundle mainBundle] URLForResource:modelName withExtension:@"momd"];
+	if (!(self = [self initWithStoreURL:storeURL storeType:type storeOptions:options modelConfiguration:configuration modelURL:modelURL])) return nil;
+
+	_modelName = modelName;
+
+	return self;
+}
+
 - (id)initWithStoreFilename:(NSString *)filename
 				  storeType:(NSString *)type
                storeOptions:(NSDictionary *)options
 		 modelConfiguration:(NSString *)configuration 
-                  modelName:(NSString *)name {
+                  modelName:(NSString *)modelName {
 	
-	NSURL *URL = [[[self class] dctInternal_applicationDocumentsDirectory] URLByAppendingPathComponent:filename];
-	return [self initWithStoreURL:URL storeType:type storeOptions:options modelConfiguration:configuration modelName:name];
+	NSURL *storeURL = [[[self class] dctInternal_applicationDocumentsDirectory] URLByAppendingPathComponent:filename];
+	return [self initWithStoreURL:storeURL storeType:type storeOptions:options modelConfiguration:configuration modelName:modelName];
 }
 
 - (id)initWithStoreFilename:(NSString *)filename {
@@ -214,9 +219,8 @@ typedef void (^DCTInternalCoreDataStackSaveBlock) (NSManagedObjectContext *manag
 
 - (void)dctInternal_loadManagedObjectModel {
 	
-    if (modelName) {
-        NSURL *modelURL = [[NSBundle mainBundle] URLForResource:modelName withExtension:@"momd"];
-        managedObjectModel = [[NSManagedObjectModel alloc] initWithContentsOfURL:modelURL];
+    if (self.modelURL) {
+        managedObjectModel = [[NSManagedObjectModel alloc] initWithContentsOfURL:self.modelURL];
     } else {
         managedObjectModel = [NSManagedObjectModel mergedModelFromBundles:[NSArray arrayWithObject:[NSBundle mainBundle]]];
     }
