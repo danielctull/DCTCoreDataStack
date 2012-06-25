@@ -69,7 +69,7 @@
 	__strong NSManagedObjectContext *managedObjectContext;
 	__strong NSManagedObjectModel *managedObjectModel;
 	__strong NSPersistentStoreCoordinator *persistentStoreCoordinator;
-	__strong NSString *modelName;
+	__strong NSString *_modelName;
 	
 	__strong NSManagedObjectContext *backgroundSavingContext;
 }
