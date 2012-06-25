@@ -50,6 +50,7 @@
 
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
+#import "NSManagedObjectContext+DCTCoreDataStack.h"
 
 #ifndef dctcoredatastack
 #define dctcoredatastack_1_0     10000
@@ -74,12 +75,18 @@ typedef BOOL (^DCTCoreDataStackPersistentStoreErrorResolutionBlock) (NSError *er
 		 modelConfiguration:(NSString *)modelConfiguration 
                   modelName:(NSString *)modelName;
 
-// Designated initializer
 - (id)initWithStoreURL:(NSURL *)storeURL
 			 storeType:(NSString *)storeType
 		  storeOptions:(NSDictionary *)storeOptions
 	modelConfiguration:(NSString *)modelConfiguration
 			 modelName:(NSString *)modelName;
+
+// Designated initializer
+- (id)initWithStoreURL:(NSURL *)storeURL
+			 storeType:(NSString *)storeType
+		  storeOptions:(NSDictionary *)storeOptions
+	modelConfiguration:(NSString *)modelConfiguration
+			  modelURL:(NSURL *)modelURL;
 
 @property (nonatomic, copy) DCTCoreDataStackPersistentStoreErrorResolutionBlock didResolvePersistentStoreErrorHandler;
 
@@ -91,6 +98,7 @@ typedef BOOL (^DCTCoreDataStackPersistentStoreErrorResolutionBlock) (NSError *er
 @property (nonatomic, copy, readonly) NSDictionary *storeOptions;
 
 @property (nonatomic, copy, readonly) NSString *modelName;
+@property (nonatomic, copy, readonly) NSURL *modelURL;
 @property (nonatomic, copy, readonly) NSString *modelConfiguration;
 
 #ifdef TARGET_OS_IPHONE
