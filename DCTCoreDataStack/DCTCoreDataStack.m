@@ -69,8 +69,6 @@
 	__strong NSManagedObjectContext *managedObjectContext;
 	__strong NSManagedObjectModel *managedObjectModel;
 	__strong NSPersistentStoreCoordinator *persistentStoreCoordinator;
-	__strong NSString *_modelName;
-	
 	__strong NSManagedObjectContext *backgroundSavingContext;
 }
 
@@ -133,32 +131,13 @@
 	return self;
 }
 
-- (id)initWithStoreURL:(NSURL *)storeURL
-			 storeType:(NSString *)type
-		  storeOptions:(NSDictionary *)options
-	modelConfiguration:(NSString *)configuration
-			 modelName:(NSString *)modelName {
-
-	NSURL *modelURL = [[NSBundle mainBundle] URLForResource:modelName withExtension:@"momd"];
-	if (!(self = [self initWithStoreURL:storeURL storeType:type storeOptions:options modelConfiguration:configuration modelURL:modelURL])) return nil;
-
-	_modelName = modelName;
-
-	return self;
-}
-
-- (id)initWithStoreFilename:(NSString *)filename
-				  storeType:(NSString *)type
-               storeOptions:(NSDictionary *)options
-		 modelConfiguration:(NSString *)configuration 
-                  modelName:(NSString *)modelName {
-	
-	NSURL *storeURL = [[[self class] dctInternal_applicationDocumentsDirectory] URLByAppendingPathComponent:filename];
-	return [self initWithStoreURL:storeURL storeType:type storeOptions:options modelConfiguration:configuration modelName:modelName];
-}
-
 - (id)initWithStoreFilename:(NSString *)filename {
-	return [self initWithStoreFilename:filename storeType:NSSQLiteStoreType storeOptions:nil modelConfiguration:nil modelName:nil];
+	NSURL *storeURL = [[[self class] dctInternal_applicationDocumentsDirectory] URLByAppendingPathComponent:filename];
+	return [self initWithStoreURL:storeURL
+						storeType:NSSQLiteStoreType
+					 storeOptions:nil
+			   modelConfiguration:nil
+						 modelURL:nil];
 }
 
 #pragma mark - Getters
