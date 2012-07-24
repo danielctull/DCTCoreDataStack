@@ -13,9 +13,7 @@
 @property (strong, nonatomic) NSFetchedResultsController *fetchedResultsController;
 @end
 
-@implementation ViewController {
-	
-}
+@implementation ViewController
 
 - (id)initWithStyle:(UITableViewStyle)style {
     self = [super initWithStyle:style];
@@ -33,7 +31,7 @@
 }
 
 - (void)insertNewObject:(id)sender {
-	NSManagedObjectContext *context = self.managedObjectContext;
+	NSManagedObjectContext *context = self.backgroundContext;
 	Event *event = [Event insertInManagedObjectContext:context];
     event.date = [NSDate date];
 	event.name = @"Event";
@@ -94,14 +92,16 @@
 - (NSFetchedResultsController *)fetchedResultsController {
 	
     if (!_fetchedResultsController) {
-    
+		
+		NSManagedObjectContext *context = self.mainContext;
+		
 		NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-		[fetchRequest setEntity:[Event entityInManagedObjectContext:self.managedObjectContext]];
+		[fetchRequest setEntity:[Event entityInManagedObjectContext:context]];
 		[fetchRequest setFetchBatchSize:20];
 		[fetchRequest setSortDescriptors:@[[[NSSortDescriptor alloc] initWithKey:EventAttributes.date ascending:NO]]];
     
 		self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest
-																			managedObjectContext:self.managedObjectContext
+																			managedObjectContext:context
 																			  sectionNameKeyPath:nil
 																					   cacheName:@"Master"];
 		self.fetchedResultsController.delegate = self;
