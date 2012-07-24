@@ -236,17 +236,10 @@
 	NSManagedObjectContext *context = self.managedObjectContext;
 	
 	if (![context hasChanges]) return;
-	
-	if ([context respondsToSelector:@selector(performBlock:)]) {
-        
-		[context performBlock:^{
-			[context dct_saveWithCompletionHandler:self.automaticSaveCompletionHandler];
-		}];
-        
-	} else {
-		
+	    
+	[context performBlock:^{
 		[context dct_saveWithCompletionHandler:self.automaticSaveCompletionHandler];
-	}
+	}];
 	
 	// TODO: what if there was a save error?
 }
@@ -260,17 +253,9 @@
 	__block BOOL success = NO;
 	__block NSError *error = nil;
 	
-	if ([context respondsToSelector:@selector(performBlock:)]
-		) {
-		
-		[context performBlock:^{
-			success = [context save:&error];
-		}];
-		
-	} else {
-		
+	[context performBlock:^{
 		success = [context save:&error];
-	}
+	}];
 	
 	if (self.automaticSaveCompletionHandler != NULL)
 		self.automaticSaveCompletionHandler(success, error);
