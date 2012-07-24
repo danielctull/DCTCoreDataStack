@@ -23,6 +23,7 @@
 		24E91B7715BEB26600E0DB54 /* _Event.m in Sources */ = {isa = PBXBuildFile; fileRef = 24E91B7415BEB26600E0DB54 /* _Event.m */; };
 		24E91B7815BEB26600E0DB54 /* Event.m in Sources */ = {isa = PBXBuildFile; fileRef = 24E91B7615BEB26600E0DB54 /* Event.m */; };
 		24E91B7D15BEB28900E0DB54 /* DCTCoreDataStack.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 24E91B7B15BEB28900E0DB54 /* DCTCoreDataStack.xcdatamodeld */; };
+		24E91BC515BEB71200E0DB54 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 24E91BC415BEB71200E0DB54 /* ViewController.m */; };
 		24F6EC02158A261000CEDD41 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 24F6EC01158A261000CEDD41 /* SenTestingKit.framework */; };
 		24F6EC05158A261000CEDD41 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 24F6EBF3158A261000CEDD41 /* Foundation.framework */; };
 		24F6EC0E158A261000CEDD41 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 24F6EC0C158A261000CEDD41 /* InfoPlist.strings */; };
@@ -45,7 +46,7 @@
 
 /* Begin PBXFileReference section */
 		2437B68D15B97C2600750117 /* libDCTCoreDataStack.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libDCTCoreDataStack.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		24E91B5715BEB1FA00E0DB54 /* DCTCoreDataStack.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DCTCoreDataStack.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		24E91B5715BEB1FA00E0DB54 /* CoreDataStack.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CoreDataStack.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		24E91B5B15BEB1FA00E0DB54 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		24E91B5F15BEB1FA00E0DB54 /* Demo-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Demo-Info.plist"; sourceTree = "<group>"; };
 		24E91B6115BEB1FA00E0DB54 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -58,6 +59,8 @@
 		24E91B7515BEB26600E0DB54 /* Event.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Event.h; sourceTree = "<group>"; };
 		24E91B7615BEB26600E0DB54 /* Event.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Event.m; sourceTree = "<group>"; };
 		24E91B7C15BEB28900E0DB54 /* DCTCoreDataStack.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DCTCoreDataStack.xcdatamodel; sourceTree = "<group>"; };
+		24E91BC315BEB71200E0DB54 /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		24E91BC415BEB71200E0DB54 /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		24F6EBF3158A261000CEDD41 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		24F6EBF8158A261000CEDD41 /* DCTCoreDataStack.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DCTCoreDataStack.h; sourceTree = "<group>"; };
 		24F6EBF9158A261000CEDD41 /* DCTCoreDataStack.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DCTCoreDataStack.m; sourceTree = "<group>"; };
@@ -115,6 +118,8 @@
 				24E91B7615BEB26600E0DB54 /* Event.m */,
 				24E91B6615BEB1FA00E0DB54 /* AppDelegate.h */,
 				24E91B6715BEB1FA00E0DB54 /* AppDelegate.m */,
+				24E91BC315BEB71200E0DB54 /* ViewController.h */,
+				24E91BC415BEB71200E0DB54 /* ViewController.m */,
 				24E91B7B15BEB28900E0DB54 /* DCTCoreDataStack.xcdatamodeld */,
 				24E91B5E15BEB1FA00E0DB54 /* Supporting Files */,
 			);
@@ -148,7 +153,7 @@
 			children = (
 				24F6EC00158A261000CEDD41 /* DCTCoreDataStackTests.octest */,
 				2437B68D15B97C2600750117 /* libDCTCoreDataStack.a */,
-				24E91B5715BEB1FA00E0DB54 /* DCTCoreDataStack.app */,
+				24E91B5715BEB1FA00E0DB54 /* CoreDataStack.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -229,7 +234,7 @@
 			);
 			name = Demo;
 			productName = Demo;
-			productReference = 24E91B5715BEB1FA00E0DB54 /* DCTCoreDataStack.app */;
+			productReference = 24E91B5715BEB1FA00E0DB54 /* CoreDataStack.app */;
 			productType = "com.apple.product-type.application";
 		};
 		24F6EBFF158A261000CEDD41 /* DCTCoreDataStackTests */ = {
@@ -332,6 +337,7 @@
 				24E91B7715BEB26600E0DB54 /* _Event.m in Sources */,
 				24E91B7815BEB26600E0DB54 /* Event.m in Sources */,
 				24E91B7D15BEB28900E0DB54 /* DCTCoreDataStack.xcdatamodeld in Sources */,
+				24E91BC515BEB71200E0DB54 /* ViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -403,7 +409,7 @@
 				INFOPLIST_FILE = "Demo/Demo-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_NAME = DCTCoreDataStack;
+				PRODUCT_NAME = CoreDataStack;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -419,7 +425,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_NAME = DCTCoreDataStack;
+				PRODUCT_NAME = CoreDataStack;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
