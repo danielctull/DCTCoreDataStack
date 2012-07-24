@@ -35,8 +35,7 @@
  */
 
 #import "DCTCoreDataStack.h"
-#import "_DCTNewSkoolManagedObjectContext.h"
-#import "_DCTOldSkoolManagedObjectContext.h"
+#import "_DCTCDSManagedObjectContext.h"
 #import <objc/runtime.h>
 
 #ifdef TARGET_OS_IPHONE
@@ -101,15 +100,13 @@
 	
 	NSNotificationCenter *defaultCenter = [NSNotificationCenter defaultCenter];
 	
-	if ([NSManagedObjectContext instancesRespondToSelector:@selector(initWithConcurrencyType:)]) {
-		_rootContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
-		[_rootContext setPersistentStoreCoordinator:self.persistentStoreCoordinator];
-		_rootContext.dct_name = @"DCTCoreDataStack.internal_rootContext";
-		[defaultCenter addObserver:self
-						  selector:@selector(_rootContextDidSaveNotification:)
-							  name:NSManagedObjectContextDidSaveNotification
-							object:_rootContext];
-	}
+	_rootContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
+	[_rootContext setPersistentStoreCoordinator:self.persistentStoreCoordinator];
+	_rootContext.dct_name = @"DCTCoreDataStack.internal_rootContext";
+	[defaultCenter addObserver:self
+					  selector:@selector(_rootContextDidSaveNotification:)
+						  name:NSManagedObjectContextDidSaveNotification
+						object:_rootContext];
 	
 #ifdef TARGET_OS_IPHONE
 	
@@ -154,7 +151,8 @@
 - (NSManagedObjectContext *)managedObjectContext {
     
 	if (_managedObjectContext == nil)
-		_managedObjectContext = [self _loadManagedObjectContextWithName:@"DCTCoreDataStack.mainContext" concurrencyType:NSMainQueueConcurrencyType];
+		_managedObjectContext = [self _loadManagedObjectContextWithName:@"DCTCoreDataStack.mainContext"
+														concurrencyType:NSMainQueueConcurrencyType];
 	
     return _managedObjectContext;
 }
@@ -180,15 +178,8 @@
 - (NSManagedObjectContext *)_loadManagedObjectContextWithName:(NSString *)name
 											  concurrencyType:(NSManagedObjectContextConcurrencyType)concurrencyType {
 		
-	if ([NSManagedObjectContext instancesRespondToSelector:@selector(initWithConcurrencyType:)]) {
-		NSManagedObjectContext *managedObjectContext = [[DCTCoreDataStack_ManagedObjectContext alloc] initWithConcurrencyType:concurrencyType];
-		[managedObjectContext setParentContext:_rootContext];
-		managedObjectContext.dct_name = name;
-		return managedObjectContext;
-	}
-	
-	NSManagedObjectContext *managedObjectContext = [[NSManagedObjectContext alloc] init];
-	[managedObjectContext setPersistentStoreCoordinator:self.persistentStoreCoordinator];
+	NSManagedObjectContext *managedObjectContext = [[_DCTCDSManagedObjectContext alloc] initWithConcurrencyType:concurrencyType];
+	[managedObjectContext setParentContext:_rootContext];
 	managedObjectContext.dct_name = name;
 	return managedObjectContext;
 }

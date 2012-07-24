@@ -1,19 +1,19 @@
 //
-//  _DCTNewSkoolManagedObjectContext.m
+//  _DCTCDSManagedObjectContext.m
 //  DCTCoreDataStack
 //
 //  Created by Daniel Tull on 24.07.2012.
 //  Copyright (c) 2012 Daniel Tull. All rights reserved.
 //
 
-#import "_DCTNewSkoolManagedObjectContext.h"
+#import "_DCTCDSManagedObjectContext.h"
 #import "NSManagedObjectContext+DCTCoreDataStack.h"
 #import <objc/runtime.h>
 #ifdef TARGET_OS_IPHONE
 #import <UIKit/UIKit.h>
 #endif
 
-@implementation DCTCoreDataStack_ManagedObjectContext
+@implementation _DCTCDSManagedObjectContext
 
 - (BOOL)save:(NSError **)error {
 		

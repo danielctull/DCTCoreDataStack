@@ -8,5 +8,5 @@
 
 #import <CoreData/CoreData.h>
 
-@interface DCTCoreDataStack_ManagedObjectContext : NSManagedObjectContext
+@interface _DCTCDSManagedObjectContext : NSManagedObjectContext
 @end
