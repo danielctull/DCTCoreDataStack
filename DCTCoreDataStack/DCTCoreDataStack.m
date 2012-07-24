@@ -102,6 +102,16 @@
 	
 	NSNotificationCenter *defaultCenter = [NSNotificationCenter defaultCenter];
 	
+	if ([NSManagedObjectContext instancesRespondToSelector:@selector(initWithConcurrencyType:)]) {
+		_rootContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
+		[_rootContext setPersistentStoreCoordinator:self.persistentStoreCoordinator];
+		_rootContext.dct_name = @"DCTCoreDataStack.internal_rootContext";
+		[defaultCenter addObserver:self
+						  selector:@selector(_rootContextDidSaveNotification:)
+							  name:NSManagedObjectContextDidSaveNotification
+							object:_rootContext];
+	}
+	
 #ifdef TARGET_OS_IPHONE
 	
 	UIApplication *app = [UIApplication sharedApplication];
@@ -116,14 +126,6 @@
 						  name:UIApplicationWillTerminateNotification
 						object:app];
 #endif
-	
-	_rootContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
-	[_rootContext setPersistentStoreCoordinator:self.persistentStoreCoordinator];
-	_rootContext.dct_name = @"DCTCoreDataStack.internal_rootContext";
-	[defaultCenter addObserver:self
-					  selector:@selector(_rootContextDidSaveNotification:)
-						  name:NSManagedObjectContextDidSaveNotification
-						object:_rootContext];
 	
 	return self;
 }
