@@ -76,7 +76,9 @@ typedef BOOL (^DCTCoreDataStackPersistentStoreErrorResolutionBlock) (NSError *er
 
 @property (nonatomic, copy) DCTCoreDataStackPersistentStoreErrorResolutionBlock didResolvePersistentStoreErrorHandler;
 
-@property (nonatomic, strong, readonly) NSManagedObjectContext *managedObjectContext;
+@property (nonatomic, readonly) NSManagedObjectContext *managedObjectContext;
+@property (nonatomic, readonly) NSManagedObjectContext *backgroundContext;
+
 @property (nonatomic, strong, readonly) NSManagedObjectModel *managedObjectModel;
 
 @property (nonatomic, copy, readonly) NSURL *storeURL;

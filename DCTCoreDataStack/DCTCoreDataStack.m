@@ -41,35 +41,19 @@
 #import <UIKit/UIKit.h>
 #endif
 
-
 @interface DCTCoreDataStack_ManagedObjectContext : NSManagedObjectContext
 @end
 
-
-
-
 @interface DCTCoreDataStack ()
-
-+ (NSURL *)dctInternal_applicationDocumentsDirectory;
-
-#ifdef TARGET_OS_IPHONE
-- (void)dctInternal_applicationDidEnterBackgroundNotification:(NSNotification *)notification;
-- (void)dctInternal_applicationWillTerminateNotification:(NSNotification *)notification;
-#endif
-
-- (void)dctInternal_loadManagedObjectContext;
-- (void)dctInternal_loadManagedObjectModel;
-- (void)dctInternal_loadPersistentStoreCoordinator;
-
-@property (nonatomic, readonly) NSPersistentStoreCoordinator *dctInternal_persistentStoreCoordinator;
-
+@property (nonatomic, readonly) NSPersistentStoreCoordinator *persistentStoreCoordinator;
 @end
 
 @implementation DCTCoreDataStack {
-	__strong NSManagedObjectContext *managedObjectContext;
+	__strong NSManagedObjectContext *_managedObjectContext;
+	__strong NSManagedObjectContext *_backgroundManagedObjectContext;
 	__strong NSManagedObjectModel *managedObjectModel;
 	__strong NSPersistentStoreCoordinator *persistentStoreCoordinator;
-	__strong NSManagedObjectContext *backgroundSavingContext;
+	__strong NSManagedObjectContext *_rootContext;
 }
 
 #pragma mark - NSObject
@@ -77,14 +61,18 @@
 #ifdef TARGET_OS_IPHONE
 - (void)dealloc {
 	UIApplication *app = [UIApplication sharedApplication];
+	NSNotificationCenter *defaultCenter = [NSNotificationCenter defaultCenter];
+	[defaultCenter removeObserver:self
+							 name:UIApplicationDidEnterBackgroundNotification
+						   object:app];
 	
-	[[NSNotificationCenter defaultCenter] removeObserver:self 
-													name:UIApplicationDidEnterBackgroundNotification
-												  object:app];
+	[defaultCenter removeObserver:self
+							 name:UIApplicationWillTerminateNotification
+						   object:app];
 	
-	[[NSNotificationCenter defaultCenter] removeObserver:self 
-													name:UIApplicationWillTerminateNotification
-												  object:app];
+	[defaultCenter removeObserver:self
+							 name:NSManagedObjectContextDidSaveNotification
+						   object:_rootContext];
 }
 #endif
 
@@ -95,7 +83,7 @@
 		  storeOptions:(NSDictionary *)storeOptions
 	modelConfiguration:(NSString *)modelConfiguration
 			  modelURL:(NSURL *)modelURL {
-
+	
 	NSParameterAssert(storeURL);
 	NSParameterAssert(storeType);
 	
@@ -113,20 +101,30 @@
 		return NO;
 	};
 	
+	NSNotificationCenter *defaultCenter = [NSNotificationCenter defaultCenter];
+	
 #ifdef TARGET_OS_IPHONE
 	
 	UIApplication *app = [UIApplication sharedApplication];
 	
-	[[NSNotificationCenter defaultCenter] addObserver:self
-											 selector:@selector(dctInternal_applicationDidEnterBackgroundNotification:) 
-												 name:UIApplicationDidEnterBackgroundNotification 
-											   object:app];
+	[defaultCenter addObserver:self
+					  selector:@selector(dctInternal_applicationDidEnterBackgroundNotification:)
+						  name:UIApplicationDidEnterBackgroundNotification
+						object:app];
 	
-	[[NSNotificationCenter defaultCenter] addObserver:self
-											 selector:@selector(dctInternal_applicationWillTerminateNotification:) 
-												 name:UIApplicationWillTerminateNotification
-											   object:app];
+	[defaultCenter addObserver:self
+					  selector:@selector(dctInternal_applicationWillTerminateNotification:)
+						  name:UIApplicationWillTerminateNotification
+						object:app];
 #endif
+	
+	_rootContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
+	[_rootContext setPersistentStoreCoordinator:self.persistentStoreCoordinator];
+	_rootContext.dct_name = @"DCTCoreDataStack.internal_rootContext";
+	[defaultCenter addObserver:self
+					  selector:@selector(_rootContextDidSaveNotification:)
+						  name:NSManagedObjectContextDidSaveNotification
+						object:_rootContext];
 	
 	return self;
 }
@@ -142,16 +140,33 @@
 
 #pragma mark - Getters
 
+- (void)_rootContextDidSaveNotification:(NSNotification *)notification {
+	[self.managedObjectContext performBlock:^{
+		[self.managedObjectContext mergeChangesFromContextDidSaveNotification:notification];
+	}];
+	[self.backgroundContext performBlock:^{
+		[self.backgroundContext mergeChangesFromContextDidSaveNotification:notification];
+	}];
+}
+
+- (NSManagedObjectContext *)backgroundContext {
+	
+	if (!_backgroundManagedObjectContext)
+		_backgroundManagedObjectContext = [self _loadManagedObjectContextWithName:@"DCTCoreDataStack.backgroundContext" concurrencyType:NSPrivateQueueConcurrencyType];
+	
+    return _backgroundManagedObjectContext;
+}
+
 - (NSManagedObjectContext *)managedObjectContext {
     
-	if (managedObjectContext == nil)
-		[self dctInternal_loadManagedObjectContext];
+	if (_managedObjectContext == nil)
+		_managedObjectContext = [self _loadManagedObjectContextWithName:@"DCTCoreDataStack.mainContext" concurrencyType:NSMainQueueConcurrencyType];
 	
-    return managedObjectContext;
+    return _managedObjectContext;
 }
 
 - (NSManagedObjectModel *)managedObjectModel {
-		
+	
 	if (managedObjectModel == nil)
 		[self dctInternal_loadManagedObjectModel];
 	
@@ -160,7 +175,7 @@
 
 #pragma mark - Internal Loading
 
-- (NSPersistentStoreCoordinator *)dctInternal_persistentStoreCoordinator {
+- (NSPersistentStoreCoordinator *)persistentStoreCoordinator {
 	
 	if (persistentStoreCoordinator == nil)
 		[self dctInternal_loadPersistentStoreCoordinator];
@@ -168,28 +183,20 @@
 	return persistentStoreCoordinator;
 }
 
-- (void)dctInternal_loadManagedObjectContext {
-	
-    NSPersistentStoreCoordinator *psc = self.dctInternal_persistentStoreCoordinator;
-	
-	if (psc == nil) return; // when would this ever happen?
-	
+- (NSManagedObjectContext *)_loadManagedObjectContextWithName:(NSString *)name
+											  concurrencyType:(NSManagedObjectContextConcurrencyType)concurrencyType {
+		
 	if ([NSManagedObjectContext instancesRespondToSelector:@selector(initWithConcurrencyType:)]) {
-		
-		backgroundSavingContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
-		[backgroundSavingContext setPersistentStoreCoordinator:psc];
-		backgroundSavingContext.dct_name = @"DCTCoreDataStack.backgroundSavingContext";
-		
-		managedObjectContext = [[DCTCoreDataStack_ManagedObjectContext alloc] initWithConcurrencyType:NSMainQueueConcurrencyType];
-		[managedObjectContext setParentContext:backgroundSavingContext];
-		managedObjectContext.dct_name = @"DCTCoreDataStack.managedObjectContext";
-		
-	} else {
-		
-		managedObjectContext = [[NSManagedObjectContext alloc] init];
-		[managedObjectContext setPersistentStoreCoordinator:psc];
-		managedObjectContext.dct_name = @"DCTCoreDataStack.managedObjectContext";
+		NSManagedObjectContext *managedObjectContext = [[DCTCoreDataStack_ManagedObjectContext alloc] initWithConcurrencyType:concurrencyType];
+		[managedObjectContext setParentContext:_rootContext];
+		managedObjectContext.dct_name = name;
+		return managedObjectContext;
 	}
+	
+	NSManagedObjectContext *managedObjectContext = [[NSManagedObjectContext alloc] init];
+	[managedObjectContext setPersistentStoreCoordinator:self.persistentStoreCoordinator];
+	managedObjectContext.dct_name = name;
+	return managedObjectContext;
 }
 
 - (void)dctInternal_loadManagedObjectModel {
@@ -232,17 +239,19 @@
 #ifdef TARGET_OS_IPHONE
 - (void)dctInternal_applicationDidEnterBackgroundNotification:(NSNotification *)notification {
 	
-	if (![self.managedObjectContext hasChanges]) return;
+	NSManagedObjectContext *context = self.backgroundContext;
 	
-	if ([self.managedObjectContext respondsToSelector:@selector(performBlock:)] && ![NSThread isMainThread]) {
+	if (![context hasChanges]) return;
+	
+	if ([context respondsToSelector:@selector(performBlock:)]) {
         
-		[self.managedObjectContext performBlock:^{
-			[self.managedObjectContext dct_saveWithCompletionHandler:self.automaticSaveCompletionHandler];
+		[context performBlock:^{
+			[context dct_saveWithCompletionHandler:self.automaticSaveCompletionHandler];
 		}];
         
 	} else {
 		
-		[self.managedObjectContext dct_saveWithCompletionHandler:self.automaticSaveCompletionHandler];
+		[context dct_saveWithCompletionHandler:self.automaticSaveCompletionHandler];
 	}
 	
 	// TODO: what if there was a save error?
@@ -250,20 +259,23 @@
 
 - (void)dctInternal_applicationWillTerminateNotification:(NSNotification *)notification {
 	
-	if (![self.managedObjectContext hasChanges]) return;
+	NSManagedObjectContext *context = self.backgroundContext;
+	
+	if (![context hasChanges]) return;
 	
 	__block BOOL success = NO;
 	__block NSError *error = nil;
 	
-	if ([self.managedObjectContext respondsToSelector:@selector(performBlock:)] && ![NSThread isMainThread]) {
+	if ([context respondsToSelector:@selector(performBlock:)]
+		) {
 		
-		[self.managedObjectContext performBlock:^{
-			success = [self.managedObjectContext save:&error];
+		[context performBlock:^{
+			success = [context save:&error];
 		}];
 		
 	} else {
 		
-		success = [self.managedObjectContext save:&error];
+		success = [context save:&error];
 	}
 	
 	if (self.automaticSaveCompletionHandler != NULL)
@@ -308,8 +320,8 @@
 		
 		if (completion != NULL)
 			completion(success, error);
-
-			[[UIApplication sharedApplication] endBackgroundTask:backgroundTaskIdentifier];
+		
+		[[UIApplication sharedApplication] endBackgroundTask:backgroundTaskIdentifier];
 	};
 	
 	completion = iphoneCompletion;
@@ -338,7 +350,7 @@
 		[parent performBlock:^{
 			[parent dct_saveWithCompletionHandler:^(BOOL success, NSError *error) {
 				dispatch_async(queue, ^{
-					if (completion != NULL) 
+					if (completion != NULL)
 						completion(success, error);
 				});
 			}];
