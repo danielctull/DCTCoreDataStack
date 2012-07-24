@@ -32,13 +32,15 @@
 
 - (void)insertNewObject:(id)sender {
 	NSManagedObjectContext *context = self.backgroundContext;
-	Event *event = [Event insertInManagedObjectContext:context];
-    event.date = [NSDate date];
-	event.name = @"Event";
-    
-	[context dct_saveWithCompletionHandler:^(BOOL success, NSError *error) {
-		if (!success)
-			NSLog(@"%@", [context dct_detailedDescriptionFromValidationError:error]);
+	[context performBlock:^{
+		Event *event = [Event insertInManagedObjectContext:context];
+		event.date = [NSDate date];
+		event.name = @"Event";
+		
+		[context dct_saveWithCompletionHandler:^(BOOL success, NSError *error) {
+			if (!success)
+				NSLog(@"%@", [context dct_detailedDescriptionFromValidationError:error]);
+		}];
 	}];
 }
 

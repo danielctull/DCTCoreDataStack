@@ -24,6 +24,8 @@
 		24E91B7815BEB26600E0DB54 /* Event.m in Sources */ = {isa = PBXBuildFile; fileRef = 24E91B7615BEB26600E0DB54 /* Event.m */; };
 		24E91B7D15BEB28900E0DB54 /* DCTCoreDataStack.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 24E91B7B15BEB28900E0DB54 /* DCTCoreDataStack.xcdatamodeld */; };
 		24E91BC515BEB71200E0DB54 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 24E91BC415BEB71200E0DB54 /* ViewController.m */; };
+		24E91BDC15BECDC800E0DB54 /* _DCTOldSkoolManagedObjectContext.m in Sources */ = {isa = PBXBuildFile; fileRef = 24E91BDB15BECDC800E0DB54 /* _DCTOldSkoolManagedObjectContext.m */; };
+		24E91BDF15BED01A00E0DB54 /* _DCTNewSkoolManagedObjectContext.m in Sources */ = {isa = PBXBuildFile; fileRef = 24E91BDE15BED01A00E0DB54 /* _DCTNewSkoolManagedObjectContext.m */; };
 		24F6EC02158A261000CEDD41 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 24F6EC01158A261000CEDD41 /* SenTestingKit.framework */; };
 		24F6EC05158A261000CEDD41 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 24F6EBF3158A261000CEDD41 /* Foundation.framework */; };
 		24F6EC0E158A261000CEDD41 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 24F6EC0C158A261000CEDD41 /* InfoPlist.strings */; };
@@ -61,6 +63,10 @@
 		24E91B7C15BEB28900E0DB54 /* DCTCoreDataStack.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DCTCoreDataStack.xcdatamodel; sourceTree = "<group>"; };
 		24E91BC315BEB71200E0DB54 /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		24E91BC415BEB71200E0DB54 /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		24E91BDA15BECDC800E0DB54 /* _DCTOldSkoolManagedObjectContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _DCTOldSkoolManagedObjectContext.h; sourceTree = "<group>"; };
+		24E91BDB15BECDC800E0DB54 /* _DCTOldSkoolManagedObjectContext.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _DCTOldSkoolManagedObjectContext.m; sourceTree = "<group>"; };
+		24E91BDD15BED01A00E0DB54 /* _DCTNewSkoolManagedObjectContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _DCTNewSkoolManagedObjectContext.h; sourceTree = "<group>"; };
+		24E91BDE15BED01A00E0DB54 /* _DCTNewSkoolManagedObjectContext.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _DCTNewSkoolManagedObjectContext.m; sourceTree = "<group>"; };
 		24F6EBF3158A261000CEDD41 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		24F6EBF8158A261000CEDD41 /* DCTCoreDataStack.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DCTCoreDataStack.h; sourceTree = "<group>"; };
 		24F6EBF9158A261000CEDD41 /* DCTCoreDataStack.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DCTCoreDataStack.m; sourceTree = "<group>"; };
@@ -177,6 +183,10 @@
 				24F6EBF9158A261000CEDD41 /* DCTCoreDataStack.m */,
 				24F6EC1A158A264C00CEDD41 /* NSManagedObjectContext+DCTCoreDataStack.h */,
 				24F6EC1B158A264C00CEDD41 /* NSManagedObjectContext+DCTCoreDataStack.m */,
+				24E91BDA15BECDC800E0DB54 /* _DCTOldSkoolManagedObjectContext.h */,
+				24E91BDB15BECDC800E0DB54 /* _DCTOldSkoolManagedObjectContext.m */,
+				24E91BDD15BED01A00E0DB54 /* _DCTNewSkoolManagedObjectContext.h */,
+				24E91BDE15BED01A00E0DB54 /* _DCTNewSkoolManagedObjectContext.m */,
 			);
 			path = DCTCoreDataStack;
 			sourceTree = "<group>";
@@ -325,6 +335,8 @@
 			files = (
 				2437B69B15B97C5C00750117 /* DCTCoreDataStack.m in Sources */,
 				2437B69C15B97C5F00750117 /* NSManagedObjectContext+DCTCoreDataStack.m in Sources */,
+				24E91BDC15BECDC800E0DB54 /* _DCTOldSkoolManagedObjectContext.m in Sources */,
+				24E91BDF15BED01A00E0DB54 /* _DCTNewSkoolManagedObjectContext.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
