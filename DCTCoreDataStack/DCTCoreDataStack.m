@@ -44,34 +44,34 @@
 
 @interface DCTCoreDataStack ()
 @property (nonatomic, readonly) NSPersistentStoreCoordinator *persistentStoreCoordinator;
+@property (nonatomic, readonly) NSManagedObjectModel *managedObjectModel;
 @end
 
 @implementation DCTCoreDataStack {
 	__strong NSManagedObjectContext *_managedObjectContext;
-	__strong NSManagedObjectModel *managedObjectModel;
-	__strong NSPersistentStoreCoordinator *persistentStoreCoordinator;
+	__strong NSManagedObjectModel *_managedObjectModel;
+	__strong NSPersistentStoreCoordinator *_persistentStoreCoordinator;
 	__strong NSManagedObjectContext *_rootContext;
 }
 
 #pragma mark - NSObject
 
-#ifdef TARGET_OS_IPHONE
 - (void)dealloc {
-	UIApplication *app = [UIApplication sharedApplication];
 	NSNotificationCenter *defaultCenter = [NSNotificationCenter defaultCenter];
-	[defaultCenter removeObserver:self
-							 name:UIApplicationDidEnterBackgroundNotification
-						   object:app];
-	
-	[defaultCenter removeObserver:self
-							 name:UIApplicationWillTerminateNotification
-						   object:app];
-	
 	[defaultCenter removeObserver:self
 							 name:NSManagedObjectContextDidSaveNotification
 						   object:_rootContext];
-}
+	
+#ifdef TARGET_OS_IPHONE
+	UIApplication *app = [UIApplication sharedApplication];
+	[defaultCenter removeObserver:self
+							 name:UIApplicationDidEnterBackgroundNotification
+						   object:app];
+	[defaultCenter removeObserver:self
+							 name:UIApplicationWillTerminateNotification
+						   object:app];
 #endif
+}
 
 #pragma mark - Initialization
 
@@ -113,12 +113,12 @@
 	UIApplication *app = [UIApplication sharedApplication];
 	
 	[defaultCenter addObserver:self
-					  selector:@selector(dctInternal_applicationDidEnterBackgroundNotification:)
+					  selector:@selector(_applicationDidEnterBackgroundNotification:)
 						  name:UIApplicationDidEnterBackgroundNotification
 						object:app];
 	
 	[defaultCenter addObserver:self
-					  selector:@selector(dctInternal_applicationWillTerminateNotification:)
+					  selector:@selector(_applicationWillTerminateNotification:)
 						  name:UIApplicationWillTerminateNotification
 						object:app];
 #endif
@@ -127,7 +127,7 @@
 }
 
 - (id)initWithStoreFilename:(NSString *)filename {
-	NSURL *storeURL = [[[self class] dctInternal_applicationDocumentsDirectory] URLByAppendingPathComponent:filename];
+	NSURL *storeURL = [[[self class] _applicationDocumentsDirectory] URLByAppendingPathComponent:filename];
 	return [self initWithStoreURL:storeURL
 						storeType:NSSQLiteStoreType
 					 storeOptions:nil
@@ -137,46 +137,40 @@
 
 #pragma mark - Getters
 
-- (void)_rootContextDidSaveNotification:(NSNotification *)notification {
-	[self.managedObjectContext performBlock:^{
-		[self.managedObjectContext mergeChangesFromContextDidSaveNotification:notification];
-	}];
-}
-
 - (NSManagedObjectContext *)newWorkerManagedObjectContext {
-	return [self _loadManagedObjectContextWithName:@"DCTCoreDataStack.workerContext"
-								   concurrencyType:NSPrivateQueueConcurrencyType];
+	return [self _newManagedObjectContextWithName:@"DCTCoreDataStack.workerContext"
+								  concurrencyType:NSPrivateQueueConcurrencyType];
 }
 
 - (NSManagedObjectContext *)managedObjectContext {
     
 	if (_managedObjectContext == nil)
-		_managedObjectContext = [self _loadManagedObjectContextWithName:@"DCTCoreDataStack.mainContext"
-														concurrencyType:NSMainQueueConcurrencyType];
+		_managedObjectContext = [self _newManagedObjectContextWithName:@"DCTCoreDataStack.mainContext"
+													   concurrencyType:NSMainQueueConcurrencyType];
 	
     return _managedObjectContext;
 }
 
 - (NSManagedObjectModel *)managedObjectModel {
 	
-	if (managedObjectModel == nil)
-		[self dctInternal_loadManagedObjectModel];
+	if (_managedObjectModel == nil)
+		[self _loadManagedObjectModel];
 	
-	return managedObjectModel;
+	return _managedObjectModel;
 }
 
 #pragma mark - Internal Loading
 
 - (NSPersistentStoreCoordinator *)persistentStoreCoordinator {
 	
-	if (persistentStoreCoordinator == nil)
-		[self dctInternal_loadPersistentStoreCoordinator];
+	if (_persistentStoreCoordinator == nil)
+		[self _loadPersistentStoreCoordinator];
 	
-	return persistentStoreCoordinator;
+	return _persistentStoreCoordinator;
 }
 
-- (NSManagedObjectContext *)_loadManagedObjectContextWithName:(NSString *)name
-											  concurrencyType:(NSManagedObjectContextConcurrencyType)concurrencyType {
+- (NSManagedObjectContext *)_newManagedObjectContextWithName:(NSString *)name
+											 concurrencyType:(NSManagedObjectContextConcurrencyType)concurrencyType {
 		
 	NSManagedObjectContext *managedObjectContext = [[_DCTCDSManagedObjectContext alloc] initWithConcurrencyType:concurrencyType];
 	[managedObjectContext setParentContext:_rootContext];
@@ -184,45 +178,50 @@
 	return managedObjectContext;
 }
 
-- (void)dctInternal_loadManagedObjectModel {
+- (void)_loadManagedObjectModel {
 	
-    if (self.modelURL) {
-        managedObjectModel = [[NSManagedObjectModel alloc] initWithContentsOfURL:self.modelURL];
-    } else {
-        managedObjectModel = [NSManagedObjectModel mergedModelFromBundles:[NSArray arrayWithObject:[NSBundle mainBundle]]];
-    }
+    if (self.modelURL)
+		_managedObjectModel = [[NSManagedObjectModel alloc] initWithContentsOfURL:self.modelURL];
+    else
+		_managedObjectModel = [NSManagedObjectModel mergedModelFromBundles:[NSArray arrayWithObject:[NSBundle mainBundle]]];
 }
 
-- (void)dctInternal_loadPersistentStoreCoordinator {
+- (void)_loadPersistentStoreCoordinator {
 	
-	persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:self.managedObjectModel];
+	_persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:self.managedObjectModel];
 	
 	NSError *error = nil;
-	NSPersistentStore *persistentStore = [persistentStoreCoordinator addPersistentStoreWithType:self.storeType
-																				  configuration:self.modelConfiguration
-																							URL:self.storeURL
-																						options:self.storeOptions
-																						  error:&error];
+	NSPersistentStore *persistentStore = [_persistentStoreCoordinator addPersistentStoreWithType:self.storeType
+																				   configuration:self.modelConfiguration
+																							 URL:self.storeURL
+																						 options:self.storeOptions
+																						   error:&error];
 	
 	if (!persistentStore && self.didResolvePersistentStoreErrorHandler) {
 		
 		if (self.didResolvePersistentStoreErrorHandler(error))
-			[persistentStoreCoordinator addPersistentStoreWithType:self.storeType
-													 configuration:self.modelConfiguration
-															   URL:self.storeURL
-														   options:self.storeOptions
-															 error:NULL];
+			[_persistentStoreCoordinator addPersistentStoreWithType:self.storeType
+													  configuration:self.modelConfiguration
+																URL:self.storeURL
+															options:self.storeOptions
+															  error:NULL];
 	}
 }
 
 #pragma mark - Other Internal
 
-+ (NSURL *)dctInternal_applicationDocumentsDirectory {
+- (void)_rootContextDidSaveNotification:(NSNotification *)notification {
+	[self.managedObjectContext performBlock:^{
+		[self.managedObjectContext mergeChangesFromContextDidSaveNotification:notification];
+	}];
+}
+
++ (NSURL *)_applicationDocumentsDirectory {
     return [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
 }
 
 #ifdef TARGET_OS_IPHONE
-- (void)dctInternal_applicationDidEnterBackgroundNotification:(NSNotification *)notification {
+- (void)_applicationDidEnterBackgroundNotification:(NSNotification *)notification {
 	
 	NSManagedObjectContext *context = self.managedObjectContext;
 	
@@ -235,7 +234,7 @@
 	// TODO: what if there was a save error?
 }
 
-- (void)dctInternal_applicationWillTerminateNotification:(NSNotification *)notification {
+- (void)_applicationWillTerminateNotification:(NSNotification *)notification {
 	
 	NSManagedObjectContext *context = self.managedObjectContext;
 	

@@ -46,7 +46,8 @@
 // 4) On iOS, the app entering the background, or terminating, automatically triggers a save if needed. You can be notified of such saves by setting the .automaticSaveCompletionHandler property
 //
 // 5) On iOS, when saving on a background thread, the stack protects against termination/suspension by declaring the save as a background task
-
+//
+// 6) Generation of private queue managed object contexts via -[DCTCoreDataStack newWorkerManagedObjectContext]. Saving this causes a save to disk and a merge to the context in managedObjectContext
 
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
@@ -85,8 +86,6 @@ typedef BOOL (^DCTCoreDataStackPersistentStoreErrorResolutionBlock) (NSError *er
  to the context given from this method, and should be handled by the user if desired.
  */
 - (NSManagedObjectContext *)newWorkerManagedObjectContext;
-
-@property (nonatomic, strong, readonly) NSManagedObjectModel *managedObjectModel;
 
 @property (nonatomic, copy, readonly) NSURL *storeURL;
 @property (nonatomic, copy, readonly) NSString *storeType;
