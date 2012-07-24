@@ -50,7 +50,6 @@
 
 @implementation DCTCoreDataStack {
 	__strong NSManagedObjectContext *_managedObjectContext;
-	__strong NSManagedObjectContext *_backgroundManagedObjectContext;
 	__strong NSManagedObjectModel *managedObjectModel;
 	__strong NSPersistentStoreCoordinator *persistentStoreCoordinator;
 	__strong NSManagedObjectContext *_rootContext;
@@ -144,17 +143,11 @@
 	[self.managedObjectContext performBlock:^{
 		[self.managedObjectContext mergeChangesFromContextDidSaveNotification:notification];
 	}];
-	[self.backgroundContext performBlock:^{
-		[self.backgroundContext mergeChangesFromContextDidSaveNotification:notification];
-	}];
 }
 
-- (NSManagedObjectContext *)backgroundContext {
-	
-	if (!_backgroundManagedObjectContext)
-		_backgroundManagedObjectContext = [self _loadManagedObjectContextWithName:@"DCTCoreDataStack.backgroundContext" concurrencyType:NSPrivateQueueConcurrencyType];
-	
-    return _backgroundManagedObjectContext;
+- (NSManagedObjectContext *)newWorkerManagedObjectContext {
+	return [self _loadManagedObjectContextWithName:@"DCTCoreDataStack.workerContext"
+								   concurrencyType:NSPrivateQueueConcurrencyType];
 }
 
 - (NSManagedObjectContext *)managedObjectContext {
@@ -239,7 +232,7 @@
 #ifdef TARGET_OS_IPHONE
 - (void)dctInternal_applicationDidEnterBackgroundNotification:(NSNotification *)notification {
 	
-	NSManagedObjectContext *context = self.backgroundContext;
+	NSManagedObjectContext *context = self.managedObjectContext;
 	
 	if (![context hasChanges]) return;
 	
@@ -259,7 +252,7 @@
 
 - (void)dctInternal_applicationWillTerminateNotification:(NSNotification *)notification {
 	
-	NSManagedObjectContext *context = self.backgroundContext;
+	NSManagedObjectContext *context = self.managedObjectContext;
 	
 	if (![context hasChanges]) return;
 	

@@ -77,17 +77,22 @@ typedef BOOL (^DCTCoreDataStackPersistentStoreErrorResolutionBlock) (NSError *er
 @property (nonatomic, copy) DCTCoreDataStackPersistentStoreErrorResolutionBlock didResolvePersistentStoreErrorHandler;
 
 @property (nonatomic, readonly) NSManagedObjectContext *managedObjectContext;
-@property (nonatomic, readonly) NSManagedObjectContext *backgroundContext;
+
+/** Generates a new private context to do background work on.
+ 
+ This is a sibling to the managedObjectContext and saves to this context will merge across
+ to the managedObjectContext. Changes to the managedObjectContext will not merge across
+ to the context given from this method, and should be handled by the user if desired.
+ */
+- (NSManagedObjectContext *)newWorkerManagedObjectContext;
 
 @property (nonatomic, strong, readonly) NSManagedObjectModel *managedObjectModel;
 
 @property (nonatomic, copy, readonly) NSURL *storeURL;
 @property (nonatomic, copy, readonly) NSString *storeType;
 @property (nonatomic, copy, readonly) NSDictionary *storeOptions;
-
-@property (nonatomic, copy, readonly) NSString *modelName;
-@property (nonatomic, copy, readonly) NSURL *modelURL;
 @property (nonatomic, copy, readonly) NSString *modelConfiguration;
+@property (nonatomic, copy, readonly) NSURL *modelURL;
 
 #ifdef TARGET_OS_IPHONE
 @property (nonatomic, copy) void(^automaticSaveCompletionHandler)(BOOL success, NSError *error);

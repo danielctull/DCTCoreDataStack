@@ -23,7 +23,7 @@
 	
 	ViewController *viewController = [ViewController new];
 	viewController.mainContext = coreDataStack.managedObjectContext;
-	viewController.backgroundContext = coreDataStack.backgroundContext;
+	viewController.backgroundContext = [coreDataStack newWorkerManagedObjectContext];
 	
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
 	self.window.rootViewController = [[UINavigationController alloc] initWithRootViewController:viewController];
