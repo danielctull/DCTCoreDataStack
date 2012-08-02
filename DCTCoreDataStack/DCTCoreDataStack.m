@@ -43,7 +43,7 @@
 #import <UIKit/UIKit.h>
 #endif
 
-NSString *const DCTCoreDataStackPreventBackupStoreOption = @"DCTCoreDataStackPreventBackupStoreOption";
+NSString *const DCTCoreDataStackExcludeFromBackupStoreOption = @"DCTCoreDataStackExcludeFromBackupStoreOption";
 
 @interface DCTCoreDataStack ()
 @property (nonatomic, readonly) NSPersistentStoreCoordinator *persistentStoreCoordinator;
@@ -210,15 +210,12 @@ NSString *const DCTCoreDataStackPreventBackupStoreOption = @"DCTCoreDataStackPre
 															  error:NULL];
 	}
 	
-	[self _addPreventBackupFlagIfNeeded];
+	[self _setupExcludeFromBackupFlag];
 }
 
 #pragma mark - Other Internal
 
-- (void)_addPreventBackupFlagIfNeeded {
-	
-	BOOL shouldPreventBackup = [[self.storeOptions objectForKey:DCTCoreDataStackPreventBackupStoreOption] boolValue];
-	if (!shouldPreventBackup) return;
+- (void)_setupExcludeFromBackupFlag {
 
 	BOOL storeIsReachable = [self.storeURL checkResourceIsReachableAndReturnError:NULL];
 	if (!storeIsReachable) return;
@@ -226,19 +223,32 @@ NSString *const DCTCoreDataStackPreventBackupStoreOption = @"DCTCoreDataStackPre
 	const char *filePath = [[self.storeURL path] fileSystemRepresentation];
 	const char *attrName = "com.apple.MobileBackup";
 
-	if (&NSURLIsExcludedFromBackupKey == NULL) { // iOS 5.0.x / 10.7.x or earlier
-
-		u_int8_t attrValue = 1;
-		setxattr(filePath, attrName, &attrValue, sizeof(attrValue), 0, 0);
-
-	} else { // iOS 5.1 / OS X 10.8 and above
-
-		// Remove attribute if it exists (from an upgrade of an older version of iOS)
+	void (^removeAttribute)() = ^{
+		// Remove attribute if it exists
 		int result = getxattr(filePath, attrName, NULL, sizeof(u_int8_t), 0, 0);
 		if (result != -1) removexattr(filePath, attrName, 0);
+	};
+	
+	void (^addAttribute)() = ^{
+		u_int8_t attrValue = 1;
+		setxattr(filePath, attrName, &attrValue, sizeof(attrValue), 0, 0);
+	};
+	
+	BOOL excludeFromBackup = [[self.storeOptions objectForKey:DCTCoreDataStackExcludeFromBackupStoreOption] boolValue];
+	
+	if (&NSURLIsExcludedFromBackupKey == NULL) { // iOS 5.0.x / 10.7.x or earlier
 
-		// Set the new key
-		[self.storeURL setResourceValue:@(YES) forKey:NSURLIsExcludedFromBackupKey error:NULL];
+		if (excludeFromBackup)
+			addAttribute();
+		else
+			removeAttribute();
+		
+	} else { // iOS 5.1 / OS X 10.8 and above
+
+		// Remove attribute if it exists from an upgrade of an older version of iOS
+		removeAttribute();
+
+		[self.storeURL setResourceValue:@(excludeFromBackup) forKey:NSURLIsExcludedFromBackupKey error:NULL];
 	}
 }
 

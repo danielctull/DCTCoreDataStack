@@ -59,8 +59,8 @@
 #endif
 
 
-// This can be added to the store options to prevent backup in iOS
-NSString *const DCTCoreDataStackPreventBackupStoreOption;
+// This can be added to the store options to exclude the store from backup
+extern NSString *const DCTCoreDataStackExcludeFromBackupStoreOption;
 
 // Return YES if the error was resolved
 typedef BOOL (^DCTCoreDataStackPersistentStoreErrorResolutionBlock) (NSError *error);
