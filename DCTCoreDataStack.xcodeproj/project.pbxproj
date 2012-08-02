@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		241F0F7C15CAC25900674BAE /* _DCTSiblingManagedObjectContext.m in Sources */ = {isa = PBXBuildFile; fileRef = 241F0F7B15CAC25900674BAE /* _DCTSiblingManagedObjectContext.m */; };
 		241F0F8015CAC48500674BAE /* NSManagedObjectContext+DCTSiblingContext.m in Sources */ = {isa = PBXBuildFile; fileRef = 241F0F7F15CAC48500674BAE /* NSManagedObjectContext+DCTSiblingContext.m */; };
+		241F0FDC15CAD02500674BAE /* NSManagedObjectContext+DCTSiblingContext.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 241F0F7E15CAC48500674BAE /* NSManagedObjectContext+DCTSiblingContext.h */; };
 		2437B68E15B97C2600750117 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 24F6EBF3158A261000CEDD41 /* Foundation.framework */; };
 		2437B69915B97C5200750117 /* DCTCoreDataStack.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 24F6EBF8158A261000CEDD41 /* DCTCoreDataStack.h */; };
 		2437B69A15B97C5400750117 /* NSManagedObjectContext+DCTCoreDataStack.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 24F6EC1A158A264C00CEDD41 /* NSManagedObjectContext+DCTCoreDataStack.h */; };
@@ -42,6 +43,7 @@
 			files = (
 				2437B69915B97C5200750117 /* DCTCoreDataStack.h in CopyFiles */,
 				2437B69A15B97C5400750117 /* NSManagedObjectContext+DCTCoreDataStack.h in CopyFiles */,
+				241F0FDC15CAD02500674BAE /* NSManagedObjectContext+DCTSiblingContext.h in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
