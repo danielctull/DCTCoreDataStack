@@ -31,41 +31,24 @@
 }
 
 - (void)dct_saveWithCompletionHandler:(void (^)(BOOL, NSError *))completionHandler {
-		
-	if (completionHandler == NULL)
-		completionHandler = ^(BOOL success, NSError *error){};
-		
-	BOOL hasParentContext = (self.parentContext != nil);
-	
+
 	NSManagedObjectContext *notifyContext = self.parentContext;
-	if (!hasParentContext) notifyContext = self;
-	
+	if (!notifyContext) notifyContext = self;
+
 	NSNotificationCenter *defaultCenter = [NSNotificationCenter defaultCenter];
 	[defaultCenter addObserver:self
 					  selector:@selector(_contextDidSaveNotification:)
 						  name:NSManagedObjectContextDidSaveNotification
 						object:notifyContext];
-	
-	void (^removeObserver)() = ^{
+
+	[super dct_saveWithCompletionHandler:^(BOOL success, NSError *error) {
+		
 		[defaultCenter removeObserver:self
 								 name:NSManagedObjectContextDidSaveNotification
 							   object:notifyContext];
-	};
-	
-	[super dct_saveWithCompletionHandler:^(BOOL success, NSError *error) {
 		
-		if (!success || !hasParentContext) {
+		if (completionHandler != NULL)
 			completionHandler(success, error);
-			removeObserver();
-			return;
-		}
-		
-		[self.parentContext performBlock:^{
-			[self.parentContext dct_saveWithCompletionHandler:^(BOOL success, NSError *error) {
-				completionHandler(success, error);
-				removeObserver();
-			}];
-		}];
 	}];
 }
 
