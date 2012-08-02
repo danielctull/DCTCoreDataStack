@@ -34,21 +34,6 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-
-// DCTCoreDataStack is intended for non-document based apps, and provides the following features:
-//
-// 1) An encapsulation of the complete Core Data stack of NSManagedObjectContext, NSPersistentStoreCoordinator, NSPersistentStore, and NSManagedObjectModel
-//
-// 2) On new enough OS's that support it, writing to disk is performed on a background thread, by using a parent context. Saving the main context automatically triggers saving the parent context asynchronously
-//
-// 3) -[NSManagedObjectContext dct_saveWithCompletionHandler:] method can be used to be notified when saving to disk finishes, asynchronously if possible
-//
-// 4) On iOS, the app entering the background, or terminating, automatically triggers a save if needed. You can be notified of such saves by setting the .automaticSaveCompletionHandler property
-//
-// 5) On iOS, when saving on a background thread, the stack protects against termination/suspension by declaring the save as a background task
-//
-// 6) Generation of private queue managed object contexts via -[DCTCoreDataStack newWorkerManagedObjectContext]. Saving this causes a save to disk and a merge to the context in managedObjectContext
-
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 #import "NSManagedObjectContext+DCTCoreDataStack.h"
@@ -58,29 +43,69 @@
 #define dctcoredatastack         dctcoredatastack_1_0
 #endif
 
-
 // This can be added to the store options to exclude the store from backup
 extern NSString *const DCTCoreDataStackExcludeFromBackupStoreOption;
 
-// Return YES if the error was resolved
-typedef BOOL (^DCTCoreDataStackPersistentStoreErrorResolutionBlock) (NSError *error);
 
-
+/** DCTCoreDataStack is intended for non-document based apps, and sets up the whole Core Data structure such 
+ that after initializing, the managedObjectContext property is ready for use.
+ 
+ DCTCoreDataStack provides the following features:
+ 
+ 1. An encapsulation of the complete Core Data stack of NSManagedObjectContext, NSPersistentStoreCoordinator, NSPersistentStore, and NSManagedObjectModel
+ 2. On supporting OS's, writing to disk is performed on a background thread, by using a parent context. Saving the main context automatically triggers saving the parent context asynchronously
+ 3. [[NSManagedObjectContext dct_saveWithCompletionHandler:]](../Categories/NSManagedObjectContext%28DCTCoreDataStack%29.html#//api/name/dct_saveWithCompletionHandler:) method can be used to be notified when saving to disk finishes, asynchronously if possible
+ 4. Allows you to resolve errors when loading the persistent store by setting [didResolvePersistentStoreErrorHandler](#//api/name/didResolvePersistentStoreErrorHandler)
+ 5. On iOS, the app entering the background, or terminating, automatically triggers a save if needed. You can be notified of such saves by setting [automaticSaveCompletionHandler](#//api/name/automaticSaveCompletionHandler)
+ 6. On iOS, when saving on a background thread, the stack protects against termination/suspension by declaring the save as a background task
+ 7. Generation of private queue managed object contexts via -[DCTCoreDataStack newWorkerManagedObjectContext]. Saving this causes a save to disk and a merge to the context in managedObjectContext
+ 8. Providing @YES for DCTCoreDataStackExcludeFromBackupStoreOption in the storeOptions will exclude the persistent store from being backed up
+ 
+ */
 @interface DCTCoreDataStack : NSObject
 
-// Convenience that assumes XML store, nil config, no options. The model is made up by merging all in the app's main bundle
-// Generally the best method to use when getting started
+/// @name Initialization
+
+/** Convience method to quickly set up a default stack and is generally the best method to use when getting started.
+ 
+ This passes through the following options to the designated initializer:
+ 
+ - storeURL: A URL of a file called filename in the app's documentsDirectory
+ - storeType : NSSQLiteStoreType
+ - storeOptions : nil
+ - modelConfiguration : nil
+ - modelURL : nil (so the model is made up by merging all the models in the application's main bundle)
+ 
+ @param filename The name of the created persistent store file.
+ @see -initWithStoreURL:storeType:storeOptions:modelConfiguration:modelURL:
+ */
 - (id)initWithStoreFilename:(NSString *)filename;
 
 // This method is helpful for when your app has previously been using -initWithStoreFilename: but now needs to migrate an existing store. To do so, specify the name of the *new* model; set the options values corresponding to both the NSMigratePersistentStoresAutomaticallyOption and the NSInferMappingModelAutomaticallyOption keys to YES. For more details see Apple's Core Data versioning and migration guide.
+
+/** The is designated initializer for the class and allows control over options given to the model and persistent store.
+ 
+ For more detailed information about the storeType, storeOptions and modelConfiguration parameters, see the documentation for [NSPersistentStoreCoordinator](NSPersistentStoreCoordinator).
+ 
+ @param storeURL The URL where the persistent store should be created.
+ @param storeType The type for the store, can accept NSSQLiteStoreType, NSXMLStoreType, NSBinaryStoreType, NSInMemoryStoreType depending on the platform.
+ @param storeOptions The options for the store, these are passed to the NSPersistentStoreCoordinator when adding a persistent store. DCTCoreDataStack also accepts its own options, including DCTCoreDataStackExcludeFromBackupStoreOption.
+ @param modelConfiguration The model configuration to use, this is passed to the NSPersistentStoreCoordinator when adding a persistent store.
+ @param modelURL The URL of the model. If this is nil, the model will be made up by merging all the models in the application's main bundle.
+ */
 - (id)initWithStoreURL:(NSURL *)storeURL
 			 storeType:(NSString *)storeType
 		  storeOptions:(NSDictionary *)storeOptions
 	modelConfiguration:(NSString *)modelConfiguration
 			  modelURL:(NSURL *)modelURL;
 
-@property (nonatomic, copy) DCTCoreDataStackPersistentStoreErrorResolutionBlock didResolvePersistentStoreErrorHandler;
+/// @name Working with the Stack
 
+/** Provides a context for working on the main thread.
+ 
+ This provides a context on the main thread, to connect with the UI. It has a parent context on a background thread,
+ to perform quicker saves to disk. Saving this context causes the parent context to save, asyncronously if
+ [NSManagedObjectContext dct_saveWithCompletionHandler:](../Categories/NSManagedObjectContext%28DCTCoreDataStack%29.html#//api/name/dct_saveWithCompletionHandler:) is used. */
 @property (nonatomic, readonly) NSManagedObjectContext *managedObjectContext;
 
 /** Generates a new private context to do background work on.
@@ -91,13 +116,34 @@ typedef BOOL (^DCTCoreDataStackPersistentStoreErrorResolutionBlock) (NSError *er
  */
 - (NSManagedObjectContext *)newWorkerManagedObjectContext;
 
+/// @name Configuration State
+
+/** The URL of the persistent store file. */
 @property (nonatomic, copy, readonly) NSURL *storeURL;
+
+/** The type of the persistent store. */
 @property (nonatomic, copy, readonly) NSString *storeType;
+
+/** The options given to the persistent store coordinator when adding the persistent store. */
 @property (nonatomic, copy, readonly) NSDictionary *storeOptions;
+
+/** The model configuration given to the persistent store coordinator when adding the persistent store. */
 @property (nonatomic, copy, readonly) NSString *modelConfiguration;
+
+/** The URL of the model being used. This can be nil if the model is merged from all the models in the app's main bundle. */
 @property (nonatomic, copy, readonly) NSURL *modelURL;
 
+/// @name Handling Events
+
+/** An error may happen on loading the persistent store, due to an incompatible model for example.
+ If you can resolve the error, either by migrating the store or deleting it and return YES from this
+ block, DCTCoreDataStack will attempt to load the persistent store again.
+ 
+ This is only called once. */
+@property (nonatomic, copy) BOOL (^didResolvePersistentStoreErrorHandler)(NSError *error);
+
 #ifdef TARGET_OS_IPHONE
+/** This block is called on iOS on completion or failure of a save caused due to the app entering the background or getting a termination notification. */
 @property (nonatomic, copy) void(^automaticSaveCompletionHandler)(BOOL success, NSError *error);
 #endif
 

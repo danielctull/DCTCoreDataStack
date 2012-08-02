@@ -36,14 +36,34 @@
 
 #import <CoreData/CoreData.h>
 
+
+/** Conviniences for the context, which also enable the asyncronous saving behavior in DCTCoreDataStack. */
 @interface NSManagedObjectContext (DCTCoreDataStack)
 
-@property (nonatomic, copy) NSString *dct_name;
+/// @name Saving
 
+/** Calls dct_saveWithCompletionHandler: with no handler. */
 - (void)dct_save;
 
+/** Will perform the save and call the given completionHandler when complete, either with success or failure.
+ 
+ There is no garantee to the queue that the completionHandler will be called on.
+ 
+ @param completionHandler The handler to call once a save has completed.*/
 - (void)dct_saveWithCompletionHandler:(void(^)(BOOL success, NSError *error))completionHandler;
 
-- (NSString *)dct_detailedDescriptionFromValidationError:(NSError *)anError;
+
+/// @name Debugging
+
+/** Set a name to a managed object context to aid in debugging. */
+@property (nonatomic, copy) NSString *dct_name;
+
+/** Provides a string to log from a validation error given by core data.
+ 
+ @param error The error given by Core Data
+ 
+ @return A human readable string of what's gone wrong.
+ */
+- (NSString *)dct_detailedDescriptionFromValidationError:(NSError *)error;
 
 @end
