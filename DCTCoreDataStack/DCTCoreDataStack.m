@@ -37,10 +37,13 @@
 #import "DCTCoreDataStack.h"
 #import "_DCTCDSManagedObjectContext.h"
 #import <objc/runtime.h>
+#include <sys/xattr.h>
 
 #ifdef TARGET_OS_IPHONE
 #import <UIKit/UIKit.h>
 #endif
+
+NSString *const DCTCoreDataStackPreventBackupStoreOption = @"DCTCoreDataStackPreventBackupStoreOption";
 
 @interface DCTCoreDataStack ()
 @property (nonatomic, readonly) NSPersistentStoreCoordinator *persistentStoreCoordinator;
@@ -189,12 +192,13 @@
 - (void)_loadPersistentStoreCoordinator {
 	
 	_persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:self.managedObjectModel];
+	NSDictionary *storeOptions = [self _storeOptionsForPersistentStoreCoordinator];
 	
 	NSError *error = nil;
 	NSPersistentStore *persistentStore = [_persistentStoreCoordinator addPersistentStoreWithType:self.storeType
 																				   configuration:self.modelConfiguration
 																							 URL:self.storeURL
-																						 options:self.storeOptions
+																						 options:storeOptions
 																						   error:&error];
 	
 	if (!persistentStore && self.didResolvePersistentStoreErrorHandler) {
@@ -203,12 +207,47 @@
 			[_persistentStoreCoordinator addPersistentStoreWithType:self.storeType
 													  configuration:self.modelConfiguration
 																URL:self.storeURL
-															options:self.storeOptions
+															options:storeOptions
 															  error:NULL];
 	}
+	
+	[self _addPreventBackupFlagIfNeeded];
 }
 
 #pragma mark - Other Internal
+
+- (void)_addPreventBackupFlagIfNeeded {
+	
+	BOOL shouldPreventBackup = [[self.storeOptions objectForKey:DCTCoreDataStackPreventBackupStoreOption] boolValue];
+	if (!shouldPreventBackup) return;
+
+	BOOL storeIsReachable = [self.storeURL checkResourceIsReachableAndReturnError:NULL];
+	if (!storeIsReachable) return;
+
+	const char *filePath = [[self.storeURL path] fileSystemRepresentation];
+	const char *attrName = "com.apple.MobileBackup";
+
+	if (&NSURLIsExcludedFromBackupKey == nil) { // 5.0.1 or earlier
+
+		u_int8_t attrValue = 1;
+		setxattr(filePath, attrName, &attrValue, sizeof(attrValue), 0, 0);
+
+	} else { // 5.1 and above
+
+		// Remove attribute if it exists (from an upgrade of an older version of iOS)
+		int result = getxattr(filePath, attrName, NULL, sizeof(u_int8_t), 0, 0);
+		if (result != -1) removexattr(filePath, attrName, 0);
+
+		// Set the new key
+		[self.storeURL setResourceValue:@(YES) forKey:NSURLIsExcludedFromBackupKey error:NULL];
+	}
+}
+
+- (NSDictionary *)_storeOptionsForPersistentStoreCoordinator {
+	NSMutableDictionary *storeOptions = [self.storeOptions mutableCopy];
+	[storeOptions removeObjectForKey:DCTCoreDataStackPreventBackupStoreOption];
+	return storeOptions;
+}
 
 - (void)_rootContextDidSaveNotification:(NSNotification *)notification {
 	[self.managedObjectContext performBlock:^{

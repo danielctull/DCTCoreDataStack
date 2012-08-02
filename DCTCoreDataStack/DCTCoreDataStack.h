@@ -58,6 +58,10 @@
 #define dctcoredatastack         dctcoredatastack_1_0
 #endif
 
+
+// This can be added to the store options to prevent backup in iOS
+NSString *const DCTCoreDataStackPreventBackupStoreOption;
+
 // Return YES if the error was resolved
 typedef BOOL (^DCTCoreDataStackPersistentStoreErrorResolutionBlock) (NSError *error);
 
