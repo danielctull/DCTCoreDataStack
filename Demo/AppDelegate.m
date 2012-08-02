@@ -22,8 +22,7 @@
 	coreDataStack = [[DCTCoreDataStack alloc] initWithStoreFilename:@"DCTCoreDataStack"];
 	
 	ViewController *viewController = [ViewController new];
-	viewController.mainContext = coreDataStack.managedObjectContext;
-	viewController.backgroundContext = [coreDataStack newWorkerManagedObjectContext];
+	viewController.managedObjectContext = coreDataStack.managedObjectContext;
 	
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
 	self.window.rootViewController = [[UINavigationController alloc] initWithRootViewController:viewController];

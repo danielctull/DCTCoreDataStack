@@ -12,7 +12,6 @@
 
 @interface ViewController : UITableViewController <NSFetchedResultsControllerDelegate>
 
-@property (strong, nonatomic) NSManagedObjectContext *mainContext;
-@property (strong, nonatomic) NSManagedObjectContext *backgroundContext;
+@property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 
 @end
