@@ -109,14 +109,6 @@ extern NSString *const DCTCoreDataStackExcludeFromBackupStoreOption;
  [NSManagedObjectContext dct_saveWithCompletionHandler:](../Categories/NSManagedObjectContext%28DCTCoreDataStack%29.html#//api/name/dct_saveWithCompletionHandler:) is used. */
 @property (nonatomic, readonly) NSManagedObjectContext *managedObjectContext;
 
-/** Generates a new private context to do background work on.
- 
- This is a sibling to the managedObjectContext and saves to this context will merge across
- to the managedObjectContext. Changes to the managedObjectContext will not merge across
- to the context given from this method, and should be handled by the user if desired.
- */
-- (NSManagedObjectContext *)newWorkerManagedObjectContext;
-
 /// @name Configuration State
 
 /** The URL of the persistent store file. */

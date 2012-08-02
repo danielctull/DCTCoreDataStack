@@ -60,12 +60,9 @@ NSString *const DCTCoreDataStackExcludeFromBackupStoreOption = @"DCTCoreDataStac
 #pragma mark - NSObject
 
 - (void)dealloc {
-	NSNotificationCenter *defaultCenter = [NSNotificationCenter defaultCenter];
-	[defaultCenter removeObserver:self
-							 name:NSManagedObjectContextDidSaveNotification
-						   object:_rootContext];
 	
 #ifdef TARGET_OS_IPHONE
+	NSNotificationCenter *defaultCenter = [NSNotificationCenter defaultCenter];
 	UIApplication *app = [UIApplication sharedApplication];
 	[defaultCenter removeObserver:self
 							 name:UIApplicationDidEnterBackgroundNotification
@@ -106,10 +103,6 @@ NSString *const DCTCoreDataStackExcludeFromBackupStoreOption = @"DCTCoreDataStac
 	_rootContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
 	[_rootContext setPersistentStoreCoordinator:self.persistentStoreCoordinator];
 	_rootContext.dct_name = @"DCTCoreDataStack.internal_rootContext";
-	[defaultCenter addObserver:self
-					  selector:@selector(_rootContextDidSaveNotification:)
-						  name:NSManagedObjectContextDidSaveNotification
-						object:_rootContext];
 	
 #ifdef TARGET_OS_IPHONE
 	
@@ -140,16 +133,13 @@ NSString *const DCTCoreDataStackExcludeFromBackupStoreOption = @"DCTCoreDataStac
 
 #pragma mark - Getters
 
-- (NSManagedObjectContext *)newWorkerManagedObjectContext {
-	return [self _newManagedObjectContextWithName:@"DCTCoreDataStack.workerContext"
-								  concurrencyType:NSPrivateQueueConcurrencyType];
-}
-
 - (NSManagedObjectContext *)managedObjectContext {
     
-	if (_managedObjectContext == nil)
-		_managedObjectContext = [self _newManagedObjectContextWithName:@"DCTCoreDataStack.mainContext"
-													   concurrencyType:NSMainQueueConcurrencyType];
+	if (_managedObjectContext == nil) {
+		_managedObjectContext = [[_DCTCDSManagedObjectContext alloc] initWithConcurrencyType:NSMainQueueConcurrencyType];
+		[_managedObjectContext setParentContext:_rootContext];
+		_managedObjectContext.dct_name = @"DCTCoreDataStack.mainContext";
+	}
 	
     return _managedObjectContext;
 }
@@ -170,15 +160,6 @@ NSString *const DCTCoreDataStackExcludeFromBackupStoreOption = @"DCTCoreDataStac
 		[self _loadPersistentStoreCoordinator];
 	
 	return _persistentStoreCoordinator;
-}
-
-- (NSManagedObjectContext *)_newManagedObjectContextWithName:(NSString *)name
-											 concurrencyType:(NSManagedObjectContextConcurrencyType)concurrencyType {
-		
-	NSManagedObjectContext *managedObjectContext = [[_DCTCDSManagedObjectContext alloc] initWithConcurrencyType:concurrencyType];
-	[managedObjectContext setParentContext:_rootContext];
-	managedObjectContext.dct_name = name;
-	return managedObjectContext;
 }
 
 - (void)_loadManagedObjectModel {
@@ -250,12 +231,6 @@ NSString *const DCTCoreDataStackExcludeFromBackupStoreOption = @"DCTCoreDataStac
 
 		[self.storeURL setResourceValue:@(excludeFromBackup) forKey:NSURLIsExcludedFromBackupKey error:NULL];
 	}
-}
-
-- (void)_rootContextDidSaveNotification:(NSNotification *)notification {
-	[self.managedObjectContext performBlock:^{
-		[self.managedObjectContext mergeChangesFromContextDidSaveNotification:notification];
-	}];
 }
 
 + (NSURL *)_applicationDocumentsDirectory {
