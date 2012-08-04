@@ -32,29 +32,41 @@
 
 - (void)dct_saveWithCompletionHandler:(void (^)(BOOL, NSError *))completionHandler {
 
-	NSManagedObjectContext *notifyContext = self.parentContext;
-	if (!notifyContext) notifyContext = self;
-
-	NSNotificationCenter *defaultCenter = [NSNotificationCenter defaultCenter];
-	[defaultCenter addObserver:self
-					  selector:@selector(_contextDidSaveNotification:)
-						  name:NSManagedObjectContextDidSaveNotification
-						object:notifyContext];
-
+	
+	NSSet *deletedObjects = [self deletedObjects];
+	NSSet *insertedObjects = [self insertedObjects];
+	NSSet *updatedObjects = [self updatedObjects];
+	
+	updatedObjects = [updatedObjects setByAddingObjectsFromSet:insertedObjects];
+	updatedObjects = [updatedObjects setByAddingObjectsFromSet:deletedObjects];
+	
+	NSLog(@"insertedObjects: %@", insertedObjects);
+	NSLog(@"deletedObjects: %@", deletedObjects);
+	NSLog(@"updatedObjects %@", updatedObjects);
+	
+	NSMutableSet *updatedObjectIDs = [[NSMutableSet alloc] initWithCapacity:[updatedObjects count]];
+	[updatedObjects enumerateObjectsUsingBlock:^(NSManagedObject *mo, BOOL *stop) {
+		[updatedObjectIDs addObject:[mo objectID]];
+	}];
+	
 	[super dct_saveWithCompletionHandler:^(BOOL success, NSError *error) {
 		
-		[defaultCenter removeObserver:self
-								 name:NSManagedObjectContextDidSaveNotification
-							   object:notifyContext];
-		
-		if (completionHandler != NULL)
-			completionHandler(success, error);
-	}];
-}
-
-- (void)_contextDidSaveNotification:(NSNotification *)notification {
-	[_originalContext performBlock:^{
-		[_originalContext mergeChangesFromContextDidSaveNotification:notification];
+		[_originalContext performBlock:^{
+			
+			[updatedObjectIDs enumerateObjectsUsingBlock:^(NSManagedObjectID *objectID, BOOL *stop) {
+				NSManagedObject *object = [_originalContext objectWithID:objectID];
+				[_originalContext refreshObject:object mergeChanges:YES];
+				[object willAccessValueForKey:nil];
+				NSLog(@"refreshing: %@", object);
+			}];
+			
+			[_originalContext mergeChangesFromContextDidSaveNotification:nil];
+			
+			[_originalContext dct_saveWithCompletionHandler:^(BOOL success, NSError *error) {
+				if (completionHandler != NULL)
+					completionHandler(success, error);
+			}];
+		}];
 	}];
 }
 
