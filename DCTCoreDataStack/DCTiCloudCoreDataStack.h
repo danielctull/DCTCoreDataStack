@@ -11,6 +11,7 @@
 @interface DCTiCloudCoreDataStack : DCTCoreDataStack
 
 + (void)setUbiquityContainerIdentifier:(NSString *)string;
++ (NSString *)ubiquityContainerIdentifier;
 
 @property (nonatomic, readonly, getter = isiCloudAvailable) BOOL iCloudAvailable;
 

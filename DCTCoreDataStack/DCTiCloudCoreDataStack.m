@@ -65,10 +65,11 @@
 #pragma mark - DCTiCloudCoreDataStack
 
 + (void)setUbiquityContainerIdentifier:(NSString *)string {
-	static dispatch_once_t onceToken;
-	dispatch_once(&onceToken, ^{
-		
-	});
+	[[self _classData] setObject:string forKey:@"ubiquityContainerIdentifier"];
+}
+
++ (NSString *)ubiquityContainerIdentifier {
+	return [[self _classData] objectForKey:@"ubiquityContainerIdentifier"];
 }
 
 - (void)setCurrentUbiquityToken:(id)currentUbiquityToken {
@@ -98,9 +99,18 @@
 }
 
 + (NSURL *)_ubiquityURL {
-    return [[NSFileManager defaultManager] URLForUbiquityContainerIdentifier:nil];
+	NSString *ubiquityContainerIdentifier = [[self class] ubiquityContainerIdentifier];
+    return [[NSFileManager defaultManager] URLForUbiquityContainerIdentifier:ubiquityContainerIdentifier];
 }
 
++ (NSMutableDictionary *)_classData {
+	static dispatch_once_t onceToken;
+	static NSMutableDictionary *_data = nil;
+	dispatch_once(&onceToken, ^{
+		_data = [NSMutableDictionary new];
+	});
+	return _data;
+}
 
 
 #pragma mark - DCTCoreDataStack getters and setters
