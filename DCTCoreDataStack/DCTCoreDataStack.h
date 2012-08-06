@@ -141,3 +141,5 @@ extern NSString *const DCTCoreDataStackExcludeFromBackupStoreOption;
 #endif
 
 @end
+
+#import "DCTiCloudCoreDataStack.h"

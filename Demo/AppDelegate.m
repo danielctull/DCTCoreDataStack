@@ -19,7 +19,9 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
 	
-	coreDataStack = [[DCTCoreDataStack alloc] initWithStoreFilename:@"DCTCoreDataStack"];
+	coreDataStack = [[DCTiCloudCoreDataStack alloc] initWithStoreFilename:@"DCTCoreDataStack"];
+	
+	NSLog(@"%@:%@ %@", self, NSStringFromSelector(_cmd), coreDataStack.storeURL);
 	
 	ViewController *viewController = [ViewController new];
 	viewController.managedObjectContext = coreDataStack.managedObjectContext;

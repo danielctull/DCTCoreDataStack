@@ -15,6 +15,8 @@
 		2437B69A15B97C5400750117 /* NSManagedObjectContext+DCTCoreDataStack.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 24F6EC1A158A264C00CEDD41 /* NSManagedObjectContext+DCTCoreDataStack.h */; };
 		2437B69B15B97C5C00750117 /* DCTCoreDataStack.m in Sources */ = {isa = PBXBuildFile; fileRef = 24F6EBF9158A261000CEDD41 /* DCTCoreDataStack.m */; };
 		2437B69C15B97C5F00750117 /* NSManagedObjectContext+DCTCoreDataStack.m in Sources */ = {isa = PBXBuildFile; fileRef = 24F6EC1B158A264C00CEDD41 /* NSManagedObjectContext+DCTCoreDataStack.m */; };
+		2455F8A515CFBA4A00C1596B /* DCTiCloudCoreDataStack.m in Sources */ = {isa = PBXBuildFile; fileRef = 2455F8A415CFBA4A00C1596B /* DCTiCloudCoreDataStack.m */; };
+		2455F8A715CFC72F00C1596B /* DCTiCloudCoreDataStack.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 2455F8A315CFBA4A00C1596B /* DCTiCloudCoreDataStack.h */; };
 		24E91B5915BEB1FA00E0DB54 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 24F6EC1F158A269300CEDD41 /* UIKit.framework */; };
 		24E91B5A15BEB1FA00E0DB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 24F6EBF3158A261000CEDD41 /* Foundation.framework */; };
 		24E91B5C15BEB1FA00E0DB54 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 24E91B5B15BEB1FA00E0DB54 /* CoreGraphics.framework */; };
@@ -42,6 +44,7 @@
 			dstSubfolderSpec = 16;
 			files = (
 				2437B69915B97C5200750117 /* DCTCoreDataStack.h in CopyFiles */,
+				2455F8A715CFC72F00C1596B /* DCTiCloudCoreDataStack.h in CopyFiles */,
 				2437B69A15B97C5400750117 /* NSManagedObjectContext+DCTCoreDataStack.h in CopyFiles */,
 				241F0FDC15CAD02500674BAE /* NSManagedObjectContext+DCTSiblingContext.h in CopyFiles */,
 			);
@@ -55,6 +58,8 @@
 		241F0F7E15CAC48500674BAE /* NSManagedObjectContext+DCTSiblingContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSManagedObjectContext+DCTSiblingContext.h"; sourceTree = "<group>"; };
 		241F0F7F15CAC48500674BAE /* NSManagedObjectContext+DCTSiblingContext.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSManagedObjectContext+DCTSiblingContext.m"; sourceTree = "<group>"; };
 		2437B68D15B97C2600750117 /* libDCTCoreDataStack.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libDCTCoreDataStack.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		2455F8A315CFBA4A00C1596B /* DCTiCloudCoreDataStack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCTiCloudCoreDataStack.h; sourceTree = "<group>"; };
+		2455F8A415CFBA4A00C1596B /* DCTiCloudCoreDataStack.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCTiCloudCoreDataStack.m; sourceTree = "<group>"; };
 		24E91B5715BEB1FA00E0DB54 /* CoreDataStack.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CoreDataStack.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		24E91B5B15BEB1FA00E0DB54 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		24E91B5F15BEB1FA00E0DB54 /* Demo-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Demo-Info.plist"; sourceTree = "<group>"; };
@@ -186,6 +191,8 @@
 			children = (
 				24F6EBF8158A261000CEDD41 /* DCTCoreDataStack.h */,
 				24F6EBF9158A261000CEDD41 /* DCTCoreDataStack.m */,
+				2455F8A315CFBA4A00C1596B /* DCTiCloudCoreDataStack.h */,
+				2455F8A415CFBA4A00C1596B /* DCTiCloudCoreDataStack.m */,
 				24F6EC1A158A264C00CEDD41 /* NSManagedObjectContext+DCTCoreDataStack.h */,
 				24F6EC1B158A264C00CEDD41 /* NSManagedObjectContext+DCTCoreDataStack.m */,
 				24E91BDD15BED01A00E0DB54 /* _DCTCDSManagedObjectContext.h */,
@@ -345,6 +352,7 @@
 				24E91BDF15BED01A00E0DB54 /* _DCTCDSManagedObjectContext.m in Sources */,
 				241F0F7C15CAC25900674BAE /* _DCTSiblingManagedObjectContext.m in Sources */,
 				241F0F8015CAC48500674BAE /* NSManagedObjectContext+DCTSiblingContext.m in Sources */,
+				2455F8A515CFBA4A00C1596B /* DCTiCloudCoreDataStack.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
