@@ -59,7 +59,7 @@ extern NSString *const DCTCoreDataStackExcludeFromBackupStoreOption;
  4. Allows you to resolve errors when loading the persistent store by setting [didResolvePersistentStoreErrorHandler](#//api/name/didResolvePersistentStoreErrorHandler)
  5. On iOS, the app entering the background, or terminating, automatically triggers a save if needed. You can be notified of such saves by setting [automaticSaveCompletionHandler](#//api/name/automaticSaveCompletionHandler)
  6. On iOS, when saving on a background thread, the stack protects against termination/suspension by declaring the save as a background task
- 7. Generation of private queue managed object contexts via -[DCTCoreDataStack newWorkerManagedObjectContext]. Saving this causes a save to disk and a merge to the context in managedObjectContext
+ 7. Generation of sibling managed object contexts via [[NSManagedObjectContext dct_newSiblingContextWithConcurrencyType:]](../Categories/NSManagedObjectContext%28DCTSiblingContext%29.html#//api/name/dct_newSiblingContextWithConcurrencyType:). Saving this causes a save to the parent and a merge to the original context
  8. Providing @YES for DCTCoreDataStackExcludeFromBackupStoreOption in the storeOptions will exclude the persistent store from being backed up
  
  */
