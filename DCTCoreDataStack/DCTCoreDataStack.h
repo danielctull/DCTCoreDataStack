@@ -135,7 +135,7 @@ extern NSString *const DCTCoreDataStackExcludeFromBackupStoreOption;
  This is only called once. */
 @property (nonatomic, copy) BOOL (^didResolvePersistentStoreErrorHandler)(NSError *error);
 
-#ifdef TARGET_OS_IPHONE
+#if TARGET_OS_IPHONE
 /** This block is called on iOS on completion or failure of a save caused due to the app entering the background or getting a termination notification. */
 @property (nonatomic, copy) void(^automaticSaveCompletionHandler)(BOOL success, NSError *error);
 #endif

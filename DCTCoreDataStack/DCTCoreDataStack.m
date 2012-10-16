@@ -59,9 +59,9 @@ NSString *const DCTCoreDataStackExcludeFromBackupStoreOption = @"DCTCoreDataStac
 
 #pragma mark - NSObject
 
-- (void)dealloc {
-	
 #if TARGET_OS_IPHONE
+
+- (void)dealloc {
 	NSNotificationCenter *defaultCenter = [NSNotificationCenter defaultCenter];
 	UIApplication *app = [UIApplication sharedApplication];
 	[defaultCenter removeObserver:self
@@ -70,8 +70,9 @@ NSString *const DCTCoreDataStackExcludeFromBackupStoreOption = @"DCTCoreDataStac
 	[defaultCenter removeObserver:self
 							 name:UIApplicationWillTerminateNotification
 						   object:app];
-#endif
 }
+
+#endif
 
 #pragma mark - Initialization
 
@@ -116,6 +117,7 @@ NSString *const DCTCoreDataStackExcludeFromBackupStoreOption = @"DCTCoreDataStac
 					  selector:@selector(_applicationWillTerminateNotification:)
 						  name:UIApplicationWillTerminateNotification
 						object:app];
+
 #endif
 	
 	return self;
@@ -236,7 +238,8 @@ NSString *const DCTCoreDataStackExcludeFromBackupStoreOption = @"DCTCoreDataStac
     return [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
 }
 
-#ifdef TARGET_OS_IPHONE
+#if TARGET_OS_IPHONE
+
 - (void)_applicationDidEnterBackgroundNotification:(NSNotification *)notification {
 	
 	NSManagedObjectContext *context = self.managedObjectContext;
@@ -266,6 +269,7 @@ NSString *const DCTCoreDataStackExcludeFromBackupStoreOption = @"DCTCoreDataStac
 	if (self.automaticSaveCompletionHandler != NULL)
 		self.automaticSaveCompletionHandler(success, error);
 }
+
 #endif
 
 @end
