@@ -394,6 +394,10 @@
 		2437B69715B97C2600750117 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = (
+					"$(ARCHS_STANDARD_32_BIT)",
+					x86_64,
+				);
 				CLANG_CXX_LIBRARY = "libc++";
 				DSTROOT = /tmp/DCTCoreDataStack.dst;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -402,12 +406,18 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos macosx";
+				VALID_ARCHS = "armv7 armv7s x86_64";
 			};
 			name = Debug;
 		};
 		2437B69815B97C2600750117 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = (
+					"$(ARCHS_STANDARD_32_BIT)",
+					x86_64,
+				);
 				CLANG_CXX_LIBRARY = "libc++";
 				DSTROOT = /tmp/DCTCoreDataStack.dst;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -416,6 +426,8 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos macosx";
+				VALID_ARCHS = "armv7 armv7s x86_64";
 			};
 			name = Release;
 		};

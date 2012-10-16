@@ -39,7 +39,7 @@
 #import <objc/runtime.h>
 #include <sys/xattr.h>
 
-#ifdef TARGET_OS_IPHONE
+#if TARGET_OS_IPHONE
 #import <UIKit/UIKit.h>
 #endif
 
@@ -61,7 +61,7 @@ NSString *const DCTCoreDataStackExcludeFromBackupStoreOption = @"DCTCoreDataStac
 
 - (void)dealloc {
 	
-#ifdef TARGET_OS_IPHONE
+#if TARGET_OS_IPHONE
 	NSNotificationCenter *defaultCenter = [NSNotificationCenter defaultCenter];
 	UIApplication *app = [UIApplication sharedApplication];
 	[defaultCenter removeObserver:self
@@ -97,16 +97,15 @@ NSString *const DCTCoreDataStackExcludeFromBackupStoreOption = @"DCTCoreDataStac
 		abort();
 		return NO;
 	};
-	
-	NSNotificationCenter *defaultCenter = [NSNotificationCenter defaultCenter];
-	
+		
 	_rootContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
 	[_rootContext setPersistentStoreCoordinator:self.persistentStoreCoordinator];
 	_rootContext.dct_name = @"DCTCoreDataStack.internal_rootContext";
 	
-#ifdef TARGET_OS_IPHONE
+#if TARGET_OS_IPHONE
 	
 	UIApplication *app = [UIApplication sharedApplication];
+	NSNotificationCenter *defaultCenter = [NSNotificationCenter defaultCenter];
 	
 	[defaultCenter addObserver:self
 					  selector:@selector(_applicationDidEnterBackgroundNotification:)

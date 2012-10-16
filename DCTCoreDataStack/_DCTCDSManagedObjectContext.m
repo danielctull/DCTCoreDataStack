@@ -9,7 +9,7 @@
 #import "_DCTCDSManagedObjectContext.h"
 #import "NSManagedObjectContext+DCTCoreDataStack.h"
 #import <objc/runtime.h>
-#ifdef TARGET_OS_IPHONE
+#if TARGET_OS_IPHONE
 #import <UIKit/UIKit.h>
 #endif
 
@@ -37,7 +37,7 @@
 
 - (void)dct_saveWithCompletionHandler:(void(^)(BOOL success, NSError *error))completion {
 	
-#ifdef TARGET_OS_IPHONE
+#if TARGET_OS_IPHONE
 	
 	UIBackgroundTaskIdentifier backgroundTaskIdentifier = [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:NULL];
 	
