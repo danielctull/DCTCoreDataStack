@@ -127,7 +127,7 @@
 				message = [NSString stringWithFormat:@"The text of the attribute '%@' doesn't match the required pattern.", attributeName];
 				break;
 			default:
-				message = [NSString stringWithFormat:@"Unknown error (code %li).", [error code]];
+				message = [NSString stringWithFormat:@"Unknown error (code %@).", @([error code])];
 				break;
 		}
 		
