@@ -46,16 +46,13 @@
 NSString *const DCTCoreDataStackExcludeFromBackupStoreOption = @"DCTCoreDataStackExcludeFromBackupStoreOption";
 
 @interface DCTCoreDataStack ()
-@property (nonatomic, readonly) NSPersistentStoreCoordinator *persistentStoreCoordinator;
-@property (nonatomic, readonly) NSManagedObjectModel *managedObjectModel;
+@property (nonatomic, strong) NSPersistentStoreCoordinator *persistentStoreCoordinator;
+@property (nonatomic, strong) NSManagedObjectModel *managedObjectModel;
+@property (nonatomic, strong) NSManagedObjectContext *rootContext;
+@property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
 @end
 
-@implementation DCTCoreDataStack {
-	__strong NSManagedObjectContext *_managedObjectContext;
-	__strong NSManagedObjectModel *_managedObjectModel;
-	__strong NSPersistentStoreCoordinator *_persistentStoreCoordinator;
-	__strong NSManagedObjectContext *_rootContext;
-}
+@implementation DCTCoreDataStack
 
 #pragma mark - NSObject
 
@@ -98,10 +95,6 @@ NSString *const DCTCoreDataStackExcludeFromBackupStoreOption = @"DCTCoreDataStac
 		abort();
 		return NO;
 	};
-		
-	_rootContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
-	[_rootContext setPersistentStoreCoordinator:self.persistentStoreCoordinator];
-	_rootContext.dct_name = @"DCTCoreDataStack.internal_rootContext";
 	
 #if TARGET_OS_IPHONE
 	
@@ -138,7 +131,7 @@ NSString *const DCTCoreDataStackExcludeFromBackupStoreOption = @"DCTCoreDataStac
     
 	if (_managedObjectContext == nil) {
 		_managedObjectContext = [[_DCTCDSManagedObjectContext alloc] initWithConcurrencyType:NSMainQueueConcurrencyType];
-		[_managedObjectContext setParentContext:_rootContext];
+		[_managedObjectContext setParentContext:self.rootContext];
 		_managedObjectContext.dct_name = @"DCTCoreDataStack.mainContext";
 	}
 	
@@ -154,6 +147,17 @@ NSString *const DCTCoreDataStackExcludeFromBackupStoreOption = @"DCTCoreDataStac
 }
 
 #pragma mark - Internal Loading
+
+- (NSManagedObjectContext *)rootContext {
+	
+	if (!_rootContext) {
+		_rootContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
+		[_rootContext setPersistentStoreCoordinator:self.persistentStoreCoordinator];
+		_rootContext.dct_name = @"DCTCoreDataStack.internal_rootContext";
+	}
+	
+	return _rootContext;
+}
 
 - (NSPersistentStoreCoordinator *)persistentStoreCoordinator {
 	
