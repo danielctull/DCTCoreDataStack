@@ -396,7 +396,7 @@
 			buildSettings = {
 				ARCHS = (
 					"$(ARCHS_STANDARD_32_BIT)",
-					x86_64,
+					"$(ARCHS_STANDARD_64_BIT)",
 				);
 				CLANG_CXX_LIBRARY = "libc++";
 				DSTROOT = /tmp/DCTCoreDataStack.dst;
@@ -416,7 +416,7 @@
 			buildSettings = {
 				ARCHS = (
 					"$(ARCHS_STANDARD_32_BIT)",
-					x86_64,
+					"$(ARCHS_STANDARD_64_BIT)",
 				);
 				CLANG_CXX_LIBRARY = "libc++";
 				DSTROOT = /tmp/DCTCoreDataStack.dst;
