@@ -79,7 +79,6 @@ NSString *const DCTCoreDataStackExcludeFromBackupStoreOption = @"DCTCoreDataStac
 	modelConfiguration:(NSString *)modelConfiguration
 			  modelURL:(NSURL *)modelURL {
 	
-	NSParameterAssert(storeURL);
 	NSParameterAssert(storeType);
 	
 	if (!(self = [self init])) return nil;
