@@ -73,11 +73,6 @@ NSString *const DCTCoreDataStackExcludeFromBackupStoreOption = @"DCTCoreDataStac
 
 #pragma mark - Initialization
 
-- (id)init {
-	NSString *applicationName = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleDisplayName"];
-	return [self initWithStoreFilename:applicationName];
-}
-
 - (id)initWithStoreURL:(NSURL *)storeURL
 			 storeType:(NSString *)storeType
 		  storeOptions:(NSDictionary *)storeOptions
@@ -86,7 +81,7 @@ NSString *const DCTCoreDataStackExcludeFromBackupStoreOption = @"DCTCoreDataStac
 	
 	NSParameterAssert(storeType);
 	
-	if (!(self = [super init])) return nil;
+	if (!(self = [self init])) return nil;
 	
 	_storeURL = [storeURL copy];
 	_storeType = [storeType copy];
