@@ -16,6 +16,8 @@
 - (void)_loadManagedObjectContext;
 - (void)_loadManagedObjectModel;
 - (void)_loadPersistentStoreCoordinator;
+- (void)_loadPersistentStore;
+
 - (void)_setupExcludeFromBackupFlag;
 
 + (NSURL *)_applicationDocumentsDirectory;

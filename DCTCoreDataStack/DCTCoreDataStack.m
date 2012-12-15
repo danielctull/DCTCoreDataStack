@@ -46,16 +46,13 @@
 NSString *const DCTCoreDataStackExcludeFromBackupStoreOption = @"DCTCoreDataStackExcludeFromBackupStoreOption";
 
 @interface DCTCoreDataStack ()
-@property (nonatomic, readonly) NSPersistentStoreCoordinator *persistentStoreCoordinator;
-@property (nonatomic, readonly) NSManagedObjectModel *managedObjectModel;
+@property (nonatomic, strong) NSPersistentStoreCoordinator *persistentStoreCoordinator;
+@property (nonatomic, strong) NSManagedObjectModel *managedObjectModel;
+@property (nonatomic, strong) NSManagedObjectContext *rootContext;
+@property (nonatomic, strong, readwrite) NSManagedObjectContext *managedObjectContext;
 @end
 
-@implementation DCTCoreDataStack {
-	__strong NSManagedObjectContext *_managedObjectContext;
-	__strong NSManagedObjectModel *_managedObjectModel;
-	__strong NSPersistentStoreCoordinator *_persistentStoreCoordinator;
-	__strong NSManagedObjectContext *_rootContext;
-}
+@implementation DCTCoreDataStack
 
 #pragma mark - NSObject
 
@@ -70,9 +67,6 @@ NSString *const DCTCoreDataStackExcludeFromBackupStoreOption = @"DCTCoreDataStac
 	[defaultCenter removeObserver:self
 							 name:UIApplicationWillTerminateNotification
 						   object:app];
-	[defaultCenter removeObserver:self
-							 name:UIApplicationDidBecomeActiveNotification
-						   object:app];
 #endif
 }
 
@@ -86,8 +80,9 @@ NSString *const DCTCoreDataStackExcludeFromBackupStoreOption = @"DCTCoreDataStac
 	
 	NSParameterAssert(storeURL);
 	NSParameterAssert(storeType);
-	
-	if (!(self = [self init])) return nil;
+
+	self = [self init];
+	if (!self) return nil;
 	
 	_storeURL = [storeURL copy];
 	_storeType = [storeType copy];
@@ -101,14 +96,9 @@ NSString *const DCTCoreDataStackExcludeFromBackupStoreOption = @"DCTCoreDataStac
 		return NO;
 	};
 	
-	NSNotificationCenter *defaultCenter = [NSNotificationCenter defaultCenter];
-	
-	_rootContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
-	[_rootContext setPersistentStoreCoordinator:self.persistentStoreCoordinator];
-	_rootContext.dct_name = @"DCTCoreDataStack.internal_rootContext";
-	
 #ifdef TARGET_OS_IPHONE
-	
+
+	NSNotificationCenter *defaultCenter = [NSNotificationCenter defaultCenter];
 	UIApplication *app = [UIApplication sharedApplication];
 	
 	[defaultCenter addObserver:self
@@ -119,11 +109,6 @@ NSString *const DCTCoreDataStackExcludeFromBackupStoreOption = @"DCTCoreDataStac
 	[defaultCenter addObserver:self
 					  selector:@selector(_applicationWillTerminateNotification:)
 						  name:UIApplicationWillTerminateNotification
-						object:app];
-
-	[defaultCenter addObserver:self
-					  selector:@selector(_applicationDidBecomeActiveNotification:)
-						  name:UIApplicationDidBecomeActiveNotification
 						object:app];
 #endif
 	
@@ -141,6 +126,14 @@ NSString *const DCTCoreDataStackExcludeFromBackupStoreOption = @"DCTCoreDataStac
 
 #pragma mark - Getters
 
+- (NSManagedObjectContext *)rootContext {
+
+	if (_rootContext == nil)
+		[self _loadRootContext];
+
+	return _rootContext;
+}
+
 - (NSManagedObjectContext *)managedObjectContext {
 
 	if (_managedObjectContext == nil)
@@ -157,8 +150,6 @@ NSString *const DCTCoreDataStackExcludeFromBackupStoreOption = @"DCTCoreDataStac
 	return _managedObjectModel;
 }
 
-#pragma mark - Internal Loading
-
 - (NSPersistentStoreCoordinator *)persistentStoreCoordinator {
 	
 	if (_persistentStoreCoordinator == nil)
@@ -167,7 +158,11 @@ NSString *const DCTCoreDataStackExcludeFromBackupStoreOption = @"DCTCoreDataStac
 	return _persistentStoreCoordinator;
 }
 
-#pragma mark - Other Internal
+- (void)_loadRootContext {
+	_rootContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
+	[_rootContext setPersistentStoreCoordinator:self.persistentStoreCoordinator];
+	_rootContext.dct_name = @"DCTCoreDataStack.internal_rootContext";
+}
 
 @end
 
@@ -175,7 +170,7 @@ NSString *const DCTCoreDataStackExcludeFromBackupStoreOption = @"DCTCoreDataStac
 
 - (void)_loadManagedObjectContext {
 	_managedObjectContext = [[_DCTCDSManagedObjectContext alloc] initWithConcurrencyType:NSMainQueueConcurrencyType];
-	[_managedObjectContext setParentContext:_rootContext];
+	[_managedObjectContext setParentContext:self.rootContext];
 	_managedObjectContext.dct_name = @"DCTCoreDataStack.mainContext";
 }
 
@@ -188,9 +183,12 @@ NSString *const DCTCoreDataStackExcludeFromBackupStoreOption = @"DCTCoreDataStac
 }
 
 - (void)_loadPersistentStoreCoordinator {
-
 	_persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:self.managedObjectModel];
+	[self _loadPersistentStore];
+}
 
+- (void)_loadPersistentStore {
+	
 	NSError *error = nil;
 	NSPersistentStore *persistentStore = [_persistentStoreCoordinator addPersistentStoreWithType:self.storeType
 																				   configuration:self.modelConfiguration

@@ -107,7 +107,7 @@ extern NSString *const DCTCoreDataStackExcludeFromBackupStoreOption;
  This provides a context on the main thread, to connect with the UI. It has a parent context on a background thread,
  to perform quicker saves to disk. Saving this context causes the parent context to save, asyncronously if
  [NSManagedObjectContext dct_saveWithCompletionHandler:](../Categories/NSManagedObjectContext%28DCTCoreDataStack%29.html#//api/name/dct_saveWithCompletionHandler:) is used. */
-@property (nonatomic, readonly) NSManagedObjectContext *managedObjectContext;
+@property (nonatomic, strong, readonly) NSManagedObjectContext *managedObjectContext;
 
 /// @name Configuration State
 

@@ -9,21 +9,30 @@
 #import "DCTiCloudCoreDataStack.h"
 #import "_DCTCoreDataStack.h"
 
+#ifdef TARGET_OS_IPHONE
+#import <UIKit/UIKit.h>
+#endif
+
 @interface DCTiCloudCoreDataStack ()
 @property (nonatomic, strong) id ubiquityIdentityToken;
+@property (nonatomic, readonly) NSURL *ubiquityContainerURL;
 @end
 
-@implementation DCTiCloudCoreDataStack {
-	__strong DCTCoreDataStack *_coreDataStack;
-	__strong NSURL *_storeName;
-}
+@implementation DCTiCloudCoreDataStack
 
 #pragma mark - DCTCoreDataStack
 
 - (void)dealloc {
-	[[NSNotificationCenter defaultCenter] removeObserver:self
-													name:NSUbiquityIdentityDidChangeNotification
-												  object:nil];
+	NSNotificationCenter *defaultCenter = [NSNotificationCenter defaultCenter];
+	[defaultCenter removeObserver:self
+							 name:NSUbiquityIdentityDidChangeNotification
+						   object:nil];
+
+#ifdef TARGET_OS_IPHONE
+	[defaultCenter removeObserver:self
+							 name:UIApplicationDidBecomeActiveNotification
+						   object:[UIApplication sharedApplication]];
+#endif
 }
 
 - (id)initWithStoreURL:(NSURL *)storeURL
@@ -31,7 +40,13 @@
 		  storeOptions:(NSDictionary *)storeOptions
 	modelConfiguration:(NSString *)modelConfiguration
 			  modelURL:(NSURL *)modelURL {
-	return nil;
+	
+	return [self initWithStoreFilename:[storeURL lastPathComponent]
+							 storeType:NSSQLiteStoreType
+						  storeOptions:storeOptions
+					modelConfiguration:modelConfiguration
+							  modelURL:modelURL
+		   ubiquityContainerIdentifier:nil];
 }
 
 - (id)initWithStoreFilename:(NSString *)filename {
@@ -63,12 +78,18 @@ ubiquityContainerIdentifier:(NSString *)ubiquityContainerIdentifier {
 	_ubiquityContainerIdentifier = [ubiquityContainerIdentifier copy];
 	_ubiquityIdentityToken = [[NSFileManager defaultManager] ubiquityIdentityToken];
 
-	[self _loadCoreDataStack];
-
-	[[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(_ubiquityIdentityDidChangeNotification:)
-                                                 name:NSUbiquityIdentityDidChangeNotification
-                                               object:nil];
+	NSNotificationCenter *defaultCenter = [NSNotificationCenter defaultCenter];
+	[defaultCenter addObserver:self
+					  selector:@selector(_ubiquityIdentityDidChangeNotification:)
+						  name:NSUbiquityIdentityDidChangeNotification
+						object:nil];
+	
+#ifdef TARGET_OS_IPHONE
+	[defaultCenter addObserver:self
+					  selector:@selector(_applicationDidBecomeActiveNotification:)
+						  name:UIApplicationDidBecomeActiveNotification
+						object:[UIApplication sharedApplication]];
+#endif
 
 	return self;
 }
@@ -77,7 +98,13 @@ ubiquityContainerIdentifier:(NSString *)ubiquityContainerIdentifier {
 	if (_ubiquityIdentityToken == nil && ubiquityIdentityToken == nil) return;
 	if ([_ubiquityIdentityToken isEqual:ubiquityIdentityToken]) return;
 	_ubiquityIdentityToken = ubiquityIdentityToken;
-	[self _loadCoreDataStack];
+
+	NSPersistentStore *persistentStore = [self.persistentStoreCoordinator persistentStoreForURL:self.storeURL];
+	if (persistentStore) {
+		[self.persistentStoreCoordinator removePersistentStore:persistentStore error:NULL];
+		[self _loadPersistentStore];
+	}
+	
 	if (self.iCloudAccountDidChangeHandler) self.iCloudAccountDidChangeHandler();
 }
 
@@ -87,24 +114,25 @@ ubiquityContainerIdentifier:(NSString *)ubiquityContainerIdentifier {
 
 #pragma mark - Internal
 
-- (void)_loadCoreDataStack {
+- (NSURL *)ubiquityContainerURL {
+	return [[NSFileManager defaultManager] URLForUbiquityContainerIdentifier:self.ubiquityContainerIdentifier];
+}
 
-	NSFileManager *fileManager = [NSFileManager defaultManager];
-	NSURL *ubiquityContainerURL = [fileManager URLForUbiquityContainerIdentifier:self.ubiquityContainerIdentifier];
-	NSMutableDictionary *storeOptions = [self.storeOptions mutableCopy];
+- (NSURL *)storeURL {
+
+	if (self.ubiquityContainerURL) {
+		NSString *storeFilename = [NSString stringWithFormat:@"%@.nosync", self.storeFilename];
+		return [self.ubiquityContainerURL URLByAppendingPathComponent:storeFilename];
+	}
+
+	return [[[self class] _applicationDocumentsDirectory] URLByAppendingPathComponent:self.storeFilename];
+}
+
+- (NSDictionary *)storeOptions {
+	NSMutableDictionary *storeOptions = [[super storeOptions] mutableCopy];
 	[storeOptions setObject:self.storeFilename forKey:NSPersistentStoreUbiquitousContentNameKey];
-	[storeOptions setObject:ubiquityContainerURL forKey:NSPersistentStoreUbiquitousContentURLKey];
-
-	NSString *storeFilename = [NSString stringWithFormat:@"%@.nosync", self.storeFilename];
-	NSURL *storeURL = [ubiquityContainerURL URLByAppendingPathComponent:storeFilename];
-
-	_coreDataStack = [[DCTCoreDataStack alloc] initWithStoreURL:storeURL
-													  storeType:self.storeType
-												   storeOptions:storeOptions
-											 modelConfiguration:self.modelConfiguration
-													   modelURL:self.modelURL];
-	_coreDataStack.didResolvePersistentStoreErrorHandler = self.didResolvePersistentStoreErrorHandler;
-	_coreDataStack.automaticSaveCompletionHandler = self.automaticSaveCompletionHandler;
+	[storeOptions setObject:self.ubiquityContainerURL forKey:NSPersistentStoreUbiquitousContentURLKey];
+	return [storeOptions copy];
 }
 
 - (void)_ubiquityIdentityDidChangeNotification:(NSNotification *)notification {
@@ -114,22 +142,6 @@ ubiquityContainerIdentifier:(NSString *)ubiquityContainerIdentifier {
 - (void)_applicationDidBecomeActiveNotification:(NSNotification *)notification {
 	[super _applicationDidBecomeActiveNotification:notification];
 	self.ubiquityIdentityToken = [[NSFileManager defaultManager] ubiquityIdentityToken];
-}
-
-#pragma mark - DCTCoreDataStack getters and setters
-
-- (NSManagedObjectContext *)managedObjectContext {
-	return _coreDataStack.managedObjectContext;
-}
-
-- (void)setAutomaticSaveCompletionHandler:(void (^)(BOOL, NSError *))automaticSaveCompletionHandler {
-	[super setAutomaticSaveCompletionHandler:automaticSaveCompletionHandler];
-	_coreDataStack.automaticSaveCompletionHandler = automaticSaveCompletionHandler;
-}
-
-- (void)setDidResolvePersistentStoreErrorHandler:(BOOL (^)(NSError *))didResolvePersistentStoreErrorHandler {
-	[super setDidResolvePersistentStoreErrorHandler:didResolvePersistentStoreErrorHandler];
-	_coreDataStack.didResolvePersistentStoreErrorHandler = didResolvePersistentStoreErrorHandler;
 }
 
 @end
