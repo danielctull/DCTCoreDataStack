@@ -12,17 +12,17 @@
 #import "ViewController.h"
 
 @implementation AppDelegate {
-	__strong DCTCoreDataStack *coreDataStack;
+	__strong DCTCoreDataStack *_coreDataStack;
 }
 
 @synthesize window;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
 	
-	coreDataStack = [[DCTCoreDataStack alloc] initWithStoreFilename:@"DCTCoreDataStack"];
-	
-	ViewController *viewController = [ViewController new];
-	viewController.managedObjectContext = coreDataStack.managedObjectContext;
+	_coreDataStack = [[DCTCoreDataStack alloc] initWithStoreFilename:@"DCTCoreDataStack"];
+
+	NSManagedObjectContext *context = _coreDataStack.managedObjectContext;
+	ViewController *viewController = [[ViewController alloc] initWithManagedObjectContext:context];
 	
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
 	self.window.rootViewController = [[UINavigationController alloc] initWithRootViewController:viewController];

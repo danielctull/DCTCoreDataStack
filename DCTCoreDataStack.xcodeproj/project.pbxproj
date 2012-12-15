@@ -237,9 +237,9 @@
 			productReference = 2437B68D15B97C2600750117 /* libDCTCoreDataStack.a */;
 			productType = "com.apple.product-type.library.static";
 		};
-		24E91B5615BEB1FA00E0DB54 /* Demo */ = {
+		24E91B5615BEB1FA00E0DB54 /* DCTCoreDataStack Demo */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 24E91B6B15BEB1FA00E0DB54 /* Build configuration list for PBXNativeTarget "Demo" */;
+			buildConfigurationList = 24E91B6B15BEB1FA00E0DB54 /* Build configuration list for PBXNativeTarget "DCTCoreDataStack Demo" */;
 			buildPhases = (
 				24E91B5315BEB1FA00E0DB54 /* Sources */,
 				24E91B5415BEB1FA00E0DB54 /* Frameworks */,
@@ -249,7 +249,7 @@
 			);
 			dependencies = (
 			);
-			name = Demo;
+			name = "DCTCoreDataStack Demo";
 			productName = Demo;
 			productReference = 24E91B5715BEB1FA00E0DB54 /* CoreDataStack.app */;
 			productType = "com.apple.product-type.application";
@@ -295,7 +295,7 @@
 			targets = (
 				2437B68C15B97C2600750117 /* DCTCoreDataStack */,
 				24F6EBFF158A261000CEDD41 /* DCTCoreDataStackTests */,
-				24E91B5615BEB1FA00E0DB54 /* Demo */,
+				24E91B5615BEB1FA00E0DB54 /* DCTCoreDataStack Demo */,
 			);
 		};
 /* End PBXProject section */
@@ -550,7 +550,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		24E91B6B15BEB1FA00E0DB54 /* Build configuration list for PBXNativeTarget "Demo" */ = {
+		24E91B6B15BEB1FA00E0DB54 /* Build configuration list for PBXNativeTarget "DCTCoreDataStack Demo" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				24E91B6915BEB1FA00E0DB54 /* Debug */,

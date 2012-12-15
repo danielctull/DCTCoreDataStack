@@ -9,15 +9,19 @@
 #import "ViewController.h"
 #import <DCTCoreDataStack/DCTCoreDataStack.h>
 
-@interface ViewController ()
+@interface ViewController () <NSFetchedResultsControllerDelegate>
 @property (strong, nonatomic) NSFetchedResultsController *fetchedResultsController;
 @end
 
-@implementation ViewController
+@implementation ViewController {
+	NSManagedObjectContext *_importingContext;
+}
 
-- (id)initWithStyle:(UITableViewStyle)style {
-    self = [super initWithStyle:style];
+- (id)initWithManagedObjectContext:(NSManagedObjectContext *)managedObjectContext {
+    self = [self initWithStyle:UITableViewStylePlain];
     if (!self) return nil;
+	_managedObjectContext = managedObjectContext;
+	_importingContext = [self.managedObjectContext dct_newSiblingContextWithConcurrencyType:NSPrivateQueueConcurrencyType];
 	self.title = @"DCTCoreDataStack";
     return self;
 }
@@ -31,15 +35,14 @@
 }
 
 - (void)insertNewObject:(id)sender {
-	NSManagedObjectContext *context = [self.managedObjectContext dct_newSiblingContextWithConcurrencyType:NSPrivateQueueConcurrencyType];
-	[context performBlock:^{
-		Event *event = [Event insertInManagedObjectContext:context];
+	[_importingContext performBlock:^{
+		Event *event = [Event insertInManagedObjectContext:_importingContext];
 		event.date = [NSDate date];
 		event.name = @"Event";
 		
-		[context dct_saveWithCompletionHandler:^(BOOL success, NSError *error) {
+		[_importingContext dct_saveWithCompletionHandler:^(BOOL success, NSError *error) {
 			if (!success)
-				NSLog(@"%@", [context dct_detailedDescriptionFromValidationError:error]);
+				NSLog(@"%@", [_importingContext dct_detailedDescriptionFromValidationError:error]);
 		}];
 	}];
 }
@@ -74,11 +77,10 @@
     if (editingStyle == UITableViewCellEditingStyleDelete) {
 		
 		NSManagedObjectID *eventID = [[self.fetchedResultsController objectAtIndexPath:indexPath] objectID];
-		
-		NSManagedObjectContext *context = [self.managedObjectContext dct_newSiblingContextWithConcurrencyType:NSPrivateQueueConcurrencyType];
-		[context performBlock:^{
-			[context deleteObject:[context objectWithID:eventID]];
-			[context dct_save];
+		[_importingContext performBlock:^{
+			NSManagedObject *object = [_importingContext objectWithID:eventID];
+			[_importingContext deleteObject:object];
+			[_importingContext dct_save];
 		}];
     }
 }
