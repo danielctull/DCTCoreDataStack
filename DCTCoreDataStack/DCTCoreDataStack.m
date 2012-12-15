@@ -142,14 +142,11 @@ NSString *const DCTCoreDataStackExcludeFromBackupStoreOption = @"DCTCoreDataStac
 #pragma mark - Getters
 
 - (NSManagedObjectContext *)managedObjectContext {
-    
-	if (_managedObjectContext == nil) {
-		_managedObjectContext = [[_DCTCDSManagedObjectContext alloc] initWithConcurrencyType:NSMainQueueConcurrencyType];
-		[_managedObjectContext setParentContext:_rootContext];
-		_managedObjectContext.dct_name = @"DCTCoreDataStack.mainContext";
-	}
-	
-    return _managedObjectContext;
+
+	if (_managedObjectContext == nil)
+		[self _loadManagedObjectContext];
+
+	return _managedObjectContext;
 }
 
 - (NSManagedObjectModel *)managedObjectModel {
@@ -175,6 +172,12 @@ NSString *const DCTCoreDataStackExcludeFromBackupStoreOption = @"DCTCoreDataStac
 @end
 
 @implementation DCTCoreDataStack (Private)
+
+- (void)_loadManagedObjectContext {
+	_managedObjectContext = [[_DCTCDSManagedObjectContext alloc] initWithConcurrencyType:NSMainQueueConcurrencyType];
+	[_managedObjectContext setParentContext:_rootContext];
+	_managedObjectContext.dct_name = @"DCTCoreDataStack.mainContext";
+}
 
 - (void)_loadManagedObjectModel {
 

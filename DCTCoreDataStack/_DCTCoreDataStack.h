@@ -13,6 +13,7 @@
 @property (nonatomic, readonly) NSPersistentStoreCoordinator *persistentStoreCoordinator;
 @property (nonatomic, readonly) NSManagedObjectModel *managedObjectModel;
 
+- (void)_loadManagedObjectContext;
 - (void)_loadManagedObjectModel;
 - (void)_loadPersistentStoreCoordinator;
 - (void)_setupExcludeFromBackupFlag;

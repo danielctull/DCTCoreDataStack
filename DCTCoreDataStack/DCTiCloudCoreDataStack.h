@@ -10,8 +10,15 @@
 
 @interface DCTiCloudCoreDataStack : DCTCoreDataStack
 
-+ (void)setUbiquityContainerIdentifier:(NSString *)string;
-+ (NSString *)ubiquityContainerIdentifier;
+- (id)initWithStoreFilename:(NSString *)storeFilename
+				  storeType:(NSString *)storeType
+			   storeOptions:(NSDictionary *)storeOptions
+		 modelConfiguration:(NSString *)modelConfiguration
+				   modelURL:(NSURL *)modelURL
+ubiquityContainerIdentifier:(NSString *)ubiquityContainerIdentifier;
+
+@property (nonatomic, readonly, copy) NSString *storeFilename;
+@property (nonatomic, readonly, copy) NSString *ubiquityContainerIdentifier;
 
 @property (nonatomic, readonly, getter = isiCloudAvailable) BOOL iCloudAvailable;
 
