@@ -23,7 +23,6 @@
 
 	if (_originalContext.parentContext)
 		self.parentContext = _originalContext.parentContext;
-
 	else
 		self.persistentStoreCoordinator = _originalContext.persistentStoreCoordinator;
 
@@ -32,43 +31,27 @@
 
 - (void)dct_saveWithCompletionHandler:(void (^)(BOOL, NSError *))completionHandler {
 
-	NSSet *deletedObjectIDs = [self _objectIDsFromManagedObjects:[self deletedObjects]];
-	NSSet *insertedObjectIDs = [self _objectIDsFromManagedObjects:[self insertedObjects]];
-	NSSet *updatedObjectIDs = [self _objectIDsFromManagedObjects:[self updatedObjects]];
+	NSNotificationCenter *defaultCenter = [NSNotificationCenter defaultCenter];
+	[defaultCenter addObserver:self
+					  selector:@selector(_contextDidSaveNotification:)
+						  name:NSManagedObjectContextDidSaveNotification
+						object:self];
 
 	[super dct_saveWithCompletionHandler:^(BOOL success, NSError *error) {
 
-		[_originalContext performBlock:^{
+		[defaultCenter removeObserver:self
+								 name:NSManagedObjectContextDidSaveNotification
+							   object:self];
 
-			[deletedObjectIDs enumerateObjectsUsingBlock:^(NSManagedObjectID *objectID, BOOL *stop) {
-				[_originalContext deleteObject:[_originalContext objectWithID:objectID]];
-			}];
-
-			[updatedObjectIDs enumerateObjectsUsingBlock:^(NSManagedObjectID *objectID, BOOL *stop) {
-				NSManagedObject *managedObject = [_originalContext objectWithID:objectID];
-				[managedObject willAccessValueForKey:nil];
-				[_originalContext refreshObject:managedObject mergeChanges:YES];
-
-			}];
-
-			[insertedObjectIDs enumerateObjectsUsingBlock:^(NSManagedObjectID *objectID, BOOL *stop) {
-				NSManagedObject *managedObject = [_originalContext objectWithID:objectID];
-				[managedObject willAccessValueForKey:nil];
-				[_originalContext insertObject:managedObject];
-			}];
-
-			if (completionHandler != NULL)
-				completionHandler(success, error);
-		}];
+		if (completionHandler != NULL) completionHandler(success, error);
 	}];
 }
 
-- (NSSet *)_objectIDsFromManagedObjects:(NSSet *)managedObjects {
-	NSMutableSet *objectIDs = [[NSMutableSet alloc] initWithCapacity:[managedObjects count]];
-	[managedObjects enumerateObjectsUsingBlock:^(NSManagedObject *managedObject, BOOL *stop) {
-		[objectIDs addObject:[managedObject objectID]];
+- (void)_contextDidSaveNotification:(NSNotification *)notification {
+	[_originalContext performBlock:^{
+		_originalContext.mergePolicy = NSOverwriteMergePolicy;
+		[_originalContext mergeChangesFromContextDidSaveNotification:notification];
 	}];
-	return [objectIDs copy];
 }
 
 @end
