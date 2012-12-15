@@ -57,6 +57,7 @@
 		241F0F7B15CAC25900674BAE /* _DCTSiblingManagedObjectContext.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _DCTSiblingManagedObjectContext.m; sourceTree = "<group>"; };
 		241F0F7E15CAC48500674BAE /* NSManagedObjectContext+DCTSiblingContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSManagedObjectContext+DCTSiblingContext.h"; sourceTree = "<group>"; };
 		241F0F7F15CAC48500674BAE /* NSManagedObjectContext+DCTSiblingContext.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSManagedObjectContext+DCTSiblingContext.m"; sourceTree = "<group>"; };
+		242447BB167D051D0089FFD5 /* _DCTCoreDataStack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _DCTCoreDataStack.h; sourceTree = "<group>"; };
 		2437B68D15B97C2600750117 /* libDCTCoreDataStack.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libDCTCoreDataStack.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		2455F8A315CFBA4A00C1596B /* DCTiCloudCoreDataStack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCTiCloudCoreDataStack.h; sourceTree = "<group>"; };
 		2455F8A415CFBA4A00C1596B /* DCTiCloudCoreDataStack.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCTiCloudCoreDataStack.m; sourceTree = "<group>"; };
@@ -191,6 +192,7 @@
 			children = (
 				24F6EBF8158A261000CEDD41 /* DCTCoreDataStack.h */,
 				24F6EBF9158A261000CEDD41 /* DCTCoreDataStack.m */,
+				242447BB167D051D0089FFD5 /* _DCTCoreDataStack.h */,
 				2455F8A315CFBA4A00C1596B /* DCTiCloudCoreDataStack.h */,
 				2455F8A415CFBA4A00C1596B /* DCTiCloudCoreDataStack.m */,
 				24F6EC1A158A264C00CEDD41 /* NSManagedObjectContext+DCTCoreDataStack.h */,

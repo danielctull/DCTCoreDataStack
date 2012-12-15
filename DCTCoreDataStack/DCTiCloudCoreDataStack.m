@@ -7,6 +7,7 @@
 //
 
 #import "DCTiCloudCoreDataStack.h"
+#import "_DCTCoreDataStack.h"
 
 @interface DCTiCloudCoreDataStack ()
 @property (nonatomic, strong) id currentUbiquityToken;
@@ -39,8 +40,8 @@
 	self = [self init];
 	if (!self) return nil;
 	
-	NSDictionary *iCloudStoreOptions = @{NSPersistentStoreUbiquitousContentNameKey : [storeURL lastPathComponent],
-	NSPersistentStoreUbiquitousContentURLKey : [[self class] _ubiquityURL]};
+	NSDictionary *iCloudStoreOptions = @{ NSPersistentStoreUbiquitousContentNameKey : [storeURL lastPathComponent],
+										   NSPersistentStoreUbiquitousContentURLKey : [[self class] _ubiquityURL] };
 	
 	NSMutableDictionary *options = [NSMutableDictionary new];
 	if ([storeOptions count] > 0) [options setValuesForKeysWithDictionary:storeOptions];
@@ -73,6 +74,7 @@
 }
 
 - (void)setCurrentUbiquityToken:(id)currentUbiquityToken {
+	if ([_currentUbiquityToken isEqual:currentUbiquityToken]) return;
 	_currentUbiquityToken = currentUbiquityToken;
 	[self _loadStack];
 }
@@ -112,6 +114,10 @@
 	return _data;
 }
 
+- (void)_applicationDidBecomeActiveNotification:(NSNotification *)notification {
+	[super _applicationDidBecomeActiveNotification:notification];
+	self.currentUbiquityToken = [[NSFileManager defaultManager] ubiquityIdentityToken];
+}
 
 #pragma mark - DCTCoreDataStack getters and setters
 

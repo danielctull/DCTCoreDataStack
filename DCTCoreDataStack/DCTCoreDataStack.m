@@ -34,7 +34,7 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#import "DCTCoreDataStack.h"
+#import "_DCTCoreDataStack.h"
 #import "_DCTCDSManagedObjectContext.h"
 #import <objc/runtime.h>
 #include <sys/xattr.h>
@@ -69,6 +69,9 @@ NSString *const DCTCoreDataStackExcludeFromBackupStoreOption = @"DCTCoreDataStac
 						   object:app];
 	[defaultCenter removeObserver:self
 							 name:UIApplicationWillTerminateNotification
+						   object:app];
+	[defaultCenter removeObserver:self
+							 name:UIApplicationDidBecomeActiveNotification
 						   object:app];
 #endif
 }
@@ -117,6 +120,11 @@ NSString *const DCTCoreDataStackExcludeFromBackupStoreOption = @"DCTCoreDataStac
 					  selector:@selector(_applicationWillTerminateNotification:)
 						  name:UIApplicationWillTerminateNotification
 						object:app];
+
+	[defaultCenter addObserver:self
+					  selector:@selector(_applicationDidBecomeActiveNotification:)
+						  name:UIApplicationDidBecomeActiveNotification
+						object:app];
 #endif
 	
 	return self;
@@ -162,8 +170,14 @@ NSString *const DCTCoreDataStackExcludeFromBackupStoreOption = @"DCTCoreDataStac
 	return _persistentStoreCoordinator;
 }
 
+#pragma mark - Other Internal
+
+@end
+
+@implementation DCTCoreDataStack (Private)
+
 - (void)_loadManagedObjectModel {
-	
+
     if (self.modelURL)
 		_managedObjectModel = [[NSManagedObjectModel alloc] initWithContentsOfURL:self.modelURL];
     else
@@ -171,18 +185,18 @@ NSString *const DCTCoreDataStackExcludeFromBackupStoreOption = @"DCTCoreDataStac
 }
 
 - (void)_loadPersistentStoreCoordinator {
-	
+
 	_persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:self.managedObjectModel];
-	
+
 	NSError *error = nil;
 	NSPersistentStore *persistentStore = [_persistentStoreCoordinator addPersistentStoreWithType:self.storeType
 																				   configuration:self.modelConfiguration
 																							 URL:self.storeURL
 																						 options:self.storeOptions
 																						   error:&error];
-	
+
 	if (!persistentStore && self.didResolvePersistentStoreErrorHandler) {
-		
+
 		if (self.didResolvePersistentStoreErrorHandler(error))
 			[_persistentStoreCoordinator addPersistentStoreWithType:self.storeType
 													  configuration:self.modelConfiguration
@@ -190,11 +204,9 @@ NSString *const DCTCoreDataStackExcludeFromBackupStoreOption = @"DCTCoreDataStac
 															options:self.storeOptions
 															  error:NULL];
 	}
-	
+
 	[self _setupExcludeFromBackupFlag];
 }
-
-#pragma mark - Other Internal
 
 - (void)_setupExcludeFromBackupFlag {
 
@@ -209,21 +221,21 @@ NSString *const DCTCoreDataStackExcludeFromBackupStoreOption = @"DCTCoreDataStac
 		int result = getxattr(filePath, attrName, NULL, sizeof(u_int8_t), 0, 0);
 		if (result != -1) removexattr(filePath, attrName, 0);
 	};
-	
+
 	void (^addAttribute)() = ^{
 		u_int8_t attrValue = 1;
 		setxattr(filePath, attrName, &attrValue, sizeof(attrValue), 0, 0);
 	};
-	
+
 	BOOL excludeFromBackup = [[self.storeOptions objectForKey:DCTCoreDataStackExcludeFromBackupStoreOption] boolValue];
-	
+
 	if (&NSURLIsExcludedFromBackupKey == NULL) { // iOS 5.0.x / 10.7.x or earlier
 
 		if (excludeFromBackup)
 			addAttribute();
 		else
 			removeAttribute();
-		
+
 	} else { // iOS 5.1 / OS X 10.8 and above
 
 		// Remove attribute if it exists from an upgrade of an older version of iOS
@@ -238,6 +250,9 @@ NSString *const DCTCoreDataStackExcludeFromBackupStoreOption = @"DCTCoreDataStac
 }
 
 #ifdef TARGET_OS_IPHONE
+
+- (void)_applicationDidBecomeActiveNotification:(NSNotification *)notification {}
+
 - (void)_applicationDidEnterBackgroundNotification:(NSNotification *)notification {
 	
 	NSManagedObjectContext *context = self.managedObjectContext;
