@@ -23,7 +23,6 @@
 + (NSURL *)_applicationDocumentsDirectory;
 
 #ifdef TARGET_OS_IPHONE
-- (void)_applicationDidBecomeActiveNotification:(NSNotification *)notification;
 - (void)_applicationDidEnterBackgroundNotification:(NSNotification *)notification;
 - (void)_applicationWillTerminateNotification:(NSNotification *)notification;
 #endif

@@ -78,7 +78,6 @@ NSString *const DCTCoreDataStackExcludeFromBackupStoreOption = @"DCTCoreDataStac
 	modelConfiguration:(NSString *)modelConfiguration
 			  modelURL:(NSURL *)modelURL {
 	
-	NSParameterAssert(storeURL);
 	NSParameterAssert(storeType);
 
 	self = [self init];
@@ -250,10 +249,6 @@ NSString *const DCTCoreDataStackExcludeFromBackupStoreOption = @"DCTCoreDataStac
     return [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
 }
 
-#ifdef TARGET_OS_IPHONE
-
-- (void)_applicationDidBecomeActiveNotification:(NSNotification *)notification {}
-
 - (void)_applicationDidEnterBackgroundNotification:(NSNotification *)notification {
 	
 	NSManagedObjectContext *context = self.managedObjectContext;
@@ -283,6 +278,5 @@ NSString *const DCTCoreDataStackExcludeFromBackupStoreOption = @"DCTCoreDataStac
 	if (self.automaticSaveCompletionHandler != NULL)
 		self.automaticSaveCompletionHandler(success, error);
 }
-#endif
 
 @end

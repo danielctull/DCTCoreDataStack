@@ -27,6 +27,9 @@
 	[defaultCenter removeObserver:self
 							 name:NSUbiquityIdentityDidChangeNotification
 						   object:nil];
+	[defaultCenter removeObserver:self
+							 name:NSPersistentStoreDidImportUbiquitousContentChangesNotification
+						   object:nil];
 
 #ifdef TARGET_OS_IPHONE
 	[defaultCenter removeObserver:self
@@ -83,6 +86,10 @@ ubiquityContainerIdentifier:(NSString *)ubiquityContainerIdentifier {
 					  selector:@selector(_ubiquityIdentityDidChangeNotification:)
 						  name:NSUbiquityIdentityDidChangeNotification
 						object:nil];
+	[defaultCenter addObserver:self
+					  selector:@selector(_persistentStoreDidImportUbiquitousContentChangesNotification:)
+						  name:NSPersistentStoreDidImportUbiquitousContentChangesNotification
+						object:nil];
 	
 #ifdef TARGET_OS_IPHONE
 	[defaultCenter addObserver:self
@@ -114,6 +121,13 @@ ubiquityContainerIdentifier:(NSString *)ubiquityContainerIdentifier {
 
 #pragma mark - Internal
 
+- (void)_persistentStoreDidImportUbiquitousContentChangesNotification:(NSNotification *)notification {
+	if (![notification.object isEqual:self.persistentStoreCoordinator]) return;
+	[self.managedObjectContext performBlock:^{
+        [self.managedObjectContext mergeChangesFromContextDidSaveNotification:notification];
+    }];
+}
+
 - (NSURL *)ubiquityContainerURL {
 	return [[NSFileManager defaultManager] URLForUbiquityContainerIdentifier:self.ubiquityContainerIdentifier];
 }
@@ -130,8 +144,10 @@ ubiquityContainerIdentifier:(NSString *)ubiquityContainerIdentifier {
 
 - (NSDictionary *)storeOptions {
 	NSMutableDictionary *storeOptions = [[super storeOptions] mutableCopy];
+	if (!storeOptions) storeOptions = [NSMutableDictionary new];
 	[storeOptions setObject:self.storeFilename forKey:NSPersistentStoreUbiquitousContentNameKey];
-	[storeOptions setObject:self.ubiquityContainerURL forKey:NSPersistentStoreUbiquitousContentURLKey];
+	NSURL *URL = [self.ubiquityContainerURL URLByAppendingPathComponent:self.storeFilename];
+	[storeOptions setObject:URL forKey:NSPersistentStoreUbiquitousContentURLKey];
 	return [storeOptions copy];
 }
 
@@ -140,7 +156,6 @@ ubiquityContainerIdentifier:(NSString *)ubiquityContainerIdentifier {
 }
 
 - (void)_applicationDidBecomeActiveNotification:(NSNotification *)notification {
-	[super _applicationDidBecomeActiveNotification:notification];
 	self.ubiquityIdentityToken = [[NSFileManager defaultManager] ubiquityIdentityToken];
 }
 

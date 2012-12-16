@@ -58,6 +58,7 @@
 		241F0F7E15CAC48500674BAE /* NSManagedObjectContext+DCTSiblingContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSManagedObjectContext+DCTSiblingContext.h"; sourceTree = "<group>"; };
 		241F0F7F15CAC48500674BAE /* NSManagedObjectContext+DCTSiblingContext.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSManagedObjectContext+DCTSiblingContext.m"; sourceTree = "<group>"; };
 		242447BB167D051D0089FFD5 /* _DCTCoreDataStack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _DCTCoreDataStack.h; sourceTree = "<group>"; };
+		242447C1167D40830089FFD5 /* CoreDataStack.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = CoreDataStack.entitlements; sourceTree = "<group>"; };
 		2437B68D15B97C2600750117 /* libDCTCoreDataStack.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libDCTCoreDataStack.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		2455F8A315CFBA4A00C1596B /* DCTiCloudCoreDataStack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCTiCloudCoreDataStack.h; sourceTree = "<group>"; };
 		2455F8A415CFBA4A00C1596B /* DCTiCloudCoreDataStack.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCTiCloudCoreDataStack.m; sourceTree = "<group>"; };
@@ -129,6 +130,7 @@
 		24E91B5D15BEB1FA00E0DB54 /* Demo */ = {
 			isa = PBXGroup;
 			children = (
+				242447C1167D40830089FFD5 /* CoreDataStack.entitlements */,
 				24E91B7315BEB26600E0DB54 /* _Event.h */,
 				24E91B7415BEB26600E0DB54 /* _Event.m */,
 				24E91B7515BEB26600E0DB54 /* Event.h */,
@@ -433,6 +435,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_CXX_LIBRARY = "libc++";
+				CODE_SIGN_ENTITLEMENTS = Demo/CoreDataStack.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Demo/Demo-Prefix.pch";
@@ -448,6 +451,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_CXX_LIBRARY = "libc++";
+				CODE_SIGN_ENTITLEMENTS = Demo/CoreDataStack.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Demo/Demo-Prefix.pch";

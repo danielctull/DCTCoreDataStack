@@ -31,15 +31,14 @@
 }
 
 - (void)insertNewObject:(id)sender {
-	NSManagedObjectContext *context = [self.managedObjectContext dct_newSiblingContextWithConcurrencyType:NSPrivateQueueConcurrencyType];
-	[context performBlock:^{
-		Event *event = [Event insertInManagedObjectContext:context];
+	[self.managedObjectContext performBlock:^{
+		Event *event = [Event insertInManagedObjectContext:self.managedObjectContext];
 		event.date = [NSDate date];
 		event.name = @"Event";
 		
-		[context dct_saveWithCompletionHandler:^(BOOL success, NSError *error) {
+		[self.managedObjectContext dct_saveWithCompletionHandler:^(BOOL success, NSError *error) {
 			if (!success)
-				NSLog(@"%@", [context dct_detailedDescriptionFromValidationError:error]);
+				NSLog(@"%@", [self.managedObjectContext dct_detailedDescriptionFromValidationError:error]);
 		}];
 	}];
 }
@@ -75,10 +74,9 @@
 		
 		NSManagedObjectID *eventID = [[self.fetchedResultsController objectAtIndexPath:indexPath] objectID];
 		
-		NSManagedObjectContext *context = [self.managedObjectContext dct_newSiblingContextWithConcurrencyType:NSPrivateQueueConcurrencyType];
-		[context performBlock:^{
-			[context deleteObject:[context objectWithID:eventID]];
-			[context dct_save];
+		[self.managedObjectContext performBlock:^{
+			[self.managedObjectContext deleteObject:[self.managedObjectContext objectWithID:eventID]];
+			[self.managedObjectContext dct_save];
 		}];
     }
 }
