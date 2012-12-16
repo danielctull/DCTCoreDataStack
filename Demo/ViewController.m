@@ -13,15 +13,12 @@
 @property (strong, nonatomic) NSFetchedResultsController *fetchedResultsController;
 @end
 
-@implementation ViewController {
-	NSManagedObjectContext *_importingContext;
-}
+@implementation ViewController
 
 - (id)initWithManagedObjectContext:(NSManagedObjectContext *)managedObjectContext {
     self = [self initWithStyle:UITableViewStylePlain];
     if (!self) return nil;
 	_managedObjectContext = managedObjectContext;
-	_importingContext = [self.managedObjectContext dct_newSiblingContextWithConcurrencyType:NSPrivateQueueConcurrencyType];
 	self.title = @"DCTCoreDataStack";
     return self;
 }
@@ -35,15 +32,13 @@
 }
 
 - (void)insertNewObject:(id)sender {
-	[_importingContext performBlock:^{
-		Event *event = [Event insertInManagedObjectContext:_importingContext];
-		event.date = [NSDate date];
-		event.name = @"Event";
+	Event *event = [Event insertInManagedObjectContext:self.managedObjectContext];
+	event.date = [NSDate date];
+	event.name = @"Event";
 		
-		[_importingContext dct_saveWithCompletionHandler:^(BOOL success, NSError *error) {
-			if (!success)
-				NSLog(@"%@", [_importingContext dct_detailedDescriptionFromValidationError:error]);
-		}];
+	[self.managedObjectContext dct_saveWithCompletionHandler:^(BOOL success, NSError *error) {
+		if (!success)
+			NSLog(@"%@", [self.managedObjectContext dct_detailedDescriptionFromValidationError:error]);
 	}];
 }
 
@@ -73,15 +68,14 @@
     return YES;
 }
 
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+- (void)tableView:(UITableView *)tableView
+commitEditingStyle:(UITableViewCellEditingStyle)editingStyle
+forRowAtIndexPath:(NSIndexPath *)indexPath {
+
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-		
-		NSManagedObjectID *eventID = [[self.fetchedResultsController objectAtIndexPath:indexPath] objectID];
-		[_importingContext performBlock:^{
-			NSManagedObject *object = [_importingContext objectWithID:eventID];
-			[_importingContext deleteObject:object];
-			[_importingContext dct_save];
-		}];
+		NSManagedObject *object = [self.fetchedResultsController objectAtIndexPath:indexPath];
+		[self.managedObjectContext deleteObject:object];
+		[self.managedObjectContext dct_save];
     }
 }
 
