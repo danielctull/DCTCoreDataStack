@@ -7,8 +7,8 @@ DCTCoreDataStack provides the following features:
 # An encapsulation of the complete Core Data stack of NSManagedObjectContext, NSPersistentStoreCoordinator, NSPersistentStore, and NSManagedObjectModel
 # On supporting OS's, writing to disk is performed on a background thread, by using a parent context. Saving the main context automatically triggers saving the parent context asynchronously
 # -[NSManagedObjectContext dct_saveWithCompletionHandler:] method can be used to be notified when saving to disk finishes, asynchronously if possible
-# Allows you to resolve errors when loading the persistent store by setting the `didResolvePersistentStoreErrorHandler` block and handling the error
-# On iOS, the app entering the background, or terminating, automatically triggers a save if needed. You can be notified of such saves by setting the `automaticSaveCompletionHandler` block
+# Allows you to resolve errors when loading the persistent store by setting the @didResolvePersistentStoreErrorHandler@ block and handling the error
+# On iOS, the app entering the background, or terminating, automatically triggers a save if needed. You can be notified of such saves by setting the @automaticSaveCompletionHandler@ block
 # On iOS, when saving on a background thread, the stack protects against termination/suspension by declaring the save as a background task
 # Providing YES for DCTCoreDataStackExcludeFromBackupStoreOption in the storeOptions will exclude the persistent store from being backed up
 
