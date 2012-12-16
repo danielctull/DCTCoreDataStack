@@ -31,6 +31,11 @@
 	self.navigationItem.rightBarButtonItem = addButton;
 }
 
+- (void)reloadData {
+	_fetchedResultsController = nil;
+	[self.tableView reloadData];
+}
+
 - (void)insertNewObject:(id)sender {
 	Event *event = [Event insertInManagedObjectContext:self.managedObjectContext];
 	event.date = [NSDate date];

@@ -20,12 +20,10 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
 	
 	coreDataStack = [[DCTiCloudCoreDataStack alloc] initWithStoreFilename:@"DCTCoreDataStack"];
-	NSManagedObjectContext *managedObjectContext = coreDataStack.managedObjectContext;
-	
-	ViewController *viewController = [ViewController new];
-	viewController.managedObjectContext = managedObjectContext;
+
+	ViewController *viewController = [[ViewController alloc] initWithManagedObjectContext:coreDataStack.managedObjectContext];
 	coreDataStack.persistentStoreDidChangeHandler = ^{
-		viewController.managedObjectContext = managedObjectContext;
+		[viewController reloadData];
 	};
 
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];

@@ -15,4 +15,6 @@
 - (id)initWithManagedObjectContext:(NSManagedObjectContext *)managedObjectContext;
 @property (nonatomic, readonly, strong) NSManagedObjectContext *managedObjectContext;
 
+- (void)reloadData;
+
 @end
