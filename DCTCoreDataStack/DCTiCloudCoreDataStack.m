@@ -20,6 +20,7 @@
 
 @implementation DCTiCloudCoreDataStack {
 	NSOperationQueue *_queue;
+	BOOL _hasPersistentStoreLoaded;
 }
 
 #pragma mark - DCTCoreDataStack
@@ -109,8 +110,10 @@ ubiquityContainerIdentifier:(NSString *)ubiquityContainerIdentifier {
 	if (_ubiquityIdentityToken == nil && ubiquityIdentityToken == nil) return;
 	if ([_ubiquityIdentityToken isEqual:ubiquityIdentityToken]) return;
 	_ubiquityIdentityToken = ubiquityIdentityToken;
-	[self _removePersistentStore];
-	[self _loadPersistentStore];
+	if (_hasPersistentStoreLoaded) {
+		[self _removePersistentStore];
+		[self _loadPersistentStore];
+	}
 }
 
 - (BOOL)isiCloudAvailable {
@@ -127,6 +130,7 @@ ubiquityContainerIdentifier:(NSString *)ubiquityContainerIdentifier {
 }
 
 - (void)_loadPersistentStore {
+	_hasPersistentStoreLoaded = YES;
 	[_queue addOperationWithBlock:^{
 		[super _loadPersistentStore];
 		if (self.persistentStoreDidChangeHandler == NULL) return;
