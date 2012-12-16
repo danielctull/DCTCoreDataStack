@@ -124,6 +124,12 @@ ubiquityContainerIdentifier:(NSString *)ubiquityContainerIdentifier {
 	return self;
 }
 
+- (BOOL)isiCloudAvailable {
+	return (self.ubiquityIdentityToken != nil);
+}
+
+#pragma mark - Internal
+
 - (void)setUbiquityIdentityToken:(id)ubiquityIdentityToken {
 	if (_ubiquityIdentityToken == nil && ubiquityIdentityToken == nil) return;
 	if ([_ubiquityIdentityToken isEqual:ubiquityIdentityToken]) return;
@@ -133,12 +139,6 @@ ubiquityContainerIdentifier:(NSString *)ubiquityContainerIdentifier {
 		[self _loadPersistentStore];
 	}
 }
-
-- (BOOL)isiCloudAvailable {
-	return (self.ubiquityIdentityToken != nil);
-}
-
-#pragma mark - Internal
 
 - (void)_removePersistentStore {
 	[_queue addOperationWithBlock:^{
