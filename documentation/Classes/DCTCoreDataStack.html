@@ -1,0 +1,872 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="html/html; charset=utf-8" />
+		<title>DCTCoreDataStack Class Reference</title>
+		<meta id="xcode-display" name="xcode-display" content="render"/>
+		<meta name="viewport" content="width=550" />
+		<link rel="stylesheet" type="text/css" href="../css/styles.css" media="all" />
+		<link rel="stylesheet" type="text/css" media="print" href="../css/stylesPrint.css" />
+		<meta name="generator" content="appledoc 2.0.5 (build 737)" />
+	</head>
+	<body>
+		<header id="top_header">
+			<div id="library" class="hideInXcode">
+				<h1><a id="libraryTitle" href="../index.html">DCTCoreDataStack </a></h1>
+				<a id="developerHome" href="../index.html">Daniel Tull</a>
+			</div>
+			
+			<div id="title" role="banner">
+				<h1 class="hideInXcode">DCTCoreDataStack Class Reference</h1>
+			</div>
+			<ul id="headerButtons" role="toolbar">
+				<li id="toc_button">
+					<button aria-label="Show Table of Contents" role="checkbox" class="open" id="table_of_contents"><span class="disclosure"></span>Table of Contents</button>
+				</li>
+				<li id="jumpto_button" role="navigation">
+					<select id="jumpTo">
+	<option value="top">Jump To&#133;</option>
+	
+	<option value="overview">Overview</option>
+	
+	
+	
+	
+	<option value="tasks">Tasks</option>
+	
+	
+	
+	
+	
+	<option value="properties">Properties</option>
+	
+	<option value="//api/name/automaticSaveCompletionHandler">&nbsp;&nbsp;&nbsp;&nbsp;automaticSaveCompletionHandler</option>
+	
+	<option value="//api/name/didResolvePersistentStoreErrorHandler">&nbsp;&nbsp;&nbsp;&nbsp;didResolvePersistentStoreErrorHandler</option>
+	
+	<option value="//api/name/managedObjectContext">&nbsp;&nbsp;&nbsp;&nbsp;managedObjectContext</option>
+	
+	<option value="//api/name/modelConfiguration">&nbsp;&nbsp;&nbsp;&nbsp;modelConfiguration</option>
+	
+	<option value="//api/name/modelURL">&nbsp;&nbsp;&nbsp;&nbsp;modelURL</option>
+	
+	<option value="//api/name/storeOptions">&nbsp;&nbsp;&nbsp;&nbsp;storeOptions</option>
+	
+	<option value="//api/name/storeType">&nbsp;&nbsp;&nbsp;&nbsp;storeType</option>
+	
+	<option value="//api/name/storeURL">&nbsp;&nbsp;&nbsp;&nbsp;storeURL</option>
+	
+	
+	
+	
+	
+	
+	<option value="instance_methods">Instance Methods</option>
+	
+	<option value="//api/name/initWithStoreFilename:">&nbsp;&nbsp;&nbsp;&nbsp;- initWithStoreFilename:</option>
+	
+	<option value="//api/name/initWithStoreURL:storeType:storeOptions:modelConfiguration:modelURL:">&nbsp;&nbsp;&nbsp;&nbsp;- initWithStoreURL:storeType:storeOptions:modelConfiguration:modelURL:</option>
+	
+	
+	
+</select>
+				</li>
+			</ul>
+		</header>
+		<nav id="tocContainer" class="isShowingTOC">
+			<ul id="toc" role="tree">
+				
+<li role="treeitem"><span class="nodisclosure"></span><span class="sectionName"><a href="#overview">Overview</a></span></li>
+
+
+
+
+<li role="treeitem" id="task_treeitem"><span class="nodisclosure"></span><span class="sectionName"><a href="#tasks">Tasks</a></span><ul>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#task_Initialization">Initialization</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#task_Working with the Stack">Working with the Stack</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#task_Configuration State">Configuration State</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#task_Handling Events">Handling Events</a></span></li>
+	
+</ul></li>
+
+
+
+
+
+<li role="treeitem" class="children"><span class="disclosure"></span><span class="sectionName"><a href="#properties">Properties</a></span><ul>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/automaticSaveCompletionHandler">automaticSaveCompletionHandler</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/didResolvePersistentStoreErrorHandler">didResolvePersistentStoreErrorHandler</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/managedObjectContext">managedObjectContext</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/modelConfiguration">modelConfiguration</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/modelURL">modelURL</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/storeOptions">storeOptions</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/storeType">storeType</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/storeURL">storeURL</a></span></li>
+	
+</ul></li>
+
+
+
+
+
+<li role="treeitem" class="children"><span class="disclosure"></span><span class="sectionName"><a href="#instance_methods">Instance Methods</a></span><ul>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/initWithStoreFilename:">initWithStoreFilename:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/initWithStoreURL:storeType:storeOptions:modelConfiguration:modelURL:">initWithStoreURL:storeType:storeOptions:modelConfiguration:modelURL:</a></span></li>
+	
+</ul></li>
+
+
+			</ul>
+		</nav>
+		<article>
+			<div id="contents" class="isShowingTOC" role="main">
+				<a title="DCTCoreDataStack Class Reference" name="top"></a>
+				<div class="main-navigation navigation-top">
+					<ul>
+	<li><a href="../index.html">Index</a></li>
+	<li><a href="../hierarchy.html">Hierarchy</a></li>
+</ul>
+				</div>
+				<div id="header">
+					<div class="section-header">
+						<h1 class="title title-header">DCTCoreDataStack Class Reference</h1>
+					</div>		
+				</div>
+				<div id="container">	
+					
+					<div class="section section-specification"><table cellspacing="0"><tbody>
+						<tr>
+	<td class="specification-title">Inherits from</td>
+	<td class="specification-value">NSObject</td>
+</tr><tr>
+	<td class="specification-title">Declared in</td>
+	<td class="specification-value">DCTCoreDataStack.h</td>
+</tr>
+						</tbody></table></div>
+					
+					
+					
+					
+					<div class="section section-overview">
+						<a title="Overview" name="overview"></a>
+						<h2 class="subtitle subtitle-overview">Overview</h2>
+						<p><a href="DCTCoreDataStack.html">DCTCoreDataStack</a> is intended for non-document based apps, and sets up the whole Core Data structure such
+that after initializing, the <a href="#//api/name/managedObjectContext">managedObjectContext</a> property is ready for use.</p>
+
+<p><a href="DCTCoreDataStack.html">DCTCoreDataStack</a> provides the following features:</p>
+
+<ol>
+<li>An encapsulation of the complete Core Data stack of NSManagedObjectContext, NSPersistentStoreCoordinator, NSPersistentStore, and NSManagedObjectModel</li>
+<li>On supporting OS&rsquo;s, writing to disk is performed on a background thread, by using a parent context. Saving the main context automatically triggers saving the parent context asynchronously</li>
+<li><a href="../Categories/NSManagedObjectContext%28DCTCoreDataStack%29.html#//api/name/dct_saveWithCompletionHandler:">[NSManagedObjectContext dct_saveWithCompletionHandler:]</a> method can be used to be notified when saving to disk finishes, asynchronously if possible</li>
+<li>Allows you to resolve errors when loading the persistent store by setting <a href="#//api/name/didResolvePersistentStoreErrorHandler">didResolvePersistentStoreErrorHandler</a></li>
+<li>On iOS, the app entering the background, or terminating, automatically triggers a save if needed. You can be notified of such saves by setting <a href="#//api/name/automaticSaveCompletionHandler">automaticSaveCompletionHandler</a></li>
+<li>On iOS, when saving on a background thread, the stack protects against termination/suspension by declaring the save as a background task</li>
+<li>Generation of sibling managed object contexts via <a href="../Categories/NSManagedObjectContext%28DCTSiblingContext%29.html#//api/name/dct_newSiblingContextWithConcurrencyType:">[NSManagedObjectContext dct_newSiblingContextWithConcurrencyType:]</a>. Saving this causes a save to the parent and a merge to the original context</li>
+<li>Providing @YES for DCTCoreDataStackExcludeFromBackupStoreOption in the <a href="#//api/name/storeOptions">storeOptions</a> will exclude the persistent store from being backed up</li>
+</ol>
+
+					</div>
+					
+					
+					
+					
+					
+					<div class="section section-tasks">
+						<a title="Tasks" name="tasks"></a>
+						<h2 class="subtitle subtitle-tasks">Tasks</h2>
+						
+						
+						<a title="Initialization" name="task_Initialization"></a>
+						<h3 class="subsubtitle task-title">Initialization</h3>
+
+						<ul class="task-list">
+							<li>
+	<span class="tooltip">
+		<code><a href="#//api/name/initWithStoreFilename:">&ndash;&nbsp;initWithStoreFilename:</a></code>
+		<span class="tooltip"><p>Convience method to quickly set up a default stack and is generally the best method to use when getting started.</p></span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/initWithStoreURL:storeType:storeOptions:modelConfiguration:modelURL:">&ndash;&nbsp;initWithStoreURL:storeType:storeOptions:modelConfiguration:modelURL:</a></code>
+		<span class="tooltip"><p>The is designated initializer for the class and allows control over options given to the model and persistent store.</p></span>
+	</span>
+	
+	
+</li>
+						</ul>
+						
+						
+						<a title="Working with the Stack" name="task_Working with the Stack"></a>
+						<h3 class="subsubtitle task-title">Working with the Stack</h3>
+
+						<ul class="task-list">
+							<li>
+	<span class="tooltip">
+		<code><a href="#//api/name/managedObjectContext">&nbsp;&nbsp;managedObjectContext</a></code>
+		<span class="tooltip"><p>Provides a context for working on the main thread.</p></span>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li>
+						</ul>
+						
+						
+						<a title="Configuration State" name="task_Configuration State"></a>
+						<h3 class="subsubtitle task-title">Configuration State</h3>
+
+						<ul class="task-list">
+							<li>
+	<span class="tooltip">
+		<code><a href="#//api/name/storeURL">&nbsp;&nbsp;storeURL</a></code>
+		<span class="tooltip"><p>The URL of the persistent store file.</p></span>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/storeType">&nbsp;&nbsp;storeType</a></code>
+		<span class="tooltip"><p>The type of the persistent store.</p></span>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/storeOptions">&nbsp;&nbsp;storeOptions</a></code>
+		<span class="tooltip"><p>The options given to the persistent store coordinator when adding the persistent store.</p></span>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/modelConfiguration">&nbsp;&nbsp;modelConfiguration</a></code>
+		<span class="tooltip"><p>The model configuration given to the persistent store coordinator when adding the persistent store.</p></span>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/modelURL">&nbsp;&nbsp;modelURL</a></code>
+		<span class="tooltip"><p>The URL of the model being used. This can be nil if the model is merged from all the models in the app&rsquo;s main bundle.</p></span>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li>
+						</ul>
+						
+						
+						<a title="Handling Events" name="task_Handling Events"></a>
+						<h3 class="subsubtitle task-title">Handling Events</h3>
+
+						<ul class="task-list">
+							<li>
+	<span class="tooltip">
+		<code><a href="#//api/name/didResolvePersistentStoreErrorHandler">&nbsp;&nbsp;didResolvePersistentStoreErrorHandler</a></code>
+		<span class="tooltip"><p>An error may happen on loading the persistent store, due to an incompatible model for example.
+If you can resolve the error, either by migrating the store or deleting it and return YES from this
+block, <a href="DCTCoreDataStack.html">DCTCoreDataStack</a> will attempt to load the persistent store again.</p></span>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/automaticSaveCompletionHandler">&nbsp;&nbsp;automaticSaveCompletionHandler</a></code>
+		<span class="tooltip"><p>This block is called on iOS on completion or failure of a save caused due to the app entering the background or getting a termination notification.</p></span>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li>
+						</ul>
+						
+					</div>
+					
+					
+					
+					
+					
+					<div class="section section-methods">
+						<a title="Properties" name="properties"></a>
+						<h2 class="subtitle subtitle-methods">Properties</h2>
+						
+						<div class="section-method">
+	<a name="//api/name/automaticSaveCompletionHandler" title="automaticSaveCompletionHandler"></a>
+	<h3 class="subsubtitle method-title">automaticSaveCompletionHandler</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>This block is called on iOS on completion or failure of a save caused due to the app entering the background or getting a termination notification.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>@property (nonatomic, copy) void ( ^ ) ( BOOL success , NSError *error ) automaticSaveCompletionHandler</code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">DCTCoreDataStack.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/didResolvePersistentStoreErrorHandler" title="didResolvePersistentStoreErrorHandler"></a>
+	<h3 class="subsubtitle method-title">didResolvePersistentStoreErrorHandler</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>An error may happen on loading the persistent store, due to an incompatible model for example.
+If you can resolve the error, either by migrating the store or deleting it and return YES from this
+block, <a href="DCTCoreDataStack.html">DCTCoreDataStack</a> will attempt to load the persistent store again.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>@property (nonatomic, copy) BOOL ( ^ ) ( NSError *error ) didResolvePersistentStoreErrorHandler</code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>This is only called once.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">DCTCoreDataStack.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/managedObjectContext" title="managedObjectContext"></a>
+	<h3 class="subsubtitle method-title">managedObjectContext</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Provides a context for working on the main thread.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>@property (nonatomic, strong, readonly) NSManagedObjectContext *managedObjectContext</code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>This provides a context on the main thread, to connect with the UI. It has a parent context on a background thread,
+to perform quicker saves to disk. Saving this context causes the parent context to save, asyncronously if
+<a href="../Categories/NSManagedObjectContext%28DCTCoreDataStack%29.html#//api/name/dct_saveWithCompletionHandler:">NSManagedObjectContext dct_saveWithCompletionHandler:</a> is used.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">DCTCoreDataStack.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/modelConfiguration" title="modelConfiguration"></a>
+	<h3 class="subsubtitle method-title">modelConfiguration</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>The model configuration given to the persistent store coordinator when adding the persistent store.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>@property (nonatomic, copy, readonly) NSString *modelConfiguration</code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">DCTCoreDataStack.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/modelURL" title="modelURL"></a>
+	<h3 class="subsubtitle method-title">modelURL</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>The URL of the model being used. This can be nil if the model is merged from all the models in the app&rsquo;s main bundle.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>@property (nonatomic, copy, readonly) NSURL *modelURL</code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">DCTCoreDataStack.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/storeOptions" title="storeOptions"></a>
+	<h3 class="subsubtitle method-title">storeOptions</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>The options given to the persistent store coordinator when adding the persistent store.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>@property (nonatomic, copy, readonly) NSDictionary *storeOptions</code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">DCTCoreDataStack.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/storeType" title="storeType"></a>
+	<h3 class="subsubtitle method-title">storeType</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>The type of the persistent store.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>@property (nonatomic, copy, readonly) NSString *storeType</code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">DCTCoreDataStack.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/storeURL" title="storeURL"></a>
+	<h3 class="subsubtitle method-title">storeURL</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>The URL of the persistent store file.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>@property (nonatomic, copy, readonly) NSURL *storeURL</code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">DCTCoreDataStack.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+					</div>
+					
+					
+					
+					
+					
+					<div class="section section-methods">
+						<a title="Instance Methods" name="instance_methods"></a>
+						<h2 class="subtitle subtitle-methods">Instance Methods</h2>
+						
+						<div class="section-method">
+	<a name="//api/name/initWithStoreFilename:" title="initWithStoreFilename:"></a>
+	<h3 class="subsubtitle method-title">initWithStoreFilename:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Convience method to quickly set up a default stack and is generally the best method to use when getting started.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (id)initWithStoreFilename:(NSString *)<em>filename</em></code></div>
+
+    
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>filename</em></dt>
+			<dd><p>The name of the created persistent store file.</p></dd>
+		</dl>
+		
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>This passes through the following options to the designated initializer:</p>
+
+<ul>
+<li>storeURL: A URL of a file called filename in the app&rsquo;s documentsDirectory</li>
+<li><a href="#//api/name/storeType">storeType</a> : NSSQLiteStoreType</li>
+<li><a href="#//api/name/storeOptions">storeOptions</a> : nil</li>
+<li><a href="#//api/name/modelConfiguration">modelConfiguration</a> : nil</li>
+<li><a href="#//api/name/modelURL">modelURL</a> : nil (so the model is made up by merging all the models in the application&rsquo;s main bundle)</li>
+</ul>
+
+	</div>
+	
+	
+	
+	
+	
+	<div class="method-subsection see-also-section">
+		<h4 class="method-subtitle">See Also</h4>
+		<ul>
+			
+			<li><code><p><a href="#//api/name/initWithStoreURL:storeType:storeOptions:modelConfiguration:modelURL:">&ndash; initWithStoreURL:storeType:storeOptions:modelConfiguration:modelURL:</a></p></code></li>
+			
+		</ul>
+	</div>
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">DCTCoreDataStack.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/initWithStoreURL:storeType:storeOptions:modelConfiguration:modelURL:" title="initWithStoreURL:storeType:storeOptions:modelConfiguration:modelURL:"></a>
+	<h3 class="subsubtitle method-title">initWithStoreURL:storeType:storeOptions:modelConfiguration:modelURL:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>The is designated initializer for the class and allows control over options given to the model and persistent store.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (id)initWithStoreURL:(NSURL *)<em>storeURL</em> storeType:(NSString *)<em>storeType</em> storeOptions:(NSDictionary *)<em>storeOptions</em> modelConfiguration:(NSString *)<em>modelConfiguration</em> modelURL:(NSURL *)<em>modelURL</em></code></div>
+
+    
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>storeURL</em></dt>
+			<dd><p>The URL where the persistent store should be created.</p></dd>
+		</dl>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>storeType</em></dt>
+			<dd><p>The type for the store, can accept NSSQLiteStoreType, NSXMLStoreType, NSBinaryStoreType, NSInMemoryStoreType depending on the platform.</p></dd>
+		</dl>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>storeOptions</em></dt>
+			<dd><p>The options for the store, these are passed to the NSPersistentStoreCoordinator when adding a persistent store. <a href="DCTCoreDataStack.html">DCTCoreDataStack</a> also accepts its own options, including DCTCoreDataStackExcludeFromBackupStoreOption.</p></dd>
+		</dl>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>modelConfiguration</em></dt>
+			<dd><p>The model configuration to use, this is passed to the NSPersistentStoreCoordinator when adding a persistent store.</p></dd>
+		</dl>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>modelURL</em></dt>
+			<dd><p>The URL of the model. If this is nil, the model will be made up by merging all the models in the application&rsquo;s main bundle.</p></dd>
+		</dl>
+		
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>For more detailed information about the <a href="#//api/name/storeType">storeType</a>, <a href="#//api/name/storeOptions">storeOptions</a> and <a href="#//api/name/modelConfiguration">modelConfiguration</a> parameters, see the documentation for <a href="NSPersistentStoreCoordinator">NSPersistentStoreCoordinator</a>.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">DCTCoreDataStack.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+					</div>
+					
+					
+				</div>
+				<div class="main-navigation navigation-bottom">
+					<ul>
+	<li><a href="../index.html">Index</a></li>
+	<li><a href="../hierarchy.html">Hierarchy</a></li>
+</ul>
+				</div>
+				<div id="footer">
+					<hr />
+					<div class="footer-copyright">
+						<p><span class="copyright">&copy; 2012 Daniel Tull. All rights reserved. (Last updated: 2012-12-16)</span><br />
+						
+						<span class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.0.5 (build 737)</a>.</span></p>
+						
+					</div>
+				</div>
+			</div>
+		</article>
+		<script type="text/javascript">
+			function jumpToChange()
+			{
+				window.location.hash = this.options[this.selectedIndex].value;
+			}
+			
+			function toggleTOC()
+			{
+				var contents = document.getElementById('contents');
+				var tocContainer = document.getElementById('tocContainer');
+				
+				if (this.getAttribute('class') == 'open')
+				{
+					this.setAttribute('class', '');
+					contents.setAttribute('class', '');
+					tocContainer.setAttribute('class', '');
+					
+					window.name = "hideTOC";
+				}
+				else
+				{
+					this.setAttribute('class', 'open');
+					contents.setAttribute('class', 'isShowingTOC');
+					tocContainer.setAttribute('class', 'isShowingTOC');
+					
+					window.name = "";
+				}
+				return false;
+			}
+			
+			function toggleTOCEntryChildren(e)
+			{
+				e.stopPropagation();
+				var currentClass = this.getAttribute('class');
+				if (currentClass == 'children') {
+					this.setAttribute('class', 'children open');
+				}
+				else if (currentClass == 'children open') {
+					this.setAttribute('class', 'children');
+				}
+				return false;
+			}
+			
+			function tocEntryClick(e)
+			{
+				e.stopPropagation();
+				return true;
+			}
+			
+			function init()
+			{
+				var selectElement = document.getElementById('jumpTo');
+				selectElement.addEventListener('change', jumpToChange, false);
+				
+				var tocButton = document.getElementById('table_of_contents');
+				tocButton.addEventListener('click', toggleTOC, false);
+				
+				var taskTreeItem = document.getElementById('task_treeitem');
+				if (taskTreeItem.getElementsByTagName('li').length > 0)
+				{
+					taskTreeItem.setAttribute('class', 'children');
+					taskTreeItem.firstChild.setAttribute('class', 'disclosure');
+				}
+				
+				var tocList = document.getElementById('toc');
+				
+				var tocEntries = tocList.getElementsByTagName('li');
+				for (var i = 0; i < tocEntries.length; i++) {
+					tocEntries[i].addEventListener('click', toggleTOCEntryChildren, false);
+				}
+				
+				var tocLinks = tocList.getElementsByTagName('a');
+				for (var i = 0; i < tocLinks.length; i++) {
+					tocLinks[i].addEventListener('click', tocEntryClick, false);
+				}
+				
+				if (window.name == "hideTOC") {
+					toggleTOC.call(tocButton);
+				}
+			}
+			
+			window.onload = init;
+			
+			// If showing in Xcode, hide the TOC and Header
+			if (navigator.userAgent.match(/xcode/i)) {
+				document.getElementById("contents").className = "hideInXcode"
+				document.getElementById("tocContainer").className = "hideInXcode"
+				document.getElementById("top_header").className = "hideInXcode"
+			}
+			
+		</script>
+	</body>
+</html>

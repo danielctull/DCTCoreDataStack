@@ -1,0 +1,20 @@
+<?xml version="1.0" standalone="no"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xmlns:docset="http://developer.apple.com/rss/docset_extensions" xml:lang="en">
+    <id>http://danielctull.github.com/DCTCoreDataStack/documentation/docset.atom/20121216135458</id>
+    <title type="text">DCTCoreDataStack Documentation</title>
+    <rights>Copyright © 2012 Daniel Tull. All rights reserved.</rights>
+    <link rel="self" href="http://danielctull.github.com/DCTCoreDataStack/documentation/docset.atom"></link>
+    <docset:publisherName>Daniel Tull</docset:publisherName>
+    <docset:publisherID>uk.co.danieltull.documentation</docset:publisherID>
+    <updated>2012-12-16T13:54:58+00:00</updated>
+    <entry>
+        <id>tag:danielctull.github.com,2012-12-16:uk.co.danieltull.DCTCoreDataStack/1.0.0</id>
+        <title type="text">DCTCoreDataStack Documentation</title>
+        <updated>2012-12-16T13:54:58+00:00</updated>
+        <content type="text">DCTCoreDataStack Documentation (v1.0.0)</content>
+        <link rel="enclosure" type="application/octet-stream" href="http://danielctull.github.com/DCTCoreDataStack/documentation/uk.co.danieltull.DCTCoreDataStack-1.0.xar" length="42272"></link>
+        <docset:identifier>uk.co.danieltull.DCTCoreDataStack</docset:identifier>
+        <docset:version>1.0.0</docset:version>
+        <docset:minimumXcodeVersion>3.0.0</docset:minimumXcodeVersion>
+    </entry>
+</feed>
