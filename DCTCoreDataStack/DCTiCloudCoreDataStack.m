@@ -142,14 +142,13 @@ ubiquityContainerIdentifier:(NSString *)ubiquityContainerIdentifier {
 
 - (void)_removePersistentStore {
 	[_queue addOperationWithBlock:^{
-		if (_persistentStore) [self.persistentStoreCoordinator removePersistentStore:_persistentStore error:NULL];
+		if (_persistentStore) [self.managedObjectContext.persistentStoreCoordinator removePersistentStore:_persistentStore error:NULL];
 	}];
 }
 
 - (void)_loadPersistentStore {
 	[_queue addOperationWithBlock:^{
-		[super _loadPersistentStore];
-		_persistentStore = [self.persistentStoreCoordinator persistentStoreForURL:self.storeURL];
+		_persistentStore = [super _loadPersistentStore];
 		if (self.persistentStoreDidChangeHandler == NULL) return;
 		dispatch_async(dispatch_get_main_queue(), ^{
 			self.persistentStoreDidChangeHandler();
@@ -158,7 +157,7 @@ ubiquityContainerIdentifier:(NSString *)ubiquityContainerIdentifier {
 }
 
 - (void)_persistentStoreDidImportUbiquitousContentChangesNotification:(NSNotification *)notification {
-	if (![notification.object isEqual:self.persistentStoreCoordinator]) return;
+	if (![notification.object isEqual:self.managedObjectContext.persistentStoreCoordinator]) return;
 	[self.managedObjectContext performBlock:^{
         [self.managedObjectContext mergeChangesFromContextDidSaveNotification:notification];
     }];

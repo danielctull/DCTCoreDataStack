@@ -133,12 +133,24 @@ NSString *const DCTCoreDataStackExcludeFromBackupStoreOption = @"DCTCoreDataStac
 	return _rootContext;
 }
 
+- (void)_loadRootContext {
+	_rootContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
+	[_rootContext setPersistentStoreCoordinator:self.persistentStoreCoordinator];
+	_rootContext.dct_name = @"DCTCoreDataStack.internal_rootContext";
+}
+
 - (NSManagedObjectContext *)managedObjectContext {
 
 	if (_managedObjectContext == nil)
 		[self _loadManagedObjectContext];
 
 	return _managedObjectContext;
+}
+
+- (void)_loadManagedObjectContext {
+	_managedObjectContext = [[_DCTCDSManagedObjectContext alloc] initWithConcurrencyType:NSMainQueueConcurrencyType];
+	[_managedObjectContext setParentContext:self.rootContext];
+	_managedObjectContext.dct_name = @"DCTCoreDataStack.mainContext";
 }
 
 - (NSManagedObjectModel *)managedObjectModel {
@@ -149,30 +161,6 @@ NSString *const DCTCoreDataStackExcludeFromBackupStoreOption = @"DCTCoreDataStac
 	return _managedObjectModel;
 }
 
-- (NSPersistentStoreCoordinator *)persistentStoreCoordinator {
-	
-	if (_persistentStoreCoordinator == nil)
-		[self _loadPersistentStoreCoordinator];
-	
-	return _persistentStoreCoordinator;
-}
-
-- (void)_loadRootContext {
-	_rootContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
-	[_rootContext setPersistentStoreCoordinator:self.persistentStoreCoordinator];
-	_rootContext.dct_name = @"DCTCoreDataStack.internal_rootContext";
-}
-
-@end
-
-@implementation DCTCoreDataStack (Private)
-
-- (void)_loadManagedObjectContext {
-	_managedObjectContext = [[_DCTCDSManagedObjectContext alloc] initWithConcurrencyType:NSMainQueueConcurrencyType];
-	[_managedObjectContext setParentContext:self.rootContext];
-	_managedObjectContext.dct_name = @"DCTCoreDataStack.mainContext";
-}
-
 - (void)_loadManagedObjectModel {
 
     if (self.modelURL)
@@ -181,12 +169,24 @@ NSString *const DCTCoreDataStackExcludeFromBackupStoreOption = @"DCTCoreDataStac
 		_managedObjectModel = [NSManagedObjectModel mergedModelFromBundles:[NSArray arrayWithObject:[NSBundle mainBundle]]];
 }
 
+- (NSPersistentStoreCoordinator *)persistentStoreCoordinator {
+	
+	if (_persistentStoreCoordinator == nil)
+		[self _loadPersistentStoreCoordinator];
+	
+	return _persistentStoreCoordinator;
+}
+
 - (void)_loadPersistentStoreCoordinator {
 	_persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:self.managedObjectModel];
 	[self _loadPersistentStore];
 }
 
-- (void)_loadPersistentStore {
+@end
+
+@implementation DCTCoreDataStack (Private)
+
+- (NSPersistentStore *)_loadPersistentStore {
 	
 	NSError *error = nil;
 	NSPersistentStore *persistentStore = [_persistentStoreCoordinator addPersistentStoreWithType:self.storeType
@@ -206,6 +206,7 @@ NSString *const DCTCoreDataStackExcludeFromBackupStoreOption = @"DCTCoreDataStac
 	}
 
 	[self _setupExcludeFromBackupFlag];
+	return persistentStore;
 }
 
 - (void)_setupExcludeFromBackupFlag {
