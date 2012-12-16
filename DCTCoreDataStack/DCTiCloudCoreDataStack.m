@@ -15,7 +15,6 @@
 
 @interface DCTiCloudCoreDataStack ()
 @property (nonatomic, strong) id ubiquityIdentityToken;
-@property (nonatomic, readonly) NSURL *ubiquityContainerURL;
 @end
 
 @implementation DCTiCloudCoreDataStack {
@@ -65,10 +64,10 @@
 }
 
 - (NSURL *)storeURL {
-
-	if (self.ubiquityContainerURL) {
+	NSURL *ubiquityContainerURL = [self _ubiquityContainerURL];
+	if (ubiquityContainerURL) {
 		NSString *storeFilename = [NSString stringWithFormat:@"%@.nosync", self.storeFilename];
-		return [self.ubiquityContainerURL URLByAppendingPathComponent:storeFilename];
+		return [ubiquityContainerURL URLByAppendingPathComponent:storeFilename];
 	}
 
 	return [[[self class] _applicationDocumentsDirectory] URLByAppendingPathComponent:self.storeFilename];
@@ -78,7 +77,7 @@
 	NSMutableDictionary *storeOptions = [[super storeOptions] mutableCopy];
 	if (!storeOptions) storeOptions = [NSMutableDictionary new];
 	[storeOptions setObject:self.storeFilename forKey:NSPersistentStoreUbiquitousContentNameKey];
-	NSURL *URL = [self.ubiquityContainerURL URLByAppendingPathComponent:self.storeFilename];
+	NSURL *URL = [[self _ubiquityContainerURL] URLByAppendingPathComponent:self.storeFilename];
 	[storeOptions setObject:URL forKey:NSPersistentStoreUbiquitousContentURLKey];
 	return [storeOptions copy];
 }
@@ -165,7 +164,7 @@ ubiquityContainerIdentifier:(NSString *)ubiquityContainerIdentifier {
     }];
 }
 
-- (NSURL *)ubiquityContainerURL {
+- (NSURL *)_ubiquityContainerURL {
 	return [[NSFileManager defaultManager] URLForUbiquityContainerIdentifier:self.ubiquityContainerIdentifier];
 }
 
