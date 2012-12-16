@@ -12,6 +12,10 @@ DCTCoreDataStack provides the following features:
 # On iOS, when saving on a background thread, the stack protects against termination/suspension by declaring the save as a background task
 # Providing YES for DCTCoreDataStackExcludeFromBackupStoreOption in the storeOptions will exclude the persistent store from being backed up
 
+h2. Documentation
+
+"Full documentation is here.":http://danieltull.co.uk/DCTCoreDataStack/documentation/
+
 h2. Thanks
 
 Thanks to "Mike Abdullah":http://www.mikeabdullah.net for persisting on making this better (via continuously pestering me) and writing a lot of the documentation.
