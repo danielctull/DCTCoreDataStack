@@ -64,6 +64,25 @@
 		   ubiquityContainerIdentifier:nil];
 }
 
+- (NSURL *)storeURL {
+
+	if (self.ubiquityContainerURL) {
+		NSString *storeFilename = [NSString stringWithFormat:@"%@.nosync", self.storeFilename];
+		return [self.ubiquityContainerURL URLByAppendingPathComponent:storeFilename];
+	}
+
+	return [[[self class] _applicationDocumentsDirectory] URLByAppendingPathComponent:self.storeFilename];
+}
+
+- (NSDictionary *)storeOptions {
+	NSMutableDictionary *storeOptions = [[super storeOptions] mutableCopy];
+	if (!storeOptions) storeOptions = [NSMutableDictionary new];
+	[storeOptions setObject:self.storeFilename forKey:NSPersistentStoreUbiquitousContentNameKey];
+	NSURL *URL = [self.ubiquityContainerURL URLByAppendingPathComponent:self.storeFilename];
+	[storeOptions setObject:URL forKey:NSPersistentStoreUbiquitousContentURLKey];
+	return [storeOptions copy];
+}
+
 #pragma mark - DCTiCloudCoreDataStack
 
 - (id)initWithStoreFilename:(NSString *)storeFilename
@@ -148,25 +167,6 @@ ubiquityContainerIdentifier:(NSString *)ubiquityContainerIdentifier {
 
 - (NSURL *)ubiquityContainerURL {
 	return [[NSFileManager defaultManager] URLForUbiquityContainerIdentifier:self.ubiquityContainerIdentifier];
-}
-
-- (NSURL *)storeURL {
-
-	if (self.ubiquityContainerURL) {
-		NSString *storeFilename = [NSString stringWithFormat:@"%@.nosync", self.storeFilename];
-		return [self.ubiquityContainerURL URLByAppendingPathComponent:storeFilename];
-	}
-
-	return [[[self class] _applicationDocumentsDirectory] URLByAppendingPathComponent:self.storeFilename];
-}
-
-- (NSDictionary *)storeOptions {
-	NSMutableDictionary *storeOptions = [[super storeOptions] mutableCopy];
-	if (!storeOptions) storeOptions = [NSMutableDictionary new];
-	[storeOptions setObject:self.storeFilename forKey:NSPersistentStoreUbiquitousContentNameKey];
-	NSURL *URL = [self.ubiquityContainerURL URLByAppendingPathComponent:self.storeFilename];
-	[storeOptions setObject:URL forKey:NSPersistentStoreUbiquitousContentURLKey];
-	return [storeOptions copy];
 }
 
 - (void)_ubiquityIdentityDidChangeNotification:(NSNotification *)notification {
