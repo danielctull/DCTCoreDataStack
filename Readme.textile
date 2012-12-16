@@ -1,17 +1,20 @@
 h1. DCTCoreDataStack
 
-DCTCoreDataStack is intended for non-document based apps, and sets up the whole Core Data structure such 
- that after initializing, the managedObjectContext property is ready for use.
+DCTCoreDataStack is intended for non-document based apps, and sets up the whole Core Data structure such that after initializing, the managedObjectContext property is ready for use.
  
- DCTCoreDataStack provides the following features:
+DCTCoreDataStack provides the following features:
  
- 1. An encapsulation of the complete Core Data stack of NSManagedObjectContext, NSPersistentStoreCoordinator, NSPersistentStore, and NSManagedObjectModel
- 2. On supporting OS's, writing to disk is performed on a background thread, by using a parent context. Saving the main context automatically triggers saving the parent context asynchronously
- 3. -[NSManagedObjectContext dct_saveWithCompletionHandler:] method can be used to be notified when saving to disk finishes, asynchronously if possible
- 4. Allows you to resolve errors when loading the persistent store by setting the `didResolvePersistentStoreErrorHandler` block and handling the error
- 5. On iOS, the app entering the background, or terminating, automatically triggers a save if needed. You can be notified of such saves by setting the `automaticSaveCompletionHandler` block
- 6. On iOS, when saving on a background thread, the stack protects against termination/suspension by declaring the save as a background task
- 7. Providing YES for DCTCoreDataStackExcludeFromBackupStoreOption in the storeOptions will exclude the persistent store from being backed up
+# An encapsulation of the complete Core Data stack of NSManagedObjectContext, NSPersistentStoreCoordinator, NSPersistentStore, and NSManagedObjectModel
+# On supporting OS's, writing to disk is performed on a background thread, by using a parent context. Saving the main context automatically triggers saving the parent context asynchronously
+# -[NSManagedObjectContext dct_saveWithCompletionHandler:] method can be used to be notified when saving to disk finishes, asynchronously if possible
+# Allows you to resolve errors when loading the persistent store by setting the `didResolvePersistentStoreErrorHandler` block and handling the error
+# On iOS, the app entering the background, or terminating, automatically triggers a save if needed. You can be notified of such saves by setting the `automaticSaveCompletionHandler` block
+# On iOS, when saving on a background thread, the stack protects against termination/suspension by declaring the save as a background task
+# Providing YES for DCTCoreDataStackExcludeFromBackupStoreOption in the storeOptions will exclude the persistent store from being backed up
+
+h2. Thanks
+
+Thanks to "Mike Abdullah":http://www.mikeabdullah.net for persisting on making this better (via continuously pestering me) and writing a lot of the documentation.
 
 h2. License
 
