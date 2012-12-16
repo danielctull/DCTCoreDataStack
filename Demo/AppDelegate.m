@@ -12,7 +12,7 @@
 #import "ViewController.h"
 
 @implementation AppDelegate {
-	__strong DCTCoreDataStack *coreDataStack;
+	DCTiCloudCoreDataStack *coreDataStack;
 }
 
 @synthesize window;
@@ -20,12 +20,14 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
 	
 	coreDataStack = [[DCTiCloudCoreDataStack alloc] initWithStoreFilename:@"DCTCoreDataStack"];
-	
-	NSLog(@"%@:%@ %@", self, NSStringFromSelector(_cmd), coreDataStack.storeURL);
+	NSManagedObjectContext *managedObjectContext = coreDataStack.managedObjectContext;
 	
 	ViewController *viewController = [ViewController new];
-	viewController.managedObjectContext = coreDataStack.managedObjectContext;
-	
+	viewController.managedObjectContext = managedObjectContext;
+	coreDataStack.persistentStoreDidChangeHandler = ^{
+		viewController.managedObjectContext = managedObjectContext;
+	};
+
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
 	self.window.rootViewController = [[UINavigationController alloc] initWithRootViewController:viewController];
     [self.window makeKeyAndVisible];

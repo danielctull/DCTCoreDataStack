@@ -87,6 +87,12 @@
 
 #pragma mark - Fetched results controller
 
+- (void)setManagedObjectContext:(NSManagedObjectContext *)managedObjectContext {
+	_managedObjectContext = managedObjectContext;
+	_fetchedResultsController = nil;
+	[self.tableView reloadData];
+}
+
 - (NSFetchedResultsController *)fetchedResultsController {
 	
     if (!_fetchedResultsController) {

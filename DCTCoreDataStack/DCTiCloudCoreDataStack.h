@@ -22,6 +22,6 @@ ubiquityContainerIdentifier:(NSString *)ubiquityContainerIdentifier;
 
 @property (nonatomic, readonly, getter = isiCloudAvailable) BOOL iCloudAvailable;
 
-@property (nonatomic, copy) void (^iCloudAccountDidChangeHandler)();
+@property (nonatomic, copy) void (^persistentStoreDidChangeHandler)();
 
 @end

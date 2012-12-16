@@ -18,7 +18,9 @@
 @property (nonatomic, readonly) NSURL *ubiquityContainerURL;
 @end
 
-@implementation DCTiCloudCoreDataStack
+@implementation DCTiCloudCoreDataStack {
+	NSOperationQueue *_queue;
+}
 
 #pragma mark - DCTCoreDataStack
 
@@ -77,6 +79,8 @@ ubiquityContainerIdentifier:(NSString *)ubiquityContainerIdentifier {
 						  modelURL:modelURL];
 	if (!self) return nil;
 
+	_queue = [NSOperationQueue new];
+	_queue.maxConcurrentOperationCount = 1;
 	_storeFilename = [storeFilename copy];
 	_ubiquityContainerIdentifier = [ubiquityContainerIdentifier copy];
 	_ubiquityIdentityToken = [[NSFileManager defaultManager] ubiquityIdentityToken];
@@ -105,14 +109,8 @@ ubiquityContainerIdentifier:(NSString *)ubiquityContainerIdentifier {
 	if (_ubiquityIdentityToken == nil && ubiquityIdentityToken == nil) return;
 	if ([_ubiquityIdentityToken isEqual:ubiquityIdentityToken]) return;
 	_ubiquityIdentityToken = ubiquityIdentityToken;
-
-	NSPersistentStore *persistentStore = [self.persistentStoreCoordinator persistentStoreForURL:self.storeURL];
-	if (persistentStore) {
-		[self.persistentStoreCoordinator removePersistentStore:persistentStore error:NULL];
-		[self _loadPersistentStore];
-	}
-	
-	if (self.iCloudAccountDidChangeHandler) self.iCloudAccountDidChangeHandler();
+	[self _removePersistentStore];
+	[self _loadPersistentStore];
 }
 
 - (BOOL)isiCloudAvailable {
@@ -120,6 +118,23 @@ ubiquityContainerIdentifier:(NSString *)ubiquityContainerIdentifier {
 }
 
 #pragma mark - Internal
+
+- (void)_removePersistentStore {
+	[_queue addOperationWithBlock:^{
+		NSPersistentStore *persistentStore = [self.persistentStoreCoordinator persistentStoreForURL:self.storeURL];
+		if (persistentStore) [self.persistentStoreCoordinator removePersistentStore:persistentStore error:NULL];
+	}];
+}
+
+- (void)_loadPersistentStore {
+	[_queue addOperationWithBlock:^{
+		[super _loadPersistentStore];
+		if (self.persistentStoreDidChangeHandler == NULL) return;
+		dispatch_async(dispatch_get_main_queue(), ^{
+			self.persistentStoreDidChangeHandler();
+		});
+	}];
+}
 
 - (void)_persistentStoreDidImportUbiquitousContentChangesNotification:(NSNotification *)notification {
 	if (![notification.object isEqual:self.persistentStoreCoordinator]) return;
