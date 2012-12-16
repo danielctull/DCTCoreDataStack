@@ -9,7 +9,7 @@
 #import "DCTiCloudCoreDataStack.h"
 #import "_DCTCoreDataStack.h"
 
-#ifdef TARGET_OS_IPHONE
+#if TARGET_OS_IPHONE
 #import <UIKit/UIKit.h>
 #endif
 
@@ -33,7 +33,7 @@
 							 name:NSPersistentStoreDidImportUbiquitousContentChangesNotification
 						   object:nil];
 
-#ifdef TARGET_OS_IPHONE
+#if TARGET_OS_IPHONE
 	[defaultCenter removeObserver:self
 							 name:UIApplicationDidBecomeActiveNotification
 						   object:[UIApplication sharedApplication]];
@@ -117,7 +117,7 @@ ubiquityContainerIdentifier:(NSString *)ubiquityContainerIdentifier {
 						  name:NSPersistentStoreDidImportUbiquitousContentChangesNotification
 						object:nil];
 	
-#ifdef TARGET_OS_IPHONE
+#if TARGET_OS_IPHONE
 	[defaultCenter addObserver:self
 					  selector:@selector(_applicationDidBecomeActiveNotification:)
 						  name:UIApplicationDidBecomeActiveNotification
@@ -174,8 +174,10 @@ ubiquityContainerIdentifier:(NSString *)ubiquityContainerIdentifier {
 	self.ubiquityIdentityToken = [[NSFileManager defaultManager] ubiquityIdentityToken];
 }
 
+#if TARGET_OS_IPHONE
 - (void)_applicationDidBecomeActiveNotification:(NSNotification *)notification {
 	self.ubiquityIdentityToken = [[NSFileManager defaultManager] ubiquityIdentityToken];
 }
+#endif
 
 @end

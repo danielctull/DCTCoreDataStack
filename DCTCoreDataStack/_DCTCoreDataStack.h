@@ -13,7 +13,7 @@
 - (NSPersistentStore *)_loadPersistentStore;
 + (NSURL *)_applicationDocumentsDirectory;
 
-#ifdef TARGET_OS_IPHONE
+#if TARGET_OS_IPHONE
 - (void)_applicationDidEnterBackgroundNotification:(NSNotification *)notification;
 - (void)_applicationWillTerminateNotification:(NSNotification *)notification;
 #endif
