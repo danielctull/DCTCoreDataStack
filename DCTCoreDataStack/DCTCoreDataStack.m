@@ -39,7 +39,7 @@
 #import <objc/runtime.h>
 #include <sys/xattr.h>
 
-#ifdef TARGET_OS_IPHONE
+#if TARGET_OS_IPHONE
 #import <UIKit/UIKit.h>
 #endif
 
@@ -49,16 +49,16 @@ NSString *const DCTCoreDataStackExcludeFromBackupStoreOption = @"DCTCoreDataStac
 @property (nonatomic, strong) NSPersistentStoreCoordinator *persistentStoreCoordinator;
 @property (nonatomic, strong) NSManagedObjectModel *managedObjectModel;
 @property (nonatomic, strong) NSManagedObjectContext *rootContext;
-@property (nonatomic, strong, readwrite) NSManagedObjectContext *managedObjectContext;
+@property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
 @end
 
 @implementation DCTCoreDataStack
 
 #pragma mark - NSObject
 
+#if TARGET_OS_IPHONE
+
 - (void)dealloc {
-	
-#ifdef TARGET_OS_IPHONE
 	NSNotificationCenter *defaultCenter = [NSNotificationCenter defaultCenter];
 	UIApplication *app = [UIApplication sharedApplication];
 	[defaultCenter removeObserver:self
@@ -67,8 +67,9 @@ NSString *const DCTCoreDataStackExcludeFromBackupStoreOption = @"DCTCoreDataStac
 	[defaultCenter removeObserver:self
 							 name:UIApplicationWillTerminateNotification
 						   object:app];
-#endif
 }
+
+#endif
 
 #pragma mark - Initialization
 
@@ -95,10 +96,10 @@ NSString *const DCTCoreDataStackExcludeFromBackupStoreOption = @"DCTCoreDataStac
 		return NO;
 	};
 	
-#ifdef TARGET_OS_IPHONE
-
-	NSNotificationCenter *defaultCenter = [NSNotificationCenter defaultCenter];
+#if TARGET_OS_IPHONE
+	
 	UIApplication *app = [UIApplication sharedApplication];
+	NSNotificationCenter *defaultCenter = [NSNotificationCenter defaultCenter];
 	
 	[defaultCenter addObserver:self
 					  selector:@selector(_applicationDidEnterBackgroundNotification:)
@@ -109,6 +110,7 @@ NSString *const DCTCoreDataStackExcludeFromBackupStoreOption = @"DCTCoreDataStac
 					  selector:@selector(_applicationWillTerminateNotification:)
 						  name:UIApplicationWillTerminateNotification
 						object:app];
+
 #endif
 	
 	return self;
@@ -250,6 +252,8 @@ NSString *const DCTCoreDataStackExcludeFromBackupStoreOption = @"DCTCoreDataStac
     return [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
 }
 
+#if TARGET_OS_IPHONE
+
 - (void)_applicationDidEnterBackgroundNotification:(NSNotification *)notification {
 	
 	NSManagedObjectContext *context = self.managedObjectContext;
@@ -279,5 +283,7 @@ NSString *const DCTCoreDataStackExcludeFromBackupStoreOption = @"DCTCoreDataStac
 	if (self.automaticSaveCompletionHandler != NULL)
 		self.automaticSaveCompletionHandler(success, error);
 }
+
+#endif
 
 @end

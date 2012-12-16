@@ -10,8 +10,9 @@
 #import <DCTCoreDataStack/DCTCoreDataStack.h>
 #import "Event.h"
 
-@interface ViewController : UITableViewController <NSFetchedResultsControllerDelegate>
+@interface ViewController : UITableViewController
 
-@property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
+- (id)initWithManagedObjectContext:(NSManagedObjectContext *)managedObjectContext;
+@property (nonatomic, readonly, strong) NSManagedObjectContext *managedObjectContext;
 
 @end

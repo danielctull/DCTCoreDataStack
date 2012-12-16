@@ -37,7 +37,6 @@
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 #import "NSManagedObjectContext+DCTCoreDataStack.h"
-#import "NSManagedObjectContext+DCTSiblingContext.h"
 
 #ifndef dctcoredatastack
 #define dctcoredatastack_1_0     10000
@@ -59,7 +58,6 @@ extern NSString *const DCTCoreDataStackExcludeFromBackupStoreOption;
  4. Allows you to resolve errors when loading the persistent store by setting [didResolvePersistentStoreErrorHandler](#//api/name/didResolvePersistentStoreErrorHandler)
  5. On iOS, the app entering the background, or terminating, automatically triggers a save if needed. You can be notified of such saves by setting [automaticSaveCompletionHandler](#//api/name/automaticSaveCompletionHandler)
  6. On iOS, when saving on a background thread, the stack protects against termination/suspension by declaring the save as a background task
- 7. Generation of private queue managed object contexts via -[DCTCoreDataStack newWorkerManagedObjectContext]. Saving this causes a save to disk and a merge to the context in managedObjectContext
  8. Providing @YES for DCTCoreDataStackExcludeFromBackupStoreOption in the storeOptions will exclude the persistent store from being backed up
  
  */
@@ -135,7 +133,7 @@ extern NSString *const DCTCoreDataStackExcludeFromBackupStoreOption;
  This is only called once. */
 @property (nonatomic, copy) BOOL (^didResolvePersistentStoreErrorHandler)(NSError *error);
 
-#ifdef TARGET_OS_IPHONE
+#if TARGET_OS_IPHONE
 /** This block is called on iOS on completion or failure of a save caused due to the app entering the background or getting a termination notification. */
 @property (nonatomic, copy) void(^automaticSaveCompletionHandler)(BOOL success, NSError *error);
 #endif

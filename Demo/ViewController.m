@@ -9,15 +9,16 @@
 #import "ViewController.h"
 #import <DCTCoreDataStack/DCTCoreDataStack.h>
 
-@interface ViewController ()
+@interface ViewController () <NSFetchedResultsControllerDelegate>
 @property (strong, nonatomic) NSFetchedResultsController *fetchedResultsController;
 @end
 
 @implementation ViewController
 
-- (id)initWithStyle:(UITableViewStyle)style {
-    self = [super initWithStyle:style];
+- (id)initWithManagedObjectContext:(NSManagedObjectContext *)managedObjectContext {
+    self = [self initWithStyle:UITableViewStylePlain];
     if (!self) return nil;
+	_managedObjectContext = managedObjectContext;
 	self.title = @"DCTCoreDataStack";
     return self;
 }
@@ -31,15 +32,13 @@
 }
 
 - (void)insertNewObject:(id)sender {
-	[self.managedObjectContext performBlock:^{
-		Event *event = [Event insertInManagedObjectContext:self.managedObjectContext];
-		event.date = [NSDate date];
-		event.name = @"Event";
+	Event *event = [Event insertInManagedObjectContext:self.managedObjectContext];
+	event.date = [NSDate date];
+	event.name = @"Event";
 		
-		[self.managedObjectContext dct_saveWithCompletionHandler:^(BOOL success, NSError *error) {
-			if (!success)
-				NSLog(@"%@", [self.managedObjectContext dct_detailedDescriptionFromValidationError:error]);
-		}];
+	[self.managedObjectContext dct_saveWithCompletionHandler:^(BOOL success, NSError *error) {
+		if (!success)
+			NSLog(@"%@", [self.managedObjectContext dct_detailedDescriptionFromValidationError:error]);
 	}];
 }
 
@@ -69,15 +68,14 @@
     return YES;
 }
 
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+- (void)tableView:(UITableView *)tableView
+commitEditingStyle:(UITableViewCellEditingStyle)editingStyle
+forRowAtIndexPath:(NSIndexPath *)indexPath {
+
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-		
-		NSManagedObjectID *eventID = [[self.fetchedResultsController objectAtIndexPath:indexPath] objectID];
-		
-		[self.managedObjectContext performBlock:^{
-			[self.managedObjectContext deleteObject:[self.managedObjectContext objectWithID:eventID]];
-			[self.managedObjectContext dct_save];
-		}];
+		NSManagedObject *object = [self.fetchedResultsController objectAtIndexPath:indexPath];
+		[self.managedObjectContext deleteObject:object];
+		[self.managedObjectContext dct_save];
     }
 }
 
@@ -86,12 +84,6 @@
 }
 
 #pragma mark - Fetched results controller
-
-- (void)setManagedObjectContext:(NSManagedObjectContext *)managedObjectContext {
-	_managedObjectContext = managedObjectContext;
-	_fetchedResultsController = nil;
-	[self.tableView reloadData];
-}
 
 - (NSFetchedResultsController *)fetchedResultsController {
 	
