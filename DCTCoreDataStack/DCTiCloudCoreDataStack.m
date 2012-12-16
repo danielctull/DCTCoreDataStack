@@ -74,6 +74,9 @@
 }
 
 - (NSDictionary *)storeOptions {
+
+	if (!self.iCloudAvailable) return [super storeOptions];
+
 	NSMutableDictionary *storeOptions = [[super storeOptions] mutableCopy];
 	if (!storeOptions) storeOptions = [NSMutableDictionary new];
 	[storeOptions setObject:self.storeFilename forKey:NSPersistentStoreUbiquitousContentNameKey];
