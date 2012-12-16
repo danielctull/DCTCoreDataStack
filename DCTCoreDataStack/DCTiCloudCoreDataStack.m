@@ -20,7 +20,7 @@
 
 @implementation DCTiCloudCoreDataStack {
 	NSOperationQueue *_queue;
-	BOOL _hasPersistentStoreLoaded;
+	NSPersistentStore *_persistentStore;
 }
 
 #pragma mark - DCTCoreDataStack
@@ -110,7 +110,7 @@ ubiquityContainerIdentifier:(NSString *)ubiquityContainerIdentifier {
 	if (_ubiquityIdentityToken == nil && ubiquityIdentityToken == nil) return;
 	if ([_ubiquityIdentityToken isEqual:ubiquityIdentityToken]) return;
 	_ubiquityIdentityToken = ubiquityIdentityToken;
-	if (_hasPersistentStoreLoaded) {
+	if (_persistentStore) {
 		[self _removePersistentStore];
 		[self _loadPersistentStore];
 	}
@@ -124,15 +124,14 @@ ubiquityContainerIdentifier:(NSString *)ubiquityContainerIdentifier {
 
 - (void)_removePersistentStore {
 	[_queue addOperationWithBlock:^{
-		NSPersistentStore *persistentStore = [self.persistentStoreCoordinator persistentStoreForURL:self.storeURL];
-		if (persistentStore) [self.persistentStoreCoordinator removePersistentStore:persistentStore error:NULL];
+		if (_persistentStore) [self.persistentStoreCoordinator removePersistentStore:_persistentStore error:NULL];
 	}];
 }
 
 - (void)_loadPersistentStore {
-	_hasPersistentStoreLoaded = YES;
 	[_queue addOperationWithBlock:^{
 		[super _loadPersistentStore];
+		_persistentStore = [self.persistentStoreCoordinator persistentStoreForURL:self.storeURL];
 		if (self.persistentStoreDidChangeHandler == NULL) return;
 		dispatch_async(dispatch_get_main_queue(), ^{
 			self.persistentStoreDidChangeHandler();
