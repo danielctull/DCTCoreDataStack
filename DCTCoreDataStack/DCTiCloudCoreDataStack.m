@@ -18,7 +18,6 @@
 @end
 
 @implementation DCTiCloudCoreDataStack {
-	NSOperationQueue *_queue;
 	NSPersistentStore *_persistentStore;
 }
 
@@ -101,8 +100,6 @@ ubiquityContainerIdentifier:(NSString *)ubiquityContainerIdentifier {
 						  modelURL:modelURL];
 	if (!self) return nil;
 
-	_queue = [NSOperationQueue new];
-	_queue.maxConcurrentOperationCount = 1;
 	_storeFilename = [storeFilename copy];
 	_ubiquityContainerIdentifier = [ubiquityContainerIdentifier copy];
 	_ubiquityIdentityToken = [[NSFileManager defaultManager] ubiquityIdentityToken];
@@ -144,19 +141,25 @@ ubiquityContainerIdentifier:(NSString *)ubiquityContainerIdentifier {
 }
 
 - (void)_removePersistentStore {
-	[_queue addOperationWithBlock:^{
-		if (_persistentStore) [self.managedObjectContext.persistentStoreCoordinator removePersistentStore:_persistentStore error:NULL];
-	}];
+	if (!_persistentStore) return;
+	NSPersistentStoreCoordinator *persistentStoreCoordinator = self.managedObjectContext.persistentStoreCoordinator;
+	[persistentStoreCoordinator lock];
+	[persistentStoreCoordinator removePersistentStore:_persistentStore error:NULL];
+	[persistentStoreCoordinator unlock];
 }
 
 - (void)_loadPersistentStore {
-	[_queue addOperationWithBlock:^{
+	// load the new store on a background thread, because it takes an age to setup with a new iCloud container
+	dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+		NSPersistentStoreCoordinator *persistentStoreCoordinator = self.managedObjectContext.persistentStoreCoordinator;
+		[persistentStoreCoordinator lock];
 		_persistentStore = [super _loadPersistentStore];
+		[persistentStoreCoordinator unlock];
 		if (self.persistentStoreDidChangeHandler == NULL) return;
 		dispatch_async(dispatch_get_main_queue(), ^{
 			self.persistentStoreDidChangeHandler();
 		});
-	}];
+	});
 }
 
 - (void)_persistentStoreDidImportUbiquitousContentChangesNotification:(NSNotification *)notification {
