@@ -110,19 +110,19 @@ extern NSString *const DCTCoreDataStackExcludeFromBackupStoreOption;
 /// @name Configuration State
 
 /** The URL of the persistent store file. */
-@property (nonatomic, copy, readonly) NSURL *storeURL;
+@property (nonatomic, readonly) NSURL *storeURL;
 
 /** The type of the persistent store. */
-@property (nonatomic, copy, readonly) NSString *storeType;
+@property (nonatomic, readonly) NSString *storeType;
 
 /** The options given to the persistent store coordinator when adding the persistent store. */
-@property (nonatomic, copy, readonly) NSDictionary *storeOptions;
+@property (nonatomic, readonly) NSDictionary *storeOptions;
 
 /** The model configuration given to the persistent store coordinator when adding the persistent store. */
-@property (nonatomic, copy, readonly) NSString *modelConfiguration;
+@property (nonatomic, readonly) NSString *modelConfiguration;
 
 /** The URL of the model being used. This can be nil if the model is merged from all the models in the app's main bundle. */
-@property (nonatomic, copy, readonly) NSURL *modelURL;
+@property (nonatomic, readonly) NSURL *modelURL;
 
 /// @name Handling Events
 

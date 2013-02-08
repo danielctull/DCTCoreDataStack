@@ -130,6 +130,8 @@ ubiquityContainerIdentifier:(NSString *)ubiquityContainerIdentifier {
 #pragma mark - Internal
 
 - (void)setUbiquityIdentityToken:(id)ubiquityIdentityToken {
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdirect-ivar-access"
 	if (_ubiquityIdentityToken == nil && ubiquityIdentityToken == nil) return;
 	if ([_ubiquityIdentityToken isEqual:ubiquityIdentityToken]) return;
 	_ubiquityIdentityToken = ubiquityIdentityToken;
@@ -137,6 +139,7 @@ ubiquityContainerIdentifier:(NSString *)ubiquityContainerIdentifier {
 		[self removePersistentStore];
 		[self loadPersistentStore:NULL];
 	}
+#pragma clang diagnostic pop
 }
 
 - (void)removePersistentStore {

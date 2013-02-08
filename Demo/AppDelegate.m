@@ -11,18 +11,20 @@
 #import "Event.h"
 #import "ViewController.h"
 
-@implementation AppDelegate {
-	DCTiCloudCoreDataStack *coreDataStack;
-}
+@interface AppDelegate ()
+@property (nonatomic, strong) DCTiCloudCoreDataStack *coreDataStack;
+@end
+
+@implementation AppDelegate
 
 @synthesize window;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
 	
-	coreDataStack = [[DCTiCloudCoreDataStack alloc] initWithStoreFilename:@"DCTCoreDataStack"];
+	self.coreDataStack = [[DCTiCloudCoreDataStack alloc] initWithStoreFilename:@"DCTCoreDataStack"];
 
-	ViewController *viewController = [[ViewController alloc] initWithManagedObjectContext:coreDataStack.managedObjectContext];
-	coreDataStack.persistentStoreDidChangeHandler = ^{
+	ViewController *viewController = [[ViewController alloc] initWithManagedObjectContext:self.coreDataStack.managedObjectContext];
+	self.coreDataStack.persistentStoreDidChangeHandler = ^{
 		[viewController reloadData];
 	};
 

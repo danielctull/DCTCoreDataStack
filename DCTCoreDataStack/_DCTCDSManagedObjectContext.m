@@ -15,8 +15,11 @@
 
 @implementation _DCTCDSManagedObjectContext
 
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wexplicit-ownership-type"
 - (BOOL)save:(NSError **)error {
-		
+#pragma clang diagnostic pop
+
 	id object = objc_getAssociatedObject(self, @selector(dct_saveWithCompletionHandler:));
 	
 	if (object) return [super save:error];

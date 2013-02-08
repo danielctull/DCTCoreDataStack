@@ -131,7 +131,7 @@
 				break;
 		}
 		
-		[messages appendFormat:@"\n    %@%@%@%@%@", (entityName?:@""), (attributeName?@".":@""), (attributeName?:@""), (entityName?@": ":@""), message];
+		[messages appendFormat:@"\n    %@%@%@%@%@", (entityName?entityName:@""), (attributeName?@".":@""), (attributeName?attributeName:@""), (entityName?@": ":@""), message];
 	}
 	
 	return messages;

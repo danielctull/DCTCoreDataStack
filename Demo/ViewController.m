@@ -32,7 +32,7 @@
 }
 
 - (void)reloadData {
-	_fetchedResultsController = nil;
+	self.fetchedResultsController = nil;
 	[self.tableView reloadData];
 }
 
@@ -91,7 +91,8 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
 #pragma mark - Fetched results controller
 
 - (NSFetchedResultsController *)fetchedResultsController {
-	
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdirect-ivar-access"
     if (!_fetchedResultsController) {
 		
 		NSManagedObjectContext *context = self.managedObjectContext;
@@ -101,20 +102,21 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
 		[fetchRequest setFetchBatchSize:20];
 		[fetchRequest setSortDescriptors:@[[[NSSortDescriptor alloc] initWithKey:EventAttributes.date ascending:NO]]];
     
-		self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest
+		_fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest
 																			managedObjectContext:context
 																			  sectionNameKeyPath:nil
 																					   cacheName:@"Master"];
-		self.fetchedResultsController.delegate = self;
+		_fetchedResultsController.delegate = self;
     
 		NSError *error = nil;
-		if (![self.fetchedResultsController performFetch:&error]) {
+		if (![_fetchedResultsController performFetch:&error]) {
 			NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
 			abort();
 		}
 	}
 	
     return _fetchedResultsController;
+#pragma clang diagnostic pop
 }
 
 - (void)controllerWillChangeContent:(NSFetchedResultsController *)controller {

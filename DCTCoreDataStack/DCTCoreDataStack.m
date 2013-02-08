@@ -128,59 +128,80 @@ NSString *const DCTCoreDataStackExcludeFromBackupStoreOption = @"DCTCoreDataStac
 #pragma mark - Getters
 
 - (NSManagedObjectContext *)rootContext {
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdirect-ivar-access"
 
 	if (_rootContext == nil)
 		[self loadRootContext];
 
 	return _rootContext;
+	
+#pragma clang diagnostic pop
 }
 
 - (void)loadRootContext {
-	_rootContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
-	[_rootContext setPersistentStoreCoordinator:self.persistentStoreCoordinator];
-	_rootContext.dct_name = @"DCTCoreDataStack.internal_rootContext";
+	NSManagedObjectContext *rootContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
+	[rootContext setPersistentStoreCoordinator:self.persistentStoreCoordinator];
+	rootContext.dct_name = @"DCTCoreDataStack.internal_rootContext";
+	self.rootContext = rootContext;
 }
 
 - (NSManagedObjectContext *)managedObjectContext {
-
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdirect-ivar-access"
+	
 	if (_managedObjectContext == nil)
 		[self loadManagedObjectContext];
 
 	return _managedObjectContext;
+	
+#pragma clang diagnostic pop
 }
 
 - (void)loadManagedObjectContext {
-	_managedObjectContext = [[_DCTCDSManagedObjectContext alloc] initWithConcurrencyType:NSMainQueueConcurrencyType];
-	[_managedObjectContext setParentContext:self.rootContext];
-	_managedObjectContext.dct_name = @"DCTCoreDataStack.mainContext";
+	_DCTCDSManagedObjectContext *managedObjectContext = [[_DCTCDSManagedObjectContext alloc] initWithConcurrencyType:NSMainQueueConcurrencyType];
+	[managedObjectContext setParentContext:self.rootContext];
+	managedObjectContext.dct_name = @"DCTCoreDataStack.mainContext";
+	self.managedObjectContext = managedObjectContext;
 }
 
 - (NSManagedObjectModel *)managedObjectModel {
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdirect-ivar-access"
 	
 	if (_managedObjectModel == nil)
 		[self loadManagedObjectModel];
 	
 	return _managedObjectModel;
+	
+#pragma clang diagnostic pop
 }
 
 - (void)loadManagedObjectModel {
 
+	NSManagedObjectModel *model;
     if (self.modelURL)
-		_managedObjectModel = [[NSManagedObjectModel alloc] initWithContentsOfURL:self.modelURL];
+		model = [[NSManagedObjectModel alloc] initWithContentsOfURL:self.modelURL];
     else
-		_managedObjectModel = [NSManagedObjectModel mergedModelFromBundles:[NSArray arrayWithObject:[NSBundle mainBundle]]];
+		model = [NSManagedObjectModel mergedModelFromBundles:[NSArray arrayWithObject:[NSBundle mainBundle]]];
+
+	self.managedObjectModel = model;
 }
 
 - (NSPersistentStoreCoordinator *)persistentStoreCoordinator {
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdirect-ivar-access"
 	
 	if (_persistentStoreCoordinator == nil)
 		[self loadPersistentStoreCoordinator];
 	
 	return _persistentStoreCoordinator;
+	
+#pragma clang diagnostic pop
 }
 
 - (void)loadPersistentStoreCoordinator {
-	_persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:self.managedObjectModel];
+	self.persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:self.managedObjectModel];
 	[self loadPersistentStore:NULL];
 }
 
@@ -196,11 +217,11 @@ NSString *const DCTCoreDataStackExcludeFromBackupStoreOption = @"DCTCoreDataStac
 	}
 
 	NSError *error;
-	NSPersistentStore *persistentStore = [_persistentStoreCoordinator addPersistentStoreWithType:self.storeType
-																				   configuration:self.modelConfiguration
-																							 URL:self.storeURL
-																						 options:self.storeOptions
-																						   error:&error];
+	NSPersistentStore *persistentStore = [self.persistentStoreCoordinator addPersistentStoreWithType:self.storeType
+																					   configuration:self.modelConfiguration
+																								 URL:self.storeURL
+																							 options:self.storeOptions
+																							   error:&error];
 
 	if (!persistentStore && self.didResolvePersistentStoreErrorHandler != NULL) {
 
@@ -210,11 +231,11 @@ NSString *const DCTCoreDataStackExcludeFromBackupStoreOption = @"DCTCoreDataStac
 		}
 
 		NSError *error2;
-		persistentStore = [_persistentStoreCoordinator addPersistentStoreWithType:self.storeType
-																	configuration:self.modelConfiguration
-																			  URL:self.storeURL
-																		  options:self.storeOptions
-																			error:&error2];
+		persistentStore = [self.persistentStoreCoordinator addPersistentStoreWithType:self.storeType
+																		configuration:self.modelConfiguration
+																				  URL:self.storeURL
+																			  options:self.storeOptions
+																				error:&error2];
 		if (!persistentStore) {
 			completion(nil, error2);
 			return;

@@ -13,7 +13,7 @@
 @interface ViewController : UITableViewController
 
 - (id)initWithManagedObjectContext:(NSManagedObjectContext *)managedObjectContext;
-@property (nonatomic, readonly, strong) NSManagedObjectContext *managedObjectContext;
+@property (nonatomic, readonly) NSManagedObjectContext *managedObjectContext;
 
 - (void)reloadData;
 
