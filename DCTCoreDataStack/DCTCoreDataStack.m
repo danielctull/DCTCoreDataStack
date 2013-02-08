@@ -34,7 +34,7 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#import "_DCTCoreDataStack.h"
+#import "DCTCoreDataStack+Private.h"
 #import "_DCTCDSManagedObjectContext.h"
 #import <objc/runtime.h>
 #include <sys/xattr.h>
@@ -102,12 +102,12 @@ NSString *const DCTCoreDataStackExcludeFromBackupStoreOption = @"DCTCoreDataStac
 	NSNotificationCenter *defaultCenter = [NSNotificationCenter defaultCenter];
 	
 	[defaultCenter addObserver:self
-					  selector:@selector(_applicationDidEnterBackgroundNotification:)
+					  selector:@selector(applicationDidEnterBackgroundNotification:)
 						  name:UIApplicationDidEnterBackgroundNotification
 						object:app];
 	
 	[defaultCenter addObserver:self
-					  selector:@selector(_applicationWillTerminateNotification:)
+					  selector:@selector(applicationWillTerminateNotification:)
 						  name:UIApplicationWillTerminateNotification
 						object:app];
 
@@ -130,12 +130,12 @@ NSString *const DCTCoreDataStackExcludeFromBackupStoreOption = @"DCTCoreDataStac
 - (NSManagedObjectContext *)rootContext {
 
 	if (_rootContext == nil)
-		[self _loadRootContext];
+		[self loadRootContext];
 
 	return _rootContext;
 }
 
-- (void)_loadRootContext {
+- (void)loadRootContext {
 	_rootContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
 	[_rootContext setPersistentStoreCoordinator:self.persistentStoreCoordinator];
 	_rootContext.dct_name = @"DCTCoreDataStack.internal_rootContext";
@@ -144,12 +144,12 @@ NSString *const DCTCoreDataStackExcludeFromBackupStoreOption = @"DCTCoreDataStac
 - (NSManagedObjectContext *)managedObjectContext {
 
 	if (_managedObjectContext == nil)
-		[self _loadManagedObjectContext];
+		[self loadManagedObjectContext];
 
 	return _managedObjectContext;
 }
 
-- (void)_loadManagedObjectContext {
+- (void)loadManagedObjectContext {
 	_managedObjectContext = [[_DCTCDSManagedObjectContext alloc] initWithConcurrencyType:NSMainQueueConcurrencyType];
 	[_managedObjectContext setParentContext:self.rootContext];
 	_managedObjectContext.dct_name = @"DCTCoreDataStack.mainContext";
@@ -158,12 +158,12 @@ NSString *const DCTCoreDataStackExcludeFromBackupStoreOption = @"DCTCoreDataStac
 - (NSManagedObjectModel *)managedObjectModel {
 	
 	if (_managedObjectModel == nil)
-		[self _loadManagedObjectModel];
+		[self loadManagedObjectModel];
 	
 	return _managedObjectModel;
 }
 
-- (void)_loadManagedObjectModel {
+- (void)loadManagedObjectModel {
 
     if (self.modelURL)
 		_managedObjectModel = [[NSManagedObjectModel alloc] initWithContentsOfURL:self.modelURL];
@@ -174,12 +174,12 @@ NSString *const DCTCoreDataStackExcludeFromBackupStoreOption = @"DCTCoreDataStac
 - (NSPersistentStoreCoordinator *)persistentStoreCoordinator {
 	
 	if (_persistentStoreCoordinator == nil)
-		[self _loadPersistentStoreCoordinator];
+		[self loadPersistentStoreCoordinator];
 	
 	return _persistentStoreCoordinator;
 }
 
-- (void)_loadPersistentStoreCoordinator {
+- (void)loadPersistentStoreCoordinator {
 	_persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:self.managedObjectModel];
 	[self loadPersistentStore:NULL];
 }
@@ -221,11 +221,11 @@ NSString *const DCTCoreDataStackExcludeFromBackupStoreOption = @"DCTCoreDataStac
 		}
 	}
 
-	[self _setupExcludeFromBackupFlag];
+	[self setupExcludeFromBackupFlag];
 	completion(persistentStore, nil);
 }
 
-- (void)_setupExcludeFromBackupFlag {
+- (void)setupExcludeFromBackupFlag {
 
 	BOOL storeIsReachable = [self.storeURL checkResourceIsReachableAndReturnError:NULL];
 	if (!storeIsReachable) return;
@@ -266,9 +266,11 @@ NSString *const DCTCoreDataStackExcludeFromBackupStoreOption = @"DCTCoreDataStac
     return [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
 }
 
+#pragma mark - Notifications
+
 #if TARGET_OS_IPHONE
 
-- (void)_applicationDidEnterBackgroundNotification:(NSNotification *)notification {
+- (void)applicationDidEnterBackgroundNotification:(NSNotification *)notification {
 	
 	NSManagedObjectContext *context = self.managedObjectContext;
 	
@@ -281,7 +283,7 @@ NSString *const DCTCoreDataStackExcludeFromBackupStoreOption = @"DCTCoreDataStac
 	// TODO: what if there was a save error?
 }
 
-- (void)_applicationWillTerminateNotification:(NSNotification *)notification {
+- (void)applicationWillTerminateNotification:(NSNotification *)notification {
 	
 	NSManagedObjectContext *context = self.managedObjectContext;
 	

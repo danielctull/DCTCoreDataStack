@@ -7,7 +7,7 @@
 //
 
 #import "DCTiCloudCoreDataStack.h"
-#import "_DCTCoreDataStack.h"
+#import "DCTCoreDataStack+Private.h"
 
 #if TARGET_OS_IPHONE
 #import <UIKit/UIKit.h>
@@ -62,7 +62,7 @@
 }
 
 - (NSURL *)storeURL {
-	NSURL *ubiquityContainerURL = [self _ubiquityContainerURL];
+	NSURL *ubiquityContainerURL = [self ubiquityContainerURL];
 	if (ubiquityContainerURL) {
 		NSString *storeFilename = [NSString stringWithFormat:@"%@.nosync", self.storeFilename];
 		return [ubiquityContainerURL URLByAppendingPathComponent:storeFilename];
@@ -78,7 +78,7 @@
 	NSMutableDictionary *storeOptions = [[super storeOptions] mutableCopy];
 	if (!storeOptions) storeOptions = [NSMutableDictionary new];
 	[storeOptions setObject:self.storeFilename forKey:NSPersistentStoreUbiquitousContentNameKey];
-	NSURL *URL = [[self _ubiquityContainerURL] URLByAppendingPathComponent:self.storeFilename];
+	NSURL *URL = [[self ubiquityContainerURL] URLByAppendingPathComponent:self.storeFilename];
 	[storeOptions setObject:URL forKey:NSPersistentStoreUbiquitousContentURLKey];
 	return [storeOptions copy];
 }
@@ -105,17 +105,17 @@ ubiquityContainerIdentifier:(NSString *)ubiquityContainerIdentifier {
 
 	NSNotificationCenter *defaultCenter = [NSNotificationCenter defaultCenter];
 	[defaultCenter addObserver:self
-					  selector:@selector(_ubiquityIdentityDidChangeNotification:)
+					  selector:@selector(ubiquityIdentityDidChangeNotification:)
 						  name:NSUbiquityIdentityDidChangeNotification
 						object:nil];
 	[defaultCenter addObserver:self
-					  selector:@selector(_persistentStoreDidImportUbiquitousContentChangesNotification:)
+					  selector:@selector(persistentStoreDidImportUbiquitousContentChangesNotification:)
 						  name:NSPersistentStoreDidImportUbiquitousContentChangesNotification
 						object:nil];
 	
 #if TARGET_OS_IPHONE
 	[defaultCenter addObserver:self
-					  selector:@selector(_applicationDidBecomeActiveNotification:)
+					  selector:@selector(applicationDidBecomeActiveNotification:)
 						  name:UIApplicationDidBecomeActiveNotification
 						object:[UIApplication sharedApplication]];
 #endif
@@ -134,12 +134,12 @@ ubiquityContainerIdentifier:(NSString *)ubiquityContainerIdentifier {
 	if ([_ubiquityIdentityToken isEqual:ubiquityIdentityToken]) return;
 	_ubiquityIdentityToken = ubiquityIdentityToken;
 	if (self.persistentStore) {
-		[self _removePersistentStore];
+		[self removePersistentStore];
 		[self loadPersistentStore:NULL];
 	}
 }
 
-- (void)_removePersistentStore {
+- (void)removePersistentStore {
 	if (!self.persistentStore) return;
 	NSPersistentStoreCoordinator *persistentStoreCoordinator = self.managedObjectContext.persistentStoreCoordinator;
 	[persistentStoreCoordinator lock];
@@ -164,23 +164,25 @@ ubiquityContainerIdentifier:(NSString *)ubiquityContainerIdentifier {
 	});
 }
 
-- (void)_persistentStoreDidImportUbiquitousContentChangesNotification:(NSNotification *)notification {
+- (NSURL *)ubiquityContainerURL {
+	return [[NSFileManager defaultManager] URLForUbiquityContainerIdentifier:self.ubiquityContainerIdentifier];
+}
+
+#pragma mark - Notifications
+
+- (void)persistentStoreDidImportUbiquitousContentChangesNotification:(NSNotification *)notification {
 	if (![notification.object isEqual:self.managedObjectContext.persistentStoreCoordinator]) return;
 	[self.managedObjectContext performBlock:^{
         [self.managedObjectContext mergeChangesFromContextDidSaveNotification:notification];
     }];
 }
 
-- (NSURL *)_ubiquityContainerURL {
-	return [[NSFileManager defaultManager] URLForUbiquityContainerIdentifier:self.ubiquityContainerIdentifier];
-}
-
-- (void)_ubiquityIdentityDidChangeNotification:(NSNotification *)notification {
+- (void)ubiquityIdentityDidChangeNotification:(NSNotification *)notification {
 	self.ubiquityIdentityToken = [[NSFileManager defaultManager] ubiquityIdentityToken];
 }
 
 #if TARGET_OS_IPHONE
-- (void)_applicationDidBecomeActiveNotification:(NSNotification *)notification {
+- (void)applicationDidBecomeActiveNotification:(NSNotification *)notification {
 	self.ubiquityIdentityToken = [[NSFileManager defaultManager] ubiquityIdentityToken];
 }
 #endif

@@ -1,5 +1,5 @@
 //
-//  _DCTCoreDataStack.h
+//  DCTCoreDataStack+Private.h
 //  DCTCoreDataStack
 //
 //  Created by Daniel Tull on 15/12/2012.
@@ -14,8 +14,8 @@
 + (NSURL *)applicationDocumentsDirectory;
 
 #if TARGET_OS_IPHONE
-- (void)_applicationDidEnterBackgroundNotification:(NSNotification *)notification;
-- (void)_applicationWillTerminateNotification:(NSNotification *)notification;
+- (void)applicationDidEnterBackgroundNotification:(NSNotification *)notification;
+- (void)applicationWillTerminateNotification:(NSNotification *)notification;
 #endif
 
 @end
