@@ -52,6 +52,7 @@
 		2437B68D15B97C2600750117 /* libDCTCoreDataStack.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libDCTCoreDataStack.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		2455F8A315CFBA4A00C1596B /* DCTiCloudCoreDataStack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCTiCloudCoreDataStack.h; sourceTree = "<group>"; };
 		2455F8A415CFBA4A00C1596B /* DCTiCloudCoreDataStack.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCTiCloudCoreDataStack.m; sourceTree = "<group>"; };
+		24E7737316C5050C008B88F9 /* _DCTCoreDataStack.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = _DCTCoreDataStack.h; sourceTree = "<group>"; };
 		24E91B5715BEB1FA00E0DB54 /* CoreDataStack.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CoreDataStack.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		24E91B5B15BEB1FA00E0DB54 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		24E91B5F15BEB1FA00E0DB54 /* Demo-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Demo-Info.plist"; sourceTree = "<group>"; };
@@ -122,6 +123,7 @@
 			children = (
 				24E91BDD15BED01A00E0DB54 /* _DCTCDSManagedObjectContext.h */,
 				24E91BDE15BED01A00E0DB54 /* _DCTCDSManagedObjectContext.m */,
+				24E7737316C5050C008B88F9 /* _DCTCoreDataStack.h */,
 			);
 			name = Private;
 			sourceTree = "<group>";
@@ -343,9 +345,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				24E7737216C50337008B88F9 /* DCTiCloudCoreDataStack.m in Sources */,
 				24E91BDF15BED01A00E0DB54 /* _DCTCDSManagedObjectContext.m in Sources */,
 				2437B69B15B97C5C00750117 /* DCTCoreDataStack.m in Sources */,
+				24E7737216C50337008B88F9 /* DCTiCloudCoreDataStack.m in Sources */,
 				2437B69C15B97C5F00750117 /* NSManagedObjectContext+DCTCoreDataStack.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

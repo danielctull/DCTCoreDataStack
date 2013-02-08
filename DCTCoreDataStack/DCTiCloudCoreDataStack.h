@@ -17,8 +17,8 @@
 				   modelURL:(NSURL *)modelURL
 ubiquityContainerIdentifier:(NSString *)ubiquityContainerIdentifier;
 
-@property (nonatomic, readonly, copy) NSString *storeFilename;
-@property (nonatomic, readonly, copy) NSString *ubiquityContainerIdentifier;
+@property (nonatomic, readonly) NSString *storeFilename;
+@property (nonatomic, readonly) NSString *ubiquityContainerIdentifier;
 
 @property (nonatomic, readonly, getter = isiCloudAvailable) BOOL iCloudAvailable;
 
