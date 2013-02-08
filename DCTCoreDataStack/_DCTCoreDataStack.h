@@ -10,7 +10,7 @@
 
 @interface DCTCoreDataStack (Private)
 
-- (NSPersistentStore *)_loadPersistentStore;
+- (void)loadPersistentStore:(void(^)(NSPersistentStore *persistentStore, NSError *error))completion;
 + (NSURL *)_applicationDocumentsDirectory;
 
 #if TARGET_OS_IPHONE

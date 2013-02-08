@@ -181,34 +181,48 @@ NSString *const DCTCoreDataStackExcludeFromBackupStoreOption = @"DCTCoreDataStac
 
 - (void)_loadPersistentStoreCoordinator {
 	_persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:self.managedObjectModel];
-	[self _loadPersistentStore];
+	[self loadPersistentStore:NULL];
 }
 
 @end
 
 @implementation DCTCoreDataStack (Private)
 
-- (NSPersistentStore *)_loadPersistentStore {
-	
-	NSError *error = nil;
+- (void)loadPersistentStore:(void(^)(NSPersistentStore *persistentStore, NSError *error))completion {
+
+	if (completion == NULL) {
+		void(^wrapper)(NSPersistentStore *, NSError *) = ^(NSPersistentStore *store, NSError *error) {};
+		completion = wrapper;
+	}
+
+	NSError *error;
 	NSPersistentStore *persistentStore = [_persistentStoreCoordinator addPersistentStoreWithType:self.storeType
 																				   configuration:self.modelConfiguration
 																							 URL:self.storeURL
 																						 options:self.storeOptions
 																						   error:&error];
 
-	if (!persistentStore && self.didResolvePersistentStoreErrorHandler) {
+	if (!persistentStore && self.didResolvePersistentStoreErrorHandler != NULL) {
 
-		if (self.didResolvePersistentStoreErrorHandler(error))
-			[_persistentStoreCoordinator addPersistentStoreWithType:self.storeType
-													  configuration:self.modelConfiguration
-																URL:self.storeURL
-															options:self.storeOptions
-															  error:NULL];
+		if (!self.didResolvePersistentStoreErrorHandler(error)) {
+			completion(nil, error);
+			return;
+		}
+
+		NSError *error2;
+		persistentStore = [_persistentStoreCoordinator addPersistentStoreWithType:self.storeType
+																	configuration:self.modelConfiguration
+																			  URL:self.storeURL
+																		  options:self.storeOptions
+																			error:&error2];
+		if (!persistentStore) {
+			completion(nil, error2);
+			return;
+		}
 	}
 
 	[self _setupExcludeFromBackupFlag];
-	return persistentStore;
+	completion(persistentStore, nil);
 }
 
 - (void)_setupExcludeFromBackupFlag {

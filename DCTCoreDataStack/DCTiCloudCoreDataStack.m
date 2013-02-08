@@ -15,11 +15,10 @@
 
 @interface DCTiCloudCoreDataStack ()
 @property (nonatomic, strong) id ubiquityIdentityToken;
+@property (nonatomic, strong) NSPersistentStore *persistentStore;
 @end
 
-@implementation DCTiCloudCoreDataStack {
-	NSPersistentStore *_persistentStore;
-}
+@implementation DCTiCloudCoreDataStack
 
 #pragma mark - DCTCoreDataStack
 
@@ -134,31 +133,34 @@ ubiquityContainerIdentifier:(NSString *)ubiquityContainerIdentifier {
 	if (_ubiquityIdentityToken == nil && ubiquityIdentityToken == nil) return;
 	if ([_ubiquityIdentityToken isEqual:ubiquityIdentityToken]) return;
 	_ubiquityIdentityToken = ubiquityIdentityToken;
-	if (_persistentStore) {
+	if (self.persistentStore) {
 		[self _removePersistentStore];
-		[self _loadPersistentStore];
+		[self loadPersistentStore:NULL];
 	}
 }
 
 - (void)_removePersistentStore {
-	if (!_persistentStore) return;
+	if (!self.persistentStore) return;
 	NSPersistentStoreCoordinator *persistentStoreCoordinator = self.managedObjectContext.persistentStoreCoordinator;
 	[persistentStoreCoordinator lock];
-	[persistentStoreCoordinator removePersistentStore:_persistentStore error:NULL];
+	[persistentStoreCoordinator removePersistentStore:self.persistentStore error:NULL];
 	[persistentStoreCoordinator unlock];
 }
 
-- (void)_loadPersistentStore {
+- (void)loadPersistentStore:(void (^)(NSPersistentStore *, NSError *))completion {
 	// load the new store on a background thread, because it takes an age to setup with a new iCloud container
 	dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
 		NSPersistentStoreCoordinator *persistentStoreCoordinator = self.managedObjectContext.persistentStoreCoordinator;
 		[persistentStoreCoordinator lock];
-		_persistentStore = [super _loadPersistentStore];
+		[super loadPersistentStore:^(NSPersistentStore *store, NSError *error) {
+			self.persistentStore = store;
+			if (self.persistentStoreDidChangeHandler == NULL && completion == NULL) return;
+			dispatch_async(dispatch_get_main_queue(), ^{
+				if (self.persistentStoreDidChangeHandler != NULL) self.persistentStoreDidChangeHandler();
+				if (completion != NULL) completion(store, error);
+			});
+		}];
 		[persistentStoreCoordinator unlock];
-		if (self.persistentStoreDidChangeHandler == NULL) return;
-		dispatch_async(dispatch_get_main_queue(), ^{
-			self.persistentStoreDidChangeHandler();
-		});
 	});
 }
 
