@@ -36,16 +36,15 @@
 }
 
 - (void)dct_saveWithCompletionHandler:(void(^)(BOOL success, NSError *error))completion {
-	
+
+	if (completion == NULL) completion = ^(BOOL success, NSError *error) {};
+
 #if TARGET_OS_IPHONE
 	
 	UIBackgroundTaskIdentifier backgroundTaskIdentifier = [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:NULL];
 	
 	void(^iphoneCompletion)(BOOL, NSError *) = ^(BOOL success, NSError *error) {
-		
-		if (completion != NULL)
-			completion(success, error);
-		
+		completion(success, error);
 		[[UIApplication sharedApplication] endBackgroundTask:backgroundTaskIdentifier];
 	};
 	
@@ -64,14 +63,16 @@
 		objc_setAssociatedObject(self, _cmd, nil, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 		
 		if (!success) {
-			if (completion != NULL)
-				completion(success, error);
-			
+			completion(success, error);
 			return;
 		}
 		
 		[parent performBlock:^{
-			[parent dct_saveWithCompletionHandler:completion];
+			[parent dct_saveWithCompletionHandler:^(BOOL success, NSError *error) {
+				[self performBlock:^{
+					completion(success, error);
+				}];
+			}];
 		}];
 	}];
 }
