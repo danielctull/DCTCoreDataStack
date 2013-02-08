@@ -117,7 +117,7 @@ NSString *const DCTCoreDataStackExcludeFromBackupStoreOption = @"DCTCoreDataStac
 }
 
 - (id)initWithStoreFilename:(NSString *)filename {
-	NSURL *storeURL = [[[self class] _applicationDocumentsDirectory] URLByAppendingPathComponent:filename];
+	NSURL *storeURL = [[[self class] applicationDocumentsDirectory] URLByAppendingPathComponent:filename];
 	return [self initWithStoreURL:storeURL
 						storeType:NSSQLiteStoreType
 					 storeOptions:nil
@@ -262,7 +262,7 @@ NSString *const DCTCoreDataStackExcludeFromBackupStoreOption = @"DCTCoreDataStac
 	}
 }
 
-+ (NSURL *)_applicationDocumentsDirectory {
++ (NSURL *)applicationDocumentsDirectory {
     return [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
 }
 

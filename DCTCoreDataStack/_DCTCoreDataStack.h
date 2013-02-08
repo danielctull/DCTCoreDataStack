@@ -11,7 +11,7 @@
 @interface DCTCoreDataStack (Private)
 
 - (void)loadPersistentStore:(void(^)(NSPersistentStore *persistentStore, NSError *error))completion;
-+ (NSURL *)_applicationDocumentsDirectory;
++ (NSURL *)applicationDocumentsDirectory;
 
 #if TARGET_OS_IPHONE
 - (void)_applicationDidEnterBackgroundNotification:(NSNotification *)notification;

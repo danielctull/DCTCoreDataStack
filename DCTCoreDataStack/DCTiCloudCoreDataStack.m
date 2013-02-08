@@ -68,7 +68,7 @@
 		return [ubiquityContainerURL URLByAppendingPathComponent:storeFilename];
 	}
 
-	return [[[self class] _applicationDocumentsDirectory] URLByAppendingPathComponent:self.storeFilename];
+	return [[[self class] applicationDocumentsDirectory] URLByAppendingPathComponent:self.storeFilename];
 }
 
 - (NSDictionary *)storeOptions {
