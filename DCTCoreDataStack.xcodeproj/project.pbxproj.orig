@@ -12,8 +12,8 @@
 		2437B69A15B97C5400750117 /* NSManagedObjectContext+DCTCoreDataStack.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 24F6EC1A158A264C00CEDD41 /* NSManagedObjectContext+DCTCoreDataStack.h */; };
 		2437B69B15B97C5C00750117 /* DCTCoreDataStack.m in Sources */ = {isa = PBXBuildFile; fileRef = 24F6EBF9158A261000CEDD41 /* DCTCoreDataStack.m */; };
 		2437B69C15B97C5F00750117 /* NSManagedObjectContext+DCTCoreDataStack.m in Sources */ = {isa = PBXBuildFile; fileRef = 24F6EC1B158A264C00CEDD41 /* NSManagedObjectContext+DCTCoreDataStack.m */; };
+		2455F8A515CFBA4A00C1596B /* DCTiCloudCoreDataStack.m in Sources */ = {isa = PBXBuildFile; fileRef = 2455F8A415CFBA4A00C1596B /* DCTiCloudCoreDataStack.m */; };
 		2455F8A715CFC72F00C1596B /* DCTiCloudCoreDataStack.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 2455F8A315CFBA4A00C1596B /* DCTiCloudCoreDataStack.h */; };
-		24E7737216C50337008B88F9 /* DCTiCloudCoreDataStack.m in Sources */ = {isa = PBXBuildFile; fileRef = 2455F8A415CFBA4A00C1596B /* DCTiCloudCoreDataStack.m */; };
 		24E91B5915BEB1FA00E0DB54 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 24F6EC1F158A269300CEDD41 /* UIKit.framework */; };
 		24E91B5A15BEB1FA00E0DB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 24F6EBF3158A261000CEDD41 /* Foundation.framework */; };
 		24E91B5C15BEB1FA00E0DB54 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 24E91B5B15BEB1FA00E0DB54 /* CoreGraphics.framework */; };
@@ -49,6 +49,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		242447BB167D051D0089FFD5 /* _DCTCoreDataStack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _DCTCoreDataStack.h; sourceTree = "<group>"; };
+		242447C1167D40830089FFD5 /* CoreDataStack.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = CoreDataStack.entitlements; sourceTree = "<group>"; };
 		2437B68D15B97C2600750117 /* libDCTCoreDataStack.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libDCTCoreDataStack.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		2455F8A315CFBA4A00C1596B /* DCTiCloudCoreDataStack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCTiCloudCoreDataStack.h; sourceTree = "<group>"; };
 		2455F8A415CFBA4A00C1596B /* DCTiCloudCoreDataStack.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCTiCloudCoreDataStack.m; sourceTree = "<group>"; };
@@ -129,7 +131,11 @@
 		24E91B5D15BEB1FA00E0DB54 /* Demo */ = {
 			isa = PBXGroup;
 			children = (
+<<<<<<< HEAD
+				242447C1167D40830089FFD5 /* CoreDataStack.entitlements */,
+=======
 				24E91B5E15BEB1FA00E0DB54 /* Supporting Files */,
+>>>>>>> master
 				24E91B7315BEB26600E0DB54 /* _Event.h */,
 				24E91B7415BEB26600E0DB54 /* _Event.m */,
 				24E91B6615BEB1FA00E0DB54 /* AppDelegate.h */,
@@ -197,6 +203,12 @@
 				2455F8A415CFBA4A00C1596B /* DCTiCloudCoreDataStack.m */,
 				24F6EC1A158A264C00CEDD41 /* NSManagedObjectContext+DCTCoreDataStack.h */,
 				24F6EC1B158A264C00CEDD41 /* NSManagedObjectContext+DCTCoreDataStack.m */,
+<<<<<<< HEAD
+				242447BB167D051D0089FFD5 /* _DCTCoreDataStack.h */,
+				24E91BDD15BED01A00E0DB54 /* _DCTCDSManagedObjectContext.h */,
+				24E91BDE15BED01A00E0DB54 /* _DCTCDSManagedObjectContext.m */,
+=======
+>>>>>>> master
 			);
 			path = DCTCoreDataStack;
 			sourceTree = "<group>";
@@ -240,9 +252,9 @@
 			productReference = 2437B68D15B97C2600750117 /* libDCTCoreDataStack.a */;
 			productType = "com.apple.product-type.library.static";
 		};
-		24E91B5615BEB1FA00E0DB54 /* DCTCoreDataStack Demo */ = {
+		24E91B5615BEB1FA00E0DB54 /* Demo */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 24E91B6B15BEB1FA00E0DB54 /* Build configuration list for PBXNativeTarget "DCTCoreDataStack Demo" */;
+			buildConfigurationList = 24E91B6B15BEB1FA00E0DB54 /* Build configuration list for PBXNativeTarget "Demo" */;
 			buildPhases = (
 				24E91B5315BEB1FA00E0DB54 /* Sources */,
 				24E91B5415BEB1FA00E0DB54 /* Frameworks */,
@@ -252,7 +264,7 @@
 			);
 			dependencies = (
 			);
-			name = "DCTCoreDataStack Demo";
+			name = Demo;
 			productName = Demo;
 			productReference = 24E91B5715BEB1FA00E0DB54 /* CoreDataStack.app */;
 			productType = "com.apple.product-type.application";
@@ -298,7 +310,7 @@
 			targets = (
 				2437B68C15B97C2600750117 /* DCTCoreDataStack */,
 				24F6EBFF158A261000CEDD41 /* DCTCoreDataStackTests */,
-				24E91B5615BEB1FA00E0DB54 /* DCTCoreDataStack Demo */,
+				24E91B5615BEB1FA00E0DB54 /* Demo */,
 			);
 		};
 /* End PBXProject section */
@@ -343,10 +355,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				24E7737216C50337008B88F9 /* DCTiCloudCoreDataStack.m in Sources */,
 				24E91BDF15BED01A00E0DB54 /* _DCTCDSManagedObjectContext.m in Sources */,
 				2437B69B15B97C5C00750117 /* DCTCoreDataStack.m in Sources */,
 				2437B69C15B97C5F00750117 /* NSManagedObjectContext+DCTCoreDataStack.m in Sources */,
+<<<<<<< HEAD
+				24E91BDF15BED01A00E0DB54 /* _DCTCDSManagedObjectContext.m in Sources */,
+				2455F8A515CFBA4A00C1596B /* DCTiCloudCoreDataStack.m in Sources */,
+=======
+>>>>>>> master
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -396,10 +412,6 @@
 		2437B69715B97C2600750117 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = (
-					"$(ARCHS_STANDARD_32_BIT)",
-					"$(ARCHS_STANDARD_64_BIT)",
-				);
 				CLANG_CXX_LIBRARY = "libc++";
 				DSTROOT = /tmp/DCTCoreDataStack.dst;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -408,18 +420,12 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos macosx";
-				VALID_ARCHS = "armv7 armv7s x86_64";
 			};
 			name = Debug;
 		};
 		2437B69815B97C2600750117 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = (
-					"$(ARCHS_STANDARD_32_BIT)",
-					"$(ARCHS_STANDARD_64_BIT)",
-				);
 				CLANG_CXX_LIBRARY = "libc++";
 				DSTROOT = /tmp/DCTCoreDataStack.dst;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -558,7 +564,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		24E91B6B15BEB1FA00E0DB54 /* Build configuration list for PBXNativeTarget "DCTCoreDataStack Demo" */ = {
+		24E91B6B15BEB1FA00E0DB54 /* Build configuration list for PBXNativeTarget "Demo" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				24E91B6915BEB1FA00E0DB54 /* Debug */,
