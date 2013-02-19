@@ -163,6 +163,8 @@ NSString *const DCTCoreDataStackExcludeFromBackupStoreOption = @"DCTCoreDataStac
 	[managedObjectContext setParentContext:self.rootContext];
 	managedObjectContext.dct_name = @"DCTCoreDataStack.mainContext";
 	self.managedObjectContext = managedObjectContext;
+	NSLog(@"%@:%@ %@", self, NSStringFromSelector(_cmd), managedObjectContext);
+	NSLog(@"%@:%@ %@", self, NSStringFromSelector(_cmd), managedObjectContext.parentContext);
 }
 
 - (NSManagedObjectModel *)managedObjectModel {

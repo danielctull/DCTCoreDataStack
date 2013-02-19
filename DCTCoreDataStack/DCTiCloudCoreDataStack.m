@@ -16,6 +16,7 @@
 @interface DCTiCloudCoreDataStack ()
 @property (nonatomic, strong) id ubiquityIdentityToken;
 @property (nonatomic, strong) NSPersistentStore *persistentStore;
+@property (nonatomic, strong) NSMutableArray *ubiquitousContentChangesNotifications;
 @end
 
 @implementation DCTiCloudCoreDataStack
@@ -102,7 +103,8 @@ ubiquityContainerIdentifier:(NSString *)ubiquityContainerIdentifier {
 	_storeFilename = [storeFilename copy];
 	_ubiquityContainerIdentifier = [ubiquityContainerIdentifier copy];
 	_ubiquityIdentityToken = [[NSFileManager defaultManager] ubiquityIdentityToken];
-
+	_ubiquitousContentChangesNotifications = [NSMutableArray new];
+	
 	NSNotificationCenter *defaultCenter = [NSNotificationCenter defaultCenter];
 	[defaultCenter addObserver:self
 					  selector:@selector(ubiquityIdentityDidChangeNotification:)
@@ -156,15 +158,19 @@ ubiquityContainerIdentifier:(NSString *)ubiquityContainerIdentifier {
 		NSPersistentStoreCoordinator *persistentStoreCoordinator = self.managedObjectContext.persistentStoreCoordinator;
 		[persistentStoreCoordinator lock];
 		[super loadPersistentStore:^(NSPersistentStore *store, NSError *error) {
-			self.persistentStore = store;
-			if (self.persistentStoreDidChangeHandler == NULL && completion == NULL) return;
 			dispatch_async(dispatch_get_main_queue(), ^{
+				self.persistentStore = store;
 				if (self.persistentStoreDidChangeHandler != NULL) self.persistentStoreDidChangeHandler();
 				if (completion != NULL) completion(store, error);
 			});
 		}];
 		[persistentStoreCoordinator unlock];
 	});
+}
+
+- (void)setPersistentStore:(NSPersistentStore *)persistentStore {
+	_persistentStore = persistentStore;
+	[self processUbiquitousContentChangesNotifications];
 }
 
 - (NSURL *)ubiquityContainerURL {
@@ -174,10 +180,72 @@ ubiquityContainerIdentifier:(NSString *)ubiquityContainerIdentifier {
 #pragma mark - Notifications
 
 - (void)persistentStoreDidImportUbiquitousContentChangesNotification:(NSNotification *)notification {
-	if (![notification.object isEqual:self.managedObjectContext.persistentStoreCoordinator]) return;
+
+	NSLog(@"%@:%@", self, NSStringFromSelector(_cmd));
+
 	[self.managedObjectContext performBlock:^{
-        [self.managedObjectContext mergeChangesFromContextDidSaveNotification:notification];
-    }];
+		NSLog(@"%@:%@ %@", self, NSStringFromSelector(_cmd), self.managedObjectContext.dct_name);
+		[self.managedObjectContext.parentContext performBlock:^{
+			NSLog(@"%@:%@ %@", self, NSStringFromSelector(_cmd), self.managedObjectContext.parentContext.dct_name);
+		}];
+	}];
+
+
+	dispatch_async(dispatch_get_main_queue(), ^{
+
+		NSLog(@"%@:%@ %@", self, NSStringFromSelector(_cmd), notification);
+		if (!self.persistentStore || ![notification.object isEqual:self.managedObjectContext.persistentStoreCoordinator]) {
+			NSLog(@"%@:%@ Has persistentStore: %@", self, NSStringFromSelector(_cmd), self.persistentStore);
+			[self.ubiquitousContentChangesNotifications addObject:notification];
+			return;
+		}
+
+
+		NSManagedObjectContext *context = self.managedObjectContext;
+		[context performBlock:^{
+
+			[context mergeChangesFromContextDidSaveNotification:notification];
+
+			NSSet *insertedObjectIDs = [notification.userInfo objectForKey:NSInsertedObjectsKey];
+			NSSet *updatedObjectIDs = [notification.userInfo objectForKey:NSUpdatedObjectsKey];
+			NSSet *deletedObjectIDs = [notification.userInfo objectForKey:NSDeletedObjectsKey];
+
+			[deletedObjectIDs enumerateObjectsUsingBlock:^(NSManagedObjectID *objectID, BOOL *stop) {
+				[context deleteObject:[context objectWithID:objectID]];
+			}];
+
+			[updatedObjectIDs enumerateObjectsUsingBlock:^(NSManagedObjectID *objectID, BOOL *stop) {
+				NSManagedObject *managedObject = [context objectWithID:objectID];
+				[managedObject willAccessValueForKey:nil];
+				[context refreshObject:managedObject mergeChanges:YES];
+
+			}];
+
+			[insertedObjectIDs enumerateObjectsUsingBlock:^(NSManagedObjectID *objectID, BOOL *stop) {
+				NSManagedObject *managedObject = [context objectWithID:objectID];
+				[managedObject willAccessValueForKey:nil];
+				[context insertObject:managedObject];
+			}];
+			[context processPendingChanges];
+		}];
+	});
+}
+
+- (NSSet *)objectsWithObjectIDs:(NSSet *)objectIDs inManagedObjectContext:(NSManagedObjectContext *)context {
+	NSMutableSet *objects = [[NSMutableSet alloc] initWithCapacity:[objectIDs count]];
+	[objectIDs enumerateObjectsUsingBlock:^(NSManagedObjectID *objectID, BOOL *stop) {
+		NSManagedObject *object = [context objectWithID:objectID];
+		[objects addObject:object];
+	}];
+	return [objects copy];
+}
+
+- (void)processUbiquitousContentChangesNotifications {
+	NSArray *notifications = [self.ubiquitousContentChangesNotifications copy];
+	[self.ubiquitousContentChangesNotifications removeAllObjects];
+	[notifications enumerateObjectsUsingBlock:^(NSNotification *notification, NSUInteger idx, BOOL *stop) {
+		[self persistentStoreDidImportUbiquitousContentChangesNotification:notification];
+	}];
 }
 
 - (void)ubiquityIdentityDidChangeNotification:(NSNotification *)notification {

@@ -20,7 +20,9 @@
 @synthesize window;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-	
+
+	NSLog(@"%@:%@", self, NSStringFromSelector(_cmd));
+
 	self.coreDataStack = [[DCTiCloudCoreDataStack alloc] initWithStoreFilename:@"DCTCoreDataStack"];
 
 	ViewController *viewController = [[ViewController alloc] initWithManagedObjectContext:self.coreDataStack.managedObjectContext];
