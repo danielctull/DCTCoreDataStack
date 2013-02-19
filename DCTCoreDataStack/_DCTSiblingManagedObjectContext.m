@@ -22,11 +22,7 @@
 	if (!self) return nil;
 
 	_originalContext = context;
-
-	if (_originalContext.parentContext)
-		self.parentContext = _originalContext.parentContext;
-	else
-		self.persistentStoreCoordinator = _originalContext.persistentStoreCoordinator;
+	self.parentContext = _originalContext.parentContext;
 
 	return self;
 }
