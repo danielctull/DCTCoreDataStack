@@ -9,9 +9,11 @@
 #import "_DCTSiblingManagedObjectContext.h"
 #import "NSManagedObjectContext+DCTCoreDataStack.h"
 
-@implementation _DCTSiblingManagedObjectContext {
-	__weak NSManagedObjectContext *_originalContext;
-}
+@interface _DCTSiblingManagedObjectContext ()
+@property (nonatomic, weak) NSManagedObjectContext *originalContext;
+@end
+
+@implementation _DCTSiblingManagedObjectContext
 
 - (id)initWithConcurrencyType:(NSManagedObjectContextConcurrencyType)concurrencyType
 		 managedObjectContext:(NSManagedObjectContext *)context {
@@ -33,7 +35,7 @@
 
 	NSNotificationCenter *defaultCenter = [NSNotificationCenter defaultCenter];
 	[defaultCenter addObserver:self
-					  selector:@selector(_contextDidSaveNotification:)
+					  selector:@selector(contextDidSaveNotification:)
 						  name:NSManagedObjectContextDidSaveNotification
 						object:self];
 
@@ -47,10 +49,10 @@
 	}];
 }
 
-- (void)_contextDidSaveNotification:(NSNotification *)notification {
-	[_originalContext performBlock:^{
-		_originalContext.mergePolicy = NSOverwriteMergePolicy;
-		[_originalContext mergeChangesFromContextDidSaveNotification:notification];
+- (void)contextDidSaveNotification:(NSNotification *)notification {
+	[self.originalContext performBlock:^{
+		self.originalContext.mergePolicy = NSOverwriteMergePolicy;
+		[self.originalContext mergeChangesFromContextDidSaveNotification:notification];
 	}];
 }
 
