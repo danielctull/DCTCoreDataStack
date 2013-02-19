@@ -11,6 +11,7 @@
 
 @interface ViewController () <NSFetchedResultsControllerDelegate>
 @property (strong, nonatomic) NSFetchedResultsController *fetchedResultsController;
+@property (nonatomic, strong) NSManagedObjectContext *importManagedObjectContext;
 @end
 
 @implementation ViewController
@@ -19,6 +20,7 @@
     self = [self initWithStyle:UITableViewStylePlain];
     if (!self) return nil;
 	_managedObjectContext = managedObjectContext;
+	_importManagedObjectContext = [managedObjectContext dct_newSiblingContextWithConcurrencyType:NSPrivateQueueConcurrencyType];
 	self.title = @"DCTCoreDataStack";
     return self;
 }
@@ -32,13 +34,14 @@
 }
 
 - (void)insertNewObject:(id)sender {
-	Event *event = [Event insertInManagedObjectContext:self.managedObjectContext];
+	Event *event = [Event insertInManagedObjectContext:self.importManagedObjectContext];
 	event.date = [NSDate date];
 	event.name = @"Event";
-		
-	[self.managedObjectContext dct_saveWithCompletionHandler:^(BOOL success, NSError *error) {
-		if (!success)
-			NSLog(@"%@", [self.managedObjectContext dct_detailedDescriptionFromValidationError:error]);
+
+	[self.importManagedObjectContext performBlock:^{
+		[self.importManagedObjectContext dct_saveWithCompletionHandler:^(BOOL success, NSError *error) {
+			if (!success) NSLog(@"%@", [self.importManagedObjectContext dct_detailedDescriptionFromValidationError:error]);
+		}];
 	}];
 }
 
@@ -74,8 +77,12 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
 
     if (editingStyle == UITableViewCellEditingStyleDelete) {
 		NSManagedObject *object = [self.fetchedResultsController objectAtIndexPath:indexPath];
-		[self.managedObjectContext deleteObject:object];
-		[self.managedObjectContext dct_save];
+		NSManagedObjectID *objectID = object.objectID;
+		[self.importManagedObjectContext performBlock:^{
+			NSManagedObject *object = [self.importManagedObjectContext objectWithID:objectID];
+			[self.importManagedObjectContext deleteObject:object];
+			[self.importManagedObjectContext dct_save];
+		}];
     }
 }
 
