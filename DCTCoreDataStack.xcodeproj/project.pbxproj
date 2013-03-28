@@ -13,6 +13,7 @@
 		2437B69B15B97C5C00750117 /* DCTCoreDataStack.m in Sources */ = {isa = PBXBuildFile; fileRef = 24F6EBF9158A261000CEDD41 /* DCTCoreDataStack.m */; };
 		2437B69C15B97C5F00750117 /* NSManagedObjectContext+DCTCoreDataStack.m in Sources */ = {isa = PBXBuildFile; fileRef = 24F6EC1B158A264C00CEDD41 /* NSManagedObjectContext+DCTCoreDataStack.m */; };
 		2455F8A715CFC72F00C1596B /* DCTiCloudCoreDataStack.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 2455F8A315CFBA4A00C1596B /* DCTiCloudCoreDataStack.h */; };
+		24A5BBA617044FFD0013B294 /* CoreDataStack.entitlements in Resources */ = {isa = PBXBuildFile; fileRef = 24A5BBA517044FFD0013B294 /* CoreDataStack.entitlements */; };
 		24E7737216C50337008B88F9 /* DCTiCloudCoreDataStack.m in Sources */ = {isa = PBXBuildFile; fileRef = 2455F8A415CFBA4A00C1596B /* DCTiCloudCoreDataStack.m */; };
 		24E7738416C50C69008B88F9 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 24E7738316C50C69008B88F9 /* Default-568h@2x.png */; };
 		24E91B5915BEB1FA00E0DB54 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 24F6EC1F158A269300CEDD41 /* UIKit.framework */; };
@@ -53,6 +54,7 @@
 		2437B68D15B97C2600750117 /* libDCTCoreDataStack.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libDCTCoreDataStack.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		2455F8A315CFBA4A00C1596B /* DCTiCloudCoreDataStack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCTiCloudCoreDataStack.h; sourceTree = "<group>"; };
 		2455F8A415CFBA4A00C1596B /* DCTiCloudCoreDataStack.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCTiCloudCoreDataStack.m; sourceTree = "<group>"; };
+		24A5BBA517044FFD0013B294 /* CoreDataStack.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = CoreDataStack.entitlements; sourceTree = "<group>"; };
 		24E7737316C5050C008B88F9 /* DCTCoreDataStack+Private.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "DCTCoreDataStack+Private.h"; sourceTree = "<group>"; };
 		24E7738316C50C69008B88F9 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		24E91B5715BEB1FA00E0DB54 /* CoreDataStack.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CoreDataStack.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -150,6 +152,7 @@
 		24E91B5E15BEB1FA00E0DB54 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				24A5BBA517044FFD0013B294 /* CoreDataStack.entitlements */,
 				24E7738316C50C69008B88F9 /* Default-568h@2x.png */,
 				24E91B5F15BEB1FA00E0DB54 /* Demo-Info.plist */,
 				24E91B6515BEB1FA00E0DB54 /* Demo-Prefix.pch */,
@@ -315,6 +318,7 @@
 			files = (
 				24E91B6215BEB1FA00E0DB54 /* InfoPlist.strings in Resources */,
 				24E7738416C50C69008B88F9 /* Default-568h@2x.png in Resources */,
+				24A5BBA617044FFD0013B294 /* CoreDataStack.entitlements in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
