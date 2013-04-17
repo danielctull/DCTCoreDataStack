@@ -329,7 +329,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "docsetutil=`xcrun --find docsetutil`\nbuild=\"${BUILT_PRODUCTS_DIR}/${TARGET_NAME}/docset\"\n\nhash /usr/local/bin/appledoc 2>/dev/null || exit 0;\n\n/usr/local/bin/appledoc \\\n--install-docset \\\n--project-name \"${TARGET_NAME}\" \\\n--project-company \"Daniel Tull\" \\\n--company-id uk.co.danieltull \\\n--exit-threshold 1000 \\\n--clean-output \\\n-o $build \\\n\"${PROJECT_DIR}\" &\n";
+			shellScript = "docsetutil=`xcrun --find docsetutil`\nbuild=\"${BUILT_PRODUCTS_DIR}/${TARGET_NAME}/docset\"\n\nhash /usr/local/bin/appledoc 2>/dev/null || exit 0;\n\n/usr/local/bin/appledoc \\\n--install-docset \\\n--project-name \"${TARGET_NAME}\" \\\n--project-company \"Daniel Tull\" \\\n--company-id uk.co.danieltull \\\n--exit-threshold 1000 \\\n--clean-output \\\n-o \"$build\" \\\n\"${PROJECT_DIR}\" &\n";
 		};
 		24F6EBFE158A261000CEDD41 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
