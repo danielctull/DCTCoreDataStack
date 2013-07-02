@@ -58,7 +58,7 @@ extern NSString *const DCTCoreDataStackExcludeFromBackupStoreOption;
  4. Allows you to resolve errors when loading the persistent store by setting [didResolvePersistentStoreErrorHandler](#//api/name/didResolvePersistentStoreErrorHandler)
  5. On iOS, the app entering the background, or terminating, automatically triggers a save if needed. You can be notified of such saves by setting [automaticSaveCompletionHandler](#//api/name/automaticSaveCompletionHandler)
  6. On iOS, when saving on a background thread, the stack protects against termination/suspension by declaring the save as a background task
- 8. Providing @YES for DCTCoreDataStackExcludeFromBackupStoreOption in the storeOptions will exclude the persistent store from being backed up
+ 8. Providing YES for DCTCoreDataStackExcludeFromBackupStoreOption in the storeOptions will exclude the persistent store from being backed up
  
  */
 @interface DCTCoreDataStack : NSObject
