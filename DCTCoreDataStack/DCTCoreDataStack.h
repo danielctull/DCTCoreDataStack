@@ -61,7 +61,7 @@ extern NSString *const DCTCoreDataStackExcludeFromBackupStoreOption;
  8. Providing YES for DCTCoreDataStackExcludeFromBackupStoreOption in the storeOptions will exclude the persistent store from being backed up
  
  */
-@interface DCTCoreDataStack : NSObject
+@interface DCTCoreDataStack : NSObject <NSSecureCoding>
 
 /// @name Initialization
 

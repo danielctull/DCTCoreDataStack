@@ -71,6 +71,33 @@ NSString *const DCTCoreDataStackExcludeFromBackupStoreOption = @"DCTCoreDataStac
 
 #endif
 
+#pragma mark - NSSecureCoding
+
++ (BOOL)supportsSecureCoding {
+	return YES;
+}
+
+- (id)initWithCoder:(NSCoder *)coder {
+	NSURL *storeURL = [coder decodeObjectOfClass:[NSURL class] forKey:@"storeURL"];
+	NSString *storeType = [coder decodeObjectOfClass:[NSString class] forKey:@"storeType"];
+	NSDictionary *storeOptions = [coder decodeObjectOfClass:[NSDictionary class] forKey:@"storeOptions"];
+	NSString *modelConfiguration = [coder decodeObjectOfClass:[NSString class] forKey:@"modelConfiguration"];
+	NSURL *modelURL = [coder decodeObjectOfClass:[NSURL class] forKey:@"modelURL"];
+	return [self initWithStoreURL:storeURL
+						storeType:storeType
+					 storeOptions:storeOptions
+			   modelConfiguration:modelConfiguration
+						 modelURL:modelURL];
+}
+
+- (void)encodeWithCoder:(NSCoder *)coder {
+	[coder encodeObject:self.storeURL forKey:@"storeURL"];
+	[coder encodeObject:self.storeType forKey:@"storeType"];
+	[coder encodeObject:self.storeOptions forKey:@"storeOptions"];
+	[coder encodeObject:self.modelConfiguration forKey:@"modelConfiguration"];
+	[coder encodeObject:self.modelURL forKey:@"modelURL"];
+}
+
 #pragma mark - Initialization
 
 - (id)initWithStoreURL:(NSURL *)storeURL
