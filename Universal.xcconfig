@@ -1,0 +1,13 @@
+//
+//  Universal.xcconfig
+//
+//  Created by Daniel Tull on 21.09.2013.
+//  Copyright (c) 2013 Daniel Tull. All rights reserved.
+//
+
+ARCHS[sdk=iphoneos*] = $(ARCHS_STANDARD_INCLUDING_64_BIT);
+ARCHS[sdk=iphonesimulator*] = $(ARCHS_STANDARD_INCLUDING_64_BIT);
+ARCHS[sdk=macosx*] = $(ARCHS_STANDARD_64_BIT);
+
+SUPPORTED_PLATFORMS = iphonesimulator iphoneos macosx;
+VALID_ARCHS = armv7 armv7s arm64 x86_64 i386;

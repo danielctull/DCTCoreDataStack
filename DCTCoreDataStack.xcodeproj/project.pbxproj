@@ -46,6 +46,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		240BE44A17ED847B007AB802 /* Universal.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Universal.xcconfig; sourceTree = "<group>"; };
 		2437B68D15B97C2600750117 /* libDCTCoreDataStack.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libDCTCoreDataStack.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		24E91B5715BEB1FA00E0DB54 /* CoreDataStack.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CoreDataStack.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		24E91B5B15BEB1FA00E0DB54 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -152,6 +153,7 @@
 		24F6EBE5158A261000CEDD41 = {
 			isa = PBXGroup;
 			children = (
+				240BE44A17ED847B007AB802 /* Universal.xcconfig */,
 				24F6EBF5158A261000CEDD41 /* DCTCoreDataStack */,
 				24F6EC09158A261000CEDD41 /* DCTCoreDataStackTests */,
 				24E91B5D15BEB1FA00E0DB54 /* Demo */,
@@ -387,6 +389,7 @@
 /* Begin XCBuildConfiguration section */
 		2437B69715B97C2600750117 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 240BE44A17ED847B007AB802 /* Universal.xcconfig */;
 			buildSettings = {
 				CLANG_CXX_LIBRARY = "libc++";
 				DSTROOT = /tmp/DCTCoreDataStack.dst;
@@ -395,23 +398,21 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos macosx";
-				VALID_ARCHS = "armv7 armv7s x86_64";
 			};
 			name = Debug;
 		};
 		2437B69815B97C2600750117 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 240BE44A17ED847B007AB802 /* Universal.xcconfig */;
 			buildSettings = {
 				CLANG_CXX_LIBRARY = "libc++";
 				DSTROOT = /tmp/DCTCoreDataStack.dst;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos macosx";
-				VALID_ARCHS = "armv7 armv7s x86_64";
 			};
 			name = Release;
 		};
@@ -475,7 +476,6 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
-				SDKROOT = iphoneos;
 			};
 			name = Debug;
 		};
@@ -501,7 +501,6 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
-				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
