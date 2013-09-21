@@ -210,7 +210,7 @@ NSString *const DCTCoreDataStackExcludeFromBackupStoreOption = @"DCTCoreDataStac
 
 	void (^removeAttribute)() = ^{
 		// Remove attribute if it exists
-		int result = getxattr(filePath, attrName, NULL, sizeof(u_int8_t), 0, 0);
+		ssize_t result = getxattr(filePath, attrName, NULL, sizeof(u_int8_t), 0, 0);
 		if (result != -1) removexattr(filePath, attrName, 0);
 	};
 	
