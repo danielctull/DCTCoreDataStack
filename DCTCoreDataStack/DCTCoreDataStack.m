@@ -160,8 +160,22 @@ NSString *const DCTCoreDataStackExcludeFromBackupStoreOption = @"DCTCoreDataStac
 
 - (NSPersistentStoreCoordinator *)persistentStoreCoordinator {
 	
-	if (_persistentStoreCoordinator == nil)
-		[self _loadPersistentStoreCoordinator];
+	if (_persistentStoreCoordinator != nil)
+		return _persistentStoreCoordinator;
+
+	// This forces all threads that reach this
+	// code to be processed in an ordered manner on the main thread.  The first
+	// one will initialize the data, and the rest will just return with that
+	// data.  However, it ensures the creation is not attempted multiple times.
+	// from http://stackoverflow.com/questions/10388724/random-exc-bad-access-with-persistentstorecoordinator
+	if (![NSThread currentThread].isMainThread) {
+		dispatch_sync(dispatch_get_main_queue(), ^{
+		(void)[self persistentStoreCoordinator];
+	});
+	return _persistentStoreCoordinator;
+	}
+
+	[self _loadPersistentStoreCoordinator];
 	
 	return _persistentStoreCoordinator;
 }
