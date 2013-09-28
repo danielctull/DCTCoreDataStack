@@ -12,6 +12,8 @@
 		2437B69A15B97C5400750117 /* NSManagedObjectContext+DCTCoreDataStack.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 24F6EC1A158A264C00CEDD41 /* NSManagedObjectContext+DCTCoreDataStack.h */; };
 		2437B69B15B97C5C00750117 /* DCTCoreDataStack.m in Sources */ = {isa = PBXBuildFile; fileRef = 24F6EBF9158A261000CEDD41 /* DCTCoreDataStack.m */; };
 		2437B69C15B97C5F00750117 /* NSManagedObjectContext+DCTCoreDataStack.m in Sources */ = {isa = PBXBuildFile; fileRef = 24F6EC1B158A264C00CEDD41 /* NSManagedObjectContext+DCTCoreDataStack.m */; };
+		2483E27B17F6F67500FA6D27 /* libDCTCoreDataStack.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2437B68D15B97C2600750117 /* libDCTCoreDataStack.a */; };
+		2483E27C17F6F6A200FA6D27 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 24F6EC21158A269800CEDD41 /* CoreData.framework */; };
 		24E91B5915BEB1FA00E0DB54 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 24F6EC1F158A269300CEDD41 /* UIKit.framework */; };
 		24E91B5A15BEB1FA00E0DB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 24F6EBF3158A261000CEDD41 /* Foundation.framework */; };
 		24E91B5C15BEB1FA00E0DB54 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 24E91B5B15BEB1FA00E0DB54 /* CoreGraphics.framework */; };
@@ -105,6 +107,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2483E27C17F6F6A200FA6D27 /* CoreData.framework in Frameworks */,
+				2483E27B17F6F67500FA6D27 /* libDCTCoreDataStack.a in Frameworks */,
 				24F6EC05158A261000CEDD41 /* Foundation.framework in Frameworks */,
 				24F6EC02158A261000CEDD41 /* SenTestingKit.framework in Frameworks */,
 			);
@@ -452,6 +456,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
@@ -485,6 +490,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
@@ -515,6 +521,7 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				INFOPLIST_FILE = "DCTCoreDataStackTests/DCTCoreDataStackTests-Info.plist";
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = octest;
 			};
@@ -529,6 +536,7 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				INFOPLIST_FILE = "DCTCoreDataStackTests/DCTCoreDataStackTests-Info.plist";
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = octest;
 			};
