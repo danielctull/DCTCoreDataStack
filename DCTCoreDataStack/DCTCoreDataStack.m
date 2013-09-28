@@ -50,6 +50,7 @@ NSString *const DCTCoreDataStackExcludeFromBackupStoreOption = @"DCTCoreDataStac
 @property (nonatomic, strong) NSManagedObjectModel *managedObjectModel;
 @property (nonatomic, strong) NSManagedObjectContext *rootContext;
 @property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
+@property (nonatomic) dispatch_queue_t queue;
 @end
 
 @implementation DCTCoreDataStack
@@ -88,6 +89,7 @@ NSString *const DCTCoreDataStackExcludeFromBackupStoreOption = @"DCTCoreDataStac
 	_storeOptions = [storeOptions copy];
 	_modelURL = [modelURL copy];
 	_modelConfiguration = [modelConfiguration copy];
+	_queue = dispatch_queue_create("DCTCoreDataStack", DISPATCH_QUEUE_SERIAL);
 	
 	self.didResolvePersistentStoreErrorHandler = ^(NSError *error) {
 		NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
@@ -127,14 +129,20 @@ NSString *const DCTCoreDataStackExcludeFromBackupStoreOption = @"DCTCoreDataStac
 #pragma mark - Getters
 
 - (NSManagedObjectContext *)managedObjectContext {
-    
-	if (_managedObjectContext == nil) {
-		_managedObjectContext = [[_DCTCDSManagedObjectContext alloc] initWithConcurrencyType:NSMainQueueConcurrencyType];
-		[_managedObjectContext setParentContext:self.rootContext];
-		_managedObjectContext.dct_name = @"DCTCoreDataStack.mainContext";
-	}
 	
-    return _managedObjectContext;
+	__block NSManagedObjectContext *managedObjectContext;
+	dispatch_sync(self.queue, ^{
+
+		if (_managedObjectContext == nil) {
+			_managedObjectContext = [[_DCTCDSManagedObjectContext alloc] initWithConcurrencyType:NSMainQueueConcurrencyType];
+			[_managedObjectContext setParentContext:self.rootContext];
+			_managedObjectContext.dct_name = @"DCTCoreDataStack.mainContext";
+		}
+
+		managedObjectContext = _managedObjectContext;
+	});
+
+    return managedObjectContext;
 }
 
 - (NSManagedObjectModel *)managedObjectModel {
