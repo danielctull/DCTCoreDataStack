@@ -7,26 +7,21 @@
 //
 
 #import "DCTCoreDataStackTests.h"
+#import <DCTCoreDataStack/DCTCoreDataStack.h>
 
 @implementation DCTCoreDataStackTests
 
-- (void)setUp
-{
-    [super setUp];
-    
-    // Set-up code here.
-}
+- (void)testThreadedAccess {
 
-- (void)tearDown
-{
-    // Tear-down code here.
-    
-    [super tearDown];
-}
+	DCTCoreDataStack *stack = [[DCTCoreDataStack alloc] initWithStoreFilename:@"name"];
 
-- (void)testExample
-{
-    STFail(@"Unit tests are not implemented yet in DCTCoreDataStackTests");
+	dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
+		[stack managedObjectContext];
+	});
+
+	[stack managedObjectContext];
+
+	STAssertTrue(YES, @"We've passed as it's not crashed!");
 }
 
 @end
