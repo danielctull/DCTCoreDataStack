@@ -5,12 +5,9 @@
 //  Copyright (c) 2013 Daniel Tull. All rights reserved.
 //
 
-ARCHS[sdk=iphoneos*] = $(ARCHS_STANDARD_32_BIT);
-ARCHS[sdk=iphonesimulator*] = $(ARCHS_STANDARD_32_BIT);
+ARCHS[sdk=iphoneos*] = $(ARCHS_STANDARD);
+ARCHS[sdk=iphonesimulator*] = $(ARCHS_STANDARD);
 ARCHS[sdk=macosx*] = $(ARCHS_STANDARD_64_BIT);
 
-IPHONEOS_DEPLOYMENT_TARGET = 5.0;
-MACOSX_DEPLOYMENT_TARGET = 10.8;
-
 SUPPORTED_PLATFORMS = iphonesimulator iphoneos macosx;
-VALID_ARCHS = armv7 armv7s arm64 x86_64 i386;
+VALID_ARCHS = armv7 armv7s x86_64 i386;
