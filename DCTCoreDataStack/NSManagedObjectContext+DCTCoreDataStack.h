@@ -43,7 +43,7 @@
 /// @name Saving
 
 /** Calls dct_saveWithCompletionHandler: with no handler. */
-- (void)dct_save;
+- (void)dct_save DEPRECATED_ATTRIBUTE;
 
 /** Will perform the save and call the given completionHandler when complete, either with success or failure.
  

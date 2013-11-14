@@ -48,9 +48,7 @@
 }
 
 - (void)dct_save {
-	[self dct_saveWithCompletionHandler:^(BOOL success, NSError *error) {
-		if (!success) NSLog(@"%@", [self dct_detailedDescriptionFromValidationError:error]);
-	}];
+	[self dct_saveWithCompletionHandler:nil];
 }
 
 - (void)dct_saveWithCompletionHandler:(void(^)(BOOL success, NSError *error))completionHandler {
@@ -60,6 +58,8 @@
 	
 	if (completionHandler != NULL)
 		completionHandler(success, error);
+	else if (!success)
+		NSLog(@"%@", [self dct_detailedDescriptionFromValidationError:error]);
 }
 
 - (NSString *)dct_detailedDescriptionFromValidationError:(NSError *)anError {
