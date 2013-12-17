@@ -34,7 +34,7 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#import <CoreData/CoreData.h>
+@import CoreData;
 
 
 /** Conviniences for the context, which also enable the asyncronous saving behavior in DCTCoreDataStack. */
