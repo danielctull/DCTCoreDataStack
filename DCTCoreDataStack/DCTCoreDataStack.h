@@ -46,6 +46,7 @@
 // This can be added to the store options to exclude the store from backup
 extern NSString *const DCTCoreDataStackExcludeFromBackupStoreOption;
 
+@protocol DCTCoreDataStackDelegate;
 
 /** DCTCoreDataStack is intended for non-document based apps, and sets up the whole Core Data structure such 
  that after initializing, the managedObjectContext property is ready for use.
@@ -126,16 +127,31 @@ extern NSString *const DCTCoreDataStackExcludeFromBackupStoreOption;
 
 /// @name Handling Events
 
+@property (nonatomic, weak) id<DCTCoreDataStackDelegate> delegate;
+
 /** An error may happen on loading the persistent store, due to an incompatible model for example.
  If you can resolve the error, either by migrating the store or deleting it and return YES from this
  block, DCTCoreDataStack will attempt to load the persistent store again.
  
  This is only called once. */
-@property (nonatomic, copy) BOOL (^didResolvePersistentStoreErrorHandler)(NSError *error);
+@property (nonatomic, copy) BOOL (^didResolvePersistentStoreErrorHandler)(NSError *error) DEPRECATED_ATTRIBUTE;
 
 #if TARGET_OS_IPHONE
 /** This block is called on iOS on completion or failure of a save caused due to the app entering the background or getting a termination notification. */
-@property (nonatomic, copy) void(^automaticSaveCompletionHandler)(BOOL success, NSError *error);
+@property (nonatomic, copy) void(^automaticSaveCompletionHandler)(BOOL success, NSError *error) DEPRECATED_ATTRIBUTE;
+#endif
+
+@end
+
+
+
+@protocol DCTCoreDataStackDelegate <NSObject>
+@optional
+
+- (BOOL)coreDataStack:(DCTCoreDataStack *)coreDataStack retryAfterPersistentStoreFailure:(NSError *)error;
+
+#if TARGET_OS_IPHONE
+- (BOOL)coreDataStack:(DCTCoreDataStack *)coreDataStack didAutomaticallySaveWithSuccess:(BOOL)success error:(NSError *)error;
 #endif
 
 @end

@@ -91,12 +91,6 @@ NSString *const DCTCoreDataStackExcludeFromBackupStoreOption = @"DCTCoreDataStac
 	_modelConfiguration = [modelConfiguration copy];
 	_queue = dispatch_queue_create("DCTCoreDataStack", DISPATCH_QUEUE_SERIAL);
 	
-	self.didResolvePersistentStoreErrorHandler = ^(NSError *error) {
-		NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-		abort();
-		return NO;
-	};
-	
 #if TARGET_OS_IPHONE
 	
 	UIApplication *app = [UIApplication sharedApplication];
@@ -193,15 +187,12 @@ NSString *const DCTCoreDataStackExcludeFromBackupStoreOption = @"DCTCoreDataStac
 																						 options:self.storeOptions
 																						   error:&error];
 	
-	if (!persistentStore && self.didResolvePersistentStoreErrorHandler) {
-		
-		if (self.didResolvePersistentStoreErrorHandler(error))
-			[_persistentStoreCoordinator addPersistentStoreWithType:self.storeType
-													  configuration:self.modelConfiguration
-																URL:self.storeURL
-															options:self.storeOptions
-															  error:NULL];
-	}
+	if (!persistentStore && [self retryAfterPersistentStoreFailure:error])
+		[_persistentStoreCoordinator addPersistentStoreWithType:self.storeType
+												  configuration:self.modelConfiguration
+															URL:self.storeURL
+														options:self.storeOptions
+														  error:NULL];
 	
 	[self _setupExcludeFromBackupFlag];
 }
@@ -255,7 +246,9 @@ NSString *const DCTCoreDataStackExcludeFromBackupStoreOption = @"DCTCoreDataStac
 	if (![context hasChanges]) return;
 	    
 	[context performBlock:^{
-		[context dct_saveWithCompletionHandler:self.automaticSaveCompletionHandler];
+		[context dct_saveWithCompletionHandler:^(BOOL success, NSError *error) {
+			[self didAutomaticallySaveWithSuccess:success error:error];
+		}];
 	}];
 	
 	// TODO: what if there was a save error?
@@ -273,11 +266,38 @@ NSString *const DCTCoreDataStackExcludeFromBackupStoreOption = @"DCTCoreDataStac
 	[context performBlock:^{
 		success = [context save:&error];
 	}];
-	
+
+	[self didAutomaticallySaveWithSuccess:success error:error];
+}
+
+- (void)didAutomaticallySaveWithSuccess:(BOOL)success error:(NSError *)error {
+
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
 	if (self.automaticSaveCompletionHandler != NULL)
 		self.automaticSaveCompletionHandler(success, error);
+#pragma clang diagnostic pop
+
+	if ([self.delegate respondsToSelector:@selector(coreDataStack:didAutomaticallySaveWithSuccess:error:)])
+		[self.delegate coreDataStack:self didAutomaticallySaveWithSuccess:success error:error];
 }
 
 #endif
+
+- (BOOL)retryAfterPersistentStoreFailure:(NSError *)error {
+
+	if ([self.delegate respondsToSelector:@selector(coreDataStack:retryAfterPersistentStoreFailure:)])
+		return [self.delegate coreDataStack:self retryAfterPersistentStoreFailure:error];
+
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+	if (self.didResolvePersistentStoreErrorHandler)
+		return self.didResolvePersistentStoreErrorHandler(error);
+#pragma clang diagnostic pop
+
+	NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+	abort();
+	return NO;
+}
 
 @end
