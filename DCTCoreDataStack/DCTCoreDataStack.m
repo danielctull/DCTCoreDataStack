@@ -39,13 +39,30 @@
 #import <objc/runtime.h>
 #include <sys/xattr.h>
 
-#if TARGET_OS_IPHONE
-#import <UIKit/UIKit.h>
-#endif
+extern const struct DCTCoreDataStackProperties {
+	__unsafe_unretained NSString *modelURL;
+	__unsafe_unretained NSString *modelConfiguration;
+	__unsafe_unretained NSString *storeType;
+	__unsafe_unretained NSString *storeURL;
+	__unsafe_unretained NSString *storeOptions;
+	__unsafe_unretained NSString *managedObjectContext;
+	__unsafe_unretained NSString *identifier;
+} DCTCoreDataStackProperties;
+
+const struct DCTCoreDataStackProperties DCTCoreDataStackProperties = {
+	.modelURL = @"modelURL",
+	.modelConfiguration = @"modelConfiguration",
+	.storeType = @"storeType",
+	.storeURL = @"storeURL",
+	.storeOptions = @"storeOptions",
+	.managedObjectContext = @"managedObjectContext",
+	.identifier = @"identifier"
+};
 
 NSString *const DCTCoreDataStackExcludeFromBackupStoreOption = @"DCTCoreDataStackExcludeFromBackupStoreOption";
 
 @interface DCTCoreDataStack ()
+@property (nonatomic) NSString *identifier;
 @property (nonatomic, strong) NSPersistentStoreCoordinator *persistentStoreCoordinator;
 @property (nonatomic, strong) NSManagedObjectModel *managedObjectModel;
 @property (nonatomic, strong) NSManagedObjectContext *rootContext;
@@ -79,11 +96,29 @@ NSString *const DCTCoreDataStackExcludeFromBackupStoreOption = @"DCTCoreDataStac
 		  storeOptions:(NSDictionary *)storeOptions
 	modelConfiguration:(NSString *)modelConfiguration
 			  modelURL:(NSURL *)modelURL {
+
+	NSString *identifier = [[NSUUID UUID] UUIDString];
+	return [self initWithStoreURL:storeURL
+						storeType:storeType
+					 storeOptions:storeOptions
+			   modelConfiguration:modelConfiguration
+						 modelURL:modelURL
+					   identifier:identifier];
+}
+
+- (id)initWithStoreURL:(NSURL *)storeURL
+			 storeType:(NSString *)storeType
+		  storeOptions:(NSDictionary *)storeOptions
+	modelConfiguration:(NSString *)modelConfiguration
+			  modelURL:(NSURL *)modelURL
+			identifier:(NSString *)identifier {
 	
 	NSParameterAssert(storeType);
-	
-	if (!(self = [self init])) return nil;
-	
+
+	self = [self init];
+	if (!self) return nil;
+
+	_identifier = [identifier copy];
 	_storeURL = [storeURL copy];
 	_storeType = [storeType copy];
 	_storeOptions = [storeOptions copy];
@@ -92,7 +127,9 @@ NSString *const DCTCoreDataStackExcludeFromBackupStoreOption = @"DCTCoreDataStac
 	_queue = dispatch_queue_create("DCTCoreDataStack", DISPATCH_QUEUE_SERIAL);
 	
 #if TARGET_OS_IPHONE
-	
+
+	[UIApplication registerObjectForStateRestoration:self restorationIdentifier:_identifier];
+
 	UIApplication *app = [UIApplication sharedApplication];
 	NSNotificationCenter *defaultCenter = [NSNotificationCenter defaultCenter];
 	
@@ -299,5 +336,43 @@ NSString *const DCTCoreDataStackExcludeFromBackupStoreOption = @"DCTCoreDataStac
 	abort();
 	return NO;
 }
+
+
+#if TARGET_OS_IPHONE
+
+#pragma mark - UIStateRestoring
+
+- (Class<UIObjectRestoration>)objectRestorationClass {
+	return [self class];
+}
+
+- (void)encodeRestorableStateWithCoder:(NSCoder *)coder {
+	[coder encodeObject:self.modelURL forKey:DCTCoreDataStackProperties.modelURL];
+	[coder encodeObject:self.storeType forKey:DCTCoreDataStackProperties.storeType];
+	[coder encodeObject:self.storeURL forKey:DCTCoreDataStackProperties.storeURL];
+	[coder encodeObject:self.storeOptions forKey:DCTCoreDataStackProperties.storeOptions];
+}
+
+#pragma mark - UIObjectRestoration
+
++ (id<UIStateRestoring>) objectWithRestorationIdentifierPath:(NSArray *)identifierComponents coder:(NSCoder *)coder {
+	NSString *identifier = [identifierComponents lastObject];
+
+
+	NSURL *modelURL = [coder decodeObjectOfClass:[NSURL class] forKey:DCTCoreDataStackProperties.modelURL];
+	NSString *modelConfiguration = [coder decodeObjectOfClass:[NSString class] forKey:DCTCoreDataStackProperties.modelConfiguration];
+	NSString *storeType = [coder decodeObjectOfClass:[NSString class] forKey:DCTCoreDataStackProperties.storeType];
+	NSURL *storeURL = [coder decodeObjectOfClass:[NSURL class] forKey:DCTCoreDataStackProperties.storeURL];
+	NSDictionary *storeOptions = [coder decodeObjectOfClass:[NSDictionary class] forKey:DCTCoreDataStackProperties.storeOptions];
+
+	return [[DCTCoreDataStack alloc] initWithStoreURL:storeURL
+											storeType:storeType
+										 storeOptions:storeOptions
+								   modelConfiguration:modelConfiguration
+											 modelURL:modelURL
+										   identifier:identifier];
+}
+
+#endif
 
 @end
