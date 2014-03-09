@@ -326,28 +326,29 @@ NSString *const DCTCoreDataStackExcludeFromBackupStoreOption = @"DCTCoreDataStac
 }
 
 - (void)encodeRestorableStateWithCoder:(NSCoder *)coder {
-	[coder encodeObject:self.modelURL forKey:DCTCoreDataStackProperties.modelURL];
-	[coder encodeObject:self.storeType forKey:DCTCoreDataStackProperties.storeType];
 	[coder encodeObject:self.storeURL forKey:DCTCoreDataStackProperties.storeURL];
+	[coder encodeObject:self.storeType forKey:DCTCoreDataStackProperties.storeType];
 	[coder encodeObject:self.storeOptions forKey:DCTCoreDataStackProperties.storeOptions];
+	[coder encodeObject:self.modelConfiguration forKey:DCTCoreDataStackProperties.modelConfiguration];
+	[coder encodeObject:self.modelURL forKey:DCTCoreDataStackProperties.modelURL];
 }
 
 #pragma mark - UIObjectRestoration
 
 + (id<UIStateRestoring>) objectWithRestorationIdentifierPath:(NSArray *)identifierComponents coder:(NSCoder *)coder {
 
-	NSURL *modelURL = [coder decodeObjectOfClass:[NSURL class] forKey:DCTCoreDataStackProperties.modelURL];
-	NSString *modelConfiguration = [coder decodeObjectOfClass:[NSString class] forKey:DCTCoreDataStackProperties.modelConfiguration];
-	NSString *storeType = [coder decodeObjectOfClass:[NSString class] forKey:DCTCoreDataStackProperties.storeType];
 	NSURL *storeURL = [coder decodeObjectOfClass:[NSURL class] forKey:DCTCoreDataStackProperties.storeURL];
+	NSString *storeType = [coder decodeObjectOfClass:[NSString class] forKey:DCTCoreDataStackProperties.storeType];
 	NSDictionary *storeOptions = [coder decodeObjectOfClass:[NSDictionary class] forKey:DCTCoreDataStackProperties.storeOptions];
+	NSString *modelConfiguration = [coder decodeObjectOfClass:[NSString class] forKey:DCTCoreDataStackProperties.modelConfiguration];
+	NSURL *modelURL = [coder decodeObjectOfClass:[NSURL class] forKey:DCTCoreDataStackProperties.modelURL];
 
 	DCTCoreDataStack *coreDataStack = [[self alloc] initWithStoreURL:storeURL
 														   storeType:storeType
 														storeOptions:storeOptions
 												  modelConfiguration:modelConfiguration
 															modelURL:modelURL];
-	
+
 	NSString *identifier = [identifierComponents lastObject];
 	[UIApplication registerObjectForStateRestoration:coreDataStack restorationIdentifier:identifier];
 
