@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		24243FF118CF93BF00A2F7D9 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2468706E18525E9200ADB152 /* XCTest.framework */; };
 		2437B68E15B97C2600750117 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 24F6EBF3158A261000CEDD41 /* Foundation.framework */; };
 		2437B69915B97C5200750117 /* DCTCoreDataStack.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 24F6EBF8158A261000CEDD41 /* DCTCoreDataStack.h */; };
 		2437B69A15B97C5400750117 /* NSManagedObjectContext+DCTCoreDataStack.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 24F6EC1A158A264C00CEDD41 /* NSManagedObjectContext+DCTCoreDataStack.h */; };
@@ -32,7 +33,6 @@
 		24E91B7D15BEB28900E0DB54 /* DCTCoreDataStack.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 24E91B7B15BEB28900E0DB54 /* DCTCoreDataStack.xcdatamodeld */; };
 		24E91BC515BEB71200E0DB54 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 24E91BC415BEB71200E0DB54 /* ViewController.m */; };
 		24E91BDF15BED01A00E0DB54 /* _DCTCDSManagedObjectContext.m in Sources */ = {isa = PBXBuildFile; fileRef = 24E91BDE15BED01A00E0DB54 /* _DCTCDSManagedObjectContext.m */; };
-		24F6EC02158A261000CEDD41 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 24F6EC01158A261000CEDD41 /* SenTestingKit.framework */; };
 		24F6EC05158A261000CEDD41 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 24F6EBF3158A261000CEDD41 /* Foundation.framework */; };
 		24F6EC0E158A261000CEDD41 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 24F6EC0C158A261000CEDD41 /* InfoPlist.strings */; };
 		24F6EC11158A261000CEDD41 /* DCTCoreDataStackTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 24F6EC10158A261000CEDD41 /* DCTCoreDataStackTests.m */; };
@@ -136,10 +136,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				24243FF118CF93BF00A2F7D9 /* XCTest.framework in Frameworks */,
 				2483E27C17F6F6A200FA6D27 /* CoreData.framework in Frameworks */,
 				2483E27B17F6F67500FA6D27 /* libDCTCoreDataStack.a in Frameworks */,
 				24F6EC05158A261000CEDD41 /* Foundation.framework in Frameworks */,
-				24F6EC02158A261000CEDD41 /* SenTestingKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -340,8 +340,14 @@
 		24F6EBE7158A261000CEDD41 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastTestingUpgradeCheck = 0510;
 				LastUpgradeCheck = 0500;
 				ORGANIZATIONNAME = "Daniel Tull";
+				TargetAttributes = {
+					24F6EBFF158A261000CEDD41 = {
+						TestTargetID = 2437B68C15B97C2600750117;
+					};
+				};
 			};
 			buildConfigurationList = 24F6EBEA158A261000CEDD41 /* Build configuration list for PBXProject "DCTCoreDataStack" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -624,6 +630,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
 					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				INFOPLIST_FILE = "DCTCoreDataStackTests/DCTCoreDataStackTests-Info.plist";
@@ -640,6 +647,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
 					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				INFOPLIST_FILE = "DCTCoreDataStackTests/DCTCoreDataStackTests-Info.plist";

@@ -6,8 +6,8 @@
 //  Copyright (c) 2012 Daniel Tull. All rights reserved.
 //
 
-#import <SenTestingKit/SenTestingKit.h>
+@import XCTest;
 
-@interface DCTCoreDataStackTests : SenTestCase
+@interface DCTCoreDataStackTests : XCTestCase
 
 @end

@@ -21,7 +21,7 @@
 
 	[stack managedObjectContext];
 
-	STAssertTrue(YES, @"We've passed as it's not crashed!");
+	XCTAssertTrue(YES, @"We've passed as it's not crashed!");
 }
 
 @end
