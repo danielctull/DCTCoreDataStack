@@ -402,7 +402,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# Add this to Xcode's PATH to find homebrew installation\nPATH=$PATH:/usr/local/bin\n\nappledoc=`which appledoc`\n\nif [ $appledoc ]; then\n\ncompany=\"Daniel Tull\";\ncompanyID=\"uk.co.danieltull\";\ncompanyURL=\"http://danieltull.co.uk\";\noutputPath=\"/tmp/${PRODUCT_NAME}\";\n\n$appledoc \\\n--project-name \"${PRODUCT_NAME}\" \\\n--project-company \"${company}\" \\\n--company-id \"${companyID}\" \\\n--output \"${outputPath}\" \\\n--create-docset \\\n--install-docset \\\n--create-html \\\n--docset-platform-family \"${SUPPORTED_PLATFORMS}\" \\\n--exit-threshold 2 \\\n--no-repeat-first-par \\\n\"${BUILT_PRODUCTS_DIR}/include/${PRODUCT_NAME}\"\n\nelse\n\necho \"appledoc not found.\"\n\nfi;";
+			shellScript = "# Add this to Xcode's PATH to find homebrew installation\nPATH=$PATH:/usr/local/bin\n\nappledoc=`which appledoc`\n\nif [ $appledoc ]; then\n\ncompany=\"Daniel Tull\";\ncompanyID=\"uk.co.danieltull\";\ncompanyURL=\"http://danieltull.co.uk\";\nuuid=`uuidgen`\necho ${uuid}\noutputPath=\"/tmp/${uuid}\";\n\n$appledoc \\\n--project-name \"${PRODUCT_NAME}\" \\\n--project-company \"${company}\" \\\n--company-id \"${companyID}\" \\\n--output \"${outputPath}\" \\\n--create-docset \\\n--install-docset \\\n--create-html \\\n--docset-platform-family \"iphoneos\" \\\n--exit-threshold 2 \\\n--no-repeat-first-par \\\n\"${BUILT_PRODUCTS_DIR}/include/${PRODUCT_NAME}\"\n\nrm -rf ${outputPath}\n\nelse\n\necho \"appledoc not found.\"\n\nfi;\n";
 		};
 		24F6EBFE158A261000CEDD41 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
