@@ -35,7 +35,7 @@
  */
 
 #import "NSManagedObjectContext+DCTCoreDataStack.h"
-#import <objc/runtime.h>
+@import ObjectiveC.runtime;
 
 @implementation NSManagedObjectContext (DCTCoreDataStack)
 
@@ -130,8 +130,11 @@
 				message = [NSString stringWithFormat:@"Unknown error (code %@).", @([error code])];
 				break;
 		}
-		
+
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wgnu-conditional-omitted-operand"
 		[messages appendFormat:@"\n    %@%@%@%@%@", (entityName?:@""), (attributeName?@".":@""), (attributeName?:@""), (entityName?@": ":@""), message];
+#pragma clang diagnostic pop
 	}
 	
 	return messages;

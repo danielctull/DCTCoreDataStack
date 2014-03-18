@@ -36,7 +36,7 @@
 
 #import "DCTCoreDataStack.h"
 #import "_DCTCDSManagedObjectContext.h"
-#import <objc/runtime.h>
+@import ObjectiveC.runtime;
 #include <sys/xattr.h>
 
 extern const struct DCTCoreDataStackProperties {
@@ -143,13 +143,13 @@ NSString *const DCTCoreDataStackExcludeFromBackupStoreOption = @"DCTCoreDataStac
 	__block NSManagedObjectContext *managedObjectContext;
 	dispatch_sync(self.queue, ^{
 
-		if (_managedObjectContext == nil) {
-			_managedObjectContext = [[_DCTCDSManagedObjectContext alloc] initWithConcurrencyType:NSMainQueueConcurrencyType];
-			[_managedObjectContext setParentContext:self.rootContext];
-			_managedObjectContext.dct_name = @"DCTCoreDataStack.mainContext";
+		if (self->_managedObjectContext == nil) {
+			self->_managedObjectContext = [[_DCTCDSManagedObjectContext alloc] initWithConcurrencyType:NSMainQueueConcurrencyType];
+			[self->_managedObjectContext setParentContext:self.rootContext];
+			self->_managedObjectContext.dct_name = @"DCTCoreDataStack.mainContext";
 		}
 
-		managedObjectContext = _managedObjectContext;
+		managedObjectContext = self->_managedObjectContext;
 	});
 
     return managedObjectContext;
@@ -185,15 +185,23 @@ NSString *const DCTCoreDataStackExcludeFromBackupStoreOption = @"DCTCoreDataStac
 }
 
 - (void)_loadManagedObjectModel {
-	
-    if (self.modelURL)
+
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdirect-ivar-access"
+
+	if (self.modelURL)
 		_managedObjectModel = [[NSManagedObjectModel alloc] initWithContentsOfURL:self.modelURL];
     else
 		_managedObjectModel = [NSManagedObjectModel mergedModelFromBundles:[NSArray arrayWithObject:[NSBundle mainBundle]]];
+
+#pragma clang diagnostic pop
 }
 
 - (void)_loadPersistentStoreCoordinator {
-	
+
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdirect-ivar-access"
+
 	_persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:self.managedObjectModel];
 	
 	NSError *error = nil;
@@ -211,6 +219,8 @@ NSString *const DCTCoreDataStackExcludeFromBackupStoreOption = @"DCTCoreDataStac
 														  error:NULL];
 	
 	[self _setupExcludeFromBackupFlag];
+
+#pragma clang diagnostic pop
 }
 
 #pragma mark - Other Internal
@@ -233,12 +243,19 @@ NSString *const DCTCoreDataStackExcludeFromBackupStoreOption = @"DCTCoreDataStac
 	
 	if (&NSURLIsExcludedFromBackupKey == NULL) { // iOS 5.0.x / 10.7.x or earlier
 
+
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wunreachable-code"
+// Warning claims it's unreachable, not sure if that's true.
+
 		if (excludeFromBackup) {
             u_int8_t attrValue = 1;
             setxattr(filePath, attrName, &attrValue, sizeof(attrValue), 0, 0);
         } else {
 			removeAttribute();
         }
+
+#pragma clang diagnostic pop
 		
 	} else { // iOS 5.1 / OS X 10.8 and above
 

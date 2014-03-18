@@ -37,14 +37,14 @@
 
 #import "_DCTCDSManagedObjectContext.h"
 #import "NSManagedObjectContext+DCTCoreDataStack.h"
-#import <objc/runtime.h>
+@import ObjectiveC.runtime;
 #if TARGET_OS_IPHONE
-#import <UIKit/UIKit.h>
+@import UIKit;
 #endif
 
 @implementation _DCTCDSManagedObjectContext
 
-- (BOOL)save:(NSError **)error {
+- (BOOL)save:(NSError * __autoreleasing *)error {
 		
 	id object = objc_getAssociatedObject(self, @selector(dct_saveWithCompletionHandler:));
 	
