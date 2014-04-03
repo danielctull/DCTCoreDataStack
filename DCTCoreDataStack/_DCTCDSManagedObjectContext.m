@@ -97,9 +97,9 @@
 		}
 		
 		[parent performBlock:^{
-			[parent dct_saveWithCompletionHandler:^(BOOL success, NSError *error) {
+			[parent dct_saveWithCompletionHandler:^(BOOL parentSuccess, NSError *parentError) {
 				[self performBlock:^{
-					completion(success, error);
+					completion(parentSuccess, parentError);
 				}];
 			}];
 		}];
