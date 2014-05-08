@@ -66,7 +66,10 @@
 
 - (void)dct_saveWithCompletionHandler:(void(^)(BOOL success, NSError *error))completion {
 
-	if (completion == NULL) completion = ^(BOOL success, NSError *error) {};
+	if (completion == NULL) completion = ^(BOOL success, NSError *error) {
+        if (!success)
+            NSLog(@"%@", [self dct_detailedDescriptionFromValidationError:error]);
+    };
 
 #if TARGET_OS_IPHONE
 	
