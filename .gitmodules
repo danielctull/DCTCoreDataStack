@@ -1,0 +1,3 @@
+[submodule "Configurations"]
+	path = Configurations
+	url = git://github.com/danielctull/Xcode-Configurations.git

@@ -38,10 +38,12 @@
 @import CoreData;
 #import "NSManagedObjectContext+DCTCoreDataStack.h"
 
-#ifndef dctcoredatastack
-#define dctcoredatastack_1_0     10000
-#define dctcoredatastack         dctcoredatastack_1_0
-#endif
+
+//! Project version number and string for DCTCoreDataStack.
+FOUNDATION_EXPORT double DCTCoreDataStackVersionNumber;
+FOUNDATION_EXPORT const unsigned char DCTCoreDataStackVersionString[];
+
+
 
 // This can be added to the store options to exclude the store from backup
 extern NSString *const DCTCoreDataStackExcludeFromBackupStoreOption;

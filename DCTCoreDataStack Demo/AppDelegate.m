@@ -11,17 +11,19 @@
 #import "Event.h"
 #import "ViewController.h"
 
-@implementation AppDelegate {
-	__strong DCTCoreDataStack *_coreDataStack;
-}
+@interface AppDelegate ()
+@property (nonatomic) DCTCoreDataStack *coreDataStack;
+@end
+
+@implementation AppDelegate
 
 @synthesize window;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
 	
-	_coreDataStack = [[DCTCoreDataStack alloc] initWithStoreFilename:@"DCTCoreDataStack"];
+	self.coreDataStack = [[DCTCoreDataStack alloc] initWithStoreFilename:@"DCTCoreDataStack"];
 
-	NSManagedObjectContext *context = _coreDataStack.managedObjectContext;
+	NSManagedObjectContext *context = self.coreDataStack.managedObjectContext;
 	ViewController *viewController = [[ViewController alloc] initWithManagedObjectContext:context];
 	
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
