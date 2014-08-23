@@ -6,8 +6,8 @@
 //  Copyright (c) 2012 Daniel Tull. All rights reserved.
 //
 
+@import DCTCoreDataStack;
 #import "AppDelegate.h"
-#import <DCTCoreDataStack/DCTCoreDataStack.h>
 #import "Event.h"
 #import "ViewController.h"
 

@@ -7,7 +7,7 @@
 //
 
 @import UIKit;
-#import <DCTCoreDataStack/DCTCoreDataStack.h>
+@import CoreData;
 #import "Event.h"
 
 @interface ViewController : UITableViewController

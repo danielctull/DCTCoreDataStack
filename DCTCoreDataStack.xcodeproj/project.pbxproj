@@ -7,19 +7,21 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		242BF03119A913850063F2F2 /* _DCTCDSManagedObjectContext.h in Headers */ = {isa = PBXBuildFile; fileRef = 24E91BDD15BED01A00E0DB54 /* _DCTCDSManagedObjectContext.h */; };
+		242BF03219A913880063F2F2 /* DCTCoreDataStack.h in Headers */ = {isa = PBXBuildFile; fileRef = 24F6EBF8158A261000CEDD41 /* DCTCoreDataStack.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		242BF03319A9138A0063F2F2 /* NSManagedObjectContext+DCTCoreDataStack.h in Headers */ = {isa = PBXBuildFile; fileRef = 24F6EC1A158A264C00CEDD41 /* NSManagedObjectContext+DCTCoreDataStack.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		242BF03919A914400063F2F2 /* DCTCoreDataStack.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 242BEFCF19A90B2A0063F2F2 /* DCTCoreDataStack.framework */; };
+		242BF03D19A914F60063F2F2 /* DCTCoreDataStack.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 242BEFCF19A90B2A0063F2F2 /* DCTCoreDataStack.framework */; };
 		2437B69915B97C5200750117 /* DCTCoreDataStack.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 24F6EBF8158A261000CEDD41 /* DCTCoreDataStack.h */; };
 		2437B69A15B97C5400750117 /* NSManagedObjectContext+DCTCoreDataStack.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 24F6EC1A158A264C00CEDD41 /* NSManagedObjectContext+DCTCoreDataStack.h */; };
 		2437B69B15B97C5C00750117 /* DCTCoreDataStack.m in Sources */ = {isa = PBXBuildFile; fileRef = 24F6EBF9158A261000CEDD41 /* DCTCoreDataStack.m */; };
 		2437B69C15B97C5F00750117 /* NSManagedObjectContext+DCTCoreDataStack.m in Sources */ = {isa = PBXBuildFile; fileRef = 24F6EC1B158A264C00CEDD41 /* NSManagedObjectContext+DCTCoreDataStack.m */; };
-		2468708218525ECB00ADB152 /* _DCTCDSManagedObjectContext.m in Sources */ = {isa = PBXBuildFile; fileRef = 24E91BDE15BED01A00E0DB54 /* _DCTCDSManagedObjectContext.m */; };
-		2468708318525ECB00ADB152 /* DCTCoreDataStack.m in Sources */ = {isa = PBXBuildFile; fileRef = 24F6EBF9158A261000CEDD41 /* DCTCoreDataStack.m */; };
-		2468708418525ECB00ADB152 /* NSManagedObjectContext+DCTCoreDataStack.m in Sources */ = {isa = PBXBuildFile; fileRef = 24F6EC1B158A264C00CEDD41 /* NSManagedObjectContext+DCTCoreDataStack.m */; };
-		2468708D18525F6500ADB152 /* DCTCoreDataStack.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 24F6EBF8158A261000CEDD41 /* DCTCoreDataStack.h */; };
-		2468708E18525F6800ADB152 /* NSManagedObjectContext+DCTCoreDataStack.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 24F6EC1A158A264C00CEDD41 /* NSManagedObjectContext+DCTCoreDataStack.h */; };
-		2483E27B17F6F67500FA6D27 /* libDCTCoreDataStack.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2437B68D15B97C2600750117 /* libDCTCoreDataStack.a */; };
+		244DE7CC19A917AD00A91DC7 /* DCTCoreDataStack.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 242BEFCF19A90B2A0063F2F2 /* DCTCoreDataStack.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		244DE7CF19A9184A00A91DC7 /* DCTCoreDataStack.m in Sources */ = {isa = PBXBuildFile; fileRef = 24F6EBF9158A261000CEDD41 /* DCTCoreDataStack.m */; };
+		244DE7D019A9184A00A91DC7 /* NSManagedObjectContext+DCTCoreDataStack.m in Sources */ = {isa = PBXBuildFile; fileRef = 24F6EC1B158A264C00CEDD41 /* NSManagedObjectContext+DCTCoreDataStack.m */; };
+		244DE7D119A9184A00A91DC7 /* _DCTCDSManagedObjectContext.m in Sources */ = {isa = PBXBuildFile; fileRef = 24E91BDE15BED01A00E0DB54 /* _DCTCDSManagedObjectContext.m */; };
 		24E91B6415BEB1FA00E0DB54 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 24E91B6315BEB1FA00E0DB54 /* main.m */; };
 		24E91B6815BEB1FA00E0DB54 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 24E91B6715BEB1FA00E0DB54 /* AppDelegate.m */; };
-		24E91B6D15BEB20600E0DB54 /* libDCTCoreDataStack.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2437B68D15B97C2600750117 /* libDCTCoreDataStack.a */; };
 		24E91B7715BEB26600E0DB54 /* _Event.m in Sources */ = {isa = PBXBuildFile; fileRef = 24E91B7415BEB26600E0DB54 /* _Event.m */; };
 		24E91B7815BEB26600E0DB54 /* Event.m in Sources */ = {isa = PBXBuildFile; fileRef = 24E91B7615BEB26600E0DB54 /* Event.m */; };
 		24E91B7D15BEB28900E0DB54 /* DCTCoreDataStack.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 24E91B7B15BEB28900E0DB54 /* DCTCoreDataStack.xcdatamodeld */; };
@@ -29,6 +31,17 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		242BF03819A913E80063F2F2 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				244DE7CC19A917AD00A91DC7 /* DCTCoreDataStack.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		2437B68B15B97C2600750117 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -40,30 +53,21 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		2468708C18525F4C00ADB152 /* CopyFiles */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = include/DCTCoreDataStack;
-			dstSubfolderSpec = 16;
-			files = (
-				2468708D18525F6500ADB152 /* DCTCoreDataStack.h in CopyFiles */,
-				2468708E18525F6800ADB152 /* NSManagedObjectContext+DCTCoreDataStack.h in CopyFiles */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		242BEFC219A909600063F2F2 /* Application.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Application.xcconfig; sourceTree = "<group>"; };
-		242BEFC319A909600063F2F2 /* Bundle.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Bundle.xcconfig; sourceTree = "<group>"; };
-		242BEFC419A909600063F2F2 /* Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Debug.xcconfig; sourceTree = "<group>"; };
-		242BEFC519A909600063F2F2 /* iOS Framework.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "iOS Framework.xcconfig"; sourceTree = "<group>"; };
-		242BEFC619A909600063F2F2 /* Library.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Library.xcconfig; sourceTree = "<group>"; };
-		242BEFC719A909600063F2F2 /* Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Release.xcconfig; sourceTree = "<group>"; };
-		242BEFC819A909600063F2F2 /* Shared.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Shared.xcconfig; sourceTree = "<group>"; };
-		242BEFC919A909600063F2F2 /* Tests.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Tests.xcconfig; sourceTree = "<group>"; };
+		242BEFCF19A90B2A0063F2F2 /* DCTCoreDataStack.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DCTCoreDataStack.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		242BF02519A911150063F2F2 /* Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Debug.xcconfig; sourceTree = "<group>"; };
+		242BF02619A911150063F2F2 /* iOS Application.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "iOS Application.xcconfig"; sourceTree = "<group>"; };
+		242BF02719A911150063F2F2 /* iOS Bundle.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "iOS Bundle.xcconfig"; sourceTree = "<group>"; };
+		242BF02819A911150063F2F2 /* iOS Framework.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "iOS Framework.xcconfig"; sourceTree = "<group>"; };
+		242BF02919A911150063F2F2 /* iOS Static Library.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "iOS Static Library.xcconfig"; sourceTree = "<group>"; };
+		242BF02A19A911150063F2F2 /* iOS Tests.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "iOS Tests.xcconfig"; sourceTree = "<group>"; };
+		242BF02B19A911150063F2F2 /* OS X Framework.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "OS X Framework.xcconfig"; sourceTree = "<group>"; };
+		242BF02C19A911150063F2F2 /* Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Release.xcconfig; sourceTree = "<group>"; };
+		242BF02D19A911150063F2F2 /* Shared.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Shared.xcconfig; sourceTree = "<group>"; };
 		2437B68D15B97C2600750117 /* libDCTCoreDataStack.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libDCTCoreDataStack.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		2468705C18525E9200ADB152 /* libDCTCoreDataStack-OSX.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libDCTCoreDataStack-OSX.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		244DE7F219A9187F00A91DC7 /* DCTCoreDataStack.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DCTCoreDataStack.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		24E91B5715BEB1FA00E0DB54 /* DCTCoreDataStack Demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "DCTCoreDataStack Demo.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		24E91B5F15BEB1FA00E0DB54 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		24E91B6315BEB1FA00E0DB54 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -89,6 +93,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		242BEFCB19A90B2A0063F2F2 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		2437B68A15B97C2600750117 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -96,7 +107,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		2468705918525E9200ADB152 /* Frameworks */ = {
+		244DE7EE19A9187F00A91DC7 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -107,7 +118,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				24E91B6D15BEB20600E0DB54 /* libDCTCoreDataStack.a in Frameworks */,
+				242BF03919A914400063F2F2 /* DCTCoreDataStack.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -115,24 +126,25 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2483E27B17F6F67500FA6D27 /* libDCTCoreDataStack.a in Frameworks */,
+				242BF03D19A914F60063F2F2 /* DCTCoreDataStack.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		242BEFC119A909600063F2F2 /* Configurations */ = {
+		242BF02419A911150063F2F2 /* Configurations */ = {
 			isa = PBXGroup;
 			children = (
-				242BEFC219A909600063F2F2 /* Application.xcconfig */,
-				242BEFC319A909600063F2F2 /* Bundle.xcconfig */,
-				242BEFC419A909600063F2F2 /* Debug.xcconfig */,
-				242BEFC519A909600063F2F2 /* iOS Framework.xcconfig */,
-				242BEFC619A909600063F2F2 /* Library.xcconfig */,
-				242BEFC719A909600063F2F2 /* Release.xcconfig */,
-				242BEFC819A909600063F2F2 /* Shared.xcconfig */,
-				242BEFC919A909600063F2F2 /* Tests.xcconfig */,
+				242BF02519A911150063F2F2 /* Debug.xcconfig */,
+				242BF02619A911150063F2F2 /* iOS Application.xcconfig */,
+				242BF02719A911150063F2F2 /* iOS Bundle.xcconfig */,
+				242BF02819A911150063F2F2 /* iOS Framework.xcconfig */,
+				242BF02919A911150063F2F2 /* iOS Static Library.xcconfig */,
+				242BF02A19A911150063F2F2 /* iOS Tests.xcconfig */,
+				242BF02B19A911150063F2F2 /* OS X Framework.xcconfig */,
+				242BF02C19A911150063F2F2 /* Release.xcconfig */,
+				242BF02D19A911150063F2F2 /* Shared.xcconfig */,
 			);
 			path = Configurations;
 			sourceTree = "<group>";
@@ -170,7 +182,7 @@
 				24F6EBF5158A261000CEDD41 /* DCTCoreDataStack */,
 				24F6EC09158A261000CEDD41 /* DCTCoreDataStack Tests */,
 				24E91B5D15BEB1FA00E0DB54 /* DCTCoreDataStack Demo */,
-				242BEFC119A909600063F2F2 /* Configurations */,
+				242BF02419A911150063F2F2 /* Configurations */,
 				24F6EBF1158A261000CEDD41 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -181,7 +193,8 @@
 				24E91B5715BEB1FA00E0DB54 /* DCTCoreDataStack Demo.app */,
 				24F6EC00158A261000CEDD41 /* DCTCoreDataStack Tests.xctest */,
 				2437B68D15B97C2600750117 /* libDCTCoreDataStack.a */,
-				2468705C18525E9200ADB152 /* libDCTCoreDataStack-OSX.a */,
+				242BEFCF19A90B2A0063F2F2 /* DCTCoreDataStack.framework */,
+				244DE7F219A9187F00A91DC7 /* DCTCoreDataStack.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -189,11 +202,11 @@
 		24F6EBF5158A261000CEDD41 /* DCTCoreDataStack */ = {
 			isa = PBXGroup;
 			children = (
-				24671D3F16C5019200889D3F /* Private */,
 				24F6EBF8158A261000CEDD41 /* DCTCoreDataStack.h */,
 				24F6EBF9158A261000CEDD41 /* DCTCoreDataStack.m */,
 				24F6EC1A158A264C00CEDD41 /* NSManagedObjectContext+DCTCoreDataStack.h */,
 				24F6EC1B158A264C00CEDD41 /* NSManagedObjectContext+DCTCoreDataStack.m */,
+				24671D3F16C5019200889D3F /* Private */,
 			);
 			path = DCTCoreDataStack;
 			sourceTree = "<group>";
@@ -210,7 +223,45 @@
 		};
 /* End PBXGroup section */
 
+/* Begin PBXHeadersBuildPhase section */
+		242BEFCC19A90B2A0063F2F2 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				242BF03219A913880063F2F2 /* DCTCoreDataStack.h in Headers */,
+				242BF03319A9138A0063F2F2 /* NSManagedObjectContext+DCTCoreDataStack.h in Headers */,
+				242BF03119A913850063F2F2 /* _DCTCDSManagedObjectContext.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		244DE7EF19A9187F00A91DC7 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
 /* Begin PBXNativeTarget section */
+		242BEFCE19A90B2A0063F2F2 /* DCTCoreDataStack iOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 242BEFDF19A90B2B0063F2F2 /* Build configuration list for PBXNativeTarget "DCTCoreDataStack iOS" */;
+			buildPhases = (
+				242BEFCA19A90B2A0063F2F2 /* Sources */,
+				242BEFCB19A90B2A0063F2F2 /* Frameworks */,
+				242BEFCC19A90B2A0063F2F2 /* Headers */,
+				242BEFCD19A90B2A0063F2F2 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "DCTCoreDataStack iOS";
+			productName = "DCTCoreDataStack iOS";
+			productReference = 242BEFCF19A90B2A0063F2F2 /* DCTCoreDataStack.framework */;
+			productType = "com.apple.product-type.framework";
+		};
 		2437B68C15B97C2600750117 /* DCTCoreDataStack */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2437B69615B97C2600750117 /* Build configuration list for PBXNativeTarget "DCTCoreDataStack" */;
@@ -229,22 +280,23 @@
 			productReference = 2437B68D15B97C2600750117 /* libDCTCoreDataStack.a */;
 			productType = "com.apple.product-type.library.static";
 		};
-		2468705B18525E9200ADB152 /* DCTCoreDataStack-OSX */ = {
+		244DE7F119A9187F00A91DC7 /* DCTCoreDataStack OS X */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 2468708018525E9200ADB152 /* Build configuration list for PBXNativeTarget "DCTCoreDataStack-OSX" */;
+			buildConfigurationList = 244DE80219A9187F00A91DC7 /* Build configuration list for PBXNativeTarget "DCTCoreDataStack OS X" */;
 			buildPhases = (
-				2468705818525E9200ADB152 /* Sources */,
-				2468705918525E9200ADB152 /* Frameworks */,
-				2468708C18525F4C00ADB152 /* CopyFiles */,
+				244DE7ED19A9187F00A91DC7 /* Sources */,
+				244DE7EE19A9187F00A91DC7 /* Frameworks */,
+				244DE7EF19A9187F00A91DC7 /* Headers */,
+				244DE7F019A9187F00A91DC7 /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
-			name = "DCTCoreDataStack-OSX";
-			productName = "DCTCoreDataStack-OSX";
-			productReference = 2468705C18525E9200ADB152 /* libDCTCoreDataStack-OSX.a */;
-			productType = "com.apple.product-type.library.static";
+			name = "DCTCoreDataStack OS X";
+			productName = "DCTCoreDataStack OS X";
+			productReference = 244DE7F219A9187F00A91DC7 /* DCTCoreDataStack.framework */;
+			productType = "com.apple.product-type.framework";
 		};
 		24E91B5615BEB1FA00E0DB54 /* DCTCoreDataStack Demo */ = {
 			isa = PBXNativeTarget;
@@ -253,6 +305,7 @@
 				24E91B5315BEB1FA00E0DB54 /* Sources */,
 				24E91B5415BEB1FA00E0DB54 /* Frameworks */,
 				24E91B5515BEB1FA00E0DB54 /* Resources */,
+				242BF03819A913E80063F2F2 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -279,7 +332,7 @@
 			name = "DCTCoreDataStack Tests";
 			productName = DCTCoreDataStackTests;
 			productReference = 24F6EC00158A261000CEDD41 /* DCTCoreDataStack Tests.xctest */;
-			productType = "com.apple.product-type.bundle.ocunit-test";
+			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
 
@@ -291,6 +344,12 @@
 				LastUpgradeCheck = 0600;
 				ORGANIZATIONNAME = "Daniel Tull";
 				TargetAttributes = {
+					242BEFCE19A90B2A0063F2F2 = {
+						CreatedOnToolsVersion = 6.0;
+					};
+					244DE7F119A9187F00A91DC7 = {
+						CreatedOnToolsVersion = 6.0;
+					};
 					24F6EBFF158A261000CEDD41 = {
 						TestTargetID = 2437B68C15B97C2600750117;
 					};
@@ -309,7 +368,8 @@
 			projectRoot = "";
 			targets = (
 				2437B68C15B97C2600750117 /* DCTCoreDataStack */,
-				2468705B18525E9200ADB152 /* DCTCoreDataStack-OSX */,
+				242BEFCE19A90B2A0063F2F2 /* DCTCoreDataStack iOS */,
+				244DE7F119A9187F00A91DC7 /* DCTCoreDataStack OS X */,
 				24F6EBFF158A261000CEDD41 /* DCTCoreDataStack Tests */,
 				24E91B5615BEB1FA00E0DB54 /* DCTCoreDataStack Demo */,
 			);
@@ -317,6 +377,20 @@
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		242BEFCD19A90B2A0063F2F2 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		244DE7F019A9187F00A91DC7 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		24E91B5515BEB1FA00E0DB54 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -364,6 +438,16 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		242BEFCA19A90B2A0063F2F2 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				244DE7CF19A9184A00A91DC7 /* DCTCoreDataStack.m in Sources */,
+				244DE7D019A9184A00A91DC7 /* NSManagedObjectContext+DCTCoreDataStack.m in Sources */,
+				244DE7D119A9184A00A91DC7 /* _DCTCDSManagedObjectContext.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		2437B68915B97C2600750117 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -374,13 +458,10 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		2468705818525E9200ADB152 /* Sources */ = {
+		244DE7ED19A9187F00A91DC7 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2468708218525ECB00ADB152 /* _DCTCDSManagedObjectContext.m in Sources */,
-				2468708318525ECB00ADB152 /* DCTCoreDataStack.m in Sources */,
-				2468708418525ECB00ADB152 /* NSManagedObjectContext+DCTCoreDataStack.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -408,101 +489,106 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin XCBuildConfiguration section */
+		242BEFE019A90B2B0063F2F2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 242BF02819A911150063F2F2 /* iOS Framework.xcconfig */;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				PRODUCT_NAME = DCTCoreDataStack;
+			};
+			name = Debug;
+		};
+		242BEFE119A90B2B0063F2F2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 242BF02819A911150063F2F2 /* iOS Framework.xcconfig */;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				PRODUCT_NAME = DCTCoreDataStack;
+			};
+			name = Release;
+		};
 		2437B69715B97C2600750117 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 242BEFC619A909600063F2F2 /* Library.xcconfig */;
+			baseConfigurationReference = 242BF02919A911150063F2F2 /* iOS Static Library.xcconfig */;
 			buildSettings = {
 			};
 			name = Debug;
 		};
 		2437B69815B97C2600750117 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 242BEFC619A909600063F2F2 /* Library.xcconfig */;
+			baseConfigurationReference = 242BF02919A911150063F2F2 /* iOS Static Library.xcconfig */;
 			buildSettings = {
 			};
 			name = Release;
 		};
-		2468707C18525E9200ADB152 /* Debug */ = {
+		244DE80319A9187F00A91DC7 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 242BF02B19A911150063F2F2 /* OS X Framework.xcconfig */;
 			buildSettings = {
-				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				COMBINE_HIDPI_IMAGES = YES;
-				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				MACOSX_DEPLOYMENT_TARGET = 10.9;
-				ONLY_ACTIVE_ARCH = YES;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx;
-				SKIP_INSTALL = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				PRODUCT_NAME = DCTCoreDataStack;
 			};
 			name = Debug;
 		};
-		2468707D18525E9200ADB152 /* Release */ = {
+		244DE80419A9187F00A91DC7 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 242BF02B19A911150063F2F2 /* OS X Framework.xcconfig */;
 			buildSettings = {
-				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				COMBINE_HIDPI_IMAGES = YES;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				ENABLE_NS_ASSERTIONS = NO;
-				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				MACOSX_DEPLOYMENT_TARGET = 10.9;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx;
-				SKIP_INSTALL = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				PRODUCT_NAME = DCTCoreDataStack;
 			};
 			name = Release;
 		};
 		24E91B6915BEB1FA00E0DB54 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 242BEFC219A909600063F2F2 /* Application.xcconfig */;
+			baseConfigurationReference = 242BF02619A911150063F2F2 /* iOS Application.xcconfig */;
 			buildSettings = {
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 			};
 			name = Debug;
 		};
 		24E91B6A15BEB1FA00E0DB54 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 242BEFC219A909600063F2F2 /* Application.xcconfig */;
+			baseConfigurationReference = 242BF02619A911150063F2F2 /* iOS Application.xcconfig */;
 			buildSettings = {
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 			};
 			name = Release;
 		};
 		24F6EC12158A261000CEDD41 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 242BEFC419A909600063F2F2 /* Debug.xcconfig */;
+			baseConfigurationReference = 242BF02519A911150063F2F2 /* Debug.xcconfig */;
 			buildSettings = {
 			};
 			name = Debug;
 		};
 		24F6EC13158A261000CEDD41 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 242BEFC719A909600063F2F2 /* Release.xcconfig */;
+			baseConfigurationReference = 242BF02C19A911150063F2F2 /* Release.xcconfig */;
 			buildSettings = {
 			};
 			name = Release;
 		};
 		24F6EC18158A261000CEDD41 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 242BEFC919A909600063F2F2 /* Tests.xcconfig */;
+			baseConfigurationReference = 242BF02A19A911150063F2F2 /* iOS Tests.xcconfig */;
 			buildSettings = {
 			};
 			name = Debug;
 		};
 		24F6EC19158A261000CEDD41 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 242BEFC919A909600063F2F2 /* Tests.xcconfig */;
+			baseConfigurationReference = 242BF02A19A911150063F2F2 /* iOS Tests.xcconfig */;
 			buildSettings = {
 			};
 			name = Release;
@@ -510,6 +596,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		242BEFDF19A90B2B0063F2F2 /* Build configuration list for PBXNativeTarget "DCTCoreDataStack iOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				242BEFE019A90B2B0063F2F2 /* Debug */,
+				242BEFE119A90B2B0063F2F2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		2437B69615B97C2600750117 /* Build configuration list for PBXNativeTarget "DCTCoreDataStack" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -519,14 +614,13 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		2468708018525E9200ADB152 /* Build configuration list for PBXNativeTarget "DCTCoreDataStack-OSX" */ = {
+		244DE80219A9187F00A91DC7 /* Build configuration list for PBXNativeTarget "DCTCoreDataStack OS X" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				2468707C18525E9200ADB152 /* Debug */,
-				2468707D18525E9200ADB152 /* Release */,
+				244DE80319A9187F00A91DC7 /* Debug */,
+				244DE80419A9187F00A91DC7 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
 		};
 		24E91B6B15BEB1FA00E0DB54 /* Build configuration list for PBXNativeTarget "DCTCoreDataStack Demo" */ = {
 			isa = XCConfigurationList;
