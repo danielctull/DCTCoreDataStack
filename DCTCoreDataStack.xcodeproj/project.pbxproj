@@ -20,6 +20,7 @@
 		244DE7CF19A9184A00A91DC7 /* DCTCoreDataStack.m in Sources */ = {isa = PBXBuildFile; fileRef = 24F6EBF9158A261000CEDD41 /* DCTCoreDataStack.m */; };
 		244DE7D019A9184A00A91DC7 /* NSManagedObjectContext+DCTCoreDataStack.m in Sources */ = {isa = PBXBuildFile; fileRef = 24F6EC1B158A264C00CEDD41 /* NSManagedObjectContext+DCTCoreDataStack.m */; };
 		244DE7D119A9184A00A91DC7 /* _DCTCDSManagedObjectContext.m in Sources */ = {isa = PBXBuildFile; fileRef = 24E91BDE15BED01A00E0DB54 /* _DCTCDSManagedObjectContext.m */; };
+		244DE80919A919D800A91DC7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 244DE80819A919D800A91DC7 /* Images.xcassets */; };
 		24E91B6415BEB1FA00E0DB54 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 24E91B6315BEB1FA00E0DB54 /* main.m */; };
 		24E91B6815BEB1FA00E0DB54 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 24E91B6715BEB1FA00E0DB54 /* AppDelegate.m */; };
 		24E91B7715BEB26600E0DB54 /* _Event.m in Sources */ = {isa = PBXBuildFile; fileRef = 24E91B7415BEB26600E0DB54 /* _Event.m */; };
@@ -68,6 +69,7 @@
 		242BF02D19A911150063F2F2 /* Shared.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Shared.xcconfig; sourceTree = "<group>"; };
 		2437B68D15B97C2600750117 /* libDCTCoreDataStack.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libDCTCoreDataStack.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		244DE7F219A9187F00A91DC7 /* DCTCoreDataStack.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DCTCoreDataStack.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		244DE80819A919D800A91DC7 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		24E91B5715BEB1FA00E0DB54 /* DCTCoreDataStack Demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "DCTCoreDataStack Demo.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		24E91B5F15BEB1FA00E0DB54 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		24E91B6315BEB1FA00E0DB54 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -171,6 +173,7 @@
 				24E91BC315BEB71200E0DB54 /* ViewController.h */,
 				24E91BC415BEB71200E0DB54 /* ViewController.m */,
 				24E91B5F15BEB1FA00E0DB54 /* Info.plist */,
+				244DE80819A919D800A91DC7 /* Images.xcassets */,
 				24E91B6315BEB1FA00E0DB54 /* main.m */,
 			);
 			path = "DCTCoreDataStack Demo";
@@ -395,6 +398,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				244DE80919A919D800A91DC7 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
