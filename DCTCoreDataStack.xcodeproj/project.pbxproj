@@ -625,6 +625,7 @@
 				244DE80419A9187F00A91DC7 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		24E91B6B15BEB1FA00E0DB54 /* Build configuration list for PBXNativeTarget "DCTCoreDataStack Demo" */ = {
 			isa = XCConfigurationList;
