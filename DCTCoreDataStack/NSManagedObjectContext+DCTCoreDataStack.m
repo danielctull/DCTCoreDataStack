@@ -58,8 +58,6 @@
 	
 	if (completionHandler != NULL)
 		completionHandler(success, error);
-	else if (!success)
-		NSLog(@"%@", [self dct_detailedDescriptionFromValidationError:error]);
 }
 
 - (NSString *)dct_detailedDescriptionFromValidationError:(NSError *)anError {
