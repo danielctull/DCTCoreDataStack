@@ -75,7 +75,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
 		NSManagedObject *object = [self.fetchedResultsController objectAtIndexPath:indexPath];
 		[self.managedObjectContext deleteObject:object];
-		[self.managedObjectContext dct_save];
+		[self.managedObjectContext dct_saveWithCompletionHandler:nil];
     }
 }
 
