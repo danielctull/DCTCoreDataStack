@@ -1,1 +1,0 @@
-perl Scripts/sort-Xcode-project-file DCTCoreDataStack.xcodeproj/project.pbxproj

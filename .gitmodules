@@ -1,3 +1,6 @@
 [submodule "Configurations"]
 	path = Configurations
 	url = git://github.com/danielctull/Xcode-Configurations.git
+[submodule "Scripts"]
+	path = Scripts
+	url = git://github.com/danielctull/Xcode-Scripts.git
