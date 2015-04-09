@@ -616,6 +616,10 @@
 			baseConfigurationReference = 242BF02519A911150063F2F2 /* Debug.xcconfig */;
 			buildSettings = {
 				ONLY_ACTIVE_ARCH = YES;
+				WARNING_CFLAGS = (
+					"$(inherited)",
+					"-Wno-tautological-pointer-compare",
+				);
 			};
 			name = Debug;
 		};
@@ -623,6 +627,10 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 242BF02C19A911150063F2F2 /* Release.xcconfig */;
 			buildSettings = {
+				WARNING_CFLAGS = (
+					"$(inherited)",
+					"-Wno-tautological-pointer-compare",
+				);
 			};
 			name = Release;
 		};
