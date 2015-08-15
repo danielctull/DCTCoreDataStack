@@ -37,7 +37,7 @@
 #import "DCTCoreDataStack.h"
 #import "_DCTCDSManagedObjectContext.h"
 @import ObjectiveC.runtime;
-#include <sys/xattr.h>
+@import Darwin.POSIX.sys.xattr;
 
 extern const struct DCTCoreDataStackProperties {
 	__unsafe_unretained NSString *storeURL;
