@@ -355,7 +355,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastTestingUpgradeCheck = 0510;
-				LastUpgradeCheck = 0610;
+				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = "Daniel Tull";
 				TargetAttributes = {
 					242BEFCE19A90B2A0063F2F2 = {
@@ -543,6 +543,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
+				PRODUCT_BUNDLE_IDENTIFIER = "uk.co.danieltull.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = DCTCoreDataStack;
 			};
 			name = Debug;
@@ -555,6 +556,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
+				PRODUCT_BUNDLE_IDENTIFIER = "uk.co.danieltull.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = DCTCoreDataStack;
 			};
 			name = Release;
@@ -580,6 +582,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
+				PRODUCT_BUNDLE_IDENTIFIER = "uk.co.danieltull.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = DCTCoreDataStack;
 			};
 			name = Debug;
@@ -591,6 +594,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
+				PRODUCT_BUNDLE_IDENTIFIER = "uk.co.danieltull.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = DCTCoreDataStack;
 			};
 			name = Release;
@@ -600,6 +604,7 @@
 			baseConfigurationReference = 242BF02619A911150063F2F2 /* iOS Application.xcconfig */;
 			buildSettings = {
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "uk.co.danieltull.${PRODUCT_NAME:rfc1034identifier}";
 			};
 			name = Debug;
 		};
@@ -608,6 +613,7 @@
 			baseConfigurationReference = 242BF02619A911150063F2F2 /* iOS Application.xcconfig */;
 			buildSettings = {
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "uk.co.danieltull.${PRODUCT_NAME:rfc1034identifier}";
 			};
 			name = Release;
 		};
@@ -615,6 +621,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 242BF02519A911150063F2F2 /* Debug.xcconfig */;
 			buildSettings = {
+				ENABLE_TESTABILITY = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				WARNING_CFLAGS = (
 					"$(inherited)",
@@ -638,6 +645,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 242BF02A19A911150063F2F2 /* iOS Tests.xcconfig */;
 			buildSettings = {
+				PRODUCT_BUNDLE_IDENTIFIER = "uk.co.danieltull.${PRODUCT_NAME:rfc1034identifier}";
 			};
 			name = Debug;
 		};
@@ -645,6 +653,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 242BF02A19A911150063F2F2 /* iOS Tests.xcconfig */;
 			buildSettings = {
+				PRODUCT_BUNDLE_IDENTIFIER = "uk.co.danieltull.${PRODUCT_NAME:rfc1034identifier}";
 			};
 			name = Release;
 		};
