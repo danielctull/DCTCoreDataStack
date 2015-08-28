@@ -73,13 +73,19 @@ NSString *const DCTCoreDataStackExcludeFromBackupStoreOption = @"DCTCoreDataStac
 
 - (void)dealloc {
 	NSNotificationCenter *defaultCenter = [NSNotificationCenter defaultCenter];
-	UIApplication *app = [UIApplication sharedApplication];
 	[defaultCenter removeObserver:self
 							 name:UIApplicationDidEnterBackgroundNotification
-						   object:app];
+						   object:nil];
+	[defaultCenter removeObserver:self
+							 name:NSExtensionHostDidEnterBackgroundNotification
+						   object:nil];
+
 	[defaultCenter removeObserver:self
 							 name:UIApplicationWillTerminateNotification
-						   object:app];
+						   object:nil];
+	[defaultCenter removeObserver:self
+							 name:NSExtensionHostWillResignActiveNotification
+						   object:nil];
 }
 
 #endif
@@ -109,18 +115,24 @@ NSString *const DCTCoreDataStackExcludeFromBackupStoreOption = @"DCTCoreDataStac
 	NSString *identifier = [[NSUUID UUID] UUIDString];
 	[UIApplication registerObjectForStateRestoration:self restorationIdentifier:identifier];
 
-	UIApplication *app = [UIApplication sharedApplication];
 	NSNotificationCenter *defaultCenter = [NSNotificationCenter defaultCenter];
-	
 	[defaultCenter addObserver:self
 					  selector:@selector(_applicationDidEnterBackgroundNotification:)
 						  name:UIApplicationDidEnterBackgroundNotification
-						object:app];
-	
+						object:nil];
+	[defaultCenter addObserver:self
+					  selector:@selector(_applicationDidEnterBackgroundNotification:)
+						  name:NSExtensionHostDidEnterBackgroundNotification
+						object:nil];
+
 	[defaultCenter addObserver:self
 					  selector:@selector(_applicationWillTerminateNotification:)
 						  name:UIApplicationWillTerminateNotification
-						object:app];
+						object:nil];
+	[defaultCenter addObserver:self
+					  selector:@selector(_applicationWillTerminateNotification:)
+						  name:NSExtensionHostWillResignActiveNotification
+						object:nil];
 
 #endif
 	
