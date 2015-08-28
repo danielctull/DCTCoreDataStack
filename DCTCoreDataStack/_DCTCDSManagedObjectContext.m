@@ -68,18 +68,14 @@
 
 	if (completion == NULL) completion = ^(BOOL success, NSError *error) {};
 
-#if TARGET_OS_IPHONE
-	
-	UIBackgroundTaskIdentifier backgroundTaskIdentifier = [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:NULL];
+	id activity = [[NSProcessInfo processInfo] beginActivityWithOptions:NSActivityUserInitiated reason:@"DCTCoreDataStack.save"];
 	
 	void(^iphoneCompletion)(BOOL, NSError *) = ^(BOOL success, NSError *error) {
 		completion(success, error);
-		[[UIApplication sharedApplication] endBackgroundTask:backgroundTaskIdentifier];
+		[[NSProcessInfo processInfo] endActivity:activity];
 	};
 	
 	completion = iphoneCompletion;
-	
-#endif
 	
 	NSManagedObjectContext *parent = self.parentContext;
 	
