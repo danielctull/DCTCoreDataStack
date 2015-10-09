@@ -20,6 +20,14 @@
 		244DE7D019A9184A00A91DC7 /* NSManagedObjectContext+DCTCoreDataStack.m in Sources */ = {isa = PBXBuildFile; fileRef = 24F6EC1B158A264C00CEDD41 /* NSManagedObjectContext+DCTCoreDataStack.m */; };
 		244DE7D119A9184A00A91DC7 /* _DCTCDSManagedObjectContext.m in Sources */ = {isa = PBXBuildFile; fileRef = 24E91BDE15BED01A00E0DB54 /* _DCTCDSManagedObjectContext.m */; };
 		244DE80919A919D800A91DC7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 244DE80819A919D800A91DC7 /* Images.xcassets */; };
+		2473F1B51BC856080075EA00 /* DCTCoreDataStack.m in Sources */ = {isa = PBXBuildFile; fileRef = 24F6EBF9158A261000CEDD41 /* DCTCoreDataStack.m */; };
+		2473F1B61BC856080075EA00 /* NSManagedObjectContext+DCTCoreDataStack.m in Sources */ = {isa = PBXBuildFile; fileRef = 24F6EC1B158A264C00CEDD41 /* NSManagedObjectContext+DCTCoreDataStack.m */; };
+		2473F1B71BC856080075EA00 /* _DCTCDSManagedObjectContext.m in Sources */ = {isa = PBXBuildFile; fileRef = 24E91BDE15BED01A00E0DB54 /* _DCTCDSManagedObjectContext.m */; };
+		2473F1BA1BC856080075EA00 /* DCTCoreDataStack.h in Headers */ = {isa = PBXBuildFile; fileRef = 24F6EBF8158A261000CEDD41 /* DCTCoreDataStack.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		2473F1BB1BC856080075EA00 /* NSManagedObjectContext+DCTCoreDataStack.h in Headers */ = {isa = PBXBuildFile; fileRef = 24F6EC1A158A264C00CEDD41 /* NSManagedObjectContext+DCTCoreDataStack.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		2473F1BC1BC856080075EA00 /* _DCTCDSManagedObjectContext.h in Headers */ = {isa = PBXBuildFile; fileRef = 24E91BDD15BED01A00E0DB54 /* _DCTCDSManagedObjectContext.h */; };
+		2473F1C71BC856110075EA00 /* DCTCoreDataStackTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 24F6EC10158A261000CEDD41 /* DCTCoreDataStackTests.m */; };
+		2473F1C91BC856110075EA00 /* DCTCoreDataStack.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 242BEFCF19A90B2A0063F2F2 /* DCTCoreDataStack.framework */; };
 		248B72CC1B9376CD0072B58C /* DCTCoreDataStackTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 24F6EC10158A261000CEDD41 /* DCTCoreDataStackTests.m */; };
 		248B72D91B9377390072B58C /* DCTCoreDataStack.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 244DE7F219A9187F00A91DC7 /* DCTCoreDataStack.framework */; };
 		248B72DC1B9377480072B58C /* DCTCoreDataStack.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 242BEFCF19A90B2A0063F2F2 /* DCTCoreDataStack.framework */; };
@@ -40,6 +48,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		2473F1CF1BC856220075EA00 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 24F6EBE7158A261000CEDD41 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 2473F1B31BC856080075EA00;
+			remoteInfo = "DCTCoreDataStack tvOS";
+		};
 		248B72DA1B93773F0072B58C /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 24F6EBE7158A261000CEDD41 /* Project object */;
@@ -95,6 +110,11 @@
 		2437B68D15B97C2600750117 /* libDCTCoreDataStack.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libDCTCoreDataStack.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		244DE7F219A9187F00A91DC7 /* DCTCoreDataStack.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DCTCoreDataStack.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		244DE80819A919D800A91DC7 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		2473F1C21BC856080075EA00 /* DCTCoreDataStack.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DCTCoreDataStack.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		2473F1CE1BC856110075EA00 /* DCTCoreDataStack.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DCTCoreDataStack.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		2473F1D11BC8565C0075EA00 /* tvOS Application.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "tvOS Application.xcconfig"; sourceTree = "<group>"; };
+		2473F1D21BC8565C0075EA00 /* tvOS Framework.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "tvOS Framework.xcconfig"; sourceTree = "<group>"; };
+		2473F1D31BC8565C0075EA00 /* tvOS Tests.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "tvOS Tests.xcconfig"; sourceTree = "<group>"; };
 		248B72D31B9376CD0072B58C /* DCTCoreDataStack Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "DCTCoreDataStack Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		248B72D41B9376FB0072B58C /* OS X Tests.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "OS X Tests.xcconfig"; sourceTree = "<group>"; };
 		248B72D51B9377040072B58C /* OS X Application.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "OS X Application.xcconfig"; sourceTree = "<group>"; };
@@ -145,6 +165,21 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		2473F1B81BC856080075EA00 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2473F1C81BC856110075EA00 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2473F1C91BC856110075EA00 /* DCTCoreDataStack.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		248B72CD1B9376CD0072B58C /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -187,6 +222,9 @@
 				248B72D41B9376FB0072B58C /* OS X Tests.xcconfig */,
 				242BF02C19A911150063F2F2 /* Release.xcconfig */,
 				242BF02D19A911150063F2F2 /* Shared.xcconfig */,
+				2473F1D11BC8565C0075EA00 /* tvOS Application.xcconfig */,
+				2473F1D21BC8565C0075EA00 /* tvOS Framework.xcconfig */,
+				2473F1D31BC8565C0075EA00 /* tvOS Tests.xcconfig */,
 			);
 			path = Configurations;
 			sourceTree = "<group>";
@@ -239,6 +277,8 @@
 				242BEFCF19A90B2A0063F2F2 /* DCTCoreDataStack.framework */,
 				244DE7F219A9187F00A91DC7 /* DCTCoreDataStack.framework */,
 				248B72D31B9376CD0072B58C /* DCTCoreDataStack Tests.xctest */,
+				2473F1C21BC856080075EA00 /* DCTCoreDataStack.framework */,
+				2473F1CE1BC856110075EA00 /* DCTCoreDataStack.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -285,6 +325,16 @@
 				24CF1A7A1A939F2300868486 /* DCTCoreDataStack.h in Headers */,
 				24CF1A7B1A939F2300868486 /* NSManagedObjectContext+DCTCoreDataStack.h in Headers */,
 				24CF1A7C1A939F2300868486 /* _DCTCDSManagedObjectContext.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2473F1B91BC856080075EA00 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2473F1BA1BC856080075EA00 /* DCTCoreDataStack.h in Headers */,
+				2473F1BB1BC856080075EA00 /* NSManagedObjectContext+DCTCoreDataStack.h in Headers */,
+				2473F1BC1BC856080075EA00 /* _DCTCDSManagedObjectContext.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -346,6 +396,43 @@
 			productName = "DCTCoreDataStack OS X";
 			productReference = 244DE7F219A9187F00A91DC7 /* DCTCoreDataStack.framework */;
 			productType = "com.apple.product-type.framework";
+		};
+		2473F1B31BC856080075EA00 /* DCTCoreDataStack tvOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2473F1BF1BC856080075EA00 /* Build configuration list for PBXNativeTarget "DCTCoreDataStack tvOS" */;
+			buildPhases = (
+				2473F1B41BC856080075EA00 /* Sources */,
+				2473F1B81BC856080075EA00 /* Frameworks */,
+				2473F1B91BC856080075EA00 /* Headers */,
+				2473F1BD1BC856080075EA00 /* Resources */,
+				2473F1BE1BC856080075EA00 /* Documentation */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "DCTCoreDataStack tvOS";
+			productName = "DCTCoreDataStack iOS";
+			productReference = 2473F1C21BC856080075EA00 /* DCTCoreDataStack.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		2473F1C31BC856110075EA00 /* DCTCoreDataStack tvOS Tests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2473F1CB1BC856110075EA00 /* Build configuration list for PBXNativeTarget "DCTCoreDataStack tvOS Tests" */;
+			buildPhases = (
+				2473F1C61BC856110075EA00 /* Sources */,
+				2473F1C81BC856110075EA00 /* Frameworks */,
+				2473F1CA1BC856110075EA00 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				2473F1D01BC856220075EA00 /* PBXTargetDependency */,
+			);
+			name = "DCTCoreDataStack tvOS Tests";
+			productName = DCTCoreDataStackTests;
+			productReference = 2473F1CE1BC856110075EA00 /* DCTCoreDataStack.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
 		};
 		248B72CA1B9376CD0072B58C /* DCTCoreDataStack OS X Tests */ = {
 			isa = PBXNativeTarget;
@@ -437,8 +524,10 @@
 				2437B68C15B97C2600750117 /* DCTCoreDataStack */,
 				242BEFCE19A90B2A0063F2F2 /* DCTCoreDataStack iOS */,
 				244DE7F119A9187F00A91DC7 /* DCTCoreDataStack OS X */,
+				2473F1B31BC856080075EA00 /* DCTCoreDataStack tvOS */,
 				24F6EBFF158A261000CEDD41 /* DCTCoreDataStack iOS Tests */,
 				248B72CA1B9376CD0072B58C /* DCTCoreDataStack OS X Tests */,
+				2473F1C31BC856110075EA00 /* DCTCoreDataStack tvOS Tests */,
 				24E91B5615BEB1FA00E0DB54 /* DCTCoreDataStack Demo */,
 			);
 		};
@@ -453,6 +542,20 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		244DE7F019A9187F00A91DC7 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2473F1BD1BC856080075EA00 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2473F1CA1BC856110075EA00 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -526,6 +629,20 @@
 			shellPath = /bin/sh;
 			shellScript = "# Add this to Xcode's PATH to find homebrew installation\nPATH=$PATH:/usr/local/bin\n\nappledoc=`which appledoc`\n\nif [ $appledoc ]; then\n\ncompany=\"Daniel Tull\";\ncompanyID=\"uk.co.danieltull\";\ncompanyURL=\"http://danieltull.co.uk\";\nuuid=`uuidgen`\necho ${uuid}\noutputPath=\"/tmp/${uuid}\";\n\n$appledoc \\\n--project-name \"${PRODUCT_NAME}\" \\\n--project-company \"${company}\" \\\n--company-id \"${companyID}\" \\\n--output \"${outputPath}\" \\\n--create-docset \\\n--install-docset \\\n--create-html \\\n--docset-platform-family \"iphoneos\" \\\n--exit-threshold 2 \\\n--no-repeat-first-par \\\n\"${BUILT_PRODUCTS_DIR}/include/${PRODUCT_NAME}\"\n\nrm -rf ${outputPath}\n\nelse\n\necho \"appledoc not found.\"\n\nfi;\n";
 		};
+		2473F1BE1BC856080075EA00 /* Documentation */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = Documentation;
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "./Scripts/documentation.sh -c \"Daniel Tull\" -i \"uk.co.danieltull\" > /dev/null 2>&1 &\n";
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -556,6 +673,24 @@
 				24CF1A7D1A939F3400868486 /* DCTCoreDataStack.m in Sources */,
 				24CF1A7E1A939F3400868486 /* NSManagedObjectContext+DCTCoreDataStack.m in Sources */,
 				24CF1A7F1A939F3400868486 /* _DCTCDSManagedObjectContext.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2473F1B41BC856080075EA00 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2473F1B51BC856080075EA00 /* DCTCoreDataStack.m in Sources */,
+				2473F1B61BC856080075EA00 /* NSManagedObjectContext+DCTCoreDataStack.m in Sources */,
+				2473F1B71BC856080075EA00 /* _DCTCDSManagedObjectContext.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2473F1C61BC856110075EA00 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2473F1C71BC856110075EA00 /* DCTCoreDataStackTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -591,6 +726,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		2473F1D01BC856220075EA00 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 2473F1B31BC856080075EA00 /* DCTCoreDataStack tvOS */;
+			targetProxy = 2473F1CF1BC856220075EA00 /* PBXContainerItemProxy */;
+		};
 		248B72DB1B93773F0072B58C /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 244DE7F119A9187F00A91DC7 /* DCTCoreDataStack OS X */;
@@ -662,6 +802,44 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
+				PRODUCT_NAME = DCTCoreDataStack;
+			};
+			name = Release;
+		};
+		2473F1C01BC856080075EA00 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2473F1D21BC8565C0075EA00 /* tvOS Framework.xcconfig */;
+			buildSettings = {
+				CURRENT_PROJECT_VERSION = 1;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				PRODUCT_NAME = DCTCoreDataStack;
+			};
+			name = Debug;
+		};
+		2473F1C11BC856080075EA00 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2473F1D21BC8565C0075EA00 /* tvOS Framework.xcconfig */;
+			buildSettings = {
+				CURRENT_PROJECT_VERSION = 1;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				PRODUCT_NAME = DCTCoreDataStack;
+			};
+			name = Release;
+		};
+		2473F1CC1BC856110075EA00 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2473F1D31BC8565C0075EA00 /* tvOS Tests.xcconfig */;
+			buildSettings = {
+				PRODUCT_NAME = DCTCoreDataStack;
+			};
+			name = Debug;
+		};
+		2473F1CD1BC856110075EA00 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2473F1D31BC8565C0075EA00 /* tvOS Tests.xcconfig */;
+			buildSettings = {
 				PRODUCT_NAME = DCTCoreDataStack;
 			};
 			name = Release;
@@ -766,6 +944,24 @@
 			buildConfigurations = (
 				244DE80319A9187F00A91DC7 /* Debug */,
 				244DE80419A9187F00A91DC7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		2473F1BF1BC856080075EA00 /* Build configuration list for PBXNativeTarget "DCTCoreDataStack tvOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2473F1C01BC856080075EA00 /* Debug */,
+				2473F1C11BC856080075EA00 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		2473F1CB1BC856110075EA00 /* Build configuration list for PBXNativeTarget "DCTCoreDataStack tvOS Tests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2473F1CC1BC856110075EA00 /* Debug */,
+				2473F1CD1BC856110075EA00 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
