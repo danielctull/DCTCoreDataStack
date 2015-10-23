@@ -495,7 +495,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastTestingUpgradeCheck = 0510;
-				LastUpgradeCheck = 0700;
+				LastUpgradeCheck = 0710;
 				ORGANIZATIONNAME = "Daniel Tull";
 				TargetAttributes = {
 					242BEFCE19A90B2A0063F2F2 = {
@@ -749,7 +749,6 @@
 			baseConfigurationReference = 242BF02819A911150063F2F2 /* iOS Framework.xcconfig */;
 			buildSettings = {
 				APPLICATION_EXTENSION_API_ONLY = YES;
-				CURRENT_PROJECT_VERSION = 1;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				PRODUCT_BUNDLE_IDENTIFIER = "uk.co.danieltull.$(PRODUCT_NAME:rfc1034identifier)";
@@ -762,7 +761,6 @@
 			baseConfigurationReference = 242BF02819A911150063F2F2 /* iOS Framework.xcconfig */;
 			buildSettings = {
 				APPLICATION_EXTENSION_API_ONLY = YES;
-				CURRENT_PROJECT_VERSION = 1;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				PRODUCT_BUNDLE_IDENTIFIER = "uk.co.danieltull.$(PRODUCT_NAME:rfc1034identifier)";
@@ -788,7 +786,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 242BF02B19A911150063F2F2 /* OS X Framework.xcconfig */;
 			buildSettings = {
-				CURRENT_PROJECT_VERSION = 1;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				PRODUCT_NAME = DCTCoreDataStack;
@@ -799,7 +796,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 242BF02B19A911150063F2F2 /* OS X Framework.xcconfig */;
 			buildSettings = {
-				CURRENT_PROJECT_VERSION = 1;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				PRODUCT_NAME = DCTCoreDataStack;
@@ -810,7 +806,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 2473F1D21BC8565C0075EA00 /* tvOS Framework.xcconfig */;
 			buildSettings = {
-				CURRENT_PROJECT_VERSION = 1;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				PRODUCT_NAME = DCTCoreDataStack;
@@ -821,7 +816,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 2473F1D21BC8565C0075EA00 /* tvOS Framework.xcconfig */;
 			buildSettings = {
-				CURRENT_PROJECT_VERSION = 1;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				PRODUCT_NAME = DCTCoreDataStack;
@@ -848,6 +842,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 248B72D41B9376FB0072B58C /* OS X Tests.xcconfig */;
 			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
 				PRODUCT_NAME = "DCTCoreDataStack Tests";
 			};
 			name = Debug;
@@ -856,6 +851,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 248B72D41B9376FB0072B58C /* OS X Tests.xcconfig */;
 			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
 				PRODUCT_NAME = "DCTCoreDataStack Tests";
 			};
 			name = Release;
@@ -882,6 +878,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 242BF02519A911150063F2F2 /* Debug.xcconfig */;
 			buildSettings = {
+				CURRENT_PROJECT_VERSION = 1;
 				PRODUCT_BUNDLE_IDENTIFIER = "uk.co.danieltull.${PRODUCT_NAME:rfc1034identifier}";
 				WARNING_CFLAGS = (
 					"$(inherited)",
@@ -894,6 +891,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 242BF02C19A911150063F2F2 /* Release.xcconfig */;
 			buildSettings = {
+				CURRENT_PROJECT_VERSION = 1;
 				PRODUCT_BUNDLE_IDENTIFIER = "uk.co.danieltull.${PRODUCT_NAME:rfc1034identifier}";
 				WARNING_CFLAGS = (
 					"$(inherited)",
