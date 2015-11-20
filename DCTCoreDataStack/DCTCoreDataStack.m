@@ -214,19 +214,35 @@ NSString *const DCTCoreDataStackExcludeFromBackupStoreOption = @"DCTCoreDataStac
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wdirect-ivar-access"
 
+	NSFileManager *fileManager = [NSFileManager defaultManager];
+	NSString *path = self.storeURL.path;
+	if (!path) {
+		return;
+	}
+
+	BOOL isDirectory;
+	BOOL fileExistsAtPath = [fileManager fileExistsAtPath:path isDirectory:&isDirectory];
+	if (fileExistsAtPath && !isDirectory) {
+		[fileManager removeItemAtURL:self.storeURL error:nil];
+	}
+
+	NSString *filename = self.storeURL.lastPathComponent;
+	[fileManager createDirectoryAtURL:self.storeURL withIntermediateDirectories:YES attributes:nil error:nil];
+	NSURL *URL = [self.storeURL URLByAppendingPathComponent:filename];
+
 	_persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:self.managedObjectModel];
 	
 	NSError *error = nil;
 	NSPersistentStore *persistentStore = [_persistentStoreCoordinator addPersistentStoreWithType:self.storeType
 																				   configuration:self.modelConfiguration
-																							 URL:self.storeURL
+																							 URL:URL
 																						 options:self.storeOptions
 																						   error:&error];
 	
 	if (!persistentStore && [self retryAfterPersistentStoreFailure:error])
 		[_persistentStoreCoordinator addPersistentStoreWithType:self.storeType
 												  configuration:self.modelConfiguration
-															URL:self.storeURL
+															URL:URL
 														options:self.storeOptions
 														  error:NULL];
 	
