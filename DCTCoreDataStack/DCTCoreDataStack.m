@@ -148,6 +148,13 @@ NSString *const DCTCoreDataStackExcludeFromBackupStoreOption = @"DCTCoreDataStac
 						 modelURL:nil];
 }
 
+- (void)destroyPersistentStore {
+	[self.persistentStoreCoordinator destroyPersistentStoreAtURL:self.storeURL withType:self.storeType options:self.storeOptions error:nil];
+	self.managedObjectContext = nil;
+	self.persistentStoreCoordinator = nil;
+	self.managedObjectModel = nil;
+}
+
 #pragma mark - Getters
 
 - (NSManagedObjectContext *)managedObjectContext {

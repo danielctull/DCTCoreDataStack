@@ -148,6 +148,8 @@ extern NSString *const DCTCoreDataStackExcludeFromBackupStoreOption;
 @property (nonatomic, copy) void(^automaticSaveCompletionHandler)(BOOL success, NSError *error) DEPRECATED_ATTRIBUTE;
 #endif
 
+- (void)destroyPersistentStore;
+
 @end
 
 
