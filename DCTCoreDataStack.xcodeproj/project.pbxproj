@@ -495,7 +495,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastTestingUpgradeCheck = 0510;
-				LastUpgradeCheck = 0710;
+				LastUpgradeCheck = 0720;
 				ORGANIZATIONNAME = "Daniel Tull";
 				TargetAttributes = {
 					242BEFCE19A90B2A0063F2F2 = {
