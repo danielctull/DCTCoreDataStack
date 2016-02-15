@@ -34,7 +34,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "2473F1C31BC856110075EA00"
-               BuildableName = "DCTCoreDataStack.xctest"
+               BuildableName = "DCTCoreDataStack Tests.xctest"
                BlueprintName = "DCTCoreDataStack tvOS Tests"
                ReferencedContainer = "container:DCTCoreDataStack.xcodeproj">
             </BuildableReference>

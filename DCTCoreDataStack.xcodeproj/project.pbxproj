@@ -7,9 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		242BF03119A913850063F2F2 /* _DCTCDSManagedObjectContext.h in Headers */ = {isa = PBXBuildFile; fileRef = 24E91BDD15BED01A00E0DB54 /* _DCTCDSManagedObjectContext.h */; };
 		242BF03219A913880063F2F2 /* DCTCoreDataStack.h in Headers */ = {isa = PBXBuildFile; fileRef = 24F6EBF8158A261000CEDD41 /* DCTCoreDataStack.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		242BF03319A9138A0063F2F2 /* NSManagedObjectContext+DCTCoreDataStack.h in Headers */ = {isa = PBXBuildFile; fileRef = 24F6EC1A158A264C00CEDD41 /* NSManagedObjectContext+DCTCoreDataStack.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		242BF03919A914400063F2F2 /* DCTCoreDataStack.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 242BEFCF19A90B2A0063F2F2 /* DCTCoreDataStack.framework */; };
 		244A73C81C70FAB100F0A002 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 244A73C71C70FAB100F0A002 /* CoreDataStack.swift */; };
 		244A73C91C70FAB100F0A002 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 244A73C71C70FAB100F0A002 /* CoreDataStack.swift */; };
@@ -36,34 +34,11 @@
 		244A73E91C71C68E00F0A002 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 244A73E61C71C68E00F0A002 /* Model.xcdatamodeld */; };
 		244A73EA1C71C68E00F0A002 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 244A73E61C71C68E00F0A002 /* Model.xcdatamodeld */; };
 		244DE7CC19A917AD00A91DC7 /* DCTCoreDataStack.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 242BEFCF19A90B2A0063F2F2 /* DCTCoreDataStack.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		244DE7CF19A9184A00A91DC7 /* DCTCoreDataStack.m in Sources */ = {isa = PBXBuildFile; fileRef = 24F6EBF9158A261000CEDD41 /* DCTCoreDataStack.m */; };
-		244DE7D019A9184A00A91DC7 /* NSManagedObjectContext+DCTCoreDataStack.m in Sources */ = {isa = PBXBuildFile; fileRef = 24F6EC1B158A264C00CEDD41 /* NSManagedObjectContext+DCTCoreDataStack.m */; };
-		244DE7D119A9184A00A91DC7 /* _DCTCDSManagedObjectContext.m in Sources */ = {isa = PBXBuildFile; fileRef = 24E91BDE15BED01A00E0DB54 /* _DCTCDSManagedObjectContext.m */; };
-		244DE80919A919D800A91DC7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 244DE80819A919D800A91DC7 /* Images.xcassets */; };
-		2473F1B51BC856080075EA00 /* DCTCoreDataStack.m in Sources */ = {isa = PBXBuildFile; fileRef = 24F6EBF9158A261000CEDD41 /* DCTCoreDataStack.m */; };
-		2473F1B61BC856080075EA00 /* NSManagedObjectContext+DCTCoreDataStack.m in Sources */ = {isa = PBXBuildFile; fileRef = 24F6EC1B158A264C00CEDD41 /* NSManagedObjectContext+DCTCoreDataStack.m */; };
-		2473F1B71BC856080075EA00 /* _DCTCDSManagedObjectContext.m in Sources */ = {isa = PBXBuildFile; fileRef = 24E91BDE15BED01A00E0DB54 /* _DCTCDSManagedObjectContext.m */; };
 		2473F1BA1BC856080075EA00 /* DCTCoreDataStack.h in Headers */ = {isa = PBXBuildFile; fileRef = 24F6EBF8158A261000CEDD41 /* DCTCoreDataStack.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		2473F1BB1BC856080075EA00 /* NSManagedObjectContext+DCTCoreDataStack.h in Headers */ = {isa = PBXBuildFile; fileRef = 24F6EC1A158A264C00CEDD41 /* NSManagedObjectContext+DCTCoreDataStack.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		2473F1BC1BC856080075EA00 /* _DCTCDSManagedObjectContext.h in Headers */ = {isa = PBXBuildFile; fileRef = 24E91BDD15BED01A00E0DB54 /* _DCTCDSManagedObjectContext.h */; };
-		2473F1C71BC856110075EA00 /* DCTCoreDataStackTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 24F6EC10158A261000CEDD41 /* DCTCoreDataStackTests.m */; };
 		2473F1C91BC856110075EA00 /* DCTCoreDataStack.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 242BEFCF19A90B2A0063F2F2 /* DCTCoreDataStack.framework */; };
-		248B72CC1B9376CD0072B58C /* DCTCoreDataStackTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 24F6EC10158A261000CEDD41 /* DCTCoreDataStackTests.m */; };
 		248B72D91B9377390072B58C /* DCTCoreDataStack.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 244DE7F219A9187F00A91DC7 /* DCTCoreDataStack.framework */; };
 		248B72DC1B9377480072B58C /* DCTCoreDataStack.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 242BEFCF19A90B2A0063F2F2 /* DCTCoreDataStack.framework */; };
 		24CF1A7A1A939F2300868486 /* DCTCoreDataStack.h in Headers */ = {isa = PBXBuildFile; fileRef = 24F6EBF8158A261000CEDD41 /* DCTCoreDataStack.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		24CF1A7B1A939F2300868486 /* NSManagedObjectContext+DCTCoreDataStack.h in Headers */ = {isa = PBXBuildFile; fileRef = 24F6EC1A158A264C00CEDD41 /* NSManagedObjectContext+DCTCoreDataStack.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		24CF1A7C1A939F2300868486 /* _DCTCDSManagedObjectContext.h in Headers */ = {isa = PBXBuildFile; fileRef = 24E91BDD15BED01A00E0DB54 /* _DCTCDSManagedObjectContext.h */; };
-		24CF1A7D1A939F3400868486 /* DCTCoreDataStack.m in Sources */ = {isa = PBXBuildFile; fileRef = 24F6EBF9158A261000CEDD41 /* DCTCoreDataStack.m */; };
-		24CF1A7E1A939F3400868486 /* NSManagedObjectContext+DCTCoreDataStack.m in Sources */ = {isa = PBXBuildFile; fileRef = 24F6EC1B158A264C00CEDD41 /* NSManagedObjectContext+DCTCoreDataStack.m */; };
-		24CF1A7F1A939F3400868486 /* _DCTCDSManagedObjectContext.m in Sources */ = {isa = PBXBuildFile; fileRef = 24E91BDE15BED01A00E0DB54 /* _DCTCDSManagedObjectContext.m */; };
-		24E91B6415BEB1FA00E0DB54 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 24E91B6315BEB1FA00E0DB54 /* main.m */; };
-		24E91B6815BEB1FA00E0DB54 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 24E91B6715BEB1FA00E0DB54 /* AppDelegate.m */; };
-		24E91B7715BEB26600E0DB54 /* _Event.m in Sources */ = {isa = PBXBuildFile; fileRef = 24E91B7415BEB26600E0DB54 /* _Event.m */; };
-		24E91B7815BEB26600E0DB54 /* Event.m in Sources */ = {isa = PBXBuildFile; fileRef = 24E91B7615BEB26600E0DB54 /* Event.m */; };
-		24E91B7D15BEB28900E0DB54 /* DCTCoreDataStack.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 24E91B7B15BEB28900E0DB54 /* DCTCoreDataStack.xcdatamodeld */; };
-		24E91BC515BEB71200E0DB54 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 24E91BC415BEB71200E0DB54 /* ViewController.m */; };
-		24F6EC11158A261000CEDD41 /* DCTCoreDataStackTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 24F6EC10158A261000CEDD41 /* DCTCoreDataStackTests.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -151,32 +126,13 @@
 		244A73E21C71C55800F0A002 /* CoreDataStackTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataStackTests.swift; sourceTree = "<group>"; };
 		244A73E71C71C68E00F0A002 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 		244DE7F219A9187F00A91DC7 /* DCTCoreDataStack.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DCTCoreDataStack.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		244DE80819A919D800A91DC7 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		2473F1C21BC856080075EA00 /* DCTCoreDataStack.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DCTCoreDataStack.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2473F1CE1BC856110075EA00 /* DCTCoreDataStack Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "DCTCoreDataStack Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		248B72D31B9376CD0072B58C /* DCTCoreDataStack Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "DCTCoreDataStack Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		24E91B5715BEB1FA00E0DB54 /* DCTCoreDataStack Demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "DCTCoreDataStack Demo.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		24E91B5F15BEB1FA00E0DB54 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		24E91B6315BEB1FA00E0DB54 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		24E91B6615BEB1FA00E0DB54 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
-		24E91B6715BEB1FA00E0DB54 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		24E91B7315BEB26600E0DB54 /* _Event.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _Event.h; sourceTree = "<group>"; };
-		24E91B7415BEB26600E0DB54 /* _Event.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _Event.m; sourceTree = "<group>"; };
-		24E91B7515BEB26600E0DB54 /* Event.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Event.h; sourceTree = "<group>"; };
-		24E91B7615BEB26600E0DB54 /* Event.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Event.m; sourceTree = "<group>"; };
-		24E91B7C15BEB28900E0DB54 /* DCTCoreDataStack.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DCTCoreDataStack.xcdatamodel; sourceTree = "<group>"; };
-		24E91BC315BEB71200E0DB54 /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		24E91BC415BEB71200E0DB54 /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
-		24E91BDD15BED01A00E0DB54 /* _DCTCDSManagedObjectContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _DCTCDSManagedObjectContext.h; sourceTree = "<group>"; };
-		24E91BDE15BED01A00E0DB54 /* _DCTCDSManagedObjectContext.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _DCTCDSManagedObjectContext.m; sourceTree = "<group>"; };
 		24F6EBF8158A261000CEDD41 /* DCTCoreDataStack.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DCTCoreDataStack.h; sourceTree = "<group>"; };
-		24F6EBF9158A261000CEDD41 /* DCTCoreDataStack.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DCTCoreDataStack.m; sourceTree = "<group>"; };
 		24F6EC00158A261000CEDD41 /* DCTCoreDataStack Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "DCTCoreDataStack Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		24F6EC0B158A261000CEDD41 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		24F6EC0F158A261000CEDD41 /* DCTCoreDataStackTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DCTCoreDataStackTests.h; sourceTree = "<group>"; };
-		24F6EC10158A261000CEDD41 /* DCTCoreDataStackTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DCTCoreDataStackTests.m; sourceTree = "<group>"; };
-		24F6EC1A158A264C00CEDD41 /* NSManagedObjectContext+DCTCoreDataStack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSManagedObjectContext+DCTCoreDataStack.h"; sourceTree = "<group>"; };
-		24F6EC1B158A264C00CEDD41 /* NSManagedObjectContext+DCTCoreDataStack.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSManagedObjectContext+DCTCoreDataStack.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -310,40 +266,11 @@
 			path = watchOS;
 			sourceTree = "<group>";
 		};
-		24671D3F16C5019200889D3F /* Private */ = {
-			isa = PBXGroup;
-			children = (
-				24E91BDD15BED01A00E0DB54 /* _DCTCDSManagedObjectContext.h */,
-				24E91BDE15BED01A00E0DB54 /* _DCTCDSManagedObjectContext.m */,
-			);
-			name = Private;
-			sourceTree = "<group>";
-		};
-		24E91B5D15BEB1FA00E0DB54 /* DCTCoreDataStack Demo */ = {
-			isa = PBXGroup;
-			children = (
-				24E91B7315BEB26600E0DB54 /* _Event.h */,
-				24E91B7415BEB26600E0DB54 /* _Event.m */,
-				24E91B6615BEB1FA00E0DB54 /* AppDelegate.h */,
-				24E91B6715BEB1FA00E0DB54 /* AppDelegate.m */,
-				24E91B7B15BEB28900E0DB54 /* DCTCoreDataStack.xcdatamodeld */,
-				24E91B7515BEB26600E0DB54 /* Event.h */,
-				24E91B7615BEB26600E0DB54 /* Event.m */,
-				24E91BC315BEB71200E0DB54 /* ViewController.h */,
-				24E91BC415BEB71200E0DB54 /* ViewController.m */,
-				24E91B5F15BEB1FA00E0DB54 /* Info.plist */,
-				244DE80819A919D800A91DC7 /* Images.xcassets */,
-				24E91B6315BEB1FA00E0DB54 /* main.m */,
-			);
-			path = "DCTCoreDataStack Demo";
-			sourceTree = "<group>";
-		};
 		24F6EBE5158A261000CEDD41 = {
 			isa = PBXGroup;
 			children = (
 				24F6EBF5158A261000CEDD41 /* DCTCoreDataStack */,
 				24F6EC09158A261000CEDD41 /* DCTCoreDataStack Tests */,
-				24E91B5D15BEB1FA00E0DB54 /* DCTCoreDataStack Demo */,
 				244A739F1C70F5DE00F0A002 /* Configurations */,
 				24F6EBF1158A261000CEDD41 /* Products */,
 			);
@@ -366,16 +293,12 @@
 		24F6EBF5158A261000CEDD41 /* DCTCoreDataStack */ = {
 			isa = PBXGroup;
 			children = (
+				24F6EBF8158A261000CEDD41 /* DCTCoreDataStack.h */,
 				244A73C71C70FAB100F0A002 /* CoreDataStack.swift */,
 				244A73D61C71BC4100F0A002 /* Error.swift */,
 				244A73D31C7105AA00F0A002 /* CoreDataStack+UIStateRestoring.swift */,
 				244A73CB1C70FE5100F0A002 /* ModelInfo.swift */,
 				244A73CF1C70FE7800F0A002 /* StoreInfo.swift */,
-				24F6EBF8158A261000CEDD41 /* DCTCoreDataStack.h */,
-				24F6EBF9158A261000CEDD41 /* DCTCoreDataStack.m */,
-				24F6EC1A158A264C00CEDD41 /* NSManagedObjectContext+DCTCoreDataStack.h */,
-				24F6EC1B158A264C00CEDD41 /* NSManagedObjectContext+DCTCoreDataStack.m */,
-				24671D3F16C5019200889D3F /* Private */,
 			);
 			path = DCTCoreDataStack;
 			sourceTree = "<group>";
@@ -386,8 +309,6 @@
 				244A73E21C71C55800F0A002 /* CoreDataStackTests.swift */,
 				244A73DA1C71BDC200F0A002 /* StoreInfoTests.swift */,
 				244A73DE1C71C48400F0A002 /* ModelInfoTests.swift */,
-				24F6EC0F158A261000CEDD41 /* DCTCoreDataStackTests.h */,
-				24F6EC10158A261000CEDD41 /* DCTCoreDataStackTests.m */,
 				24F6EC0B158A261000CEDD41 /* Info.plist */,
 				244A73E61C71C68E00F0A002 /* Model.xcdatamodeld */,
 			);
@@ -402,8 +323,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				242BF03219A913880063F2F2 /* DCTCoreDataStack.h in Headers */,
-				242BF03319A9138A0063F2F2 /* NSManagedObjectContext+DCTCoreDataStack.h in Headers */,
-				242BF03119A913850063F2F2 /* _DCTCDSManagedObjectContext.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -412,8 +331,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				24CF1A7A1A939F2300868486 /* DCTCoreDataStack.h in Headers */,
-				24CF1A7B1A939F2300868486 /* NSManagedObjectContext+DCTCoreDataStack.h in Headers */,
-				24CF1A7C1A939F2300868486 /* _DCTCDSManagedObjectContext.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -422,8 +339,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				2473F1BA1BC856080075EA00 /* DCTCoreDataStack.h in Headers */,
-				2473F1BB1BC856080075EA00 /* NSManagedObjectContext+DCTCoreDataStack.h in Headers */,
-				2473F1BC1BC856080075EA00 /* _DCTCDSManagedObjectContext.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -643,7 +558,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				244DE80919A919D800A91DC7 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -709,10 +623,7 @@
 				244A73CC1C70FE5100F0A002 /* ModelInfo.swift in Sources */,
 				244A73D01C70FE7800F0A002 /* StoreInfo.swift in Sources */,
 				244A73C81C70FAB100F0A002 /* CoreDataStack.swift in Sources */,
-				244DE7CF19A9184A00A91DC7 /* DCTCoreDataStack.m in Sources */,
-				244DE7D019A9184A00A91DC7 /* NSManagedObjectContext+DCTCoreDataStack.m in Sources */,
 				244A73D71C71BC4100F0A002 /* Error.swift in Sources */,
-				244DE7D119A9184A00A91DC7 /* _DCTCDSManagedObjectContext.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -723,10 +634,7 @@
 				244A73CD1C70FE5100F0A002 /* ModelInfo.swift in Sources */,
 				244A73D11C70FE7800F0A002 /* StoreInfo.swift in Sources */,
 				244A73C91C70FAB100F0A002 /* CoreDataStack.swift in Sources */,
-				24CF1A7D1A939F3400868486 /* DCTCoreDataStack.m in Sources */,
-				24CF1A7E1A939F3400868486 /* NSManagedObjectContext+DCTCoreDataStack.m in Sources */,
 				244A73D81C71BC4100F0A002 /* Error.swift in Sources */,
-				24CF1A7F1A939F3400868486 /* _DCTCDSManagedObjectContext.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -737,10 +645,7 @@
 				244A73CE1C70FE5100F0A002 /* ModelInfo.swift in Sources */,
 				244A73D21C70FE7800F0A002 /* StoreInfo.swift in Sources */,
 				244A73CA1C70FAB100F0A002 /* CoreDataStack.swift in Sources */,
-				2473F1B51BC856080075EA00 /* DCTCoreDataStack.m in Sources */,
-				2473F1B61BC856080075EA00 /* NSManagedObjectContext+DCTCoreDataStack.m in Sources */,
 				244A73D91C71BC4100F0A002 /* Error.swift in Sources */,
-				2473F1B71BC856080075EA00 /* _DCTCDSManagedObjectContext.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -748,7 +653,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2473F1C71BC856110075EA00 /* DCTCoreDataStackTests.m in Sources */,
 				244A73E11C71C48400F0A002 /* ModelInfoTests.swift in Sources */,
 				244A73EA1C71C68E00F0A002 /* Model.xcdatamodeld in Sources */,
 				244A73DD1C71BDC200F0A002 /* StoreInfoTests.swift in Sources */,
@@ -760,7 +664,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				248B72CC1B9376CD0072B58C /* DCTCoreDataStackTests.m in Sources */,
 				244A73E01C71C48400F0A002 /* ModelInfoTests.swift in Sources */,
 				244A73E91C71C68E00F0A002 /* Model.xcdatamodeld in Sources */,
 				244A73DC1C71BDC200F0A002 /* StoreInfoTests.swift in Sources */,
@@ -772,12 +675,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				24E91B7715BEB26600E0DB54 /* _Event.m in Sources */,
-				24E91B6815BEB1FA00E0DB54 /* AppDelegate.m in Sources */,
-				24E91B7D15BEB28900E0DB54 /* DCTCoreDataStack.xcdatamodeld in Sources */,
-				24E91B7815BEB26600E0DB54 /* Event.m in Sources */,
-				24E91B6415BEB1FA00E0DB54 /* main.m in Sources */,
-				24E91BC515BEB71200E0DB54 /* ViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -785,7 +682,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				24F6EC11158A261000CEDD41 /* DCTCoreDataStackTests.m in Sources */,
 				244A73DF1C71C48400F0A002 /* ModelInfoTests.swift in Sources */,
 				244A73E81C71C68E00F0A002 /* Model.xcdatamodeld in Sources */,
 				244A73DB1C71BDC200F0A002 /* StoreInfoTests.swift in Sources */,
@@ -1037,16 +933,6 @@
 			);
 			currentVersion = 244A73E71C71C68E00F0A002 /* Model.xcdatamodel */;
 			path = Model.xcdatamodeld;
-			sourceTree = "<group>";
-			versionGroupType = wrapper.xcdatamodel;
-		};
-		24E91B7B15BEB28900E0DB54 /* DCTCoreDataStack.xcdatamodeld */ = {
-			isa = XCVersionGroup;
-			children = (
-				24E91B7C15BEB28900E0DB54 /* DCTCoreDataStack.xcdatamodel */,
-			);
-			currentVersion = 24E91B7C15BEB28900E0DB54 /* DCTCoreDataStack.xcdatamodel */;
-			path = DCTCoreDataStack.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
 		};
