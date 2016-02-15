@@ -26,6 +26,9 @@
 		244A73DB1C71BDC200F0A002 /* StoreInfoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 244A73DA1C71BDC200F0A002 /* StoreInfoTests.swift */; };
 		244A73DC1C71BDC200F0A002 /* StoreInfoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 244A73DA1C71BDC200F0A002 /* StoreInfoTests.swift */; };
 		244A73DD1C71BDC200F0A002 /* StoreInfoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 244A73DA1C71BDC200F0A002 /* StoreInfoTests.swift */; };
+		244A73DF1C71C48400F0A002 /* ModelInfoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 244A73DE1C71C48400F0A002 /* ModelInfoTests.swift */; };
+		244A73E01C71C48400F0A002 /* ModelInfoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 244A73DE1C71C48400F0A002 /* ModelInfoTests.swift */; };
+		244A73E11C71C48400F0A002 /* ModelInfoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 244A73DE1C71C48400F0A002 /* ModelInfoTests.swift */; };
 		244DE7CC19A917AD00A91DC7 /* DCTCoreDataStack.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 242BEFCF19A90B2A0063F2F2 /* DCTCoreDataStack.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		244DE7CF19A9184A00A91DC7 /* DCTCoreDataStack.m in Sources */ = {isa = PBXBuildFile; fileRef = 24F6EBF9158A261000CEDD41 /* DCTCoreDataStack.m */; };
 		244DE7D019A9184A00A91DC7 /* NSManagedObjectContext+DCTCoreDataStack.m in Sources */ = {isa = PBXBuildFile; fileRef = 24F6EC1B158A264C00CEDD41 /* NSManagedObjectContext+DCTCoreDataStack.m */; };
@@ -138,6 +141,7 @@
 		244A73D31C7105AA00F0A002 /* CoreDataStack+UIStateRestoring.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CoreDataStack+UIStateRestoring.swift"; sourceTree = "<group>"; };
 		244A73D61C71BC4100F0A002 /* Error.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Error.swift; sourceTree = "<group>"; };
 		244A73DA1C71BDC200F0A002 /* StoreInfoTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoreInfoTests.swift; sourceTree = "<group>"; };
+		244A73DE1C71C48400F0A002 /* ModelInfoTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModelInfoTests.swift; sourceTree = "<group>"; };
 		244DE7F219A9187F00A91DC7 /* DCTCoreDataStack.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DCTCoreDataStack.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		244DE80819A919D800A91DC7 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		2473F1C21BC856080075EA00 /* DCTCoreDataStack.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DCTCoreDataStack.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -372,6 +376,7 @@
 			isa = PBXGroup;
 			children = (
 				244A73DA1C71BDC200F0A002 /* StoreInfoTests.swift */,
+				244A73DE1C71C48400F0A002 /* ModelInfoTests.swift */,
 				24F6EC0F158A261000CEDD41 /* DCTCoreDataStackTests.h */,
 				24F6EC10158A261000CEDD41 /* DCTCoreDataStackTests.m */,
 				24F6EC0B158A261000CEDD41 /* Info.plist */,
@@ -734,6 +739,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2473F1C71BC856110075EA00 /* DCTCoreDataStackTests.m in Sources */,
+				244A73E11C71C48400F0A002 /* ModelInfoTests.swift in Sources */,
 				244A73DD1C71BDC200F0A002 /* StoreInfoTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -743,6 +749,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				248B72CC1B9376CD0072B58C /* DCTCoreDataStackTests.m in Sources */,
+				244A73E01C71C48400F0A002 /* ModelInfoTests.swift in Sources */,
 				244A73DC1C71BDC200F0A002 /* StoreInfoTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -765,6 +772,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				24F6EC11158A261000CEDD41 /* DCTCoreDataStackTests.m in Sources */,
+				244A73DF1C71C48400F0A002 /* ModelInfoTests.swift in Sources */,
 				244A73DB1C71BDC200F0A002 /* StoreInfoTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
