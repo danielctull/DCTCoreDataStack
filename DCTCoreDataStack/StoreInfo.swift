@@ -5,9 +5,9 @@ public enum StoreInfo {
 
 	public typealias Options = [String : AnyObject]
 
-	case Memory(options: Options)
-	case SQL(options: Options, URL: NSURL)
-	case Binary(options: Options, URL: NSURL)
+	case Memory(options: Options?)
+	case SQL(options: Options?, URL: NSURL)
+	case Binary(options: Options?, URL: NSURL)
 }
 
 extension StoreInfo {
@@ -28,7 +28,7 @@ extension StoreInfo {
 		}
 	}
 
-	var options: Options {
+	var options: Options? {
 		switch self {
 			case .Memory(let options): return options
 			case .SQL(let options, _): return options

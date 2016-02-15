@@ -23,6 +23,9 @@
 		244A73D71C71BC4100F0A002 /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = 244A73D61C71BC4100F0A002 /* Error.swift */; };
 		244A73D81C71BC4100F0A002 /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = 244A73D61C71BC4100F0A002 /* Error.swift */; };
 		244A73D91C71BC4100F0A002 /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = 244A73D61C71BC4100F0A002 /* Error.swift */; };
+		244A73DB1C71BDC200F0A002 /* StoreInfoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 244A73DA1C71BDC200F0A002 /* StoreInfoTests.swift */; };
+		244A73DC1C71BDC200F0A002 /* StoreInfoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 244A73DA1C71BDC200F0A002 /* StoreInfoTests.swift */; };
+		244A73DD1C71BDC200F0A002 /* StoreInfoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 244A73DA1C71BDC200F0A002 /* StoreInfoTests.swift */; };
 		244DE7CC19A917AD00A91DC7 /* DCTCoreDataStack.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 242BEFCF19A90B2A0063F2F2 /* DCTCoreDataStack.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		244DE7CF19A9184A00A91DC7 /* DCTCoreDataStack.m in Sources */ = {isa = PBXBuildFile; fileRef = 24F6EBF9158A261000CEDD41 /* DCTCoreDataStack.m */; };
 		244DE7D019A9184A00A91DC7 /* NSManagedObjectContext+DCTCoreDataStack.m in Sources */ = {isa = PBXBuildFile; fileRef = 24F6EC1B158A264C00CEDD41 /* NSManagedObjectContext+DCTCoreDataStack.m */; };
@@ -134,10 +137,11 @@
 		244A73CF1C70FE7800F0A002 /* StoreInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoreInfo.swift; sourceTree = "<group>"; };
 		244A73D31C7105AA00F0A002 /* CoreDataStack+UIStateRestoring.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CoreDataStack+UIStateRestoring.swift"; sourceTree = "<group>"; };
 		244A73D61C71BC4100F0A002 /* Error.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Error.swift; sourceTree = "<group>"; };
+		244A73DA1C71BDC200F0A002 /* StoreInfoTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoreInfoTests.swift; sourceTree = "<group>"; };
 		244DE7F219A9187F00A91DC7 /* DCTCoreDataStack.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DCTCoreDataStack.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		244DE80819A919D800A91DC7 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		2473F1C21BC856080075EA00 /* DCTCoreDataStack.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DCTCoreDataStack.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		2473F1CE1BC856110075EA00 /* DCTCoreDataStack.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DCTCoreDataStack.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		2473F1CE1BC856110075EA00 /* DCTCoreDataStack Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "DCTCoreDataStack Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		248B72D31B9376CD0072B58C /* DCTCoreDataStack Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "DCTCoreDataStack Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		24E91B5715BEB1FA00E0DB54 /* DCTCoreDataStack Demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "DCTCoreDataStack Demo.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		24E91B5F15BEB1FA00E0DB54 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -342,7 +346,7 @@
 				244DE7F219A9187F00A91DC7 /* DCTCoreDataStack.framework */,
 				248B72D31B9376CD0072B58C /* DCTCoreDataStack Tests.xctest */,
 				2473F1C21BC856080075EA00 /* DCTCoreDataStack.framework */,
-				2473F1CE1BC856110075EA00 /* DCTCoreDataStack.xctest */,
+				2473F1CE1BC856110075EA00 /* DCTCoreDataStack Tests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -367,6 +371,7 @@
 		24F6EC09158A261000CEDD41 /* DCTCoreDataStack Tests */ = {
 			isa = PBXGroup;
 			children = (
+				244A73DA1C71BDC200F0A002 /* StoreInfoTests.swift */,
 				24F6EC0F158A261000CEDD41 /* DCTCoreDataStackTests.h */,
 				24F6EC10158A261000CEDD41 /* DCTCoreDataStackTests.m */,
 				24F6EC0B158A261000CEDD41 /* Info.plist */,
@@ -482,7 +487,7 @@
 			);
 			name = "DCTCoreDataStack tvOS Tests";
 			productName = DCTCoreDataStackTests;
-			productReference = 2473F1CE1BC856110075EA00 /* DCTCoreDataStack.xctest */;
+			productReference = 2473F1CE1BC856110075EA00 /* DCTCoreDataStack Tests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 		248B72CA1B9376CD0072B58C /* DCTCoreDataStack OS X Tests */ = {
@@ -729,6 +734,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2473F1C71BC856110075EA00 /* DCTCoreDataStackTests.m in Sources */,
+				244A73DD1C71BDC200F0A002 /* StoreInfoTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -737,6 +743,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				248B72CC1B9376CD0072B58C /* DCTCoreDataStackTests.m in Sources */,
+				244A73DC1C71BDC200F0A002 /* StoreInfoTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -758,6 +765,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				24F6EC11158A261000CEDD41 /* DCTCoreDataStackTests.m in Sources */,
+				244A73DB1C71BDC200F0A002 /* StoreInfoTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -786,11 +794,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 244A73AA1C70F5DE00F0A002 /* iOS Framework.xcconfig */;
 			buildSettings = {
-				CLANG_ENABLE_MODULES = YES;
-				DEFINES_MODULE = YES;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = DCTCoreDataStack;
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
@@ -798,9 +802,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 244A73AA1C70F5DE00F0A002 /* iOS Framework.xcconfig */;
 			buildSettings = {
-				CLANG_ENABLE_MODULES = YES;
-				DEFINES_MODULE = YES;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = DCTCoreDataStack;
 			};
 			name = Release;
@@ -809,11 +810,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 244A73B21C70F5DE00F0A002 /* OS X Framework.xcconfig */;
 			buildSettings = {
-				CLANG_ENABLE_MODULES = YES;
-				DEFINES_MODULE = YES;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = DCTCoreDataStack;
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
@@ -821,9 +818,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 244A73B21C70F5DE00F0A002 /* OS X Framework.xcconfig */;
 			buildSettings = {
-				CLANG_ENABLE_MODULES = YES;
-				DEFINES_MODULE = YES;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = DCTCoreDataStack;
 			};
 			name = Release;
@@ -832,11 +826,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 244A73BC1C70F5DE00F0A002 /* tvOS Framework.xcconfig */;
 			buildSettings = {
-				CLANG_ENABLE_MODULES = YES;
-				DEFINES_MODULE = YES;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = DCTCoreDataStack;
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
@@ -844,9 +834,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 244A73BC1C70F5DE00F0A002 /* tvOS Framework.xcconfig */;
 			buildSettings = {
-				CLANG_ENABLE_MODULES = YES;
-				DEFINES_MODULE = YES;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = DCTCoreDataStack;
 			};
 			name = Release;
@@ -855,7 +842,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 244A73BD1C70F5DE00F0A002 /* tvOS Tests.xcconfig */;
 			buildSettings = {
-				PRODUCT_NAME = DCTCoreDataStack;
+				PRODUCT_NAME = "DCTCoreDataStack Tests";
 			};
 			name = Debug;
 		};
@@ -863,7 +850,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 244A73BD1C70F5DE00F0A002 /* tvOS Tests.xcconfig */;
 			buildSettings = {
-				PRODUCT_NAME = DCTCoreDataStack;
+				PRODUCT_NAME = "DCTCoreDataStack Tests";
 			};
 			name = Release;
 		};
