@@ -12,13 +12,12 @@ public class CoreDataStack {
 		self.modelInfo = modelInfo
 	}
 
-	func destroyStore() throws {
+	public func destroyStore() throws {
 
 		if let URL = storeInfo.URL {
 			try _coordinator?.destroyPersistentStoreAtURL(URL, withType: storeInfo.type, options: storeInfo.options)
 		}
 
-		_model = nil
 		_coordinator = nil
 		_context = nil
 	}
