@@ -11,6 +11,18 @@
 		242BF03219A913880063F2F2 /* DCTCoreDataStack.h in Headers */ = {isa = PBXBuildFile; fileRef = 24F6EBF8158A261000CEDD41 /* DCTCoreDataStack.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		242BF03319A9138A0063F2F2 /* NSManagedObjectContext+DCTCoreDataStack.h in Headers */ = {isa = PBXBuildFile; fileRef = 24F6EC1A158A264C00CEDD41 /* NSManagedObjectContext+DCTCoreDataStack.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		242BF03919A914400063F2F2 /* DCTCoreDataStack.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 242BEFCF19A90B2A0063F2F2 /* DCTCoreDataStack.framework */; };
+		244A73C81C70FAB100F0A002 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 244A73C71C70FAB100F0A002 /* CoreDataStack.swift */; };
+		244A73C91C70FAB100F0A002 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 244A73C71C70FAB100F0A002 /* CoreDataStack.swift */; };
+		244A73CA1C70FAB100F0A002 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 244A73C71C70FAB100F0A002 /* CoreDataStack.swift */; };
+		244A73CC1C70FE5100F0A002 /* ModelInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 244A73CB1C70FE5100F0A002 /* ModelInfo.swift */; };
+		244A73CD1C70FE5100F0A002 /* ModelInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 244A73CB1C70FE5100F0A002 /* ModelInfo.swift */; };
+		244A73CE1C70FE5100F0A002 /* ModelInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 244A73CB1C70FE5100F0A002 /* ModelInfo.swift */; };
+		244A73D01C70FE7800F0A002 /* StoreInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 244A73CF1C70FE7800F0A002 /* StoreInfo.swift */; };
+		244A73D11C70FE7800F0A002 /* StoreInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 244A73CF1C70FE7800F0A002 /* StoreInfo.swift */; };
+		244A73D21C70FE7800F0A002 /* StoreInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 244A73CF1C70FE7800F0A002 /* StoreInfo.swift */; };
+		244A73D71C71BC4100F0A002 /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = 244A73D61C71BC4100F0A002 /* Error.swift */; };
+		244A73D81C71BC4100F0A002 /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = 244A73D61C71BC4100F0A002 /* Error.swift */; };
+		244A73D91C71BC4100F0A002 /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = 244A73D61C71BC4100F0A002 /* Error.swift */; };
 		244DE7CC19A917AD00A91DC7 /* DCTCoreDataStack.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 242BEFCF19A90B2A0063F2F2 /* DCTCoreDataStack.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		244DE7CF19A9184A00A91DC7 /* DCTCoreDataStack.m in Sources */ = {isa = PBXBuildFile; fileRef = 24F6EBF9158A261000CEDD41 /* DCTCoreDataStack.m */; };
 		244DE7D019A9184A00A91DC7 /* NSManagedObjectContext+DCTCoreDataStack.m in Sources */ = {isa = PBXBuildFile; fileRef = 24F6EC1B158A264C00CEDD41 /* NSManagedObjectContext+DCTCoreDataStack.m */; };
@@ -117,6 +129,11 @@
 		244A73C41C70F5DE00F0A002 /* watchOS Extension.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "watchOS Extension.xcconfig"; sourceTree = "<group>"; };
 		244A73C51C70F5DE00F0A002 /* watchOS Framework.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "watchOS Framework.xcconfig"; sourceTree = "<group>"; };
 		244A73C61C70F5DE00F0A002 /* watchOS.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = watchOS.xcconfig; sourceTree = "<group>"; };
+		244A73C71C70FAB100F0A002 /* CoreDataStack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
+		244A73CB1C70FE5100F0A002 /* ModelInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModelInfo.swift; sourceTree = "<group>"; };
+		244A73CF1C70FE7800F0A002 /* StoreInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoreInfo.swift; sourceTree = "<group>"; };
+		244A73D31C7105AA00F0A002 /* CoreDataStack+UIStateRestoring.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CoreDataStack+UIStateRestoring.swift"; sourceTree = "<group>"; };
+		244A73D61C71BC4100F0A002 /* Error.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Error.swift; sourceTree = "<group>"; };
 		244DE7F219A9187F00A91DC7 /* DCTCoreDataStack.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DCTCoreDataStack.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		244DE80819A919D800A91DC7 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		2473F1C21BC856080075EA00 /* DCTCoreDataStack.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DCTCoreDataStack.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -333,6 +350,11 @@
 		24F6EBF5158A261000CEDD41 /* DCTCoreDataStack */ = {
 			isa = PBXGroup;
 			children = (
+				244A73C71C70FAB100F0A002 /* CoreDataStack.swift */,
+				244A73D61C71BC4100F0A002 /* Error.swift */,
+				244A73D31C7105AA00F0A002 /* CoreDataStack+UIStateRestoring.swift */,
+				244A73CB1C70FE5100F0A002 /* ModelInfo.swift */,
+				244A73CF1C70FE7800F0A002 /* StoreInfo.swift */,
 				24F6EBF8158A261000CEDD41 /* DCTCoreDataStack.h */,
 				24F6EBF9158A261000CEDD41 /* DCTCoreDataStack.m */,
 				24F6EC1A158A264C00CEDD41 /* NSManagedObjectContext+DCTCoreDataStack.h */,
@@ -664,8 +686,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				244A73CC1C70FE5100F0A002 /* ModelInfo.swift in Sources */,
+				244A73D01C70FE7800F0A002 /* StoreInfo.swift in Sources */,
+				244A73C81C70FAB100F0A002 /* CoreDataStack.swift in Sources */,
 				244DE7CF19A9184A00A91DC7 /* DCTCoreDataStack.m in Sources */,
 				244DE7D019A9184A00A91DC7 /* NSManagedObjectContext+DCTCoreDataStack.m in Sources */,
+				244A73D71C71BC4100F0A002 /* Error.swift in Sources */,
 				244DE7D119A9184A00A91DC7 /* _DCTCDSManagedObjectContext.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -674,8 +700,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				244A73CD1C70FE5100F0A002 /* ModelInfo.swift in Sources */,
+				244A73D11C70FE7800F0A002 /* StoreInfo.swift in Sources */,
+				244A73C91C70FAB100F0A002 /* CoreDataStack.swift in Sources */,
 				24CF1A7D1A939F3400868486 /* DCTCoreDataStack.m in Sources */,
 				24CF1A7E1A939F3400868486 /* NSManagedObjectContext+DCTCoreDataStack.m in Sources */,
+				244A73D81C71BC4100F0A002 /* Error.swift in Sources */,
 				24CF1A7F1A939F3400868486 /* _DCTCDSManagedObjectContext.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -684,8 +714,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				244A73CE1C70FE5100F0A002 /* ModelInfo.swift in Sources */,
+				244A73D21C70FE7800F0A002 /* StoreInfo.swift in Sources */,
+				244A73CA1C70FAB100F0A002 /* CoreDataStack.swift in Sources */,
 				2473F1B51BC856080075EA00 /* DCTCoreDataStack.m in Sources */,
 				2473F1B61BC856080075EA00 /* NSManagedObjectContext+DCTCoreDataStack.m in Sources */,
+				244A73D91C71BC4100F0A002 /* Error.swift in Sources */,
 				2473F1B71BC856080075EA00 /* _DCTCDSManagedObjectContext.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -752,7 +786,11 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 244A73AA1C70F5DE00F0A002 /* iOS Framework.xcconfig */;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				DEFINES_MODULE = YES;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = DCTCoreDataStack;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
@@ -760,6 +798,9 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 244A73AA1C70F5DE00F0A002 /* iOS Framework.xcconfig */;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				DEFINES_MODULE = YES;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = DCTCoreDataStack;
 			};
 			name = Release;
@@ -768,7 +809,11 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 244A73B21C70F5DE00F0A002 /* OS X Framework.xcconfig */;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				DEFINES_MODULE = YES;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = DCTCoreDataStack;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
@@ -776,6 +821,9 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 244A73B21C70F5DE00F0A002 /* OS X Framework.xcconfig */;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				DEFINES_MODULE = YES;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = DCTCoreDataStack;
 			};
 			name = Release;
@@ -784,7 +832,11 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 244A73BC1C70F5DE00F0A002 /* tvOS Framework.xcconfig */;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				DEFINES_MODULE = YES;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = DCTCoreDataStack;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
@@ -792,6 +844,9 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 244A73BC1C70F5DE00F0A002 /* tvOS Framework.xcconfig */;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				DEFINES_MODULE = YES;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = DCTCoreDataStack;
 			};
 			name = Release;
@@ -832,6 +887,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 244A73A71C70F5DE00F0A002 /* iOS Application.xcconfig */;
 			buildSettings = {
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 			};
 			name = Debug;
 		};
@@ -839,6 +895,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 244A73A71C70F5DE00F0A002 /* iOS Application.xcconfig */;
 			buildSettings = {
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 			};
 			name = Release;
 		};
