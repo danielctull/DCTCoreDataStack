@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		242BF03219A913880063F2F2 /* DCTCoreDataStack.h in Headers */ = {isa = PBXBuildFile; fileRef = 24F6EBF8158A261000CEDD41 /* DCTCoreDataStack.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		242BF03919A914400063F2F2 /* CoreDataStack.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 242BEFCF19A90B2A0063F2F2 /* CoreDataStack.framework */; };
 		244A73C81C70FAB100F0A002 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 244A73C71C70FAB100F0A002 /* CoreDataStack.swift */; };
 		244A73C91C70FAB100F0A002 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 244A73C71C70FAB100F0A002 /* CoreDataStack.swift */; };
 		244A73CA1C70FAB100F0A002 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 244A73C71C70FAB100F0A002 /* CoreDataStack.swift */; };
@@ -33,7 +32,6 @@
 		244A73E81C71C68E00F0A002 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 244A73E61C71C68E00F0A002 /* Model.xcdatamodeld */; };
 		244A73E91C71C68E00F0A002 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 244A73E61C71C68E00F0A002 /* Model.xcdatamodeld */; };
 		244A73EA1C71C68E00F0A002 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 244A73E61C71C68E00F0A002 /* Model.xcdatamodeld */; };
-		244DE7CC19A917AD00A91DC7 /* CoreDataStack.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 242BEFCF19A90B2A0063F2F2 /* CoreDataStack.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		2473F1BA1BC856080075EA00 /* DCTCoreDataStack.h in Headers */ = {isa = PBXBuildFile; fileRef = 24F6EBF8158A261000CEDD41 /* DCTCoreDataStack.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		2473F1C91BC856110075EA00 /* CoreDataStack.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 242BEFCF19A90B2A0063F2F2 /* CoreDataStack.framework */; };
 		248B72D91B9377390072B58C /* CoreDataStack.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 244DE7F219A9187F00A91DC7 /* CoreDataStack.framework */; };
@@ -64,20 +62,6 @@
 			remoteInfo = "DCTCoreDataStack iOS";
 		};
 /* End PBXContainerItemProxy section */
-
-/* Begin PBXCopyFilesBuildPhase section */
-		242BF03819A913E80063F2F2 /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				244DE7CC19A917AD00A91DC7 /* CoreDataStack.framework in Embed Frameworks */,
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		242BEFCF19A90B2A0063F2F2 /* CoreDataStack.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CoreDataStack.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -129,7 +113,6 @@
 		2473F1C21BC856080075EA00 /* CoreDataStack.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CoreDataStack.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2473F1CE1BC856110075EA00 /* CoreDataStack Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "CoreDataStack Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		248B72D31B9376CD0072B58C /* CoreDataStack Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "CoreDataStack Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		24E91B5715BEB1FA00E0DB54 /* CoreDataStack.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CoreDataStack.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		24F6EBF8158A261000CEDD41 /* DCTCoreDataStack.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DCTCoreDataStack.h; sourceTree = "<group>"; };
 		24F6EC00158A261000CEDD41 /* CoreDataStack Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "CoreDataStack Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		24F6EC0B158A261000CEDD41 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -170,14 +153,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				248B72D91B9377390072B58C /* CoreDataStack.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		24E91B5415BEB1FA00E0DB54 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				242BF03919A914400063F2F2 /* CoreDataStack.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -279,7 +254,6 @@
 		24F6EBF1158A261000CEDD41 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				24E91B5715BEB1FA00E0DB54 /* CoreDataStack.app */,
 				24F6EC00158A261000CEDD41 /* CoreDataStack Tests.xctest */,
 				242BEFCF19A90B2A0063F2F2 /* CoreDataStack.framework */,
 				244DE7F219A9187F00A91DC7 /* CoreDataStack.framework */,
@@ -438,24 +412,6 @@
 			productReference = 248B72D31B9376CD0072B58C /* CoreDataStack Tests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		24E91B5615BEB1FA00E0DB54 /* CoreDataStack Demo */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 24E91B6B15BEB1FA00E0DB54 /* Build configuration list for PBXNativeTarget "CoreDataStack Demo" */;
-			buildPhases = (
-				24E91B5315BEB1FA00E0DB54 /* Sources */,
-				24E91B5415BEB1FA00E0DB54 /* Frameworks */,
-				24E91B5515BEB1FA00E0DB54 /* Resources */,
-				242BF03819A913E80063F2F2 /* Embed Frameworks */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = "CoreDataStack Demo";
-			productName = Demo;
-			productReference = 24E91B5715BEB1FA00E0DB54 /* CoreDataStack.app */;
-			productType = "com.apple.product-type.application";
-		};
 		24F6EBFF158A261000CEDD41 /* CoreDataStack iOS Tests */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 24F6EC17158A261000CEDD41 /* Build configuration list for PBXNativeTarget "CoreDataStack iOS Tests" */;
@@ -513,7 +469,6 @@
 				24F6EBFF158A261000CEDD41 /* CoreDataStack iOS Tests */,
 				248B72CA1B9376CD0072B58C /* CoreDataStack OS X Tests */,
 				2473F1C31BC856110075EA00 /* CoreDataStack tvOS Tests */,
-				24E91B5615BEB1FA00E0DB54 /* CoreDataStack Demo */,
 			);
 		};
 /* End PBXProject section */
@@ -548,13 +503,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		248B72CF1B9376CD0072B58C /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		24E91B5515BEB1FA00E0DB54 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -671,13 +619,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		24E91B5315BEB1FA00E0DB54 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		24F6EBFB158A261000CEDD41 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -790,24 +731,6 @@
 			};
 			name = Release;
 		};
-		24E91B6915BEB1FA00E0DB54 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 244A73A71C70F5DE00F0A002 /* iOS Application.xcconfig */;
-			buildSettings = {
-				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
-				PRODUCT_NAME = CoreDataStack;
-			};
-			name = Debug;
-		};
-		24E91B6A15BEB1FA00E0DB54 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 244A73A71C70F5DE00F0A002 /* iOS Application.xcconfig */;
-			buildSettings = {
-				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
-				PRODUCT_NAME = CoreDataStack;
-			};
-			name = Release;
-		};
 		24F6EC12158A261000CEDD41 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 244A73A21C70F5DE00F0A002 /* Debug.xcconfig */;
@@ -894,15 +817,6 @@
 			buildConfigurations = (
 				248B72D11B9376CD0072B58C /* Debug */,
 				248B72D21B9376CD0072B58C /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		24E91B6B15BEB1FA00E0DB54 /* Build configuration list for PBXNativeTarget "CoreDataStack Demo" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				24E91B6915BEB1FA00E0DB54 /* Debug */,
-				24E91B6A15BEB1FA00E0DB54 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

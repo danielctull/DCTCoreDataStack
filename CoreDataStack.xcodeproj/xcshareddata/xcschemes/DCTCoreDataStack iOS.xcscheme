@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "242BEFCE19A90B2A0063F2F2"
-               BuildableName = "DCTCoreDataStack.framework"
+               BuildableName = "CoreDataStack.framework"
                BlueprintName = "CoreDataStack iOS"
                ReferencedContainer = "container:CoreDataStack.xcodeproj">
             </BuildableReference>
@@ -34,7 +34,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "24F6EBFF158A261000CEDD41"
-               BuildableName = "CoreDataStack.xctest"
+               BuildableName = "CoreDataStack Tests.xctest"
                BlueprintName = "CoreDataStack iOS Tests"
                ReferencedContainer = "container:CoreDataStack.xcodeproj">
             </BuildableReference>
@@ -44,7 +44,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "242BEFCE19A90B2A0063F2F2"
-            BuildableName = "DCTCoreDataStack.framework"
+            BuildableName = "CoreDataStack.framework"
             BlueprintName = "CoreDataStack iOS"
             ReferencedContainer = "container:CoreDataStack.xcodeproj">
          </BuildableReference>
@@ -66,7 +66,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "242BEFCE19A90B2A0063F2F2"
-            BuildableName = "DCTCoreDataStack.framework"
+            BuildableName = "CoreDataStack.framework"
             BlueprintName = "CoreDataStack iOS"
             ReferencedContainer = "container:CoreDataStack.xcodeproj">
          </BuildableReference>
@@ -84,7 +84,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "242BEFCE19A90B2A0063F2F2"
-            BuildableName = "DCTCoreDataStack.framework"
+            BuildableName = "CoreDataStack.framework"
             BlueprintName = "CoreDataStack iOS"
             ReferencedContainer = "container:CoreDataStack.xcodeproj">
          </BuildableReference>
