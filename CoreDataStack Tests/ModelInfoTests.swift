@@ -1,6 +1,6 @@
 
 import XCTest
-import DCTCoreDataStack
+import CoreDataStack
 
 class ModelInfoTests: XCTestCase {
 

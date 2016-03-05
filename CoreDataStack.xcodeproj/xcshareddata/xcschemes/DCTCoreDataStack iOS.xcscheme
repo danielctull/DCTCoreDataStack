@@ -14,10 +14,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "244DE7F119A9187F00A91DC7"
+               BlueprintIdentifier = "242BEFCE19A90B2A0063F2F2"
                BuildableName = "DCTCoreDataStack.framework"
-               BlueprintName = "DCTCoreDataStack OS X"
-               ReferencedContainer = "container:DCTCoreDataStack.xcodeproj">
+               BlueprintName = "CoreDataStack iOS"
+               ReferencedContainer = "container:CoreDataStack.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -33,20 +33,20 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "248B72CA1B9376CD0072B58C"
-               BuildableName = "DCTCoreDataStack Tests.xctest"
-               BlueprintName = "DCTCoreDataStack OS X Tests"
-               ReferencedContainer = "container:DCTCoreDataStack.xcodeproj">
+               BlueprintIdentifier = "24F6EBFF158A261000CEDD41"
+               BuildableName = "CoreDataStack.xctest"
+               BlueprintName = "CoreDataStack iOS Tests"
+               ReferencedContainer = "container:CoreDataStack.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "244DE7F119A9187F00A91DC7"
+            BlueprintIdentifier = "242BEFCE19A90B2A0063F2F2"
             BuildableName = "DCTCoreDataStack.framework"
-            BlueprintName = "DCTCoreDataStack OS X"
-            ReferencedContainer = "container:DCTCoreDataStack.xcodeproj">
+            BlueprintName = "CoreDataStack iOS"
+            ReferencedContainer = "container:CoreDataStack.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -65,10 +65,10 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "244DE7F119A9187F00A91DC7"
+            BlueprintIdentifier = "242BEFCE19A90B2A0063F2F2"
             BuildableName = "DCTCoreDataStack.framework"
-            BlueprintName = "DCTCoreDataStack OS X"
-            ReferencedContainer = "container:DCTCoreDataStack.xcodeproj">
+            BlueprintName = "CoreDataStack iOS"
+            ReferencedContainer = "container:CoreDataStack.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -83,10 +83,10 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "244DE7F119A9187F00A91DC7"
+            BlueprintIdentifier = "242BEFCE19A90B2A0063F2F2"
             BuildableName = "DCTCoreDataStack.framework"
-            BlueprintName = "DCTCoreDataStack OS X"
-            ReferencedContainer = "container:DCTCoreDataStack.xcodeproj">
+            BlueprintName = "CoreDataStack iOS"
+            ReferencedContainer = "container:CoreDataStack.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </ProfileAction>

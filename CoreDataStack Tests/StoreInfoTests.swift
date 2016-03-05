@@ -1,7 +1,7 @@
 
 import XCTest
 import CoreData
-@testable import DCTCoreDataStack
+@testable import CoreDataStack
 
 class StoreInfoTests: XCTestCase {
 

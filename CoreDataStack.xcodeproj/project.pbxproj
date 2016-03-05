@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		242BF03219A913880063F2F2 /* DCTCoreDataStack.h in Headers */ = {isa = PBXBuildFile; fileRef = 24F6EBF8158A261000CEDD41 /* DCTCoreDataStack.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		242BF03919A914400063F2F2 /* DCTCoreDataStack.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 242BEFCF19A90B2A0063F2F2 /* DCTCoreDataStack.framework */; };
+		242BF03919A914400063F2F2 /* CoreDataStack.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 242BEFCF19A90B2A0063F2F2 /* CoreDataStack.framework */; };
 		244A73C81C70FAB100F0A002 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 244A73C71C70FAB100F0A002 /* CoreDataStack.swift */; };
 		244A73C91C70FAB100F0A002 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 244A73C71C70FAB100F0A002 /* CoreDataStack.swift */; };
 		244A73CA1C70FAB100F0A002 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 244A73C71C70FAB100F0A002 /* CoreDataStack.swift */; };
@@ -33,11 +33,11 @@
 		244A73E81C71C68E00F0A002 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 244A73E61C71C68E00F0A002 /* Model.xcdatamodeld */; };
 		244A73E91C71C68E00F0A002 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 244A73E61C71C68E00F0A002 /* Model.xcdatamodeld */; };
 		244A73EA1C71C68E00F0A002 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 244A73E61C71C68E00F0A002 /* Model.xcdatamodeld */; };
-		244DE7CC19A917AD00A91DC7 /* DCTCoreDataStack.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 242BEFCF19A90B2A0063F2F2 /* DCTCoreDataStack.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		244DE7CC19A917AD00A91DC7 /* CoreDataStack.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 242BEFCF19A90B2A0063F2F2 /* CoreDataStack.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		2473F1BA1BC856080075EA00 /* DCTCoreDataStack.h in Headers */ = {isa = PBXBuildFile; fileRef = 24F6EBF8158A261000CEDD41 /* DCTCoreDataStack.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		2473F1C91BC856110075EA00 /* DCTCoreDataStack.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 242BEFCF19A90B2A0063F2F2 /* DCTCoreDataStack.framework */; };
-		248B72D91B9377390072B58C /* DCTCoreDataStack.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 244DE7F219A9187F00A91DC7 /* DCTCoreDataStack.framework */; };
-		248B72DC1B9377480072B58C /* DCTCoreDataStack.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 242BEFCF19A90B2A0063F2F2 /* DCTCoreDataStack.framework */; };
+		2473F1C91BC856110075EA00 /* CoreDataStack.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 242BEFCF19A90B2A0063F2F2 /* CoreDataStack.framework */; };
+		248B72D91B9377390072B58C /* CoreDataStack.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 244DE7F219A9187F00A91DC7 /* CoreDataStack.framework */; };
+		248B72DC1B9377480072B58C /* CoreDataStack.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 242BEFCF19A90B2A0063F2F2 /* CoreDataStack.framework */; };
 		24CF1A7A1A939F2300868486 /* DCTCoreDataStack.h in Headers */ = {isa = PBXBuildFile; fileRef = 24F6EBF8158A261000CEDD41 /* DCTCoreDataStack.h */; settings = {ATTRIBUTES = (Public, ); }; };
 /* End PBXBuildFile section */
 
@@ -72,7 +72,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				244DE7CC19A917AD00A91DC7 /* DCTCoreDataStack.framework in Embed Frameworks */,
+				244DE7CC19A917AD00A91DC7 /* CoreDataStack.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -80,7 +80,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		242BEFCF19A90B2A0063F2F2 /* DCTCoreDataStack.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DCTCoreDataStack.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		242BEFCF19A90B2A0063F2F2 /* CoreDataStack.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CoreDataStack.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		244A73A01C70F5DE00F0A002 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		244A73A11C70F5DE00F0A002 /* Application.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Application.xcconfig; sourceTree = "<group>"; };
 		244A73A21C70F5DE00F0A002 /* Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Debug.xcconfig; sourceTree = "<group>"; };
@@ -125,13 +125,13 @@
 		244A73DE1C71C48400F0A002 /* ModelInfoTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModelInfoTests.swift; sourceTree = "<group>"; };
 		244A73E21C71C55800F0A002 /* CoreDataStackTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataStackTests.swift; sourceTree = "<group>"; };
 		244A73E71C71C68E00F0A002 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
-		244DE7F219A9187F00A91DC7 /* DCTCoreDataStack.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DCTCoreDataStack.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		2473F1C21BC856080075EA00 /* DCTCoreDataStack.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DCTCoreDataStack.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		2473F1CE1BC856110075EA00 /* DCTCoreDataStack Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "DCTCoreDataStack Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		248B72D31B9376CD0072B58C /* DCTCoreDataStack Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "DCTCoreDataStack Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		24E91B5715BEB1FA00E0DB54 /* DCTCoreDataStack Demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "DCTCoreDataStack Demo.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		244DE7F219A9187F00A91DC7 /* CoreDataStack.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CoreDataStack.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		2473F1C21BC856080075EA00 /* CoreDataStack.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CoreDataStack.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		2473F1CE1BC856110075EA00 /* CoreDataStack Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "CoreDataStack Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		248B72D31B9376CD0072B58C /* CoreDataStack Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "CoreDataStack Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		24E91B5715BEB1FA00E0DB54 /* CoreDataStack.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CoreDataStack.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		24F6EBF8158A261000CEDD41 /* DCTCoreDataStack.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DCTCoreDataStack.h; sourceTree = "<group>"; };
-		24F6EC00158A261000CEDD41 /* DCTCoreDataStack Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "DCTCoreDataStack Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		24F6EC00158A261000CEDD41 /* CoreDataStack Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "CoreDataStack Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		24F6EC0B158A261000CEDD41 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -161,7 +161,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2473F1C91BC856110075EA00 /* DCTCoreDataStack.framework in Frameworks */,
+				2473F1C91BC856110075EA00 /* CoreDataStack.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -169,7 +169,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				248B72D91B9377390072B58C /* DCTCoreDataStack.framework in Frameworks */,
+				248B72D91B9377390072B58C /* CoreDataStack.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -177,7 +177,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				242BF03919A914400063F2F2 /* DCTCoreDataStack.framework in Frameworks */,
+				242BF03919A914400063F2F2 /* CoreDataStack.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -185,7 +185,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				248B72DC1B9377480072B58C /* DCTCoreDataStack.framework in Frameworks */,
+				248B72DC1B9377480072B58C /* CoreDataStack.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -269,8 +269,8 @@
 		24F6EBE5158A261000CEDD41 = {
 			isa = PBXGroup;
 			children = (
-				24F6EBF5158A261000CEDD41 /* DCTCoreDataStack */,
-				24F6EC09158A261000CEDD41 /* DCTCoreDataStack Tests */,
+				24F6EBF5158A261000CEDD41 /* CoreDataStack */,
+				24F6EC09158A261000CEDD41 /* CoreDataStack Tests */,
 				244A739F1C70F5DE00F0A002 /* Configurations */,
 				24F6EBF1158A261000CEDD41 /* Products */,
 			);
@@ -279,18 +279,18 @@
 		24F6EBF1158A261000CEDD41 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				24E91B5715BEB1FA00E0DB54 /* DCTCoreDataStack Demo.app */,
-				24F6EC00158A261000CEDD41 /* DCTCoreDataStack Tests.xctest */,
-				242BEFCF19A90B2A0063F2F2 /* DCTCoreDataStack.framework */,
-				244DE7F219A9187F00A91DC7 /* DCTCoreDataStack.framework */,
-				248B72D31B9376CD0072B58C /* DCTCoreDataStack Tests.xctest */,
-				2473F1C21BC856080075EA00 /* DCTCoreDataStack.framework */,
-				2473F1CE1BC856110075EA00 /* DCTCoreDataStack Tests.xctest */,
+				24E91B5715BEB1FA00E0DB54 /* CoreDataStack.app */,
+				24F6EC00158A261000CEDD41 /* CoreDataStack Tests.xctest */,
+				242BEFCF19A90B2A0063F2F2 /* CoreDataStack.framework */,
+				244DE7F219A9187F00A91DC7 /* CoreDataStack.framework */,
+				248B72D31B9376CD0072B58C /* CoreDataStack Tests.xctest */,
+				2473F1C21BC856080075EA00 /* CoreDataStack.framework */,
+				2473F1CE1BC856110075EA00 /* CoreDataStack Tests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		24F6EBF5158A261000CEDD41 /* DCTCoreDataStack */ = {
+		24F6EBF5158A261000CEDD41 /* CoreDataStack */ = {
 			isa = PBXGroup;
 			children = (
 				24F6EBF8158A261000CEDD41 /* DCTCoreDataStack.h */,
@@ -300,10 +300,10 @@
 				244A73CB1C70FE5100F0A002 /* ModelInfo.swift */,
 				244A73CF1C70FE7800F0A002 /* StoreInfo.swift */,
 			);
-			path = DCTCoreDataStack;
+			path = CoreDataStack;
 			sourceTree = "<group>";
 		};
-		24F6EC09158A261000CEDD41 /* DCTCoreDataStack Tests */ = {
+		24F6EC09158A261000CEDD41 /* CoreDataStack Tests */ = {
 			isa = PBXGroup;
 			children = (
 				244A73E21C71C55800F0A002 /* CoreDataStackTests.swift */,
@@ -312,7 +312,7 @@
 				24F6EC0B158A261000CEDD41 /* Info.plist */,
 				244A73E61C71C68E00F0A002 /* Model.xcdatamodeld */,
 			);
-			path = "DCTCoreDataStack Tests";
+			path = "CoreDataStack Tests";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -345,9 +345,9 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		242BEFCE19A90B2A0063F2F2 /* DCTCoreDataStack iOS */ = {
+		242BEFCE19A90B2A0063F2F2 /* CoreDataStack iOS */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 242BEFDF19A90B2B0063F2F2 /* Build configuration list for PBXNativeTarget "DCTCoreDataStack iOS" */;
+			buildConfigurationList = 242BEFDF19A90B2B0063F2F2 /* Build configuration list for PBXNativeTarget "CoreDataStack iOS" */;
 			buildPhases = (
 				242BEFCA19A90B2A0063F2F2 /* Sources */,
 				242BEFCB19A90B2A0063F2F2 /* Frameworks */,
@@ -359,14 +359,14 @@
 			);
 			dependencies = (
 			);
-			name = "DCTCoreDataStack iOS";
+			name = "CoreDataStack iOS";
 			productName = "DCTCoreDataStack iOS";
-			productReference = 242BEFCF19A90B2A0063F2F2 /* DCTCoreDataStack.framework */;
+			productReference = 242BEFCF19A90B2A0063F2F2 /* CoreDataStack.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		244DE7F119A9187F00A91DC7 /* DCTCoreDataStack OS X */ = {
+		244DE7F119A9187F00A91DC7 /* CoreDataStack OS X */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 244DE80219A9187F00A91DC7 /* Build configuration list for PBXNativeTarget "DCTCoreDataStack OS X" */;
+			buildConfigurationList = 244DE80219A9187F00A91DC7 /* Build configuration list for PBXNativeTarget "CoreDataStack OS X" */;
 			buildPhases = (
 				244DE7ED19A9187F00A91DC7 /* Sources */,
 				244DE7EE19A9187F00A91DC7 /* Frameworks */,
@@ -378,14 +378,14 @@
 			);
 			dependencies = (
 			);
-			name = "DCTCoreDataStack OS X";
+			name = "CoreDataStack OS X";
 			productName = "DCTCoreDataStack OS X";
-			productReference = 244DE7F219A9187F00A91DC7 /* DCTCoreDataStack.framework */;
+			productReference = 244DE7F219A9187F00A91DC7 /* CoreDataStack.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		2473F1B31BC856080075EA00 /* DCTCoreDataStack tvOS */ = {
+		2473F1B31BC856080075EA00 /* CoreDataStack tvOS */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 2473F1BF1BC856080075EA00 /* Build configuration list for PBXNativeTarget "DCTCoreDataStack tvOS" */;
+			buildConfigurationList = 2473F1BF1BC856080075EA00 /* Build configuration list for PBXNativeTarget "CoreDataStack tvOS" */;
 			buildPhases = (
 				2473F1B41BC856080075EA00 /* Sources */,
 				2473F1B81BC856080075EA00 /* Frameworks */,
@@ -397,14 +397,14 @@
 			);
 			dependencies = (
 			);
-			name = "DCTCoreDataStack tvOS";
+			name = "CoreDataStack tvOS";
 			productName = "DCTCoreDataStack iOS";
-			productReference = 2473F1C21BC856080075EA00 /* DCTCoreDataStack.framework */;
+			productReference = 2473F1C21BC856080075EA00 /* CoreDataStack.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		2473F1C31BC856110075EA00 /* DCTCoreDataStack tvOS Tests */ = {
+		2473F1C31BC856110075EA00 /* CoreDataStack tvOS Tests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 2473F1CB1BC856110075EA00 /* Build configuration list for PBXNativeTarget "DCTCoreDataStack tvOS Tests" */;
+			buildConfigurationList = 2473F1CB1BC856110075EA00 /* Build configuration list for PBXNativeTarget "CoreDataStack tvOS Tests" */;
 			buildPhases = (
 				2473F1C61BC856110075EA00 /* Sources */,
 				2473F1C81BC856110075EA00 /* Frameworks */,
@@ -415,14 +415,14 @@
 			dependencies = (
 				2473F1D01BC856220075EA00 /* PBXTargetDependency */,
 			);
-			name = "DCTCoreDataStack tvOS Tests";
+			name = "CoreDataStack tvOS Tests";
 			productName = DCTCoreDataStackTests;
-			productReference = 2473F1CE1BC856110075EA00 /* DCTCoreDataStack Tests.xctest */;
+			productReference = 2473F1CE1BC856110075EA00 /* CoreDataStack Tests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		248B72CA1B9376CD0072B58C /* DCTCoreDataStack OS X Tests */ = {
+		248B72CA1B9376CD0072B58C /* CoreDataStack OS X Tests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 248B72D01B9376CD0072B58C /* Build configuration list for PBXNativeTarget "DCTCoreDataStack OS X Tests" */;
+			buildConfigurationList = 248B72D01B9376CD0072B58C /* Build configuration list for PBXNativeTarget "CoreDataStack OS X Tests" */;
 			buildPhases = (
 				248B72CB1B9376CD0072B58C /* Sources */,
 				248B72CD1B9376CD0072B58C /* Frameworks */,
@@ -433,14 +433,14 @@
 			dependencies = (
 				248B72DB1B93773F0072B58C /* PBXTargetDependency */,
 			);
-			name = "DCTCoreDataStack OS X Tests";
+			name = "CoreDataStack OS X Tests";
 			productName = DCTCoreDataStackTests;
-			productReference = 248B72D31B9376CD0072B58C /* DCTCoreDataStack Tests.xctest */;
+			productReference = 248B72D31B9376CD0072B58C /* CoreDataStack Tests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		24E91B5615BEB1FA00E0DB54 /* DCTCoreDataStack Demo */ = {
+		24E91B5615BEB1FA00E0DB54 /* CoreDataStack Demo */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 24E91B6B15BEB1FA00E0DB54 /* Build configuration list for PBXNativeTarget "DCTCoreDataStack Demo" */;
+			buildConfigurationList = 24E91B6B15BEB1FA00E0DB54 /* Build configuration list for PBXNativeTarget "CoreDataStack Demo" */;
 			buildPhases = (
 				24E91B5315BEB1FA00E0DB54 /* Sources */,
 				24E91B5415BEB1FA00E0DB54 /* Frameworks */,
@@ -451,14 +451,14 @@
 			);
 			dependencies = (
 			);
-			name = "DCTCoreDataStack Demo";
+			name = "CoreDataStack Demo";
 			productName = Demo;
-			productReference = 24E91B5715BEB1FA00E0DB54 /* DCTCoreDataStack Demo.app */;
+			productReference = 24E91B5715BEB1FA00E0DB54 /* CoreDataStack.app */;
 			productType = "com.apple.product-type.application";
 		};
-		24F6EBFF158A261000CEDD41 /* DCTCoreDataStack iOS Tests */ = {
+		24F6EBFF158A261000CEDD41 /* CoreDataStack iOS Tests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 24F6EC17158A261000CEDD41 /* Build configuration list for PBXNativeTarget "DCTCoreDataStack iOS Tests" */;
+			buildConfigurationList = 24F6EC17158A261000CEDD41 /* Build configuration list for PBXNativeTarget "CoreDataStack iOS Tests" */;
 			buildPhases = (
 				24F6EBFB158A261000CEDD41 /* Sources */,
 				24F6EBFC158A261000CEDD41 /* Frameworks */,
@@ -469,9 +469,9 @@
 			dependencies = (
 				248B72DE1B93774B0072B58C /* PBXTargetDependency */,
 			);
-			name = "DCTCoreDataStack iOS Tests";
+			name = "CoreDataStack iOS Tests";
 			productName = DCTCoreDataStackTests;
-			productReference = 24F6EC00158A261000CEDD41 /* DCTCoreDataStack Tests.xctest */;
+			productReference = 24F6EC00158A261000CEDD41 /* CoreDataStack Tests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -495,7 +495,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 24F6EBEA158A261000CEDD41 /* Build configuration list for PBXProject "DCTCoreDataStack" */;
+			buildConfigurationList = 24F6EBEA158A261000CEDD41 /* Build configuration list for PBXProject "CoreDataStack" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -507,13 +507,13 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				242BEFCE19A90B2A0063F2F2 /* DCTCoreDataStack iOS */,
-				244DE7F119A9187F00A91DC7 /* DCTCoreDataStack OS X */,
-				2473F1B31BC856080075EA00 /* DCTCoreDataStack tvOS */,
-				24F6EBFF158A261000CEDD41 /* DCTCoreDataStack iOS Tests */,
-				248B72CA1B9376CD0072B58C /* DCTCoreDataStack OS X Tests */,
-				2473F1C31BC856110075EA00 /* DCTCoreDataStack tvOS Tests */,
-				24E91B5615BEB1FA00E0DB54 /* DCTCoreDataStack Demo */,
+				242BEFCE19A90B2A0063F2F2 /* CoreDataStack iOS */,
+				244DE7F119A9187F00A91DC7 /* CoreDataStack OS X */,
+				2473F1B31BC856080075EA00 /* CoreDataStack tvOS */,
+				24F6EBFF158A261000CEDD41 /* CoreDataStack iOS Tests */,
+				248B72CA1B9376CD0072B58C /* CoreDataStack OS X Tests */,
+				2473F1C31BC856110075EA00 /* CoreDataStack tvOS Tests */,
+				24E91B5615BEB1FA00E0DB54 /* CoreDataStack Demo */,
 			);
 		};
 /* End PBXProject section */
@@ -694,17 +694,17 @@
 /* Begin PBXTargetDependency section */
 		2473F1D01BC856220075EA00 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 2473F1B31BC856080075EA00 /* DCTCoreDataStack tvOS */;
+			target = 2473F1B31BC856080075EA00 /* CoreDataStack tvOS */;
 			targetProxy = 2473F1CF1BC856220075EA00 /* PBXContainerItemProxy */;
 		};
 		248B72DB1B93773F0072B58C /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 244DE7F119A9187F00A91DC7 /* DCTCoreDataStack OS X */;
+			target = 244DE7F119A9187F00A91DC7 /* CoreDataStack OS X */;
 			targetProxy = 248B72DA1B93773F0072B58C /* PBXContainerItemProxy */;
 		};
 		248B72DE1B93774B0072B58C /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 242BEFCE19A90B2A0063F2F2 /* DCTCoreDataStack iOS */;
+			target = 242BEFCE19A90B2A0063F2F2 /* CoreDataStack iOS */;
 			targetProxy = 248B72DD1B93774B0072B58C /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -714,7 +714,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 244A73AA1C70F5DE00F0A002 /* iOS Framework.xcconfig */;
 			buildSettings = {
-				PRODUCT_NAME = DCTCoreDataStack;
+				PRODUCT_NAME = CoreDataStack;
 			};
 			name = Debug;
 		};
@@ -722,7 +722,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 244A73AA1C70F5DE00F0A002 /* iOS Framework.xcconfig */;
 			buildSettings = {
-				PRODUCT_NAME = DCTCoreDataStack;
+				PRODUCT_NAME = CoreDataStack;
 			};
 			name = Release;
 		};
@@ -730,7 +730,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 244A73B21C70F5DE00F0A002 /* OS X Framework.xcconfig */;
 			buildSettings = {
-				PRODUCT_NAME = DCTCoreDataStack;
+				PRODUCT_NAME = CoreDataStack;
 			};
 			name = Debug;
 		};
@@ -738,7 +738,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 244A73B21C70F5DE00F0A002 /* OS X Framework.xcconfig */;
 			buildSettings = {
-				PRODUCT_NAME = DCTCoreDataStack;
+				PRODUCT_NAME = CoreDataStack;
 			};
 			name = Release;
 		};
@@ -746,7 +746,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 244A73BC1C70F5DE00F0A002 /* tvOS Framework.xcconfig */;
 			buildSettings = {
-				PRODUCT_NAME = DCTCoreDataStack;
+				PRODUCT_NAME = CoreDataStack;
 			};
 			name = Debug;
 		};
@@ -754,7 +754,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 244A73BC1C70F5DE00F0A002 /* tvOS Framework.xcconfig */;
 			buildSettings = {
-				PRODUCT_NAME = DCTCoreDataStack;
+				PRODUCT_NAME = CoreDataStack;
 			};
 			name = Release;
 		};
@@ -762,7 +762,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 244A73BD1C70F5DE00F0A002 /* tvOS Tests.xcconfig */;
 			buildSettings = {
-				PRODUCT_NAME = "DCTCoreDataStack Tests";
+				PRODUCT_NAME = "CoreDataStack Tests";
 			};
 			name = Debug;
 		};
@@ -770,7 +770,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 244A73BD1C70F5DE00F0A002 /* tvOS Tests.xcconfig */;
 			buildSettings = {
-				PRODUCT_NAME = "DCTCoreDataStack Tests";
+				PRODUCT_NAME = "CoreDataStack Tests";
 			};
 			name = Release;
 		};
@@ -778,7 +778,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 244A73B31C70F5DE00F0A002 /* OS X Tests.xcconfig */;
 			buildSettings = {
-				PRODUCT_NAME = "DCTCoreDataStack Tests";
+				PRODUCT_NAME = "CoreDataStack Tests";
 			};
 			name = Debug;
 		};
@@ -786,7 +786,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 244A73B31C70F5DE00F0A002 /* OS X Tests.xcconfig */;
 			buildSettings = {
-				PRODUCT_NAME = "DCTCoreDataStack Tests";
+				PRODUCT_NAME = "CoreDataStack Tests";
 			};
 			name = Release;
 		};
@@ -795,6 +795,7 @@
 			baseConfigurationReference = 244A73A71C70F5DE00F0A002 /* iOS Application.xcconfig */;
 			buildSettings = {
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
+				PRODUCT_NAME = CoreDataStack;
 			};
 			name = Debug;
 		};
@@ -803,6 +804,7 @@
 			baseConfigurationReference = 244A73A71C70F5DE00F0A002 /* iOS Application.xcconfig */;
 			buildSettings = {
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
+				PRODUCT_NAME = CoreDataStack;
 			};
 			name = Release;
 		};
@@ -836,7 +838,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 244A73AC1C70F5DE00F0A002 /* iOS Tests.xcconfig */;
 			buildSettings = {
-				PRODUCT_NAME = "DCTCoreDataStack Tests";
+				PRODUCT_NAME = "CoreDataStack Tests";
 			};
 			name = Debug;
 		};
@@ -844,14 +846,14 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 244A73AC1C70F5DE00F0A002 /* iOS Tests.xcconfig */;
 			buildSettings = {
-				PRODUCT_NAME = "DCTCoreDataStack Tests";
+				PRODUCT_NAME = "CoreDataStack Tests";
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		242BEFDF19A90B2B0063F2F2 /* Build configuration list for PBXNativeTarget "DCTCoreDataStack iOS" */ = {
+		242BEFDF19A90B2B0063F2F2 /* Build configuration list for PBXNativeTarget "CoreDataStack iOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				242BEFE019A90B2B0063F2F2 /* Debug */,
@@ -860,7 +862,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		244DE80219A9187F00A91DC7 /* Build configuration list for PBXNativeTarget "DCTCoreDataStack OS X" */ = {
+		244DE80219A9187F00A91DC7 /* Build configuration list for PBXNativeTarget "CoreDataStack OS X" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				244DE80319A9187F00A91DC7 /* Debug */,
@@ -869,7 +871,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		2473F1BF1BC856080075EA00 /* Build configuration list for PBXNativeTarget "DCTCoreDataStack tvOS" */ = {
+		2473F1BF1BC856080075EA00 /* Build configuration list for PBXNativeTarget "CoreDataStack tvOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				2473F1C01BC856080075EA00 /* Debug */,
@@ -878,7 +880,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		2473F1CB1BC856110075EA00 /* Build configuration list for PBXNativeTarget "DCTCoreDataStack tvOS Tests" */ = {
+		2473F1CB1BC856110075EA00 /* Build configuration list for PBXNativeTarget "CoreDataStack tvOS Tests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				2473F1CC1BC856110075EA00 /* Debug */,
@@ -887,7 +889,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		248B72D01B9376CD0072B58C /* Build configuration list for PBXNativeTarget "DCTCoreDataStack OS X Tests" */ = {
+		248B72D01B9376CD0072B58C /* Build configuration list for PBXNativeTarget "CoreDataStack OS X Tests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				248B72D11B9376CD0072B58C /* Debug */,
@@ -896,7 +898,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		24E91B6B15BEB1FA00E0DB54 /* Build configuration list for PBXNativeTarget "DCTCoreDataStack Demo" */ = {
+		24E91B6B15BEB1FA00E0DB54 /* Build configuration list for PBXNativeTarget "CoreDataStack Demo" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				24E91B6915BEB1FA00E0DB54 /* Debug */,
@@ -905,7 +907,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		24F6EBEA158A261000CEDD41 /* Build configuration list for PBXProject "DCTCoreDataStack" */ = {
+		24F6EBEA158A261000CEDD41 /* Build configuration list for PBXProject "CoreDataStack" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				24F6EC12158A261000CEDD41 /* Debug */,
@@ -914,7 +916,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		24F6EC17158A261000CEDD41 /* Build configuration list for PBXNativeTarget "DCTCoreDataStack iOS Tests" */ = {
+		24F6EC17158A261000CEDD41 /* Build configuration list for PBXNativeTarget "CoreDataStack iOS Tests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				24F6EC18158A261000CEDD41 /* Debug */,

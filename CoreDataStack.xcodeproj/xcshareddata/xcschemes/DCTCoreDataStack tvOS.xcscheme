@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "2473F1B31BC856080075EA00"
-               BuildableName = "DCTCoreDataStack.framework"
-               BlueprintName = "DCTCoreDataStack tvOS"
-               ReferencedContainer = "container:DCTCoreDataStack.xcodeproj">
+               BuildableName = "CoreDataStack.framework"
+               BlueprintName = "CoreDataStack tvOS"
+               ReferencedContainer = "container:CoreDataStack.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -34,9 +34,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "2473F1C31BC856110075EA00"
-               BuildableName = "DCTCoreDataStack Tests.xctest"
-               BlueprintName = "DCTCoreDataStack tvOS Tests"
-               ReferencedContainer = "container:DCTCoreDataStack.xcodeproj">
+               BuildableName = "CoreDataStack.xctest"
+               BlueprintName = "CoreDataStack tvOS Tests"
+               ReferencedContainer = "container:CoreDataStack.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -44,9 +44,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "2473F1B31BC856080075EA00"
-            BuildableName = "DCTCoreDataStack.framework"
-            BlueprintName = "DCTCoreDataStack tvOS"
-            ReferencedContainer = "container:DCTCoreDataStack.xcodeproj">
+            BuildableName = "CoreDataStack.framework"
+            BlueprintName = "CoreDataStack tvOS"
+            ReferencedContainer = "container:CoreDataStack.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -66,9 +66,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "2473F1B31BC856080075EA00"
-            BuildableName = "DCTCoreDataStack.framework"
-            BlueprintName = "DCTCoreDataStack tvOS"
-            ReferencedContainer = "container:DCTCoreDataStack.xcodeproj">
+            BuildableName = "CoreDataStack.framework"
+            BlueprintName = "CoreDataStack tvOS"
+            ReferencedContainer = "container:CoreDataStack.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -84,9 +84,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "2473F1B31BC856080075EA00"
-            BuildableName = "DCTCoreDataStack.framework"
-            BlueprintName = "DCTCoreDataStack tvOS"
-            ReferencedContainer = "container:DCTCoreDataStack.xcodeproj">
+            BuildableName = "CoreDataStack.framework"
+            BlueprintName = "CoreDataStack tvOS"
+            ReferencedContainer = "container:CoreDataStack.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </ProfileAction>
